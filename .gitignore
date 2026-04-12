@@ -6,3 +6,8 @@ dist/
 coverage/
 *.log
 .DS_Store
+
+# Experiment outputs (raw AI responses and HTML reports)
+experiments/.env.experiments
+experiments/extraction/results/
+experiments/extraction/reports/
