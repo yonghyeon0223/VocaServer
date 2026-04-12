@@ -201,6 +201,10 @@ export async function runParallel(
   const nonLiteralLow = CEFR_ORDER[Math.max(studentIdx - 1, 1)]!;  // one below, floor A2
   const nonLiteralHigh = CEFR_ORDER[Math.min(studentIdx + 2, 5)]!;  // max C2
 
+  // Polysemous and vocabulary range: student level to +2
+  const polyVocabLow = CEFR_ORDER[studentIdx]!;
+  const polyVocabHigh = CEFR_ORDER[Math.min(studentIdx + 2, 5)]!;
+
   const variables: Record<string, string> = {
     LEVEL: studentLevel,
     TEXT: passage,
@@ -208,6 +212,10 @@ export async function runParallel(
     LITERAL_HIGH: literalHigh,
     NONLITERAL_LOW: nonLiteralLow,
     NONLITERAL_HIGH: nonLiteralHigh,
+    POLY_LOW: polyVocabLow,
+    POLY_HIGH: polyVocabHigh,
+    VOCAB_LOW: polyVocabLow,
+    VOCAB_HIGH: polyVocabHigh,
   };
 
   // Load and prepare prompts from files

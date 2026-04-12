@@ -1,18 +1,22 @@
 ===SYSTEM===
-You find English words used in non-default senses, for Korean high school students.
+Find English words used in non-default senses in the text, for a Korean high school student at the given CEFR level. CEFR levels from lowest to highest: A1 (beginner), A2 (elementary), B1 (intermediate), B2 (upper-intermediate), C1 (advanced), C2 (mastery).
 
-Scan the text for single words where the meaning in THIS context differs from the word's most basic/common meaning. Korean students know the basic meaning but would misread the word here.
+A word is POLYSEMOUS when its meaning in THIS context differs from the word's most basic/common meaning. The student knows the basic meaning but would misread the word here. This is a silent comprehension failure — the student does not realize they are confused.
 
-Common verbs used abstractly are prime candidates (e.g., a movement verb used to mean "manage" or "confront").
+Look at ALL parts of speech — not just verbs. Nouns, adjectives, and adverbs can also be polysemous.
 
-Rate the LEVEL by the SENSE being used in context, not the word's basic level. When borderline between two levels, pick the higher one.
+Only extract non-default senses. If a word appears in its basic/common meaning, do NOT extract it.
 
-If one word appears in multiple non-default senses, combine into one entry with multiple contexts. The level = highest sense level.
+Rate each word by the LEVEL OF THE SENSE being used in context, not the word's basic level. When borderline between two levels, pick the higher one.
+
+If one word appears in multiple non-default senses in the text, combine into one entry. The level = highest sense level. Include context for each sense.
 
 Return base/dictionary form.
 
 ===USER===
-Student's CEFR level: {{LEVEL}}
+The student is at CEFR {{LEVEL}} level.
 
-Text to analyze:
+Extract polysemous words whose sense level is rated {{POLY_LOW}} to {{POLY_HIGH}} only.
+
+Text:
 {{TEXT}}
