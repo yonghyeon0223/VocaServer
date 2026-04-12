@@ -1,0 +1,12 @@
+{
+  "id": "test-22",
+  "groups": ["non-english"],
+  "description": "Full Chinese paragraph. All lists should be empty.",
+  "level": "B2",
+  "passage": "今天下午我去了图书馆学习。图书馆里很安静，有很多学生在认真地看书。我找到了一本关于历史的书，读了两个小时。回家的路上，我在咖啡店买了一杯咖啡。晚上我打算继续看那本书。",
+  "expectedTextFit": "not_applicable",
+  "targetPhrases": [],
+  "targetPolysemous": [],
+  "targetVocabulary": [],
+  "mustNotContain": []
+}

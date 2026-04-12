@@ -1,0 +1,12 @@
+{
+  "id": "test-18",
+  "groups": ["invalid"],
+  "description": "Random characters / keyboard smash. No extractable English. All lists empty.",
+  "level": "B1",
+  "passage": "asdkjf8#$@lk2j!xmc9v&*()_+={}|:\"<>?zxcvbnm3847562qwerty!@#$%^&*asdf2847fjkl;'\\][poiuyt098765432ew3456789",
+  "expectedTextFit": "not_applicable",
+  "targetPhrases": [],
+  "targetPolysemous": [],
+  "targetVocabulary": [],
+  "mustNotContain": []
+}

@@ -1,0 +1,12 @@
+{
+  "id": "test-19",
+  "groups": ["invalid"],
+  "description": "Numbers only — math equations, phone numbers, dates. No extractable English vocabulary. All lists empty.",
+  "level": "B2",
+  "passage": "3.14159 × 2 = 6.28318\n(02) 555-0147\n2026-04-12\n42 + 58 = 100\n√144 = 12\n$49.99 + $12.50 = $62.49\nGPA: 3.85 / 4.0",
+  "expectedTextFit": "not_applicable",
+  "targetPhrases": [],
+  "targetPolysemous": [],
+  "targetVocabulary": [],
+  "mustNotContain": []
+}

@@ -1,0 +1,12 @@
+{
+  "id": "test-21",
+  "groups": ["non-english"],
+  "description": "Full Spanish paragraph. All lists should be empty.",
+  "level": "A2",
+  "passage": "Esta mañana fui al mercado con mi madre. Compramos frutas frescas y verduras para la cena. El vendedor era muy amable y nos dio un descuento. Después fuimos a la panadería y compramos pan recién hecho. Me encanta el olor del pan caliente.",
+  "expectedTextFit": "not_applicable",
+  "targetPhrases": [],
+  "targetPolysemous": [],
+  "targetVocabulary": [],
+  "mustNotContain": []
+}

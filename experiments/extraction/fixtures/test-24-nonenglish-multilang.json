@@ -1,0 +1,38 @@
+{
+  "id": "test-24",
+  "groups": ["non-english"],
+  "description": "Multi-language paragraph mixing Korean, Spanish, French, and English. The AI should extract only the English words/phrases, ignoring all other languages. B1 student, range B1-C1. textFit is stretch because the 90th percentile of English content lands at B2.",
+  "level": "B1",
+  "passage": "어제 나는 international food festival에 갔어요. Había muchos platos deliciosos de diferentes países. I tried sushi for the first time and it was absolutely delicious. Il y avait aussi des crêpes françaises magnifiques. 가장 인상 깊었던 건 the incredible variety of flavors from around the world. C'était une expérience formidable que je n'oublierai jamais. 다음에는 친구들과 함께 가려고요.",
+  "expectedTextFit": "stretch",
+  "targetPhrases": [
+    { "term": "for the first time", "expectedLevel": "B1" },
+    { "term": "from around the world", "expectedLevel": "B1" }
+  ],
+  "targetPolysemous": [],
+  "targetVocabulary": [
+    { "term": "international", "expectedLevel": "B1" },
+    { "term": "festival", "expectedLevel": "B1" },
+    { "term": "absolutely", "expectedLevel": "B1" },
+    { "term": "incredible", "expectedLevel": "B1" },
+    { "term": "variety", "expectedLevel": "B2" },
+    { "term": "flavor", "expectedLevel": "B2" }
+  ],
+  "mustNotContain": [
+    "food",
+    "sushi",
+    "time",
+    "world",
+    "delicious",
+    "I",
+    "it",
+    "was",
+    "and",
+    "the",
+    "of",
+    "from",
+    "around",
+    "tried",
+    "first"
+  ]
+}

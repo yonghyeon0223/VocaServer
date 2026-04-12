@@ -1,0 +1,56 @@
+{
+  "id": "test-27",
+  "groups": ["tricky"],
+  "description": "Social media post heavy with emojis. The AI should ignore emojis and extract from surrounding text. A2 student, range A2-B2. textFit is stretch (90th percentile of content is B1).",
+  "level": "A2",
+  "passage": "OMG 😱😱 just had the BEST day ever!! 🎉🎊 Went shopping with my bestie 👯‍♀️ and found the cutest shoes 👟✨ at the mall 🏬 Then we grabbed lunch 🍕🍔 at this amazing new restaurant 🍽️ The food was absolutely incredible 🤤💯 Can't wait to go back next weekend!! 😍🙌 #blessed #bestdayever #foodie 🥰",
+  "expectedTextFit": "stretch",
+  "targetPhrases": [
+    { "term": "go back", "expectedLevel": "A2" },
+    { "term": "go shopping", "expectedLevel": "B1" },
+    { "term": "can't wait to", "expectedLevel": "B1" }
+  ],
+  "targetPolysemous": [
+    { "term": "grab", "expectedLevel": "B1" }
+  ],
+  "targetVocabulary": [
+    { "term": "restaurant", "expectedLevel": "A2" },
+    { "term": "mall", "expectedLevel": "A2" },
+    { "term": "bestie", "expectedLevel": "B1" },
+    { "term": "absolutely", "expectedLevel": "B1" },
+    { "term": "incredible", "expectedLevel": "B1" },
+    { "term": "amazing", "expectedLevel": "B1" }
+  ],
+  "mustNotContain": [
+    "OMG",
+    "BEST",
+    "best",
+    "day",
+    "ever",
+    "shopping",
+    "shoes",
+    "lunch",
+    "food",
+    "weekend",
+    "#blessed",
+    "#bestdayever",
+    "#foodie",
+    "just",
+    "had",
+    "the",
+    "my",
+    "and",
+    "at",
+    "this",
+    "new",
+    "was",
+    "to",
+    "with",
+    "we",
+    "next",
+    "found",
+    "cutest",
+    "then",
+    "went"
+  ]
+}

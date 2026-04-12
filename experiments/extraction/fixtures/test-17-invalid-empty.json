@@ -1,0 +1,12 @@
+{
+  "id": "test-17",
+  "groups": ["invalid"],
+  "description": "Empty and whitespace-only input. All three lists should be empty. textFit is not_applicable.",
+  "level": "B1",
+  "passage": "   \n\t  \n   ",
+  "expectedTextFit": "not_applicable",
+  "targetPhrases": [],
+  "targetPolysemous": [],
+  "targetVocabulary": [],
+  "mustNotContain": []
+}

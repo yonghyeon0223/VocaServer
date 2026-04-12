@@ -1,0 +1,31 @@
+{
+  "id": "test-14",
+  "groups": ["edge"],
+  "description": "Very short text — only 2 sentences, ~100 chars. Tests minimum viable input. The AI should still extract whatever's valuable, even from a tiny sample. A1 student.",
+  "level": "A1",
+  "passage": "The cat sat on the mat. It was a sunny day, and the children played in the park.",
+  "expectedTextFit": "appropriate",
+  "targetPhrases": [
+    { "term": "sit on", "expectedLevel": "A2" },
+    { "term": "play in the park", "expectedLevel": "A2" }
+  ],
+  "targetPolysemous": [],
+  "targetVocabulary": [],
+  "mustNotContain": [
+    "cat",
+    "mat",
+    "day",
+    "children",
+    "park",
+    "sunny",
+    "the",
+    "a",
+    "it",
+    "was",
+    "and",
+    "on",
+    "in",
+    "sat",
+    "played"
+  ]
+}

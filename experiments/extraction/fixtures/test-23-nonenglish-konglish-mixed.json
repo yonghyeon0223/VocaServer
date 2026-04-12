@@ -1,0 +1,28 @@
+{
+  "id": "test-23",
+  "groups": ["non-english"],
+  "description": "Mixed Korean + English (Konglish). The AI should extract only the English terms, ignoring the Korean surrounding them. B1 student.",
+  "level": "B1",
+  "passage": "오늘 English class에서 presentation을 했는데 정말 nervous했어요. Teacher가 feedback을 주셨는데, pronunciation은 좋지만 vocabulary가 부족하다고 하셨어요. 그래서 오늘부터 매일 reading practice를 하려고 해요. 특히 academic words를 많이 외워야 할 것 같아요. Study group 친구들이랑 같이 하면 더 재미있을 것 같아요.",
+  "expectedTextFit": "appropriate",
+  "targetPhrases": [],
+  "targetPolysemous": [],
+  "targetVocabulary": [
+    { "term": "presentation", "expectedLevel": "B1" },
+    { "term": "nervous", "expectedLevel": "B1" },
+    { "term": "feedback", "expectedLevel": "B1" },
+    { "term": "pronunciation", "expectedLevel": "B1" },
+    { "term": "vocabulary", "expectedLevel": "B1" },
+    { "term": "academic", "expectedLevel": "B2" }
+  ],
+  "mustNotContain": [
+    "English",
+    "class",
+    "teacher",
+    "reading",
+    "practice",
+    "words",
+    "study",
+    "group"
+  ]
+}

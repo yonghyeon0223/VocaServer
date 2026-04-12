@@ -1,0 +1,26 @@
+{
+  "id": "test-10",
+  "groups": ["edge"],
+  "description": "Bare word list with mixed levels (A1 through C1). No sentence context. Tests that the AI handles non-passage input: phrases and polysemous lists should be empty (no context to determine phrases or senses). Vocabulary list should contain only words within A2's range (A2-B2).",
+  "level": "A2",
+  "passage": "happy, environment, consequence, struggle, breathe, sustainable, atmosphere, determine, reluctant, furthermore, magnificent, peculiar",
+  "expectedTextFit": "too_hard",
+  "targetPhrases": [],
+  "targetPolysemous": [],
+  "targetVocabulary": [
+    { "term": "environment", "expectedLevel": "B1" },
+    { "term": "consequence", "expectedLevel": "B2" },
+    { "term": "struggle", "expectedLevel": "B1" },
+    { "term": "breathe", "expectedLevel": "B1" },
+    { "term": "sustainable", "expectedLevel": "B2" },
+    { "term": "atmosphere", "expectedLevel": "B2" },
+    { "term": "determine", "expectedLevel": "B2" },
+    { "term": "furthermore", "expectedLevel": "B2" },
+    { "term": "magnificent", "expectedLevel": "B2" }
+  ],
+  "mustNotContain": [
+    "happy",
+    "reluctant",
+    "peculiar"
+  ]
+}

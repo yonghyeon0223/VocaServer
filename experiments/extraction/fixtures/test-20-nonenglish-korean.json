@@ -1,0 +1,12 @@
+{
+  "id": "test-20",
+  "groups": ["non-english"],
+  "description": "Full Korean paragraph. All lists should be empty. textFit is not_applicable.",
+  "level": "B1",
+  "passage": "오늘 아침에 학교에 갔는데 친구가 새로운 책을 가지고 왔어요. 그 책은 영어로 쓰여져 있었지만 그림이 많아서 재미있어 보였어요. 점심시간에 같이 읽어보기로 했는데 생각보다 어려웠어요. 선생님께서 도와주셔서 조금은 이해할 수 있었어요. 방과 후에는 도서관에서 비슷한 책을 더 찾아보려고 해요.",
+  "expectedTextFit": "not_applicable",
+  "targetPhrases": [],
+  "targetPolysemous": [],
+  "targetVocabulary": [],
+  "mustNotContain": []
+}

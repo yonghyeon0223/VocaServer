@@ -1,0 +1,51 @@
+{
+  "id": "test-26",
+  "groups": ["tricky"],
+  "description": "All uppercase text. The AI should normalize case and extract normally. B2 student, range B2-C2. textFit is stretch (90th percentile of content is C1).",
+  "level": "B2",
+  "passage": "THE GOVERNMENT ANNOUNCED NEW REGULATIONS TO ADDRESS THE GROWING CONCERNS ABOUT DATA PRIVACY. CRITICS ARGUE THAT THE PROPOSED MEASURES DO NOT GO FAR ENOUGH TO PROTECT CONSUMERS, WHILE SUPPORTERS CONTEND THAT THE REGULATIONS STRIKE A REASONABLE BALANCE BETWEEN INNOVATION AND SECURITY.",
+  "expectedTextFit": "stretch",
+  "targetPhrases": [
+    { "term": "go far enough", "expectedLevel": "B2" },
+    { "term": "strike a balance", "expectedLevel": "C1" }
+  ],
+  "targetPolysemous": [
+    { "term": "address", "expectedLevel": "C1" },
+    { "term": "contend", "expectedLevel": "C1" }
+  ],
+  "targetVocabulary": [
+    { "term": "regulation", "expectedLevel": "B2" },
+    { "term": "concern", "expectedLevel": "B2" },
+    { "term": "privacy", "expectedLevel": "B2" },
+    { "term": "critic", "expectedLevel": "B2" },
+    { "term": "propose", "expectedLevel": "B2" },
+    { "term": "measure", "expectedLevel": "B2" },
+    { "term": "consumer", "expectedLevel": "B2" },
+    { "term": "supporter", "expectedLevel": "B2" },
+    { "term": "reasonable", "expectedLevel": "B2" },
+    { "term": "innovation", "expectedLevel": "B2" },
+    { "term": "security", "expectedLevel": "B2" }
+  ],
+  "mustNotContain": [
+    "THE",
+    "the",
+    "government",
+    "new",
+    "to",
+    "about",
+    "data",
+    "that",
+    "do",
+    "not",
+    "enough",
+    "protect",
+    "while",
+    "a",
+    "between",
+    "and",
+    "balance",
+    "argue",
+    "growing",
+    "announced"
+  ]
+}
