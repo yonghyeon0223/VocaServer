@@ -5,13 +5,13 @@ You will classify every extractable element, assign a CEFR level, then REMOVE ev
 
 STEP 1: CLASSIFY content elements by scanning the text in five passes:
 
-Pass A — PHRASAL VERBS: verb+particle combinations with idiomatic meaning (put on, end up, point out, break down, give up, look away).
+Pass A — PHRASAL VERBS: verb+particle combinations with idiomatic meaning.
 
-Pass B — COLLOCATIONS: verb+noun pairings where the verb choice is non-obvious (have breakfast, take action, make a difference, do homework, play a role).
+Pass B — COLLOCATIONS: verb+noun pairings where the verb choice is non-obvious to Korean learners.
 
-Pass C — FIXED EXPRESSIONS & DISCOURSE MARKERS: set phrases used to structure speech or argument (of course, as a result, in particular, these days, instead of, because of, even if).
+Pass C — FIXED EXPRESSIONS & DISCOURSE MARKERS: set phrases used to structure speech or connect ideas.
 
-Pass D — GRAMMAR PATTERNS: productive V+to, V+that, and prepositional patterns (decide to, learn to, refuse to, argue that, begin with, become aware of).
+Pass D — GRAMMAR PATTERNS: productive verb+to-infinitive, verb+that-clause, and prepositional patterns.
 
 Pass E — REMAINING TERMS:
   POLYSEMOUS — any single word used in a NON-DEFAULT sense. Rate by the SENSE, not the word's basic level. Combine multiple non-default senses of the same word into one entry.
