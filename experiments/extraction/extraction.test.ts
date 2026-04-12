@@ -26,6 +26,7 @@ describe('extraction prompt experiments (parallel)', () => {
     }
 
     const filters = parseFilters();
+    const promptVersion = filters.promptVersion ?? 'v5';
     const allFixtures = loadFixtures(FIXTURES_DIR);
     const fixtures = filterFixtures(allFixtures, filters);
 
@@ -33,7 +34,7 @@ describe('extraction prompt experiments (parallel)', () => {
       throw new Error('No fixtures matched the filters');
     }
 
-    console.log(`Running ${fixtures.length} fixtures with parallel 3-call architecture`);
+    console.log(`Running ${fixtures.length} fixtures with parallel 3-call architecture (prompts: ${promptVersion})`);
 
     const client = new Anthropic({ apiKey });
     const config = DEFAULT_CONFIG;
@@ -53,6 +54,7 @@ describe('extraction prompt experiments (parallel)', () => {
           fixture.passage,
           fixture.level,
           config,
+          promptVersion,
         );
 
         // Save raw result
@@ -77,7 +79,7 @@ describe('extraction prompt experiments (parallel)', () => {
           fixtureDescription: fixture.description,
           fixtureGroups: fixture.groups,
           studentLevel: fixture.level,
-          promptVersion: 'parallel-v1',
+          promptVersion,
           temperature: config.temperature,
           checks: checkOutput.checks,
           allChecksPassed: checkOutput.allPassed,
@@ -106,7 +108,7 @@ describe('extraction prompt experiments (parallel)', () => {
           fixtureDescription: fixture.description,
           fixtureGroups: fixture.groups,
           studentLevel: fixture.level,
-          promptVersion: 'parallel-v1',
+          promptVersion,
           temperature: config.temperature,
           checks: [{ name: 'api_call', passed: false, message: String(err) }],
           allChecksPassed: false,
@@ -126,7 +128,7 @@ describe('extraction prompt experiments (parallel)', () => {
     }
 
     // Generate report
-    const reportData = buildReportData(resultEntries, filters, `${config.model} (parallel 3-call)`);
+    const reportData = buildReportData(resultEntries, filters, `${config.model} (${promptVersion})`);
     const { reportId, reportPath } = generateReport(reportData, REPORTS_DIR);
 
     console.log(`\nReport generated: ${reportPath}`);

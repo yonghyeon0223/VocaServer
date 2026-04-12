@@ -138,9 +138,15 @@ const VOCABULARY_TOOL: Anthropic.Tool = {
 // ---- Prompt File Paths ----
 
 const PROMPTS_DIR = 'experiments/extraction/prompts';
-const PHRASES_PROMPT_PATH = `${PROMPTS_DIR}/v5-phrases.txt`;
-const POLYSEMOUS_PROMPT_PATH = `${PROMPTS_DIR}/v5-polysemous.txt`;
-const VOCABULARY_PROMPT_PATH = `${PROMPTS_DIR}/v5-vocabulary.txt`;
+
+export function getPromptPaths(version?: string): { phrases: string; polysemous: string; vocabulary: string } {
+  const v = version ?? 'v5';
+  return {
+    phrases: `${PROMPTS_DIR}/${v}-phrases.txt`,
+    polysemous: `${PROMPTS_DIR}/${v}-polysemous.txt`,
+    vocabulary: `${PROMPTS_DIR}/${v}-vocabulary.txt`,
+  };
+}
 
 // ---- Single Focused Call ----
 
@@ -195,6 +201,7 @@ export async function runParallel(
   passage: string,
   studentLevel: CefrLevel,
   config: RunConfig,
+  promptVersion?: string,
 ): Promise<ParallelRunResult> {
   // Compute level ranges server-side
   const studentIdx = cefrIndex(studentLevel);
@@ -221,9 +228,10 @@ export async function runParallel(
   };
 
   // Load and prepare prompts from files
-  const phrasesPrompt = loadPrompt(PHRASES_PROMPT_PATH);
-  const polysemousPrompt = loadPrompt(POLYSEMOUS_PROMPT_PATH);
-  const vocabularyPrompt = loadPrompt(VOCABULARY_PROMPT_PATH);
+  const paths = getPromptPaths(promptVersion);
+  const phrasesPrompt = loadPrompt(paths.phrases);
+  const polysemousPrompt = loadPrompt(paths.polysemous);
+  const vocabularyPrompt = loadPrompt(paths.vocabulary);
 
   const phrasesSystem = substituteVariables(phrasesPrompt.system, variables);
   const phrasesUser = phrasesPrompt.user ? substituteVariables(phrasesPrompt.user, variables) : passage;
