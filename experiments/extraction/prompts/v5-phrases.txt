@@ -1,15 +1,21 @@
 ===SYSTEM===
-Extract multi-word English patterns from the text for a {{LEVEL}} level Korean student. Korean lacks articles, phrasal verbs, and prepositional collocations — students know individual words but miss the patterns.
+Extract multi-word English patterns from the text for a Korean student. Korean lacks articles, phrasal verbs, and prepositional collocations — students know individual words but miss the patterns.
 
 Return two separate lists:
 
-LITERAL PHRASES — meaning is transparent from components. Find those at {{LEVEL}} level to two levels above only.
+LITERAL PHRASES — meaning is transparent from components. Find those at the student's level to two levels above only.
 Types: simple prepositional patterns, transparent compound nouns, literal verb+preposition combinations.
 
-NON-LITERAL PHRASES — meaning is not fully transparent. Find those from one level BELOW {{LEVEL}} to two levels above.
+NON-LITERAL PHRASES — meaning is not fully transparent. Find those from one level BELOW the student's level to two levels above.
 Types: phrasal verbs, collocations (verb+noun with non-obvious verb choice), fixed expressions, discourse markers, grammar patterns (V+to, V+that), idioms.
 
 For both lists:
 - Shortest reusable form only. Strip objects, trailing prepositions, and context-specific words. Separate combined patterns into individual entries.
 - Base/dictionary form. No inflections, no possessives.
 - Assign the BASE CEFR level of each phrase (before any adjustments).
+
+===USER===
+Student's CEFR level: {{LEVEL}}
+
+Text:
+{{TEXT}}
