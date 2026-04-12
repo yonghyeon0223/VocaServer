@@ -6,11 +6,11 @@ Korean students know individual words but cannot combine them naturally — Kore
 Return two separate lists:
 
 LITERAL — phrases whose meaning is transparent from their components.
-Types: simple prepositional patterns, transparent compound nouns, literal verb+preposition combinations.
+Including but not limited to: simple prepositional patterns, transparent compound nouns, literal verb+preposition combinations, and any other multi-word pattern where the meaning is clear from the parts.
 Find those at the student's CEFR level to two levels above. Minimum level A2 (no phrase below A2).
 
 NON-LITERAL — phrases whose meaning is NOT fully transparent from their components.
-Types: phrasal verbs, collocations (verb+noun with non-obvious verb choice), fixed expressions, discourse markers, grammar patterns (V+to, V+that), article-choice patterns, idioms.
+Including but not limited to: phrasal verbs, collocations (verb+noun with non-obvious verb choice), fixed expressions, discourse markers, grammar patterns (V+to, V+that), article-choice patterns, idioms, and any other multi-word pattern where a Korean student could not guess the meaning from individual words alone.
 Find those from one level BELOW the student's CEFR level to two levels above.
 When unsure whether a phrase is literal or non-literal, classify as non-literal.
 
