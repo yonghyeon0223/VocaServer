@@ -689,44 +689,43 @@ These are binary — the output is either structurally valid or it's not. If any
 
 #### Tier 2: Quality Scoring (0-100%)
 
-These measure how *good* the extraction is. Scored as percentages, not pass/fail.
+These measure how *good* the extraction is. **Recall is the primary metric** — it systematically determines whether the AI finds the terms we expect it to find.
 
-**Per-list metrics** — each list (`phrases`, `polysemous`, `vocabulary`) is scored independently with the same four metrics:
+**Per-list metrics** — each list (`phrases`, `polysemous`, `vocabulary`) is scored independently. Per-list scores are shown separately, NOT averaged.
 
 | Metric | Formula | What It Measures |
 |--------|---------|-----------------|
-| **Recall** | (target terms found in list / total target terms for list) × 100 | Did the AI find the right terms for this list? |
-| **Precision** | (terms in list NOT in mustNotContain / total terms in list) × 100 | Did the AI avoid extracting junk into this list? |
-| **Level accuracy** | (matched terms within ±1 CEFR level of expected / total matched terms) × 100 | Are the assigned levels reasonable? |
-| **Range adherence** | (terms within this list's level range / total terms in list) × 100 | Did the AI respect the per-list level range? |
+| **Recall** (primary) | (target terms found in list / total target terms for list) × 100 | Did the AI find the right terms for this list? Separate score for phrases, polysemous, and vocabulary. |
+| **Level accuracy** (strict) | (matched terms with EXACT level match / total matched terms) × 100 | Did the AI assign the exact correct CEFR level? No ±1 tolerance — exact match only. |
+
+**Why strict level accuracy (no tolerance):** We want to detect even small level miscalibrations between prompt versions. A prompt that rates `environmental` as B1 instead of B2 should show up in the score. The ±1 tolerance from earlier was removed because it masked the differences we're trying to measure.
 
 **Cross-list metrics:**
 
 | Metric | Formula | What It Measures |
 |--------|---------|-----------------|
-| **`textFitAccuracy`** | 100 if extracted `textFit` matches `expectedTextFit`, else 0 | Did the AI correctly assess the text's fit for the student? |
-| **Global precision** | (all extracted terms NOT in mustNotContain / total across all lists) × 100 | Did the AI avoid mustNotContain terms across all lists? |
-| **Cross-list duplicates** | Number of terms appearing in multiple lists | Should be 0 — each term goes in exactly one list |
+| **Precision** | (all extracted terms NOT in mustNotContain / total across all lists) × 100 | Global — did the AI avoid terms on the blocklist? Not per-list. |
+| **textFitAccuracy** | Exact match = 100, off by 1 step = 50, off by 2+ steps = 0 | Partial credit. Steps in order: `too_easy` ↔ `easy` ↔ `appropriate` ↔ `stretch` ↔ `too_hard`. `not_applicable` only matches `not_applicable` (off by any other value = 0). |
 
-**Per-list level ranges (for scoring `rangeAdherence`):**
+**Removed metrics:**
+- ~~Range adherence~~ — removed. Level accuracy + recall cover the same ground. If a term is out of range, it either won't match a target (hurts recall) or will be in mustNotContain (hurts precision).
+- ~~Overall recall (averaged)~~ — removed. Per-list recall is shown separately because averaging hides which list is underperforming.
+- ~~Overall level accuracy (averaged)~~ — same reasoning.
+- ~~Per-list precision~~ — removed. Precision is global (mustNotContain is global).
+- ~~±1 level tolerance~~ — removed. Exact match only.
 
-All three lists use the unified range — student's level to two levels above. For a B1 student, that's B1, B2, C1 across all three lists. See the Per-List Level Ranges table earlier in this doc for the full per-student breakdown.
+**Unmatched Terms Report:**
 
-**Why ±1 for level accuracy:** CEFR boundaries aren't razor-sharp. A term at the B1/B2 boundary could reasonably be classified as either. Allowing ±1 level tolerance prevents false negatives from borderline cases while still catching obvious misclassifications (A1 term labeled C1).
+In addition to numeric scores, the scorer produces two diagnostic lists per result:
 
-**`rangeAdherence` is strict (no tolerance).** Unlike level accuracy, range adherence is binary: a term is either inside the list's level range or it isn't. If the AI puts a B2 term in a vocabulary list for an A1 student (range A1-B1), that's a range violation regardless of how "close" B2 is to B1.
+| Report | Contents | Purpose |
+|--------|----------|---------|
+| **Extracted but not in targets** | Terms the AI extracted that aren't in any target list AND aren't in mustNotContain | For human review — the AI found something we didn't expect. Could be valid (we missed it in fixture creation) or noise. Not scored. |
+| **mustNotContain violations** | Terms the AI extracted that ARE in mustNotContain | These reduce precision. Listed explicitly so the user can see exactly what went wrong. |
 
-#### Tier 3: Manual Feedback (Human Scoring)
+These lists appear in the HTML report per result, giving the user the raw data to judge extraction quality beyond the numeric scores.
 
-The HTML report provides an interactive UI for manual evaluation. For each prompt × fixture result:
-
-- View the full extracted term list with CEFR levels and context
-- **Rate the overall result on a 1-10 scale** (slider or input)
-- **Add free-text comments** about the result
-- **Mark individual terms** as: `good` / `bad` / `surprising but acceptable`, with optional reason
-- **Add missing terms** the user thinks the AI should have caught
-
-The report includes an "Export Feedback" button that downloads all ratings, comments, and per-term verdicts as a JSON file matching the `ManualFeedback` schema. No server needed — the HTML report is fully static with inline JS that collects feedback in memory and triggers a file download on export.
+**No aggregation across fixtures yet.** Per-prompt comparison metrics (composite scores, weighted averages across fixtures) are deferred until after the first experiment run. We'll see what the raw per-list scores look like and decide what aggregation helps.
 
 ---
 
@@ -1251,10 +1250,8 @@ function checkNoCrossListDuplicates(output: ExtractionOutput): CheckResult;
 ```typescript
 // Per-list scoring — each list (phrases, polysemous, vocabulary) is scored independently.
 interface ListScore {
-  recall: number;                // 0-100 — what % of target terms were found in this list
-  precision: number;             // 0-100 — what % of extracted terms are NOT in mustNotContain
-  levelAccuracy: number;         // 0-100 — what % of matched terms have level within ±1 of expected
-  rangeAdherence: number;        // 0-100 — what % of extracted terms fall within this list's level range
+  recall: number;                // 0-100 — PRIMARY METRIC. What % of target terms were found.
+  levelAccuracy: number;         // 0-100 — STRICT. What % of matched terms have EXACT level match.
   details: {
     targetTermsFound: string[];
     targetTermsMissed: string[];
@@ -1263,27 +1260,29 @@ interface ListScore {
       expectedLevel: CefrLevel;
       actualLevel: CefrLevel;
     }>;
-    outOfRangeTerms: Array<{
-      term: string;
-      level: CefrLevel;
-    }>;
   };
 }
 
 interface ScoreResult {
-  // Per-list scores
+  // Per-list scores (shown separately, NOT averaged)
   phrases: ListScore;
   polysemous: ListScore;
   vocabulary: ListScore;
 
   // Cross-list metrics
-  textFitAccuracy: number;       // 100 if matches expectedTextFit, 0 otherwise
-  globalPrecision: number;       // % of all extracted terms NOT in mustNotContain (across all lists)
+  textFitAccuracy: number;       // 100 = exact match, 50 = off by 1 step, 0 = off by 2+ steps
+  precision: number;             // Global: % of all extracted terms NOT in mustNotContain
   mustNotContainViolations: string[];  // Terms that appeared somewhere despite being in mustNotContain
 
-  // Aggregate (averaged across the three lists)
-  overallRecall: number;
-  overallLevelAccuracy: number;
+  // Unmatched terms report (for human review, not scored)
+  unmatchedReport: {
+    extractedButNotInTargets: Array<{
+      term: string;
+      level: CefrLevel;
+      list: 'phrases' | 'polysemous' | 'vocabulary';
+    }>;
+    // mustNotContainViolations is already above — no duplication
+  };
 }
 
 // Scores an extraction output against a fixture's target lists.
@@ -1298,9 +1297,6 @@ function scoreResult(
 function scoreList(
   extracted: ExtractedTerm[],
   target: TargetTerm[],
-  studentLevel: CefrLevel,
-  listType: 'phrases' | 'polysemous' | 'vocabulary',
-  mustNotContain: string[],
 ): ListScore;
 
 // Helper: Normalize a term for matching (trim + lowercase).
@@ -1313,15 +1309,11 @@ function termsMatch(extracted: string, target: string): boolean;
 // e.g., cefrDistance("B1", "A1") = 2, cefrDistance("A1", "B1") = -2
 function cefrDistance(level1: CefrLevel, level2: CefrLevel): number;
 
-// Helper: Check if a term's CEFR level falls within the unified list range.
-// All three lists use the same range: student level to +2.
-// At C1/C2, the +2 ceiling caps at C2 (no sliding window).
-// listType is accepted for consistency but currently has no effect on the range.
-function isWithinListRange(
-  termLevel: CefrLevel,
-  studentLevel: CefrLevel,
-  listType: 'phrases' | 'polysemous' | 'vocabulary',
-): boolean;
+// Helper: Compute textFit accuracy with partial credit.
+// Exact match = 100, off by 1 step = 50, off by 2+ = 0.
+// Steps: too_easy(0) - easy(1) - appropriate(2) - stretch(3) - too_hard(4).
+// not_applicable only matches not_applicable (any other mismatch = 0).
+function textFitScore(actual: TextFit, expected: TextFit): number;
 ```
 
 ##### `experiments/extraction/reporter.ts`

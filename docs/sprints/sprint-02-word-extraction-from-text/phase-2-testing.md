@@ -328,7 +328,7 @@ A term should appear in exactly ONE of the three lists, not multiple.
 
 ### Test Cases — `scorer.ts`
 
-The scorer produces per-list scores (phrases, polysemous, vocabulary) plus cross-list metrics (textFitAccuracy, global precision, cross-list duplicate count).
+The scorer produces per-list scores (recall + strict level accuracy for phrases, polysemous, vocabulary separately) plus cross-list metrics (textFitAccuracy with partial credit, global precision). No aggregated averages — per-list scores are shown individually.
 
 #### `cefrDistance(level1, level2)` — Helper
 
@@ -341,78 +341,69 @@ The scorer produces per-list scores (phrases, polysemous, vocabulary) plus cross
 | SC5 | Maximum distance (A1, C2) | +5 |
 | SC6 | Invalid level | Throws error |
 
-#### `isWithinListRange(termLevel, studentLevel, listType)` — Helper
-
-All three lists use the same unified range: student level to +2 (no below). At the C1/C2 ceiling, the upper bound caps at C2 (no sliding window). The `listType` parameter is accepted for consistency but does not affect the range.
-
-For a B1 student, the in-range levels are: B1, B2, C1.
+#### `textFitScore(actual, expected)` — Partial credit helper
 
 | # | Test | Expected |
 |---|------|----------|
-| SC7 | B1 term, B1 student, any list | true (at level) |
-| SC8 | B2 term, B1 student, any list | true (one above) |
-| SC9 | C1 term, B1 student, any list | true (two above) |
-| SC10 | C2 term, B1 student, any list | false (three above) |
-| SC11 | A2 term, B1 student, any list | false (one below — no bleed) |
-| SC12 | A1 term, B1 student, any list | false (two below) |
-| SC13 | Same rule applies regardless of listType | A B1 polysemous term for B1 student is in-range; an A2 polysemous term is out |
-| SC14 | A1 term, A1 student | true (at level — A1 is the floor) |
-| SC15 | B1 term, A1 student | true (two above for A1) |
-| SC16 | B2 term, A1 student | false (three above for A1) |
-| SC17 | C2 term, C1 student | true (one above C1, within ceiling) |
-| SC18 | C2 term, C2 student | true (at level, only level in range) |
-| SC19 | C1 term, C2 student | false (one below C2) |
-| SC20 | Invalid listType | Throws error (but range computation works) |
+| SC7 | Exact match (appropriate, appropriate) | 100 |
+| SC8 | Off by 1 step (stretch, appropriate) | 50 |
+| SC9 | Off by 1 step (easy, appropriate) | 50 |
+| SC10 | Off by 2 steps (too_hard, appropriate) | 0 |
+| SC11 | Off by 3 steps (too_hard, easy) | 0 |
+| SC12 | Off by 4 steps (too_hard, too_easy) | 0 |
+| SC13 | not_applicable matches not_applicable | 100 |
+| SC14 | not_applicable vs any other value | 0 |
+| SC15 | any value vs not_applicable | 0 |
 
 #### `normalizeTerm(term)` and `termsMatch(extracted, target)` — Matching helpers
 
 | # | Test | Expected |
 |---|------|----------|
-| SC23 | `normalizeTerm("Sustainable")` | `"sustainable"` |
-| SC24 | `normalizeTerm("  break down  ")` | `"break down"` |
-| SC25 | `normalizeTerm("BREAK DOWN")` | `"break down"` |
-| SC26 | `termsMatch("Sustainable", "sustainable")` | `true` |
-| SC27 | `termsMatch(" Run ", "run")` | `true` |
-| SC28 | `termsMatch("running", "run")` | `false` (no lemmatization — AI is responsible for base forms) |
-| SC29 | `termsMatch("break down", "Break Down")` | `true` |
-| SC30 | `termsMatch("breakdown", "break down")` | `false` (whitespace matters in phrases) |
+| SC16 | `normalizeTerm("Sustainable")` | `"sustainable"` |
+| SC17 | `normalizeTerm("  break down  ")` | `"break down"` |
+| SC18 | `normalizeTerm("BREAK DOWN")` | `"break down"` |
+| SC19 | `termsMatch("Sustainable", "sustainable")` | `true` |
+| SC20 | `termsMatch(" Run ", "run")` | `true` |
+| SC21 | `termsMatch("running", "run")` | `false` (no lemmatization) |
+| SC22 | `termsMatch("break down", "Break Down")` | `true` |
+| SC23 | `termsMatch("breakdown", "break down")` | `false` (whitespace matters) |
 
-#### `scoreList(extracted, target, studentLevel, listType, mustNotContain)` — Per-list scoring
+#### `scoreList(extracted, target)` — Per-list scoring
 
 | # | Test | Expected |
 |---|------|----------|
-| SC31 | All target terms found in list | recall: 100% |
-| SC32 | Half of target terms found | recall: 50% |
-| SC33 | No target terms found | recall: 0% |
-| SC34 | All extracted terms NOT in mustNotContain | precision: 100% |
-| SC35 | One extracted term in mustNotContain | precision: < 100% |
-| SC36 | All matched terms have level within ±1 of expected | levelAccuracy: 100% |
-| SC37 | One matched term off by 2 levels | levelAccuracy: < 100% |
-| SC38 | All extracted terms within list's level range | rangeAdherence: 100% |
-| SC39 | One extracted term outside list's level range | rangeAdherence: < 100% |
-| SC40 | Empty extracted, empty target | recall: 100%, precision: 100% (vacuously) |
-| SC41 | Empty extracted, non-empty target | recall: 0%, precision: 100% |
-| SC42 | Non-empty extracted, empty target | recall: 100% (no targets to miss), precision based on mustNotContain |
-| SC43 | Details lists `targetTermsFound` correctly | Found targets enumerated |
-| SC44 | Details lists `targetTermsMissed` correctly | Missed targets enumerated |
-| SC45 | Details lists `levelMismatches` with expected vs actual | Mismatches enumerated |
-| SC46 | Details lists `outOfRangeTerms` for terms outside the list's level range | Out-of-range terms enumerated |
+| SC24 | All target terms found | recall: 100% |
+| SC25 | Half of target terms found | recall: 50% |
+| SC26 | No target terms found | recall: 0% |
+| SC27 | All matched terms have EXACT level match | levelAccuracy: 100% |
+| SC28 | One matched term off by 1 level (e.g., expected B2, got B1) | levelAccuracy: < 100% (strict — no tolerance) |
+| SC29 | One matched term off by 2 levels | levelAccuracy: < 100% |
+| SC30 | Empty extracted, empty target | recall: 100% (vacuously) |
+| SC31 | Empty extracted, non-empty target | recall: 0% |
+| SC32 | Non-empty extracted, empty target | recall: 100% (no targets to miss) |
+| SC33 | Details lists `targetTermsFound` correctly | Found targets enumerated |
+| SC34 | Details lists `targetTermsMissed` correctly | Missed targets enumerated |
+| SC35 | Details lists `levelMismatches` with expected vs actual | Mismatches enumerated |
 
 #### `scoreResult(output, fixture)` — Main scoring function
 
 | # | Test | Expected |
 |---|------|----------|
-| SC47 | Output with all 3 lists scored, all metrics computed | `phrases`, `polysemous`, `vocabulary` ListScore objects populated |
-| SC48 | textFit matches expected | `textFitAccuracy: 100` |
-| SC49 | textFit doesn't match expected | `textFitAccuracy: 0` |
-| SC50 | Global precision aggregates across all lists | Counts mustNotContain violations from any list |
-| SC51 | Cross-list duplicate detection | `mustNotContainViolations` lists violations regardless of source list |
-| SC52 | Overall recall is average of per-list recalls | Computed correctly |
-| SC53 | Overall level accuracy is average of per-list level accuracies | Computed correctly |
-| SC54 | Phrase target matched in phrases list | counted in phrases recall, not vocab/polysemous |
-| SC55 | Polysemous target found in vocabulary list (wrong placement) | counted as missed in polysemous, AND as a precision concern (out-of-list term) |
-| SC56 | Empty extraction (all 3 lists empty) for non-English fixture | All recall: 100% if all targets are empty too, all precision: 100% |
-| SC57 | Empty extraction for normal fixture (with targets) | All recall: 0% |
+| SC36 | Output with all 3 lists scored | `phrases`, `polysemous`, `vocabulary` ListScore objects populated independently |
+| SC37 | textFit exact match | `textFitAccuracy: 100` |
+| SC38 | textFit off by 1 step | `textFitAccuracy: 50` |
+| SC39 | textFit off by 2+ steps | `textFitAccuracy: 0` |
+| SC40 | Global precision: no mustNotContain violations | `precision: 100` |
+| SC41 | Global precision: one violation in phrases list | `precision: < 100`, violation listed in `mustNotContainViolations` |
+| SC42 | Global precision: violations across multiple lists | All violations aggregated |
+| SC43 | Unmatched report: AI extracted term not in any target and not in mustNotContain | Listed in `unmatchedReport.extractedButNotInTargets` with term, level, and source list |
+| SC44 | Unmatched report: AI extracted term that IS in mustNotContain | NOT in unmatched report (it's in `mustNotContainViolations` instead) |
+| SC45 | Unmatched report: all extracted terms match targets | `extractedButNotInTargets` is empty |
+| SC46 | Phrase target matched in phrases list | counted in phrases recall, not vocab/polysemous |
+| SC47 | Polysemous target found in vocabulary list (wrong placement) | counted as missed in polysemous recall; appears in vocab's unmatched report |
+| SC48 | Empty extraction (all 3 lists empty) for non-English fixture | All recall: 100% if all targets are empty too |
+| SC49 | Empty extraction for normal fixture (with targets) | All recall: 0% |
+| SC50 | Per-list scores are NOT averaged | No `overallRecall` or `overallLevelAccuracy` fields in result |
 
 ---
 
