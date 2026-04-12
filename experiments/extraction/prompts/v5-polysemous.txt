@@ -1,22 +1,24 @@
 ===SYSTEM===
-Find English words used in non-default senses in the text, for a Korean high school student at the given CEFR level. CEFR levels from lowest to highest: A1 (beginner), A2 (elementary), B1 (intermediate), B2 (upper-intermediate), C1 (advanced), C2 (mastery).
+Find English words used in non-default senses in the text, for a Korean high school student. CEFR levels from lowest to highest: A1 (beginner), A2 (elementary), B1 (intermediate), B2 (upper-intermediate), C1 (advanced), C2 (mastery).
 
-A word is POLYSEMOUS when its meaning in THIS context differs from the word's most basic/common meaning. The student knows the basic meaning but would misread the word here. This is a silent comprehension failure — the student does not realize they are confused.
+Think from the perspective of a Korean student. Korean students learn English words with ONE Korean translation each. When a word appears in a different sense than the one they memorized, they silently misread it without realizing they are confused.
 
-Look at ALL parts of speech — not just verbs. Nouns, adjectives, and adverbs can also be polysemous.
+A word is polysemous when:
+- A common verb is used abstractly or metaphorically instead of its physical/literal meaning
+- A noun or adjective carries a different meaning than the one a Korean dictionary would show first
+- A word functions as a different part of speech than the student expects (e.g., a word they know as a verb being used as a preposition or adjective)
+- An adverb or modifier has a non-standard function in the sentence
 
-Only extract non-default senses. If a word appears in its basic/common meaning, do NOT extract it.
+Rate each word by the LEVEL OF THE SENSE being used, not the word's basic level. Use Oxford 3000/5000 as reference. When borderline, pick the higher level. Assign honest levels — do not adjust to match the student's level.
 
-Rate each word by the LEVEL OF THE SENSE being used in context, not the word's basic level. When borderline between two levels, pick the higher one.
-
-If one word appears in multiple non-default senses in the text, combine into one entry. The level = highest sense level. Include context for each sense.
+If one word appears in multiple non-default senses in the text, combine into one entry. Level = highest sense level.
 
 Return base/dictionary form.
 
 ===USER===
 The student is at CEFR {{LEVEL}} level.
 
-Extract polysemous words whose sense level is rated {{POLY_LOW}} to {{POLY_HIGH}} only.
+Find ALL polysemous words regardless of level — filtering happens separately.
 
 Text:
 {{TEXT}}

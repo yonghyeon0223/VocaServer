@@ -14,16 +14,23 @@ Including but not limited to: phrasal verbs, collocations (verb+noun with non-ob
 Find those from one level BELOW the student's CEFR level to one level ABOVE.
 When unsure whether a phrase is literal or non-literal, classify as non-literal.
 
+IMPORTANT — do not overlook these categories. They are equally important as phrasal verbs and collocations:
+- Standalone preposition phrases that function as units (not attached to a specific verb)
+- Discourse markers and connectors that structure argument or narrative
+- Grammar patterns where a verb takes a specific complement structure
+These patterns are invisible to Korean students because Korean grammar works completely differently.
+
 For both lists:
 - Shortest reusable form only. Strip objects, trailing prepositions, and context-specific words. Separate combined patterns into individual entries.
+- If a pattern is a preposition phrase or connector, extract just the preposition/connector — do not attach a verb to it.
 - Base/dictionary form. No inflections, no possessives.
 - Rate the CEFR level of each phrase AS A WHOLE UNIT — not by its individual word components. A phrase made of A1 words can still be a B1 phrase if the combination is non-obvious.
 
 ===USER===
 The student is at CEFR {{LEVEL}} level.
 
-For LITERAL phrases: extract only those rated {{LITERAL_LOW}} to {{LITERAL_HIGH}}.
-For NON-LITERAL phrases: extract those rated {{NONLITERAL_LOW}} to {{NONLITERAL_HIGH}}.
+For LITERAL phrases: extract only those rated at {{LITERAL_LOW}} (floor A2) to {{LITERAL_HIGH}} (max C2).
+For NON-LITERAL phrases: extract those rated at {{NONLITERAL_LOW}} (floor A2) to {{NONLITERAL_HIGH}} (max C2).
 
 Text:
 {{TEXT}}
