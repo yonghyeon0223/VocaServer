@@ -22,8 +22,8 @@ For both lists:
 ===USER===
 The student is at CEFR {{LEVEL}} level.
 
-For LITERAL phrases: extract only those rated {{LEVEL}} to two levels above {{LEVEL}} (capped at C2, floor A2).
-For NON-LITERAL phrases: extract those rated one level below {{LEVEL}} to two levels above {{LEVEL}} (capped at C2, floor A2).
+For LITERAL phrases: extract only those rated at {{LEVEL}} (floor A2) to two levels above {{LEVEL}} (max C2).
+For NON-LITERAL phrases: extract those rated one level below {{LEVEL}} (floor A2) to two levels above {{LEVEL}} (max C2).
 
 Text:
 {{TEXT}}
