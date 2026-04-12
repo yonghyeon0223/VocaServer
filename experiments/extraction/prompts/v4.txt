@@ -20,12 +20,7 @@ Pass E — REMAINING TERMS:
 All phrases from passes A-D go into the "phrases" list.
 SKIP: function words, proper nouns, numbers, text abbreviations, and any single word already captured inside a phrase.
 
-PHRASE FORM RULE: Extract the shortest reusable form of each phrase — the minimal pattern that a student can apply in other contexts. NOT the full sentence fragment.
-  - "he puts on his uniform" → extract "put on" (not "put on his uniform")
-  - "they end up in the ocean" → extract "end up" (not "end up in the ocean")
-  - "she refuses to look away" → extract "refuse to" AND "look away" separately (not "refuse to look away")
-  - "Tom sits next to him" → extract "next to" (not "sit next to")
-  - "decided to take action" → extract "decide to" AND "take action" separately
+PHRASE FORM RULE: Extract the shortest reusable form — the minimal pattern that transfers to other contexts. Strip verbs if the preposition/particle is the pattern. Strip objects and trailing prepositions. If a sentence contains two distinct patterns combined, extract them as separate entries.
 
 STEP 2: ASSIGN a CEFR level to each element:
 
