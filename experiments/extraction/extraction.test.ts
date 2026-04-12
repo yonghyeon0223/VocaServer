@@ -78,6 +78,10 @@ describe('extraction prompt experiments', () => {
         expectedTextFit: fixture.expectedTextFit,
         tokenUsage: result.tokenUsage,
         latencyMs: result.latencyMs,
+        targetPhrases: fixture.targetPhrases,
+        targetPolysemous: fixture.targetPolysemous,
+        targetVocabulary: fixture.targetVocabulary,
+        mustNotContain: fixture.mustNotContain,
       };
     });
 

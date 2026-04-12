@@ -33,6 +33,10 @@ export interface ScoreResult {
       list: 'phrases' | 'polysemous' | 'vocabulary';
     }>;
   };
+
+  // Global scores per fixture
+  fixtureRecall: number;    // (phrases_recall + polysemous_recall + vocabulary_recall) / 3
+  fixtureAccuracy: number;  // 0.50 × avg_level_accuracy + 0.30 × precision + 0.20 × textFitAccuracy
 }
 
 // ---- CEFR Helpers ----
@@ -187,6 +191,11 @@ export function scoreResult(
       list: item.list,
     }));
 
+  // Global fixture scores
+  const fixtureRecall = (phrases.recall + polysemous.recall + vocabulary.recall) / 3;
+  const avgLevelAccuracy = (phrases.levelAccuracy + polysemous.levelAccuracy + vocabulary.levelAccuracy) / 3;
+  const fixtureAccuracy = 0.50 * avgLevelAccuracy + 0.30 * precision + 0.20 * textFitAccuracy;
+
   return {
     phrases,
     polysemous,
@@ -197,5 +206,7 @@ export function scoreResult(
     unmatchedReport: {
       extractedButNotInTargets,
     },
+    fixtureRecall,
+    fixtureAccuracy,
   };
 }
