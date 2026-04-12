@@ -19,18 +19,17 @@ function isInRange(termLevel: CefrLevel, studentLevel: CefrLevel): boolean {
   return termIdx >= studentIdx && termIdx <= studentIdx + 2;
 }
 
-// ---- Phrase Level Bump (server-side) ----
+// ---- Phrase Level Bump (server-side, +1 for non-literal) ----
 
-function bumpPhraseLevel(baseLevel: CefrLevel, isLiteral: boolean): CefrLevel {
-  if (isLiteral) {
-    // Literal: use base level, minimum A2
-    const idx = cefrIndex(baseLevel);
-    return idx < 1 ? 'A2' : baseLevel;
-  }
-  // Non-literal: +1, max C2
-  const idx = cefrIndex(baseLevel);
-  if (idx >= 5) return 'C2'; // Already C2
-  return CEFR_ORDER[Math.min(idx + 1, 5)]!;
+function bumpLevel(level: CefrLevel): CefrLevel {
+  const idx = cefrIndex(level);
+  if (idx >= 5) return 'C2';
+  return CEFR_ORDER[idx + 1]!;
+}
+
+function applyLiteralFloor(level: CefrLevel): CefrLevel {
+  const idx = cefrIndex(level);
+  return idx < 1 ? 'A2' : level;
 }
 
 // ---- textFit (server-side computation) ----
@@ -55,25 +54,36 @@ function computeTextFit(allLevels: CefrLevel[], studentLevel: CefrLevel): TextFi
 
 const PHRASES_TOOL: Anthropic.Tool = {
   name: 'extract_phrases',
-  description: 'Extract multi-word patterns from the text',
+  description: 'Extract multi-word patterns from the text in two separate lists',
   input_schema: {
     type: 'object' as const,
     properties: {
-      phrases: {
+      literal: {
         type: 'array',
+        description: 'Phrases with transparent meaning from components',
         items: {
           type: 'object',
           properties: {
             term: { type: 'string' },
             level: { type: 'string', enum: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] },
-            is_literal: { type: 'boolean', description: 'true if the phrase meaning is transparent from its components, false if idiomatic/non-obvious' },
-            context: { type: 'array', items: { type: 'string' } },
           },
-          required: ['term', 'level', 'is_literal'],
+          required: ['term', 'level'],
+        },
+      },
+      non_literal: {
+        type: 'array',
+        description: 'Phrases with non-transparent meaning (collocations, phrasal verbs, idioms, fixed expressions, grammar patterns)',
+        items: {
+          type: 'object',
+          properties: {
+            term: { type: 'string' },
+            level: { type: 'string', enum: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] },
+          },
+          required: ['term', 'level'],
         },
       },
     },
-    required: ['phrases'],
+    required: ['literal', 'non_literal'],
   },
 };
 
@@ -192,11 +202,11 @@ export async function runParallel(
   const vocabularyPrompt = loadPrompt(VOCABULARY_PROMPT_PATH);
 
   const phrasesSystem = substituteVariables(phrasesPrompt.system, variables);
-  const phrasesUser = substituteVariables(phrasesPrompt.user, variables);
+  const phrasesUser = phrasesPrompt.user ? substituteVariables(phrasesPrompt.user, variables) : passage;
   const polysemousSystem = substituteVariables(polysemousPrompt.system, variables);
-  const polysemousUser = substituteVariables(polysemousPrompt.user, variables);
+  const polysemousUser = polysemousPrompt.user ? substituteVariables(polysemousPrompt.user, variables) : passage;
   const vocabularySystem = substituteVariables(vocabularyPrompt.system, variables);
-  const vocabularyUser = substituteVariables(vocabularyPrompt.user, variables);
+  const vocabularyUser = vocabularyPrompt.user ? substituteVariables(vocabularyPrompt.user, variables) : passage;
 
   // Launch all three calls in parallel
   const [phrasesResult, polysemousResult, vocabResult] = await Promise.all([
@@ -206,18 +216,26 @@ export async function runParallel(
   ]);
 
   // Extract raw lists from each call
-  const rawPhrases = ((phrasesResult.result as Record<string, unknown>)['phrases'] ?? []) as Array<{ term: string; level: string; is_literal?: boolean; context?: string[] }>;
+  const phrasesData = phrasesResult.result as Record<string, unknown>;
+  const rawLiteral = (phrasesData['literal'] ?? []) as Array<{ term: string; level: string }>;
+  const rawNonLiteral = (phrasesData['non_literal'] ?? []) as Array<{ term: string; level: string }>;
   const rawPolysemous = ((polysemousResult.result as Record<string, unknown>)['polysemous'] ?? []) as Array<{ term: string; level: string; context?: string[] }>;
   const rawVocab = ((vocabResult.result as Record<string, unknown>)['vocabulary'] ?? []) as Array<{ term: string; level: string; context?: string[] }>;
 
   // ---- SERVER-SIDE POST-PROCESSING ----
 
-  // 1. Apply phrase level bump
-  const bumpedPhrases: ExtractedTerm[] = rawPhrases.map((p) => ({
+  // 1. Process phrases: apply A2 floor to literal, +1 bump to non-literal
+  const literalPhrases: ExtractedTerm[] = rawLiteral.map((p) => ({
     term: p.term,
-    level: bumpPhraseLevel(p.level as CefrLevel, p.is_literal ?? false),
-    ...(p.context ? { context: p.context } : {}),
+    level: applyLiteralFloor(p.level as CefrLevel),
   }));
+
+  const nonLiteralPhrases: ExtractedTerm[] = rawNonLiteral.map((p) => ({
+    term: p.term,
+    level: bumpLevel(p.level as CefrLevel),
+  }));
+
+  const phrases: ExtractedTerm[] = [...literalPhrases, ...nonLiteralPhrases];
 
   const polysemous: ExtractedTerm[] = rawPolysemous.map((p) => ({
     term: p.term,
@@ -231,8 +249,8 @@ export async function runParallel(
     ...(v.context ? { context: v.context } : {}),
   }));
 
-  // 2. Range filter (deterministic)
-  const filteredPhrases = bumpedPhrases.filter((t) => isInRange(t.level, studentLevel));
+  // 1. Range filter (deterministic)
+  const filteredPhrases = phrases.filter((t) => isInRange(t.level, studentLevel));
   const filteredPolysemous = polysemous.filter((t) => isInRange(t.level, studentLevel));
   const filteredVocab = vocab.filter((t) => isInRange(t.level, studentLevel));
 

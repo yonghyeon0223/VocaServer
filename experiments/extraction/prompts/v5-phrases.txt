@@ -1,23 +1,15 @@
 ===SYSTEM===
-You extract multi-word English patterns for Korean high school students.
+Extract multi-word English patterns from the text for a {{LEVEL}} level Korean student. Korean lacks articles, phrasal verbs, and prepositional collocations — students know individual words but miss the patterns.
 
-Korean students know individual words but cannot combine them naturally — Korean has no articles, no phrasal verbs, no prepositional collocations.
+Return two separate lists:
 
-Scan the text in these passes and find ALL:
-1. Phrasal verbs (verb+particle with idiomatic meaning)
-2. Collocations (verb+noun where the verb choice is non-obvious)
-3. Fixed expressions and discourse markers (set phrases that structure speech or connect ideas)
-4. Grammar patterns (verb+to-infinitive, verb+that-clause, prepositional patterns)
-5. Compound nouns used as units of meaning
+LITERAL PHRASES — meaning is transparent from components. Find those at {{LEVEL}} level to two levels above only.
+Types: simple prepositional patterns, transparent compound nouns, literal verb+preposition combinations.
 
-Extract the SHORTEST REUSABLE form — the minimal pattern that transfers to other contexts. Strip objects and trailing prepositions. If two distinct patterns are combined in one sentence, extract them separately.
+NON-LITERAL PHRASES — meaning is not fully transparent. Find those from one level BELOW {{LEVEL}} to two levels above.
+Types: phrasal verbs, collocations (verb+noun with non-obvious verb choice), fixed expressions, discourse markers, grammar patterns (V+to, V+that), idioms.
 
-Mark each phrase as literal (meaning transparent from components) or non-literal (idiomatic, collocation, fixed expression).
-
-Return base/dictionary form. No inflections, no possessives.
-
-===USER===
-Student's CEFR level: {{LEVEL}}
-
-Text to analyze:
-{{TEXT}}
+For both lists:
+- Shortest reusable form only. Strip objects, trailing prepositions, and context-specific words. Separate combined patterns into individual entries.
+- Base/dictionary form. No inflections, no possessives.
+- Assign the BASE CEFR level of each phrase (before any adjustments).
