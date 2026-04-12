@@ -1124,20 +1124,20 @@ interface RunResult {
 
 // Filters from environment variables
 interface RunFilters {
-  fixtureId?: string;          // From FIXTURE env var
+  fixtureIds?: string[];       // From FIXTURE env var (comma-separated)
   groups?: string[];           // From GROUP env var (comma-separated)
-  promptVersion?: string;      // From PROMPT env var
+  promptVersion?: string;      // From PROMPT_VERSION env var
   dryRun?: boolean;            // From DRY_RUN env var
   failFast?: boolean;          // From FAIL_FAST env var
 }
 
-// Reads env vars (FIXTURE, GROUP, PROMPT, DRY_RUN, FAIL_FAST) and returns
+// Reads env vars (FIXTURE, GROUP, PROMPT_VERSION, DRY_RUN, FAIL_FAST) and returns
 // a structured filter object. Reads from process.env after .env.experiments
 // is loaded by vitest.prompts.config.ts.
 function parseFilters(): RunFilters;
 
-// Filters fixtures by ID and group tags based on the filter config.
-// If no filters set, returns fixtures tagged "default".
+// Filters fixtures by IDs and group tags based on the filter config.
+// fixtureIds takes precedence over groups. If neither set, returns fixtures tagged "default".
 function filterFixtures(fixtures: Fixture[], filters: RunFilters): Fixture[];
 
 // Filters prompt files by version based on the filter config.
@@ -1519,14 +1519,17 @@ The standard `npm run test` remains unchanged — it only runs server unit/integ
 # Run default group only (fast iteration)
 npm run test:prompts
 
-# Run a single fixture against a specific prompt
-FIXTURE=test-05 PROMPT=v2 npm run test:prompts
+# Run a single fixture
+FIXTURE=test-05 npm run test:prompts
+
+# Run multiple specific fixtures
+FIXTURE=test-05,test-04,test-06,test-01,test-02 npm run test:prompts
+
+# Run a specific fixture with a specific prompt version
+FIXTURE=test-05 PROMPT_VERSION=v2 npm run test:prompts
 
 # Run all "robustness" groups
 GROUP=invalid,non-english,tricky npm run test:prompts
-
-# Run injection security tests only
-GROUP=injection npm run test:prompts
 
 # Dry run — validate config without API calls
 DRY_RUN=true npm run test:prompts
@@ -1552,10 +1555,11 @@ This file is committed as documentation. Users copy it to `experiments/.env.expe
 # FIXTURE FILTERING
 # ============================================================
 
-# FIXTURE — run only a single fixture by ID.
+# FIXTURE — run specific fixtures by ID. Comma-separated for multiple.
 # Example: FIXTURE=test-05
-# Use case: Iterating on prompt quality for one specific passage.
-# Default: unset (no fixture filter applied)
+# Example: FIXTURE=test-01,test-04,test-07
+# Use case: Iterating on prompt quality for specific passages.
+# Default: unset (no fixture filter applied; falls through to GROUP)
 # FIXTURE=
 
 # GROUP — run only fixtures tagged with this group label.
@@ -1563,10 +1567,10 @@ This file is committed as documentation. Users copy it to `experiments/.env.expe
 # Example: GROUP=normal
 # Example: GROUP=invalid,non-english,tricky
 # Available groups for extraction:
-#   normal       — typical passages (12 fixtures)
-#   edge         — tricky vocabulary scenarios (6 fixtures)
-#   invalid      — garbage/empty input (4 fixtures)
-#   non-english  — non-English text (4 fixtures)
+#   normal       — typical passages (9 fixtures)
+#   edge         — tricky vocabulary scenarios (7 fixtures)
+#   invalid      — garbage/empty input (3 fixtures)
+#   non-english  — non-English text (5 fixtures)
 #   tricky       — formatting noise (7 fixtures)
 #   injection    — prompt injection attempts (5 fixtures)
 #   default      — fast iteration set (alias of "normal")
@@ -1577,10 +1581,12 @@ This file is committed as documentation. Users copy it to `experiments/.env.expe
 # PROMPT FILTERING
 # ============================================================
 
-# PROMPT — run only this prompt version.
-# Example: PROMPT=v2
+# PROMPT_VERSION — run only this prompt version.
+# (Named PROMPT_VERSION instead of PROMPT to avoid collision with
+# the Windows system PROMPT env var.)
+# Example: PROMPT_VERSION=v2
 # Default: unset (runs all prompts in experiments/extraction/prompts/)
-# PROMPT=
+# PROMPT_VERSION=
 
 # ============================================================
 # EXECUTION CONTROL

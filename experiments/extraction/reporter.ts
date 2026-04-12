@@ -250,7 +250,7 @@ export function generateReport(
 <h1>Extraction Experiment Report</h1>
 <div class="meta">
   <p>Report: ${escapeHtml(data.reportId)} | Generated: ${escapeHtml(data.timestamp)} | Model: ${escapeHtml(data.model)}</p>
-  <p>Filters: ${data.filtersApplied.fixtureId ? `fixture=${data.filtersApplied.fixtureId}` : data.filtersApplied.groups ? `group=${data.filtersApplied.groups.join(',')}` : 'default'} ${data.filtersApplied.promptVersion ? `| prompt=${data.filtersApplied.promptVersion}` : '| all prompts'}</p>
+  <p>Filters: ${data.filtersApplied.fixtureIds ? `fixture=${data.filtersApplied.fixtureIds.join(',')}` : data.filtersApplied.groups ? `group=${data.filtersApplied.groups.join(',')}` : 'default'} ${data.filtersApplied.promptVersion ? `| prompt=${data.filtersApplied.promptVersion}` : '| all prompts'}</p>
   <p>Results: ${data.results.length} | Passed: ${data.results.filter((r) => r.allChecksPassed).length} | Failed: ${data.results.filter((r) => !r.allChecksPassed).length}</p>
 </div>
 ${resultsHtml}

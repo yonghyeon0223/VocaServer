@@ -47,7 +47,7 @@ export interface RunResult {
 }
 
 export interface RunFilters {
-  fixtureId?: string;
+  fixtureIds?: string[];
   groups?: string[];
   promptVersion?: string;
   dryRun?: boolean;
@@ -76,7 +76,7 @@ export function parseFilters(): RunFilters {
 
   const fixture = process.env['FIXTURE'];
   if (fixture && fixture.trim().length > 0) {
-    filters.fixtureId = fixture.trim();
+    filters.fixtureIds = fixture.split(',').map((f) => f.trim()).filter((f) => f.length > 0);
   }
 
   const group = process.env['GROUP'];
@@ -84,7 +84,7 @@ export function parseFilters(): RunFilters {
     filters.groups = group.split(',').map((g) => g.trim()).filter((g) => g.length > 0);
   }
 
-  const prompt = process.env['PROMPT'];
+  const prompt = process.env['PROMPT_VERSION'];
   if (prompt && prompt.trim().length > 0) {
     filters.promptVersion = prompt.trim();
   }
@@ -153,8 +153,8 @@ export function loadFixtures(fixturesDir: string): Fixture[] {
 // ---- Fixture Filtering ----
 
 export function filterFixtures(fixtures: Fixture[], filters: RunFilters): Fixture[] {
-  if (filters.fixtureId) {
-    return fixtures.filter((f) => f.id === filters.fixtureId);
+  if (filters.fixtureIds && filters.fixtureIds.length > 0) {
+    return fixtures.filter((f) => filters.fixtureIds!.includes(f.id));
   }
 
   if (filters.groups && filters.groups.length > 0) {
@@ -285,6 +285,63 @@ export function getPromptVersion(promptPath: string): string {
   return basename(promptPath, '.txt');
 }
 
+// ---- Tool Definition for Structured Output ----
+
+const EXTRACTION_TOOL: Anthropic.Tool = {
+  name: 'extract_vocabulary',
+  description: 'Extract vocabulary terms from the text, categorized into three lists: phrases, polysemous words, and vocabulary. Also assess text fit for the student.',
+  input_schema: {
+    type: 'object' as const,
+    properties: {
+      textFit: {
+        type: 'string',
+        enum: ['too_easy', 'easy', 'appropriate', 'stretch', 'too_hard', 'not_applicable'],
+        description: 'How well the text matches the student level',
+      },
+      phrases: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            term: { type: 'string', description: 'The phrase in base/dictionary form' },
+            level: { type: 'string', enum: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] },
+            context: { type: 'array', items: { type: 'string' }, description: 'How the term appears in the passage' },
+          },
+          required: ['term', 'level'],
+        },
+        description: 'Multi-word expressions: phrasal verbs, collocations, fixed expressions, idioms',
+      },
+      polysemous: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            term: { type: 'string', description: 'The word in base form' },
+            level: { type: 'string', enum: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] },
+            context: { type: 'array', items: { type: 'string' }, description: 'How the term appears in the passage' },
+          },
+          required: ['term', 'level'],
+        },
+        description: 'Single words used in non-default senses',
+      },
+      vocabulary: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            term: { type: 'string', description: 'The word in base/dictionary form' },
+            level: { type: 'string', enum: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] },
+            context: { type: 'array', items: { type: 'string' }, description: 'How the term appears in the passage' },
+          },
+          required: ['term', 'level'],
+        },
+        description: 'Traditional new single words the student likely does not know',
+      },
+    },
+    required: ['textFit', 'phrases', 'polysemous', 'vocabulary'],
+  },
+};
+
 // ---- Single Run ----
 
 export async function runSingle(
@@ -294,20 +351,27 @@ export async function runSingle(
 ): Promise<{ rawResponse: string; tokenUsage: { inputTokens: number; outputTokens: number }; latencyMs: number }> {
   const start = Date.now();
 
+  // Use tool_use to force structured JSON output
   const response = await client.messages.create({
     model: config.model,
     max_tokens: config.maxTokens,
     temperature: config.temperature,
     system: prompt.system,
     messages: [{ role: 'user', content: prompt.user }],
+    tools: [EXTRACTION_TOOL],
+    tool_choice: { type: 'tool' as const, name: 'extract_vocabulary' },
   });
 
   const latencyMs = Date.now() - start;
 
-  const rawResponse = response.content
-    .filter((block): block is Anthropic.TextBlock => block.type === 'text')
-    .map((block) => block.text)
-    .join('');
+  // Extract the tool use result — guaranteed to be valid JSON matching our schema
+  const toolBlock = response.content.find(
+    (block): block is Anthropic.ToolUseBlock => block.type === 'tool_use'
+  );
+
+  const rawResponse = toolBlock
+    ? JSON.stringify(toolBlock.input)
+    : '{"error": "No tool_use block in response"}';
 
   return {
     rawResponse,

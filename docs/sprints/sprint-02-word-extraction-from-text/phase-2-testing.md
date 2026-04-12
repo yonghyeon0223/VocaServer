@@ -159,11 +159,13 @@ These framework tests live in `experiments/extraction/__tests__/`. They're picke
 | # | Test | Expected |
 |---|------|----------|
 | RU45 | All env vars unset | Returns `{ }` (empty filter — caller defaults to "default" group) |
-| RU46 | `FIXTURE=test-05` set | `filters.fixtureId === "test-05"` |
+| RU46 | `FIXTURE=test-05` set | `filters.fixtureIds === ["test-05"]` |
+| RU46a | `FIXTURE=test-01,test-04,test-07` set | `filters.fixtureIds === ["test-01", "test-04", "test-07"]` |
+| RU46b | `FIXTURE=" test-01 , test-04 "` (with whitespace) | Whitespace trimmed: `["test-01", "test-04"]` |
 | RU47 | `GROUP=normal` set | `filters.groups === ["normal"]` |
 | RU48 | `GROUP=normal,edge,injection` set | `filters.groups === ["normal", "edge", "injection"]` |
 | RU49 | `GROUP=" normal , edge "` (with whitespace) | Whitespace trimmed: `["normal", "edge"]` |
-| RU50 | `PROMPT=v2` set | `filters.promptVersion === "v2"` |
+| RU50 | `PROMPT_VERSION=v2` set | `filters.promptVersion === "v2"` |
 | RU51 | `DRY_RUN=true` set | `filters.dryRun === true` |
 | RU52 | `DRY_RUN=false` set | `filters.dryRun === false` |
 | RU53 | `DRY_RUN=anything-else` set | `filters.dryRun === false` (only "true" enables) |
@@ -174,12 +176,13 @@ These framework tests live in `experiments/extraction/__tests__/`. They're picke
 | # | Test | Expected |
 |---|------|----------|
 | RU55 | No filters set | Returns fixtures tagged "default" |
-| RU56 | `fixtureId` set | Returns only the matching fixture |
-| RU57 | `fixtureId` doesn't match any fixture | Returns empty array |
+| RU56 | `fixtureIds` set (single) | Returns only the matching fixture |
+| RU56a | `fixtureIds` set (multiple) | Returns all matching fixtures |
+| RU57 | `fixtureIds` doesn't match any fixture | Returns empty array |
 | RU58 | `groups: ["normal"]` set | Returns all fixtures with "normal" in groups array |
 | RU59 | `groups: ["normal", "edge"]` set | Returns fixtures matching ANY of the listed groups (union) |
 | RU60 | Fixture in multiple groups counted once | No duplicates in result |
-| RU61 | `fixtureId` and `groups` both set | `fixtureId` takes precedence (groups ignored) |
+| RU61 | `fixtureIds` and `groups` both set | `fixtureIds` takes precedence (groups ignored) |
 | RU62 | Empty fixtures array | Returns empty array regardless of filters |
 
 #### `filterPrompts(promptPaths, filters)` — Prompt filtering

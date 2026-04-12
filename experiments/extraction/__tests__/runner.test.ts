@@ -27,17 +27,27 @@ describe('parseFilters', () => {
   it('returns empty object when no env vars set', () => {
     delete process.env['FIXTURE'];
     delete process.env['GROUP'];
-    delete process.env['PROMPT'];
+    delete process.env['PROMPT_VERSION'];
     delete process.env['DRY_RUN'];
     delete process.env['FAIL_FAST'];
     const filters = parseFilters();
-    expect(filters.fixtureId).toBeUndefined();
+    expect(filters.fixtureIds).toBeUndefined();
     expect(filters.groups).toBeUndefined();
   });
 
-  it('parses FIXTURE env var', () => {
+  it('parses single FIXTURE env var', () => {
     process.env['FIXTURE'] = 'test-05';
-    expect(parseFilters().fixtureId).toBe('test-05');
+    expect(parseFilters().fixtureIds).toEqual(['test-05']);
+  });
+
+  it('parses comma-separated FIXTURE env var', () => {
+    process.env['FIXTURE'] = 'test-01,test-04,test-07';
+    expect(parseFilters().fixtureIds).toEqual(['test-01', 'test-04', 'test-07']);
+  });
+
+  it('trims whitespace in FIXTURE', () => {
+    process.env['FIXTURE'] = ' test-01 , test-04 ';
+    expect(parseFilters().fixtureIds).toEqual(['test-01', 'test-04']);
   });
 
   it('parses GROUP env var', () => {
@@ -56,7 +66,7 @@ describe('parseFilters', () => {
   });
 
   it('parses PROMPT env var', () => {
-    process.env['PROMPT'] = 'v2';
+    process.env['PROMPT_VERSION'] = 'v2';
     expect(parseFilters().promptVersion).toBe('v2');
   });
 
@@ -183,14 +193,19 @@ describe('filterFixtures', () => {
     expect(result.map((f: any) => f.id)).toEqual(['test-01', 'test-02']);
   });
 
-  it('filters by fixtureId', () => {
-    const result = filterFixtures(fixtures, { fixtureId: 'test-10' });
+  it('filters by single fixtureId', () => {
+    const result = filterFixtures(fixtures, { fixtureIds: ['test-10'] });
     expect(result).toHaveLength(1);
     expect(result[0]!.id).toBe('test-10');
   });
 
-  it('returns empty for non-matching fixtureId', () => {
-    expect(filterFixtures(fixtures, { fixtureId: 'test-99' })).toHaveLength(0);
+  it('filters by multiple fixtureIds', () => {
+    const result = filterFixtures(fixtures, { fixtureIds: ['test-01', 'test-10'] });
+    expect(result).toHaveLength(2);
+  });
+
+  it('returns empty for non-matching fixtureIds', () => {
+    expect(filterFixtures(fixtures, { fixtureIds: ['test-99'] })).toHaveLength(0);
   });
 
   it('filters by group', () => {
@@ -204,8 +219,8 @@ describe('filterFixtures', () => {
     expect(result).toHaveLength(2);
   });
 
-  it('fixtureId takes precedence over groups', () => {
-    const result = filterFixtures(fixtures, { fixtureId: 'test-01', groups: ['edge'] });
+  it('fixtureIds takes precedence over groups', () => {
+    const result = filterFixtures(fixtures, { fixtureIds: ['test-01'], groups: ['edge'] });
     expect(result).toHaveLength(1);
     expect(result[0]!.id).toBe('test-01');
   });
