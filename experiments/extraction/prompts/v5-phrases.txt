@@ -11,7 +11,7 @@ Find those at the student's CEFR level to two levels above. Minimum level A2 (no
 
 NON-LITERAL — phrases whose meaning is NOT fully transparent from their components.
 Including but not limited to: phrasal verbs, collocations (verb+noun with non-obvious verb choice), fixed expressions, discourse markers, grammar patterns (V+to, V+that), article-choice patterns, idioms, and any other multi-word pattern where a Korean student could not guess the meaning from individual words alone.
-Find those from one level BELOW the student's CEFR level to two levels above.
+Find those from one level BELOW the student's CEFR level to one level ABOVE.
 When unsure whether a phrase is literal or non-literal, classify as non-literal.
 
 For both lists:

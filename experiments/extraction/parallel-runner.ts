@@ -201,7 +201,7 @@ export async function runParallel(
   const literalLow = CEFR_ORDER[Math.max(studentIdx, 1)]!;  // floor A2 (index 1)
   const literalHigh = CEFR_ORDER[Math.min(studentIdx + 2, 5)]!;  // max C2
   const nonLiteralLow = CEFR_ORDER[Math.max(studentIdx - 1, 1)]!;  // one below, floor A2
-  const nonLiteralHigh = CEFR_ORDER[Math.min(studentIdx + 2, 5)]!;  // max C2
+  const nonLiteralHigh = CEFR_ORDER[Math.min(studentIdx + 1, 5)]!;  // one above (server bumps +1 → becomes +2)
 
   // Polysemous and vocabulary range: student level to +2
   const polyVocabLow = CEFR_ORDER[studentIdx]!;
@@ -284,32 +284,64 @@ export async function runParallel(
   const filteredPolysemous = polysemous.filter((t) => isInRange(t.level, studentLevel));
   const filteredVocab = vocab.filter((t) => isInRange(t.level, studentLevel));
 
-  // 3. Cross-list dedup: polysemy > phrases > vocabulary
-  const polysemousTerms = new Set(filteredPolysemous.map((t) => t.term.trim().toLowerCase()));
+  // 3. Cross-list dedup per Phase 1 Cross-List Priority Rule:
+  //    - Default: polysemy > phrases > vocabulary
+  //    - Exception: non-literal phrases (idioms/collocations/fixed expressions) beat polysemy
+  //      because the phrase as a whole is the lesson the student needs
+  //    - Polysemy always beats vocabulary (same word → polysemy wins)
 
-  // Remove phrases that contain a polysemous word (unless the phrase is a distinct idiom)
+  const polysemousTerms = new Set(filteredPolysemous.map((t) => t.term.trim().toLowerCase()));
+  const nonLiteralTermSet = new Set(nonLiteralPhrases.map((p) => p.term.trim().toLowerCase()));
+
+  // For non-literal phrases containing a polysemous word: keep the phrase, drop the polysemy
+  // For literal phrases containing a polysemous word: drop the phrase, keep the polysemy
   const dedupedPhrases = filteredPhrases.filter((p) => {
-    const words = p.term.trim().toLowerCase().split(/\s+/);
-    // If any word in the phrase is a polysemous entry, drop the phrase
-    return !words.some((w) => polysemousTerms.has(w));
+    const phraseNorm = p.term.trim().toLowerCase();
+    const words = phraseNorm.split(/\s+/);
+    const containsPolysemous = words.some((w) => polysemousTerms.has(w));
+
+    if (!containsPolysemous) return true; // No conflict, keep phrase
+
+    // Conflict: phrase contains a polysemous word
+    if (nonLiteralTermSet.has(phraseNorm)) {
+      return true; // Non-literal phrase wins — it's idiomatic, the whole phrase is the lesson
+    }
+    return false; // Literal phrase loses to polysemy
   });
 
-  // Remove vocabulary that appears in phrases or polysemous
+  // Remove polysemous entries that lost to non-literal phrases
+  const dedupedPolysemous = filteredPolysemous.filter((p) => {
+    const polyNorm = p.term.trim().toLowerCase();
+    // Check if any non-literal phrase contains this polysemous word
+    for (const phrase of dedupedPhrases) {
+      const phraseNorm = phrase.term.trim().toLowerCase();
+      if (nonLiteralTermSet.has(phraseNorm)) {
+        const words = phraseNorm.split(/\s+/);
+        if (words.includes(polyNorm)) {
+          return false; // This polysemous word is inside a winning non-literal phrase → drop polysemy
+        }
+      }
+    }
+    return true;
+  });
+
+  // Remove vocabulary that duplicates polysemous entries
+  const finalPolysemousTerms = new Set(dedupedPolysemous.map((t) => t.term.trim().toLowerCase()));
   const phraseTerms = new Set(dedupedPhrases.map((t) => t.term.trim().toLowerCase()));
+
   const dedupedVocab = filteredVocab.filter((v) => {
     const normalized = v.term.trim().toLowerCase();
-    // Remove if it's a polysemous term
-    if (polysemousTerms.has(normalized)) return false;
-    // Remove if it's captured inside a phrase (check if any phrase contains this word)
-    // But allow coexistence if they teach different lessons — keep vocab that exists as a standalone word
-    // For simplicity: remove only exact matches with phrase terms, not substring
+    // Polysemy beats vocabulary — if same word in both, drop vocab
+    if (finalPolysemousTerms.has(normalized)) return false;
+    // Exact phrase match — drop vocab (but phrases + vocab can coexist for different lessons,
+    // so only drop if the vocab term IS the phrase, not just contained in it)
     if (phraseTerms.has(normalized)) return false;
     return true;
   });
 
   // 4. Deduplicate within each list
   const uniquePhrases = dedup(dedupedPhrases);
-  const uniquePolysemous = dedup(filteredPolysemous);
+  const uniquePolysemous = dedup(dedupedPolysemous);
   const uniqueVocab = dedup(dedupedVocab);
 
   // 5. Compute textFit server-side
