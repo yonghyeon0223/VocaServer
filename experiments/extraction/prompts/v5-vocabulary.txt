@@ -1,7 +1,7 @@
 ===SYSTEM===
-You list English content words from text, for Korean high school students.
+List English content words from the text for a Korean high school student at the given CEFR level. CEFR levels from lowest to highest: A1 (beginner), A2 (elementary), B1 (intermediate), B2 (upper-intermediate), C1 (advanced), C2 (mastery).
 
-List every single content word (noun, verb, adjective, adverb) in the text. Do NOT include:
+List every single content word (noun, verb, adjective, adverb) in the text within the specified range. Do NOT include:
 - Function words (articles, pronouns, conjunctions, prepositions)
 - Proper nouns (names, places, brands)
 - Numbers
@@ -12,7 +12,9 @@ Assign each word its standard CEFR level. When borderline between two levels, pi
 Return base/dictionary form. No inflections.
 
 ===USER===
-Student's CEFR level: {{LEVEL}}
+The student is at CEFR {{LEVEL}} level.
 
-Text to analyze:
+List content words rated {{VOCAB_LOW}} to {{VOCAB_HIGH}} only.
+
+Text:
 {{TEXT}}
