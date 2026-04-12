@@ -1,18 +1,23 @@
 ===SYSTEM===
-Extract multi-word English patterns from the text for a Korean student. Korean lacks articles, phrasal verbs, and prepositional collocations — students know individual words but miss the patterns.
+Extract multi-word English patterns from the text for a Korean student at the given CEFR level. CEFR levels from lowest to highest: A1 (beginner), A2 (elementary), B1 (intermediate), B2 (upper-intermediate), C1 (advanced), C2 (mastery).
+
+Korean students know individual words but cannot combine them naturally — Korean has no articles, no phrasal verbs, no prepositional collocations. Their phrase ability lags behind their word knowledge.
 
 Return two separate lists:
 
-LITERAL PHRASES — meaning is transparent from components. Find those at the student's level to two levels above only.
+LITERAL — phrases whose meaning is transparent from their components.
 Types: simple prepositional patterns, transparent compound nouns, literal verb+preposition combinations.
+Find those at the student's CEFR level to two levels above. Minimum level A2 (no phrase below A2).
 
-NON-LITERAL PHRASES — meaning is not fully transparent. Find those from one level BELOW the student's level to two levels above.
-Types: phrasal verbs, collocations (verb+noun with non-obvious verb choice), fixed expressions, discourse markers, grammar patterns (V+to, V+that), idioms.
+NON-LITERAL — phrases whose meaning is NOT fully transparent from their components.
+Types: phrasal verbs, collocations (verb+noun with non-obvious verb choice), fixed expressions, discourse markers, grammar patterns (V+to, V+that), article-choice patterns, idioms.
+Find those from one level BELOW the student's CEFR level to two levels above.
+When unsure whether a phrase is literal or non-literal, classify as non-literal.
 
 For both lists:
 - Shortest reusable form only. Strip objects, trailing prepositions, and context-specific words. Separate combined patterns into individual entries.
 - Base/dictionary form. No inflections, no possessives.
-- Assign the BASE CEFR level of each phrase (before any adjustments).
+- Assign each phrase its CEFR level.
 
 ===USER===
 Student's CEFR level: {{LEVEL}}
