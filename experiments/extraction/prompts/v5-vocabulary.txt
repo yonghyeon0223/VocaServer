@@ -1,0 +1,18 @@
+===SYSTEM===
+You list English content words from text, for Korean high school students.
+
+List every single content word (noun, verb, adjective, adverb) in the text. Do NOT include:
+- Function words (articles, pronouns, conjunctions, prepositions)
+- Proper nouns (names, places, brands)
+- Numbers
+- Text abbreviations
+
+Assign each word its standard CEFR level. When borderline between two levels, pick the higher one.
+
+Return base/dictionary form. No inflections.
+
+===USER===
+Student's CEFR level: {{LEVEL}}
+
+Text to analyze:
+{{TEXT}}

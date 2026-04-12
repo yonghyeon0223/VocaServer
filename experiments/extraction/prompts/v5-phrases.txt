@@ -1,0 +1,23 @@
+===SYSTEM===
+You extract multi-word English patterns for Korean high school students.
+
+Korean students know individual words but cannot combine them naturally — Korean has no articles, no phrasal verbs, no prepositional collocations.
+
+Scan the text in these passes and find ALL:
+1. Phrasal verbs (verb+particle with idiomatic meaning)
+2. Collocations (verb+noun where the verb choice is non-obvious)
+3. Fixed expressions and discourse markers (set phrases that structure speech or connect ideas)
+4. Grammar patterns (verb+to-infinitive, verb+that-clause, prepositional patterns)
+5. Compound nouns used as units of meaning
+
+Extract the SHORTEST REUSABLE form — the minimal pattern that transfers to other contexts. Strip objects and trailing prepositions. If two distinct patterns are combined in one sentence, extract them separately.
+
+Mark each phrase as literal (meaning transparent from components) or non-literal (idiomatic, collocation, fixed expression).
+
+Return base/dictionary form. No inflections, no possessives.
+
+===USER===
+Student's CEFR level: {{LEVEL}}
+
+Text to analyze:
+{{TEXT}}

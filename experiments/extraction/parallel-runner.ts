@@ -1,5 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk';
 import type { CefrLevel, TextFit, Fixture, RunConfig } from './runner.js';
+import { loadPrompt, substituteVariables } from './runner.js';
 import type { ExtractionOutput, ExtractedTerm } from './checker.js';
 
 // ---- CEFR Utilities ----
@@ -122,55 +123,19 @@ const VOCABULARY_TOOL: Anthropic.Tool = {
   },
 };
 
-// ---- Prompts (short, focused, one job each) ----
+// ---- Prompt File Paths ----
 
-const PHRASES_SYSTEM = `You extract multi-word English patterns for Korean high school students.
-
-Korean students know individual words but cannot combine them naturally — Korean has no articles, no phrasal verbs, no prepositional collocations.
-
-Scan the text in these passes and find ALL:
-1. Phrasal verbs (verb+particle with idiomatic meaning)
-2. Collocations (verb+noun where the verb choice is non-obvious)
-3. Fixed expressions and discourse markers (set phrases that structure speech or connect ideas)
-4. Grammar patterns (verb+to-infinitive, verb+that-clause, prepositional patterns)
-5. Compound nouns used as units of meaning
-
-Extract the SHORTEST REUSABLE form — the minimal pattern that transfers to other contexts. Strip objects and trailing prepositions. If two distinct patterns are combined in one sentence, extract them separately.
-
-Mark each phrase as literal (meaning transparent from components) or non-literal (idiomatic, collocation, fixed expression).
-
-Return base/dictionary form. No inflections, no possessives.`;
-
-const POLYSEMOUS_SYSTEM = `You find English words used in non-default senses, for Korean high school students.
-
-Scan the text for single words where the meaning in THIS context differs from the word's most basic/common meaning. Korean students know the basic meaning but would misread the word here.
-
-Common verbs used abstractly are prime candidates (e.g., a movement verb used to mean "manage" or "confront").
-
-Rate the LEVEL by the SENSE being used in context, not the word's basic level. When borderline between two levels, pick the higher one.
-
-If one word appears in multiple non-default senses, combine into one entry with multiple contexts. The level = highest sense level.
-
-Return base/dictionary form.`;
-
-const VOCABULARY_SYSTEM = `You list English content words from text, for Korean high school students.
-
-List every single content word (noun, verb, adjective, adverb) in the text. Do NOT include:
-- Function words (articles, pronouns, conjunctions, prepositions)
-- Proper nouns (names, places, brands)
-- Numbers
-- Text abbreviations
-
-Assign each word its standard CEFR level. When borderline between two levels, pick the higher one.
-
-Return base/dictionary form. No inflections.`;
+const PROMPTS_DIR = 'experiments/extraction/prompts';
+const PHRASES_PROMPT_PATH = `${PROMPTS_DIR}/v5-phrases.txt`;
+const POLYSEMOUS_PROMPT_PATH = `${PROMPTS_DIR}/v5-polysemous.txt`;
+const VOCABULARY_PROMPT_PATH = `${PROMPTS_DIR}/v5-vocabulary.txt`;
 
 // ---- Single Focused Call ----
 
 async function callWithTool(
   client: Anthropic,
   systemPrompt: string,
-  userContent: string,
+  userMessage: string,
   tool: Anthropic.Tool,
   config: RunConfig,
 ): Promise<{ result: unknown; inputTokens: number; outputTokens: number; latencyMs: number }> {
@@ -181,7 +146,7 @@ async function callWithTool(
     max_tokens: config.maxTokens,
     temperature: config.temperature,
     system: systemPrompt,
-    messages: [{ role: 'user', content: userContent }],
+    messages: [{ role: 'user', content: userMessage }],
     tools: [tool],
     tool_choice: { type: 'tool' as const, name: tool.name },
   });
@@ -219,13 +184,25 @@ export async function runParallel(
   studentLevel: CefrLevel,
   config: RunConfig,
 ): Promise<ParallelRunResult> {
-  const userContent = `Student's CEFR level: ${studentLevel}\n\nText to analyze:\n${passage}`;
+  const variables = { LEVEL: studentLevel, TEXT: passage };
+
+  // Load and prepare prompts from files
+  const phrasesPrompt = loadPrompt(PHRASES_PROMPT_PATH);
+  const polysemousPrompt = loadPrompt(POLYSEMOUS_PROMPT_PATH);
+  const vocabularyPrompt = loadPrompt(VOCABULARY_PROMPT_PATH);
+
+  const phrasesSystem = substituteVariables(phrasesPrompt.system, variables);
+  const phrasesUser = substituteVariables(phrasesPrompt.user, variables);
+  const polysemousSystem = substituteVariables(polysemousPrompt.system, variables);
+  const polysemousUser = substituteVariables(polysemousPrompt.user, variables);
+  const vocabularySystem = substituteVariables(vocabularyPrompt.system, variables);
+  const vocabularyUser = substituteVariables(vocabularyPrompt.user, variables);
 
   // Launch all three calls in parallel
   const [phrasesResult, polysemousResult, vocabResult] = await Promise.all([
-    callWithTool(client, PHRASES_SYSTEM, userContent, PHRASES_TOOL, config),
-    callWithTool(client, POLYSEMOUS_SYSTEM, userContent, POLYSEMOUS_TOOL, config),
-    callWithTool(client, VOCABULARY_SYSTEM, userContent, VOCABULARY_TOOL, config),
+    callWithTool(client, phrasesSystem, phrasesUser, PHRASES_TOOL, config),
+    callWithTool(client, polysemousSystem, polysemousUser, POLYSEMOUS_TOOL, config),
+    callWithTool(client, vocabularySystem, vocabularyUser, VOCABULARY_TOOL, config),
   ]);
 
   // Extract raw lists from each call
