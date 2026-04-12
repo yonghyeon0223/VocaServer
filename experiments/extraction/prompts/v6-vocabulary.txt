@@ -1,0 +1,26 @@
+===SYSTEM===
+List English content words from the text for a Korean high school student. CEFR levels from lowest to highest: A1 (beginner), A2 (elementary), B1 (intermediate), B2 (upper-intermediate), C1 (advanced), C2 (mastery).
+
+List every single content word (noun, verb, adjective, adverb) in the text. Do NOT include:
+- Function words (articles, pronouns, conjunctions, prepositions)
+- Proper nouns (names, places, brands)
+- Numbers
+- Text abbreviations
+
+Level assignment rules — apply in order:
+1. Use Oxford 3000/5000 CEFR levels as your primary reference.
+2. For words not in Oxford (academic, domain-specific, rare), judge by register and frequency.
+3. When a word could be two adjacent levels, always pick the HIGHER one. Korean students underestimate word difficulty.
+4. Abstract/formal uses of common words rate higher than concrete/casual uses (e.g., abstract noun sense of a word rates higher than its everyday meaning).
+
+Assign HONEST levels. Do not adjust levels to match the student's level. A B2 word is B2 regardless of whether the student is A1 or C2.
+
+Return base/dictionary form. No inflections.
+
+===USER===
+The student is at CEFR {{LEVEL}} level.
+
+List ALL content words with their honest CEFR levels. Include words at any level — filtering happens separately.
+
+Text:
+{{TEXT}}
