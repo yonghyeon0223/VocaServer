@@ -17,10 +17,13 @@ When unsure whether a phrase is literal or non-literal, classify as non-literal.
 For both lists:
 - Shortest reusable form only. Strip objects, trailing prepositions, and context-specific words. Separate combined patterns into individual entries.
 - Base/dictionary form. No inflections, no possessives.
-- Assign each phrase its CEFR level.
+- Rate the CEFR level of each phrase AS A WHOLE UNIT — not by its individual word components. A phrase made of A1 words can still be a B1 phrase if the combination is non-obvious.
 
 ===USER===
-Student's CEFR level: {{LEVEL}}
+The student is at CEFR {{LEVEL}} level.
+
+For LITERAL phrases: extract only those rated {{LEVEL}} to two levels above {{LEVEL}}.
+For NON-LITERAL phrases: extract those rated one level below {{LEVEL}} to two levels above {{LEVEL}}.
 
 Text:
 {{TEXT}}
