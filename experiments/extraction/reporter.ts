@@ -351,6 +351,7 @@ export function generateReport(
       ${listsHtml}
       ${precisionHtml}
       ${unmatchedHtml}
+      ${r.extractedOutput ? dropdown('json-' + r.fixtureId, '📋 Raw JSON Output', `<pre class="json-output">${esc(JSON.stringify(r.extractedOutput, null, 2))}</pre>`) : ''}
     </div>`;
   }).join('');
 
@@ -452,6 +453,9 @@ export function generateReport(
   .text-yellow { color: var(--yellow); }
   .text-blue { color: var(--blue); }
   .muted { color: var(--muted); }
+
+  /* JSON Output */
+  .json-output { background: #1e293b; color: #e2e8f0; padding: 16px; border-radius: 8px; font-size: 12px; line-height: 1.6; overflow-x: auto; white-space: pre; font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace; max-height: 500px; overflow-y: auto; }
 
   /* Metric Definitions */
   .metric-definitions { font-size: 13px; }
