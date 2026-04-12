@@ -194,7 +194,21 @@ export async function runParallel(
   studentLevel: CefrLevel,
   config: RunConfig,
 ): Promise<ParallelRunResult> {
-  const variables = { LEVEL: studentLevel, TEXT: passage };
+  // Compute level ranges server-side
+  const studentIdx = cefrIndex(studentLevel);
+  const literalLow = CEFR_ORDER[Math.max(studentIdx, 1)]!;  // floor A2 (index 1)
+  const literalHigh = CEFR_ORDER[Math.min(studentIdx + 2, 5)]!;  // max C2
+  const nonLiteralLow = CEFR_ORDER[Math.max(studentIdx - 1, 1)]!;  // one below, floor A2
+  const nonLiteralHigh = CEFR_ORDER[Math.min(studentIdx + 2, 5)]!;  // max C2
+
+  const variables: Record<string, string> = {
+    LEVEL: studentLevel,
+    TEXT: passage,
+    LITERAL_LOW: literalLow,
+    LITERAL_HIGH: literalHigh,
+    NONLITERAL_LOW: nonLiteralLow,
+    NONLITERAL_HIGH: nonLiteralHigh,
+  };
 
   // Load and prepare prompts from files
   const phrasesPrompt = loadPrompt(PHRASES_PROMPT_PATH);
