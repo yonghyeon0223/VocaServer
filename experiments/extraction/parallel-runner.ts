@@ -66,6 +66,7 @@ const PHRASES_TOOL: Anthropic.Tool = {
           properties: {
             term: { type: 'string' },
             level: { type: 'string', enum: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] },
+            context: { type: 'string', description: 'The most relevant occurrence in the text' },
           },
           required: ['term', 'level'],
         },
@@ -78,6 +79,7 @@ const PHRASES_TOOL: Anthropic.Tool = {
           properties: {
             term: { type: 'string' },
             level: { type: 'string', enum: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] },
+            context: { type: 'string', description: 'The most relevant occurrence in the text' },
           },
           required: ['term', 'level'],
         },
@@ -100,7 +102,7 @@ const POLYSEMOUS_TOOL: Anthropic.Tool = {
           properties: {
             term: { type: 'string' },
             level: { type: 'string', enum: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], description: 'Level of the SENSE being used, not the word\'s basic level' },
-            context: { type: 'array', items: { type: 'string' } },
+            context: { type: 'string', description: 'The most relevant occurrence in the text' },
           },
           required: ['term', 'level'],
         },
@@ -123,7 +125,7 @@ const VOCABULARY_TOOL: Anthropic.Tool = {
           properties: {
             term: { type: 'string' },
             level: { type: 'string', enum: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] },
-            context: { type: 'array', items: { type: 'string' } },
+            context: { type: 'string', description: 'The most relevant occurrence in the text' },
           },
           required: ['term', 'level'],
         },
@@ -239,10 +241,14 @@ export async function runParallel(
 
   // Extract raw lists from each call
   const phrasesData = phrasesResult.result as Record<string, unknown>;
-  const rawLiteral = (phrasesData['literal'] ?? []) as Array<{ term: string; level: string }>;
-  const rawNonLiteral = (phrasesData['non_literal'] ?? []) as Array<{ term: string; level: string }>;
-  const rawPolysemous = ((polysemousResult.result as Record<string, unknown>)['polysemous'] ?? []) as Array<{ term: string; level: string; context?: string[] }>;
-  const rawVocab = ((vocabResult.result as Record<string, unknown>)['vocabulary'] ?? []) as Array<{ term: string; level: string; context?: string[] }>;
+  const rawLiteral = (phrasesData['literal'] ?? []) as Array<{ term: string; level: string; context?: string }>;
+  const rawNonLiteral = (phrasesData['non_literal'] ?? []) as Array<{ term: string; level: string; context?: string }>;
+  const rawPolysemous = ((polysemousResult.result as Record<string, unknown>)['polysemous'] ?? []) as Array<{ term: string; level: string; context?: string }>;
+  const rawVocab = ((vocabResult.result as Record<string, unknown>)['vocabulary'] ?? []) as Array<{ term: string; level: string; context?: string }>;
+
+  // Helper: convert single context string to array for compatibility with ExtractionOutput
+  const toContextArray = (ctx?: string): string[] | undefined =>
+    ctx ? [ctx] : undefined;
 
   // ---- SERVER-SIDE POST-PROCESSING ----
 
@@ -250,11 +256,13 @@ export async function runParallel(
   const literalPhrases: ExtractedTerm[] = rawLiteral.map((p) => ({
     term: p.term,
     level: applyLiteralFloor(p.level as CefrLevel),
+    ...(p.context ? { context: toContextArray(p.context) } : {}),
   }));
 
   const nonLiteralPhrases: ExtractedTerm[] = rawNonLiteral.map((p) => ({
     term: p.term,
     level: bumpLevel(p.level as CefrLevel),
+    ...(p.context ? { context: toContextArray(p.context) } : {}),
   }));
 
   const phrases: ExtractedTerm[] = [...literalPhrases, ...nonLiteralPhrases];
@@ -262,13 +270,13 @@ export async function runParallel(
   const polysemous: ExtractedTerm[] = rawPolysemous.map((p) => ({
     term: p.term,
     level: p.level as CefrLevel,
-    ...(p.context ? { context: p.context } : {}),
+    ...(p.context ? { context: toContextArray(p.context) } : {}),
   }));
 
   const vocab: ExtractedTerm[] = rawVocab.map((v) => ({
     term: v.term,
     level: v.level as CefrLevel,
-    ...(v.context ? { context: v.context } : {}),
+    ...(v.context ? { context: toContextArray(v.context) } : {}),
   }));
 
   // 1. Range filter (deterministic)
