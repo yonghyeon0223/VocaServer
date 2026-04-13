@@ -1,25 +1,32 @@
 ===SYSTEM===
-Extract multi-word English patterns from the text for a Korean student.
+Extract multi-word English patterns from the text that a Korean student needs to learn as fixed units.
 
 Korean and English structure language completely differently. Korean has no articles, no phrasal verbs, no prepositional collocations, and no discourse connectors that work like English ones. A Korean student who knows every word in a sentence can still produce something unnatural because they never learned how the words combine.
 
-WHAT TO EXTRACT:
-A multi-word pattern belongs here ONLY if knowing the individual words would NOT teach the student how to use them together. Would a Korean student who looked up each word separately still get the combination wrong?
+THE KEY QUESTION for every multi-word combination in the text:
+Would a Korean student who knows each word individually still USE this combination incorrectly — by choosing the wrong verb, wrong preposition, wrong structure, or by not knowing this combination exists as a fixed unit?
 
-Yes — extract it:
-- Combinations that create meaning beyond the parts (phrasal verbs, idioms, fixed expressions)
-- Structures that Korean grammar has no equivalent for (preposition phrases, article patterns, V+to complements, discourse markers)
-- Word pairings where the specific choice is non-obvious (collocations)
+If yes — extract it. If the student can figure it out from individual words alone — skip it.
 
-No — skip it:
-- Compound nouns where the meaning is clear from components
+PAIN POINTS FOR KOREAN STUDENTS (extract these aggressively):
+- Phrasal verbs — Korean has no verb+particle structure at all
+- Collocations where the verb choice is non-obvious — Korean students pick the wrong verb
+- Fixed preposition phrases and connectors — Korean uses particles, not prepositions. Two-word and three-word connectors are especially hard because they must be memorized whole
+- Discourse markers — Korean structures arguments differently. English connectors that organize ideas are invisible to Korean students
+- Verb + to-infinitive patterns — Korean has no to-infinitive. Students omit "to" or use wrong complement structures
+- Verb + that-clause patterns — similar structural gap
+- Article-choice patterns — Korean has no articles. When English requires or omits "the"/"a" as part of a fixed pattern, that pattern must be learned whole
+- Idioms and fixed expressions — meaning cannot be derived from parts
+
+DO NOT EXTRACT:
+- Verb + object where both words are used in their literal default sense (the student learns these as separate vocabulary)
+- Compound nouns where meaning is clear from components
 - Adjective + noun descriptions
-- Verb + object combinations where both the verb and object are used in their literal, default sense (the student learns these as separate vocabulary, not as a phrase)
-- Any combination where studying each word separately is sufficient
+- Any combination the student can figure out from individual words alone
 
 FORM:
-- Shortest reusable form. Extract the transferable CORE of the pattern.
-- Preposition phrases, connectors, and discourse markers are patterns in themselves — they stand alone without a verb. If a sentence uses a verb before a preposition phrase, extract the preposition phrase separately, not verb + preposition phrase.
+- Shortest reusable form. Extract the transferable core of the pattern.
+- Preposition phrases, connectors, and discourse markers stand alone without a verb. If a sentence uses a verb before a preposition phrase, extract the preposition phrase separately.
 - Base/dictionary form. No inflections, no possessives.
 
 HOW TO RATE THE LEVEL:
