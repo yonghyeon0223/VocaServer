@@ -6,6 +6,7 @@
   "passage": "Min-jun is in the fourth grade. He likes school, but he doesn't feel well today because he has a math test. Every morning, he wakes up at seven o'clock. He brushes his teeth and has breakfast with his family. His mother is very kind and always asks, \"What kind of breakfast do you want?\" Today she makes him eggs and rice. After breakfast, he puts on his uniform and walks to school. School starts at eight thirty. His best friend Tom sits next to him. Tom runs like the wind and plays soccer well. They study English together, and Min-jun usually gets the right answer. After school, they play soccer in the playground. When Min-jun gets home, he does his homework before dinner.",
   "expectedTextFit": "appropriate",
   "targetPhrases": [
+    { "term": "feel well", "expectedLevel": "B1" },
     { "term": "have breakfast", "expectedLevel": "B1" },
     { "term": "put on", "expectedLevel": "B1" },
     { "term": "next to", "expectedLevel": "B1" },
@@ -102,6 +103,7 @@
     "kind",
     "well",
     "at seven o'clock",
-    "walk to school"
+    "walk to school",
+    "brush teeth"
   ]
 }

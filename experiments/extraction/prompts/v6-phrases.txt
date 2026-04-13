@@ -14,11 +14,12 @@ Yes — extract it:
 No — skip it:
 - Compound nouns where the meaning is clear from components
 - Adjective + noun descriptions
+- Verb + object combinations where both the verb and object are used in their literal, default sense (the student learns these as separate vocabulary, not as a phrase)
 - Any combination where studying each word separately is sufficient
 
 FORM:
-- Shortest reusable form. Core pattern only, not the full sentence fragment.
-- Preposition phrases and connectors stand alone — do not attach a verb.
+- Shortest reusable form. Extract the transferable CORE of the pattern.
+- Preposition phrases, connectors, and discourse markers are patterns in themselves — they stand alone without a verb. If a sentence uses a verb before a preposition phrase, extract the preposition phrase separately, not verb + preposition phrase.
 - Base/dictionary form. No inflections, no possessives.
 
 HOW TO RATE THE LEVEL:
