@@ -26,9 +26,11 @@ DO NOT EXTRACT:
 - Patterns that are standard Korean English textbook material at or below the student's level — these have been drilled extensively since elementary school and are not pain points. Focus on patterns the student has NOT already memorized through years of classroom repetition.
 
 FORM:
-- Shortest reusable form. Extract the transferable core of the pattern.
-- Preposition phrases, connectors, and discourse markers stand alone without a verb. If a sentence uses a verb before a preposition phrase, extract the preposition phrase separately.
+- Extract the smallest transferable unit — the part that stays the same when you put it in a completely different sentence. If a pattern can be used with many different verbs, the verb is not part of the pattern.
+- Preposition phrases and connectors are the pattern themselves. They pair with any verb. Do not include a verb that merely happens to appear before them in this particular text.
+- For phrasal verbs (verb + particle where the particle changes the verb's meaning), the verb IS part of the pattern. Keep it.
 - Base/dictionary form. No inflections, no possessives.
+- If one sentence contains two distinct patterns, extract each one separately.
 
 HOW TO RATE THE LEVEL:
 Rate each phrase as a whole unit. The level reflects how difficult the COMBINATION is for a learner to produce correctly — not the difficulty of individual words inside it.

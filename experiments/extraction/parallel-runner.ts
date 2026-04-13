@@ -27,52 +27,6 @@ function bumpLevel(level: CefrLevel): CefrLevel {
   return CEFR_ORDER[idx + 1]!;
 }
 
-// ---- Phrase Normalization ----
-
-// Preposition phrases and connectors that should stand alone (not have a verb attached).
-// If the AI returns "sit next to", we strip "sit" and keep "next to".
-const STANDALONE_PATTERNS = new Set([
-  'next to', 'instead of', 'because of', 'in front of', 'on top of',
-  'in spite of', 'apart from', 'according to', 'due to', 'prior to',
-  'as well as', 'in addition to', 'in order to', 'in terms of',
-  'on behalf of', 'by means of', 'in case of', 'regardless of',
-  'as opposed to', 'with regard to', 'in contrast to',
-]);
-
-// Phrasal verbs whose trailing preposition is NOT part of the core pattern.
-// "end up in" → "end up" (the "in" is context-specific, not part of the phrasal verb).
-const PHRASAL_VERB_CORES = new Set([
-  'end up', 'give up', 'make up', 'take up', 'come up', 'show up',
-  'set up', 'pick up', 'put up', 'bring up', 'grow up', 'turn up',
-  'look up', 'keep up', 'catch up', 'break down', 'turn down',
-  'cut down', 'break up', 'blow up', 'clean up', 'fix up',
-  'carry on', 'go on', 'hold on', 'move on', 'pass on',
-  'figure out', 'find out', 'point out', 'turn out', 'work out',
-  'carry out', 'check out', 'run out', 'stand out', 'sort out',
-]);
-
-function normalizePhrase(term: string): string {
-  const words = term.trim().toLowerCase().split(/\s+/);
-
-  // Check if removing the first word yields a standalone pattern
-  if (words.length >= 3) {
-    const withoutFirstWord = words.slice(1).join(' ');
-    if (STANDALONE_PATTERNS.has(withoutFirstWord)) {
-      return withoutFirstWord;
-    }
-  }
-
-  // Check if the phrase is a phrasal verb core + trailing preposition
-  if (words.length >= 3) {
-    const firstTwo = words.slice(0, 2).join(' ');
-    if (PHRASAL_VERB_CORES.has(firstTwo)) {
-      return firstTwo;
-    }
-  }
-
-  return term.trim();
-}
-
 // ---- textFit (server-side computation) ----
 
 function computeTextFit(allLevels: CefrLevel[], studentLevel: CefrLevel): TextFit {
@@ -282,16 +236,8 @@ export async function runParallel(
 
   // ---- SERVER-SIDE POST-PROCESSING ----
 
-  // 0. Normalize phrase forms: strip leading verbs from preposition/connector phrases.
-  //    The AI often returns "sit next to" instead of "next to", or "end up in" instead of "end up".
-  //    This step extracts the core pattern when the AI over-attaches.
-  const normalizedPhrases = rawPhrases.map((p) => ({
-    ...p,
-    term: normalizePhrase(p.term),
-  }));
-
   // 1. Process phrases: all phrases get +1 bump
-  const phrases: ExtractedTerm[] = normalizedPhrases.map((p) => ({
+  const phrases: ExtractedTerm[] = rawPhrases.map((p) => ({
     term: p.term,
     level: bumpLevel(p.level as CefrLevel),
     ...(p.context ? { context: toContextArray(p.context) } : {}),
