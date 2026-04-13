@@ -1,37 +1,32 @@
 ===SYSTEM===
-Extract multi-word English patterns from the text for a Korean student at the given CEFR level. CEFR levels from lowest to highest: A1 (beginner), A2 (elementary), B1 (intermediate), B2 (upper-intermediate), C1 (advanced), C2 (mastery).
+Extract multi-word English patterns from the text for a Korean student.
 
-WHY PHRASES MATTER FOR KOREAN STUDENTS:
-Korean and English structure language completely differently. Korean has no articles, no phrasal verbs, no prepositional collocations, and no discourse connectors that work like English ones. A Korean student who knows every word in a sentence can still fail to understand it — or produce something unnatural — because they never learned how the words combine. Your job is to find these combination patterns.
+Korean and English structure language completely differently. Korean has no articles, no phrasal verbs, no prepositional collocations, and no discourse connectors that work like English ones. A Korean student who knows every word in a sentence can still produce something unnatural because they never learned how the words combine.
 
-WHAT MAKES SOMETHING A PHRASE (not just adjacent words):
-A multi-word pattern belongs in this list ONLY if knowing the individual words would NOT teach the student how to use them together. The test: would a Korean student who looked up each word separately still get the combination wrong?
+WHAT TO EXTRACT:
+A multi-word pattern belongs here ONLY if knowing the individual words would NOT teach the student how to use them together. Would a Korean student who looked up each word separately still get the combination wrong?
 
-DO NOT EXTRACT:
-- Compound nouns where the meaning is clear from components. These are better learned as individual vocabulary words.
-- Adjective + noun combinations that are just description.
-- Any combination where studying each word separately gives you the full picture.
+Yes — extract it:
+- Combinations that create meaning beyond the parts (phrasal verbs, idioms, fixed expressions)
+- Structures that Korean grammar has no equivalent for (preposition phrases, article patterns, V+to complements, discourse markers)
+- Word pairings where the specific choice is non-obvious (collocations)
 
-DO EXTRACT:
-- Patterns where the combination creates meaning beyond the parts (phrasal verbs, idioms, fixed expressions)
-- Patterns where Korean grammar has no equivalent structure (preposition phrases, article patterns, V+to complements, discourse markers)
-- Patterns where the specific word choice is non-obvious (collocations: why "make" a decision and not "do" a decision?)
+No — skip it:
+- Compound nouns where the meaning is clear from components
+- Adjective + noun descriptions
+- Any combination where studying each word separately is sufficient
 
 FORM:
-- Shortest reusable form only. Extract the core pattern, not the full sentence fragment.
-- If a pattern is a preposition phrase or connector, extract it on its own — do not attach a verb.
+- Shortest reusable form. Core pattern only, not the full sentence fragment.
+- Preposition phrases and connectors stand alone — do not attach a verb.
 - Base/dictionary form. No inflections, no possessives.
 
-HOW TO RATE THE LEVEL OF A PHRASE:
-Rate each phrase as a whole unit — not by the difficulty of individual words inside it. A phrase made entirely of A1 words can be a B1 phrase if the combination is non-obvious.
+HOW TO RATE THE LEVEL:
+Rate each phrase as a whole unit. The level reflects how difficult the COMBINATION is for a learner to produce correctly — not the difficulty of individual words inside it.
 
-The level of a phrase reflects how difficult it is for a language learner to PRODUCE correctly — not how difficult it is to understand. Ask: at what CEFR stage would a learner first be expected to use this pattern naturally?
+Ask: at what CEFR stage would a learner first be expected to use this pattern naturally? Common everyday patterns rate lower. Academic or formal patterns rate higher.
 
-Process:
-1. Consider what CEFR level a learner typically encounters and starts using this specific combination. Common everyday patterns used from early stages rate lower. Academic or formal patterns rate higher.
-2. Use Oxford 3000/5000 as a reference point where individual word levels are known, but remember the phrase level is about the COMBINATION, not the words.
-3. When borderline between two levels, pick the higher one. Korean students find phrases harder than they appear.
-4. Minimum level: A1. No phrase should be rated below A1. (The server will handle floor adjustments.)
+When borderline between two levels, pick the higher one. Minimum level: A1.
 
 ===USER===
 The student is at CEFR {{LEVEL}} level.
