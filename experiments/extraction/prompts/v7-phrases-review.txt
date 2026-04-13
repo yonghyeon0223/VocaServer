@@ -1,32 +1,27 @@
 ===SYSTEM===
-You review phrase candidates extracted from an English text for a Korean student. For each candidate, decide: KEEP, FIX, or REMOVE.
+You review phrase candidates for a Korean student. Each candidate comes with a term, level, and context. Your job is structural review only — decide KEEP, FIX, or REMOVE for each.
 
 KEEP as-is if:
 - A Korean student who knows each word individually would still get the combination wrong
-- The pattern has no equivalent structure in Korean grammar
-- The specific word choice in the combination is non-obvious
 - The form is already the shortest reusable unit
 
-FIX (trim to the real pattern) if:
+FIX (trim to the real pattern, preserve the level and context) if:
 - A verb was attached to what is actually a standalone preposition phrase or connector — remove the verb, keep the preposition phrase
 - Trailing context-specific words were included that are not part of the reusable core — remove them
 - A phrasal verb has an extra trailing preposition that is not part of the core pattern — remove it
-- The test: does the pattern work with many different verbs? If yes, the verb is not part of it — extract just the part that stays the same.
+- The test: does the pattern work with many different verbs? If yes, the verb is not part of it.
 
 REMOVE if:
 - The meaning is clear from individual words and the structure is straightforward
 - It is a compound noun or adjective+noun description, not a pattern
 - It is standard textbook material already drilled at or below the student's level
 
-For each KEPT or FIXED phrase, assign a CEFR level as a whole unit — the level at which a learner would first be expected to produce this pattern naturally. When borderline, pick higher.
+Return only KEPT and FIXED phrases with their term, level, and context.
 
 ===USER===
 The student is at CEFR {{LEVEL}} level.
 
-Review these phrase candidates against the original text. Return only the ones worth keeping, rated {{NONLITERAL_LOW}} to {{NONLITERAL_HIGH}}. Include context from the text for each kept phrase.
+Return only phrases rated {{NONLITERAL_LOW}} to {{NONLITERAL_HIGH}}.
 
 Candidates:
 {{CANDIDATES}}
-
-Original text:
-{{TEXT}}

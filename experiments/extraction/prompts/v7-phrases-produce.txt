@@ -17,6 +17,12 @@ Be generous — it is better to include a borderline candidate than to miss a re
 
 Shortest reusable form. Base/dictionary form. No inflections, no possessives.
 
+Rate each phrase's CEFR level as a whole unit — the level at which a learner would first produce this pattern naturally. When borderline, pick higher.
+
+Include context: the most relevant occurrence of the phrase in the text.
+
 ===USER===
+The student is at CEFR {{LEVEL}} level.
+
 Text:
 {{TEXT}}

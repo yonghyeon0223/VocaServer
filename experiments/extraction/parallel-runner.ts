@@ -47,17 +47,24 @@ function computeTextFit(allLevels: CefrLevel[], studentLevel: CefrLevel): TextFi
 
 // ---- Tool Schemas (one per call, much simpler) ----
 
-// Producer: just finds candidates, no level assignment needed
+// Producer: finds candidates with levels and context
 const PHRASES_PRODUCE_TOOL: Anthropic.Tool = {
   name: 'list_phrases',
-  description: 'List all multi-word pattern candidates from the text',
+  description: 'List all multi-word pattern candidates from the text with levels and context',
   input_schema: {
     type: 'object' as const,
     properties: {
       phrases: {
         type: 'array',
-        items: { type: 'string' },
-        description: 'List of phrase candidates in base/dictionary form',
+        items: {
+          type: 'object',
+          properties: {
+            term: { type: 'string' },
+            level: { type: 'string', enum: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] },
+            context: { type: 'string', description: 'The most relevant occurrence in the text' },
+          },
+          required: ['term', 'level'],
+        },
       },
     },
     required: ['phrases'],
@@ -250,8 +257,10 @@ export async function runParallel(
   ]);
 
   // Step 2: Get candidates from producer, send to reviewer
-  const candidates = ((produceResult.result as Record<string, unknown>)['phrases'] ?? []) as string[];
-  const candidatesList = candidates.join('\n');
+  const producedPhrases = ((produceResult.result as Record<string, unknown>)['phrases'] ?? []) as Array<{ term: string; level: string; context?: string }>;
+  const candidatesList = producedPhrases.map((p) =>
+    `- ${p.term} [${p.level}]${p.context ? ` — "${p.context}"` : ''}`
+  ).join('\n');
 
   const reviewVariables = { ...variables, CANDIDATES: candidatesList };
   const reviewSystem = substituteVariables(reviewPrompt.system, reviewVariables);
