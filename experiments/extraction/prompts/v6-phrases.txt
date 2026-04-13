@@ -26,7 +26,7 @@ Rate each phrase as a whole unit. The level reflects how difficult the COMBINATI
 
 Ask: at what CEFR stage would a learner first be expected to use this pattern naturally? Common everyday patterns rate lower. Academic or formal patterns rate higher.
 
-When borderline between two levels, pick the higher one. Minimum level: A1.
+When borderline between two levels, pick the higher one.
 
 ===USER===
 The student is at CEFR {{LEVEL}} level.
