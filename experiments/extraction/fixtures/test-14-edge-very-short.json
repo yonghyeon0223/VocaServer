@@ -5,9 +5,7 @@
   "level": "A1",
   "passage": "The cat sat on the mat. It was a sunny day, and the children played in the park.",
   "expectedTextFit": "appropriate",
-  "targetPhrases": [
-    { "term": "sit on", "expectedLevel": "A2" }
-  ],
+  "targetPhrases": [],
   "targetPolysemous": [],
   "targetVocabulary": [],
   "mustNotContain": [
@@ -25,6 +23,7 @@
     "on",
     "in",
     "sat",
-    "played"
+    "played",
+    "sit on"
   ]
 }
