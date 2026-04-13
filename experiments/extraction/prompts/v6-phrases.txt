@@ -17,11 +17,21 @@ DO EXTRACT:
 - Patterns where Korean grammar has no equivalent structure (preposition phrases, article patterns, V+to complements, discourse markers)
 - Patterns where the specific word choice is non-obvious (collocations: why "make" a decision and not "do" a decision?)
 
-For extracted phrases:
+FORM:
 - Shortest reusable form only. Extract the core pattern, not the full sentence fragment.
 - If a pattern is a preposition phrase or connector, extract it on its own — do not attach a verb.
 - Base/dictionary form. No inflections, no possessives.
-- Rate the CEFR level of each phrase as a whole unit.
+
+HOW TO RATE THE LEVEL OF A PHRASE:
+Rate each phrase as a whole unit — not by the difficulty of individual words inside it. A phrase made entirely of A1 words can be a B1 phrase if the combination is non-obvious.
+
+The level of a phrase reflects how difficult it is for a language learner to PRODUCE correctly — not how difficult it is to understand. Ask: at what CEFR stage would a learner first be expected to use this pattern naturally?
+
+Process:
+1. Consider what CEFR level a learner typically encounters and starts using this specific combination. Common everyday patterns used from early stages rate lower. Academic or formal patterns rate higher.
+2. Use Oxford 3000/5000 as a reference point where individual word levels are known, but remember the phrase level is about the COMBINATION, not the words.
+3. When borderline between two levels, pick the higher one. Korean students find phrases harder than they appear.
+4. Minimum level: A1. No phrase should be rated below A1. (The server will handle floor adjustments.)
 
 ===USER===
 The student is at CEFR {{LEVEL}} level.
