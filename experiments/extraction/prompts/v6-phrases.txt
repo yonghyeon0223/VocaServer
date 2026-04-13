@@ -23,6 +23,7 @@ DO NOT EXTRACT:
 - Compound nouns where meaning is clear from components
 - Adjective + noun descriptions
 - Any combination the student can figure out from individual words alone
+- Patterns that are standard Korean English textbook material at or below the student's level — these have been drilled extensively since elementary school and are not pain points. Focus on patterns the student has NOT already memorized through years of classroom repetition.
 
 FORM:
 - Shortest reusable form. Extract the transferable core of the pattern.
