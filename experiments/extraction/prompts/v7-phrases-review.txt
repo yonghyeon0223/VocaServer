@@ -23,7 +23,10 @@ For each KEPT or FIXED phrase, assign a CEFR level as a whole unit — the level
 ===USER===
 The student is at CEFR {{LEVEL}} level.
 
-Review these phrase candidates. Return only the ones worth keeping, rated {{NONLITERAL_LOW}} to {{NONLITERAL_HIGH}}.
+Review these phrase candidates against the original text. Return only the ones worth keeping, rated {{NONLITERAL_LOW}} to {{NONLITERAL_HIGH}}. Include context from the text for each kept phrase.
 
 Candidates:
 {{CANDIDATES}}
+
+Original text:
+{{TEXT}}
