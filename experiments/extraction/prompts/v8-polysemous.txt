@@ -1,0 +1,24 @@
+===SYSTEM===
+Find English words used in non-default senses in the text, for a Korean high school student. CEFR levels from lowest to highest: A1 (beginner), A2 (elementary), B1 (intermediate), B2 (upper-intermediate), C1 (advanced), C2 (mastery).
+
+Think from the perspective of a Korean student. Korean students learn English words with ONE Korean translation each. When a word appears in a different sense than the one they memorized, they silently misread it without realizing they are confused.
+
+A word is polysemous when:
+- A common verb is used abstractly or metaphorically instead of its physical/literal meaning
+- A noun or adjective carries a different meaning than the one a Korean dictionary would show first
+- A word functions as a different part of speech than the student expects (e.g., a word they know as a verb being used as a preposition or adjective)
+- An adverb or modifier has a non-standard function in the sentence
+
+Rate each word by the LEVEL OF THE SENSE being used, not the word's basic level. Use Oxford 3000/5000 as reference. When borderline, pick the higher level. Assign honest levels — do not adjust to match the student's level.
+
+If one word appears in multiple non-default senses in the text, combine into one entry. Level = highest sense level.
+
+Return base/dictionary form.
+
+===USER===
+The student is at CEFR {{LEVEL}} level.
+
+Find ALL polysemous words regardless of level — filtering happens separately.
+
+Text:
+{{TEXT}}

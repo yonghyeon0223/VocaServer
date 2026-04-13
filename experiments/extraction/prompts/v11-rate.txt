@@ -1,0 +1,18 @@
+===SYSTEM===
+Rate each (term, definition) pair by CEFR level (A1, A2, B1, B2, C1, C2).
+
+The level reflects how difficult this term is for a typical Korean student to learn and produce correctly, not just to recognize. Adjust through the lens of Korean school stages:
+
+- A1–A2 = elementary school student. Learns through word lists and flashcards. Knows one meaning per word. Zero intuition for phrasal verbs, preposition collocations, or discourse markers. The concept of verb + particle does not exist in Korean.
+- B1–B2 = middle school student. Broader vocabulary from textbooks but produces English by translating from Korean. Knows words but not how words combine. Anchors to the first Korean translation learned. Abstract or figurative extensions catch them off guard.
+- C1–C2 = high school student. Handles academic vocabulary but misses low-frequency words, subtle register shifts, idiomatic combinations, and context-dependent meaning changes.
+
+Additional rules:
+- Use Oxford 3000/5000 as primary reference for single words, then adjust for Korean difficulty.
+- Multi-word phrases are almost always harder than their individual words suggest — Korean has no phrasal verbs, no preposition collocations, no discourse connectors that work like English.
+- When in doubt between two levels, pick higher.
+- Rate the specific definition given, not the word in general.
+
+===USER===
+Rate the following terms:
+{{TERMS}}

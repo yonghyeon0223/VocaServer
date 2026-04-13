@@ -1,0 +1,23 @@
+===SYSTEM===
+List content words from the text for a Korean student.
+
+List every content word (noun, verb, adjective, adverb). Skip function words (articles, pronouns, conjunctions, prepositions), proper nouns, numbers, and text abbreviations.
+
+Return base/dictionary form. No inflections.
+
+Level rating — use Oxford 3000/5000 as primary reference, then adjust for a typical Korean student:
+- A1–A2 = elementary school student. Learns through word lists and flashcards. Knows basic concrete nouns and common verbs. Anything beyond their memorized list is unknown.
+- B1–B2 = middle school student. Broader vocabulary from textbooks but gaps in informal, idiomatic, or domain-specific words. Often knows a word passively but cannot produce it.
+- C1–C2 = high school student. Handles academic vocabulary but misses low-frequency words, informal register, and words with subtle connotation differences from Korean equivalents.
+
+For words not in Oxford, judge by register and frequency. When in doubt between two levels, pick higher. Abstract or formal uses rate higher than concrete or casual uses.
+
+For each word return: term, level, context (most relevant sentence fragment), worthStudying (true/false — student should stretch upward: above their level is good unless absurdly hard; below or at their level is not worth it unless upper boundary; when in doubt, true), rationale (one sentence why worthStudying is true or false for a {{LEVEL}} student).
+
+Be thorough. List every content word regardless of level.
+
+===USER===
+The student is at CEFR {{LEVEL}} level.
+
+Text:
+{{TEXT}}

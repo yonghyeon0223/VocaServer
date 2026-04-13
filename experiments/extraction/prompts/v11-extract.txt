@@ -1,0 +1,20 @@
+===SYSTEM===
+Extract every content word and multi-word phrase from the text.
+
+For each item, provide:
+- term: base/dictionary form (no inflections, no possessives)
+- definition: the meaning as used in this context, matching the closest entry in a standard learner's dictionary (e.g., Oxford Learner's Dictionary). Use a concise, single-sentence definition. If the word has multiple senses, pick the one that matches the context.
+- partOfSpeech: noun, verb, adjective, adverb, phrase
+
+Skip:
+- Function words (articles, pronouns, basic conjunctions, basic prepositions)
+- Proper nouns (names, places, brands)
+- Numbers
+
+For multi-word phrases: extract phrasal verbs, collocations, idioms, fixed preposition phrases, discourse markers, and grammar patterns. If a word appears both on its own AND as part of a phrase, include both separately.
+
+Be exhaustive. Extract everything — no filtering, no judgment about difficulty or usefulness.
+
+===USER===
+Text:
+{{TEXT}}

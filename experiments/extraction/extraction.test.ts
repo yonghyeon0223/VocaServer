@@ -92,6 +92,7 @@ describe('extraction prompt experiments (parallel)', () => {
           targetPolysemous: fixture.targetPolysemous,
           targetVocabulary: fixture.targetVocabulary,
           mustNotContain: fixture.mustNotContain,
+          perCallRaw: parallelResult.perCallRaw,
         });
 
         const s = scores;

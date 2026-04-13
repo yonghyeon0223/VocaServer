@@ -25,6 +25,13 @@ export interface ResultEntry {
   targetPolysemous: Array<{term: string; expectedLevel: string}>;
   targetVocabulary: Array<{term: string; expectedLevel: string}>;
   mustNotContain: string[];
+  // Raw AI output per parallel call
+  perCallRaw?: {
+    phrases: unknown;
+    words?: unknown;       // v9+: combined polysemous + vocabulary
+    polysemous?: unknown;  // v5–v8: separate
+    vocabulary?: unknown;  // v5–v8: separate
+  };
 }
 
 export interface ReportData {
@@ -351,7 +358,12 @@ export function generateReport(
       ${listsHtml}
       ${precisionHtml}
       ${unmatchedHtml}
-      ${r.extractedOutput ? dropdown('json-' + r.fixtureId, '📋 Raw JSON Output', `<pre class="json-output">${esc(JSON.stringify(r.extractedOutput, null, 2))}</pre>`) : ''}
+      ${r.perCallRaw ? `
+        ${dropdown('json-phrases-' + r.fixtureId, '📋 Raw Phrases Output', `<pre class="json-output">${esc(JSON.stringify(r.perCallRaw.phrases, null, 2))}</pre>`)}
+        ${r.perCallRaw.words ? dropdown('json-words-' + r.fixtureId, '📋 Raw Words Output', `<pre class="json-output">${esc(JSON.stringify(r.perCallRaw.words, null, 2))}</pre>`) : ''}
+        ${r.perCallRaw.polysemous ? dropdown('json-polysemous-' + r.fixtureId, '📋 Raw Polysemous Output', `<pre class="json-output">${esc(JSON.stringify(r.perCallRaw.polysemous, null, 2))}</pre>`) : ''}
+        ${r.perCallRaw.vocabulary ? dropdown('json-vocabulary-' + r.fixtureId, '📋 Raw Vocabulary Output', `<pre class="json-output">${esc(JSON.stringify(r.perCallRaw.vocabulary, null, 2))}</pre>`) : ''}
+      ` : r.extractedOutput ? dropdown('json-' + r.fixtureId, '📋 Raw JSON Output', `<pre class="json-output">${esc(JSON.stringify(r.extractedOutput, null, 2))}</pre>`) : ''}
     </div>`;
   }).join('');
 
