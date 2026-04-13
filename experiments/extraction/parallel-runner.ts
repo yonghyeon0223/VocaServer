@@ -47,15 +47,32 @@ function computeTextFit(allLevels: CefrLevel[], studentLevel: CefrLevel): TextFi
 
 // ---- Tool Schemas (one per call, much simpler) ----
 
-const PHRASES_TOOL: Anthropic.Tool = {
-  name: 'extract_phrases',
-  description: 'Extract multi-word patterns from the text',
+// Producer: just finds candidates, no level assignment needed
+const PHRASES_PRODUCE_TOOL: Anthropic.Tool = {
+  name: 'list_phrases',
+  description: 'List all multi-word pattern candidates from the text',
   input_schema: {
     type: 'object' as const,
     properties: {
       phrases: {
         type: 'array',
-        description: 'Multi-word patterns where knowing individual words is not enough',
+        items: { type: 'string' },
+        description: 'List of phrase candidates in base/dictionary form',
+      },
+    },
+    required: ['phrases'],
+  },
+};
+
+// Reviewer: filters and rates the candidates
+const PHRASES_REVIEW_TOOL: Anthropic.Tool = {
+  name: 'review_phrases',
+  description: 'Review phrase candidates and return only the ones worth keeping with levels',
+  input_schema: {
+    type: 'object' as const,
+    properties: {
+      phrases: {
+        type: 'array',
         items: {
           type: 'object',
           properties: {
@@ -121,10 +138,16 @@ const VOCABULARY_TOOL: Anthropic.Tool = {
 
 const PROMPTS_DIR = 'experiments/extraction/prompts';
 
-export function getPromptPaths(version?: string): { phrases: string; polysemous: string; vocabulary: string } {
-  const v = version ?? 'v5';
+export function getPromptPaths(version?: string): {
+  phrasesProduce: string;
+  phrasesReview: string;
+  polysemous: string;
+  vocabulary: string;
+} {
+  const v = version ?? 'v7';
   return {
-    phrases: `${PROMPTS_DIR}/${v}-phrases.txt`,
+    phrasesProduce: `${PROMPTS_DIR}/${v}-phrases-produce.txt`,
+    phrasesReview: `${PROMPTS_DIR}/${v}-phrases-review.txt`,
     polysemous: `${PROMPTS_DIR}/${v}-polysemous.txt`,
     vocabulary: `${PROMPTS_DIR}/${v}-vocabulary.txt`,
   };
@@ -207,26 +230,37 @@ export async function runParallel(
 
   // Load and prepare prompts from files
   const paths = getPromptPaths(promptVersion);
-  const phrasesPrompt = loadPrompt(paths.phrases);
+  const producePrompt = loadPrompt(paths.phrasesProduce);
+  const reviewPrompt = loadPrompt(paths.phrasesReview);
   const polysemousPrompt = loadPrompt(paths.polysemous);
   const vocabularyPrompt = loadPrompt(paths.vocabulary);
 
-  const phrasesSystem = substituteVariables(phrasesPrompt.system, variables);
-  const phrasesUser = phrasesPrompt.user ? substituteVariables(phrasesPrompt.user, variables) : passage;
+  const produceSystem = substituteVariables(producePrompt.system, variables);
+  const produceUser = producePrompt.user ? substituteVariables(producePrompt.user, variables) : passage;
   const polysemousSystem = substituteVariables(polysemousPrompt.system, variables);
   const polysemousUser = polysemousPrompt.user ? substituteVariables(polysemousPrompt.user, variables) : passage;
   const vocabularySystem = substituteVariables(vocabularyPrompt.system, variables);
   const vocabularyUser = vocabularyPrompt.user ? substituteVariables(vocabularyPrompt.user, variables) : passage;
 
-  // Launch all three calls in parallel
-  const [phrasesResult, polysemousResult, vocabResult] = await Promise.all([
-    callWithTool(client, phrasesSystem, phrasesUser, PHRASES_TOOL, config),
+  // Step 1: Launch producer + polysemous + vocabulary in parallel
+  const [produceResult, polysemousResult, vocabResult] = await Promise.all([
+    callWithTool(client, produceSystem, produceUser, PHRASES_PRODUCE_TOOL, config),
     callWithTool(client, polysemousSystem, polysemousUser, POLYSEMOUS_TOOL, config),
     callWithTool(client, vocabularySystem, vocabularyUser, VOCABULARY_TOOL, config),
   ]);
 
-  // Extract raw lists from each call
-  const rawPhrases = ((phrasesResult.result as Record<string, unknown>)['phrases'] ?? []) as Array<{ term: string; level: string; context?: string }>;
+  // Step 2: Get candidates from producer, send to reviewer
+  const candidates = ((produceResult.result as Record<string, unknown>)['phrases'] ?? []) as string[];
+  const candidatesList = candidates.join('\n');
+
+  const reviewVariables = { ...variables, CANDIDATES: candidatesList };
+  const reviewSystem = substituteVariables(reviewPrompt.system, reviewVariables);
+  const reviewUser = reviewPrompt.user ? substituteVariables(reviewPrompt.user, reviewVariables) : candidatesList;
+
+  const reviewResult = await callWithTool(client, reviewSystem, reviewUser, PHRASES_REVIEW_TOOL, config);
+
+  // Extract raw lists
+  const rawPhrases = ((reviewResult.result as Record<string, unknown>)['phrases'] ?? []) as Array<{ term: string; level: string; context?: string }>;
   const rawPolysemous = ((polysemousResult.result as Record<string, unknown>)['polysemous'] ?? []) as Array<{ term: string; level: string; context?: string }>;
   const rawVocab = ((vocabResult.result as Record<string, unknown>)['vocabulary'] ?? []) as Array<{ term: string; level: string; context?: string }>;
 
@@ -313,17 +347,23 @@ export async function runParallel(
 
   const rawResponse = JSON.stringify(output);
 
-  // Token/latency aggregation
-  const totalInput = phrasesResult.inputTokens + polysemousResult.inputTokens + vocabResult.inputTokens;
-  const totalOutput = phrasesResult.outputTokens + polysemousResult.outputTokens + vocabResult.outputTokens;
-  const wallClockLatency = Math.max(phrasesResult.latencyMs, polysemousResult.latencyMs, vocabResult.latencyMs);
+  // Token/latency aggregation (4 calls: produce + review + polysemous + vocabulary)
+  const totalInput = produceResult.inputTokens + reviewResult.inputTokens + polysemousResult.inputTokens + vocabResult.inputTokens;
+  const totalOutput = produceResult.outputTokens + reviewResult.outputTokens + polysemousResult.outputTokens + vocabResult.outputTokens;
+  // Parallel phase: max of produce/polysemous/vocabulary. Then sequential: + review latency.
+  const parallelLatency = Math.max(produceResult.latencyMs, polysemousResult.latencyMs, vocabResult.latencyMs);
+  const wallClockLatency = parallelLatency + reviewResult.latencyMs;
 
   return {
     rawResponse,
     tokenUsage: { inputTokens: totalInput, outputTokens: totalOutput },
     latencyMs: wallClockLatency,
     perCallStats: {
-      phrases: { inputTokens: phrasesResult.inputTokens, outputTokens: phrasesResult.outputTokens, latencyMs: phrasesResult.latencyMs },
+      phrases: {
+        inputTokens: produceResult.inputTokens + reviewResult.inputTokens,
+        outputTokens: produceResult.outputTokens + reviewResult.outputTokens,
+        latencyMs: produceResult.latencyMs + reviewResult.latencyMs,
+      },
       polysemous: { inputTokens: polysemousResult.inputTokens, outputTokens: polysemousResult.outputTokens, latencyMs: polysemousResult.latencyMs },
       vocabulary: { inputTokens: vocabResult.inputTokens, outputTokens: vocabResult.outputTokens, latencyMs: vocabResult.latencyMs },
     },

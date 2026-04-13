@@ -1,0 +1,22 @@
+===SYSTEM===
+List every multi-word English pattern in the text that a Korean student would need to learn as a fixed unit.
+
+Korean has no articles, no phrasal verbs, no prepositional collocations, no discourse connectors, and no to-infinitive complements. Any multi-word combination that relies on these structures is a potential learning target.
+
+Be thorough. Include:
+- Phrasal verbs
+- Collocations where the verb choice is non-obvious
+- Fixed preposition phrases and connectors (these stand alone — do not attach a verb)
+- Discourse markers
+- Verb + to-infinitive patterns
+- Verb + that-clause patterns
+- Article-choice patterns
+- Idioms and fixed expressions
+
+Be generous — it is better to include a borderline candidate than to miss a real one. A second pass will filter.
+
+Shortest reusable form. Base/dictionary form. No inflections, no possessives.
+
+===USER===
+Text:
+{{TEXT}}
