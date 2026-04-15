@@ -1,0 +1,458 @@
+{
+  "fixtureId": "test-04",
+  "fixtureDescription": "Middle school passage — plastic pollution and student activism",
+  "category": "normal",
+  "passage": "These days, many young people are becoming more aware of environmental problems. Plastic pollution, in particular, has become a serious issue that we cannot ignore. Every year, millions of tons of plastic waste end up in the ocean, where they harm marine life and damage ecosystems.\n\nSarah, a fifteen-year-old student from Busan, decided to take action after watching a documentary about sea turtles. \"I was shocked when I saw a turtle struggling because of a plastic straw,\" she said. \"I wanted to make a difference, even if it was small.\" She started a club at her school that encourages students to bring reusable water bottles instead of disposable ones. The school now runs the program in every classroom.\n\nThe club has grown rapidly. As a result, the school has reduced its plastic waste by nearly forty percent in just six months. Sarah's teacher, Ms. Kim, points out that small changes can lead to big results. \"When students learn to face environmental challenges and address them directly, they carry that mindset into adulthood,\" she explained.\n\nOf course, individual efforts alone cannot solve the problem. Governments and companies must also play a role. However, students like Sarah show us that change often begins with one person who refuses to look away.",
+  "items": [
+    {
+      "type": "phrase",
+      "term": "aware of",
+      "definition": "knowing about something; used with 'of' to introduce the thing known",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "in particular",
+      "definition": "especially; used to single out one thing from others",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "end up in",
+      "definition": "to finally arrive at or reach a place or situation, often unintentionally",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "take action",
+      "definition": "to do something in order to deal with a problem",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "make a difference",
+      "definition": "to have a positive effect or change a situation",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "lead to",
+      "definition": "to cause something to happen as a result",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "as a result",
+      "definition": "used to introduce a consequence of what was just mentioned",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "points out",
+      "definition": "draws attention to a fact or piece of information",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "face challenges",
+      "definition": "to confront and deal with difficult situations",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "play a role",
+      "definition": "to have a part or function in a situation or process",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "look away",
+      "definition": "to turn your eyes away from something; here, to ignore a problem",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "water bottles",
+      "definition": "containers used for carrying drinking water; here, reusable ones as opposed to disposable",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "phrase",
+      "term": "instead of",
+      "definition": "in place of something else; as a substitute",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "even if",
+      "definition": "used to say that something is true regardless of a condition",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "cannot ignore",
+      "definition": "it is not possible or acceptable to pay no attention to something",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "aware",
+      "definition": "knowing that something exists or is happening",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "environmental",
+      "definition": "relating to the natural world and the problems affecting it",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "plastic",
+      "definition": "a light, strong material made from chemicals, often used for packaging",
+      "level": "A2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "pollution",
+      "definition": "harmful substances that damage the natural environment",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "serious",
+      "definition": "important and deserving attention; not minor",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "issue",
+      "definition": "an important topic or problem that people discuss",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "ignore",
+      "definition": "to pay no attention to something on purpose",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "millions",
+      "definition": "a very large number (one thousand thousands)",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "tons",
+      "definition": "units of weight; here used to express a very large amount",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "waste",
+      "definition": "material that is no longer needed and is thrown away",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "ocean",
+      "definition": "a very large area of sea",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "harm",
+      "definition": "to cause damage or injury to something",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "marine",
+      "definition": "relating to the sea and the creatures that live in it",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "ecosystem",
+      "definition": "all the living things in an area and the way they interact with each other and their environment",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "documentary",
+      "definition": "a film or TV programme that gives facts about a real subject",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "shocked",
+      "definition": "feeling very surprised and upset by something unexpected",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "turtle",
+      "definition": "a reptile with a hard shell that lives in the sea",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "struggling",
+      "definition": "trying very hard to do something difficult",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "straw",
+      "definition": "a thin tube used for drinking liquids",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "encourages",
+      "definition": "gives someone confidence or support to do something",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "reusable",
+      "definition": "able to be used again rather than thrown away",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "disposable",
+      "definition": "designed to be used once and then thrown away",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "rapidly",
+      "definition": "very quickly",
+      "level": "B1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "reduced",
+      "definition": "made smaller in amount or size",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "nearly",
+      "definition": "almost but not quite",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "percent",
+      "definition": "out of every hundred; used to express a proportion",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "mindset",
+      "definition": "a fixed way of thinking about things",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "adulthood",
+      "definition": "the period of life when a person is fully grown and mature",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "individual",
+      "definition": "relating to one single person rather than a group",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "efforts",
+      "definition": "serious attempts to do something",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "solve",
+      "definition": "to find an answer to a problem",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "governments",
+      "definition": "the groups of people who officially control a country",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "refuses",
+      "definition": "says no to something; chooses not to do something",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "challenges",
+      "definition": "difficult situations that require effort to deal with",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "address",
+      "definition": "to deal with or give attention to a problem",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "directly",
+      "definition": "in a straight or clear way, without anything in between",
+      "level": "B1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "carry",
+      "definition": "to take something with you from one place or situation to another",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "change",
+      "definition": "the process of becoming different",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "role",
+      "definition": "the function or position that someone or something has in a situation",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "club",
+      "definition": "a group of people who meet regularly for a shared activity or purpose",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "program",
+      "definition": "a planned set of activities organized to achieve a goal",
+      "level": "B1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "fifteen-year-old",
+      "definition": "a person who is fifteen years of age",
+      "level": "A2",
+      "importance": 2
+    }
+  ],
+  "phraseCount": 15,
+  "vocabCount": 42,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (57 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "57 item(s) extracted"
+    }
+  ],
+  "rawResponse": "{\"v\":[[\"aware\",\"knowing that something exists or is happening\",\"B1\",3],[\"environmental\",\"relating to the natural world and the problems affecting it\",\"B1\",4],[\"plastic\",\"a light, strong material made from chemicals, often used for packaging\",\"A2\",4],[\"pollution\",\"harmful substances that damage the natural environment\",\"B1\",4],[\"serious\",\"important and deserving attention; not minor\",\"A2\",3],[\"issue\",\"an important topic or problem that people discuss\",\"B1\",3],[\"ignore\",\"to pay no attention to something on purpose\",\"A2\",3],[\"millions\",\"a very large number (one thousand thousands)\",\"A2\",2],[\"tons\",\"units of weight; here used to express a very large amount\",\"A2\",2],[\"waste\",\"material that is no longer needed and is thrown away\",\"B1\",4],[\"ocean\",\"a very large area of sea\",\"A1\",3],[\"harm\",\"to cause damage or injury to something\",\"B1\",3],[\"marine\",\"relating to the sea and the creatures that live in it\",\"B2\",3],[\"ecosystem\",\"all the living things in an area and the way they interact with each other and their environment\",\"B2\",3],[\"documentary\",\"a film or TV programme that gives facts about a real subject\",\"B1\",3],[\"shocked\",\"feeling very surprised and upset by something unexpected\",\"B1\",3],[\"turtle\",\"a reptile with a hard shell that lives in the sea\",\"A2\",2],[\"struggling\",\"trying very hard to do something difficult\",\"B1\",3],[\"straw\",\"a thin tube used for drinking liquids\",\"A2\",3],[\"encourages\",\"gives someone confidence or support to do something\",\"B1\",3],[\"reusable\",\"able to be used again rather than thrown away\",\"B2\",4],[\"disposable\",\"designed to be used once and then thrown away\",\"B2\",4],[\"rapidly\",\"very quickly\",\"B1\",2],[\"reduced\",\"made smaller in amount or size\",\"B2\",3],[\"nearly\",\"almost but not quite\",\"A2\",2],[\"percent\",\"out of every hundred; used to express a proportion\",\"A2\",2],[\"mindset\",\"a fixed way of thinking about things\",\"B2\",3],[\"adulthood\",\"the period of life when a person is fully grown and mature\",\"B2\",3],[\"individual\",\"relating to one single person rather than a group\",\"B1\",3],[\"efforts\",\"serious attempts to do something\",\"B1\",3],[\"solve\",\"to find an answer to a problem\",\"A2\",3],[\"governments\",\"the groups of people who officially control a country\",\"A2\",2],[\"refuses\",\"says no to something; chooses not to do something\",\"B1\",3],[\"challenges\",\"difficult situations that require effort to deal with\",\"B1\",3],[\"address\",\"to deal with or give attention to a problem\",\"B2\",3],[\"directly\",\"in a straight or clear way, without anything in between\",\"B1\",2],[\"carry\",\"to take something with you from one place or situation to another\",\"A1\",2],[\"change\",\"the process of becoming different\",\"A1\",3],[\"role\",\"the function or position that someone or something has in a situation\",\"B1\",3],[\"club\",\"a group of people who meet regularly for a shared activity or purpose\",\"A1\",2],[\"program\",\"a planned set of activities organized to achieve a goal\",\"B1\",2],[\"fifteen-year-old\",\"a person who is fifteen years of age\",\"A2\",2]],\"p\":[[\"aware of\",\"knowing about something; used with 'of' to introduce the thing known\",\"B1\",3],[\"in particular\",\"especially; used to single out one thing from others\",\"B1\",4],[\"end up in\",\"to finally arrive at or reach a place or situation, often unintentionally\",\"B1\",4],[\"take action\",\"to do something in order to deal with a problem\",\"B1\",4],[\"make a difference\",\"to have a positive effect or change a situation\",\"B1\",4],[\"lead to\",\"to cause something to happen as a result\",\"B1\",4],[\"as a result\",\"used to introduce a consequence of what was just mentioned\",\"B1\",4],[\"points out\",\"draws attention to a fact or piece of information\",\"B1\",3],[\"face challenges\",\"to confront and deal with difficult situations\",\"B1\",3],[\"play a role\",\"to have a part or function in a situation or process\",\"B1\",3],[\"look away\",\"to turn your eyes away from something; here, to ignore a problem\",\"B1\",3],[\"water bottles\",\"containers used for carrying drinking water; here, reusable ones as opposed to disposable\",\"A2\",2],[\"instead of\",\"in place of something else; as a substitute\",\"A2\",3],[\"even if\",\"used to say that something is true regardless of a condition\",\"B1\",3],[\"cannot ignore\",\"it is not possible or acceptable to pay no attention to something\",\"B1\",3]]}",
+  "tokenUsage": {
+    "inputTokens": 687,
+    "outputTokens": 1429,
+    "cacheRead": 4142,
+    "cacheCreation": 0
+  },
+  "latencyMs": 21963,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v14",
+  "timestamp": "2026-04-15T14:35:24.578Z"
+}

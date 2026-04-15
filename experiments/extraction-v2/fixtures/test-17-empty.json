@@ -1,0 +1,6 @@
+{
+  "id": "test-17",
+  "description": "Empty whitespace-only input",
+  "category": "invalid",
+  "passage": "   \n\t  \n   "
+}

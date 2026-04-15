@@ -1,0 +1,563 @@
+{
+  "fixtureId": "test-07",
+  "fixtureDescription": "Mock exam passage — the paradox of choice",
+  "category": "normal",
+  "passage": "It is commonly held that freedom of choice is inherently desirable — that the more options we have, the happier and more fulfilled we become. This assumption underpins much of modern consumer culture, which bombards us with an ever-expanding array of goods, services, and lifestyle possibilities. Yet a growing body of research suggests that this intuition may be fundamentally flawed, and it is worth entertaining the opposite view.\n\nThe psychologist Barry Schwartz, in his seminal work on what he calls \"the paradox of choice,\" argues that excessive options do not liberate us; rather, they paralyze us. When confronted with too many alternatives, individuals often experience heightened anxiety, prolonged deliberation, and, paradoxically, diminished satisfaction with whatever they ultimately select. This counterintuitive claim, Schwartz contends, draws on several cognitive and emotional factors that operate below the threshold of conscious awareness.\n\nFirst, an abundance of choices raises the opportunity cost of any given decision. Every option not taken represents a path foregone — a potential source of regret. As alternatives proliferate, so too does the weight of what we have relinquished. Second, expansive choice sets encourage unrealistic expectations. When the field of possibilities seems boundless, we are inclined to believe that a perfect option must exist, and we feel compelled to find it. Third, decision fatigue sets in. The mental effort required to evaluate dozens of alternatives depletes our cognitive resources, leaving us exhausted and, ironically, more prone to impulsive or regrettable choices.\n\nTo mitigate these effects, Schwartz advocates a strategy of deliberate constraint. By voluntarily narrowing the scope of our decisions — whether through personal rules, trusted recommendations, or simply settling for what is \"good enough\" rather than exhaustively pursuing the optimal — we can reclaim some of the psychological peace that unrestricted choice has inadvertently stripped away. These claims bear serious consideration. The implications extend beyond individual well-being, inviting us to reconsider whether the relentless pursuit of more is genuinely conducive to flourishing, or whether it quietly undermines it.",
+  "items": [
+    {
+      "type": "phrase",
+      "term": "freedom of choice",
+      "definition": "the right or ability to choose among options without restriction",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "consumer culture",
+      "definition": "a society in which the buying and selling of goods is the dominant activity and value",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "growing body of research",
+      "definition": "an increasing amount of academic studies and evidence on a topic",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "the paradox of choice",
+      "definition": "the theory that having too many options leads to anxiety and dissatisfaction rather than happiness",
+      "level": "C1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "opportunity cost",
+      "definition": "the value of the best alternative given up when making a decision",
+      "level": "C1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "decision fatigue",
+      "definition": "the deteriorating quality of decisions made after a long session of decision-making",
+      "level": "C1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "cognitive resources",
+      "definition": "mental energy and capacity used for thinking and decision-making",
+      "level": "C1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "deliberate constraint",
+      "definition": "an intentional self-imposed limitation to reduce the burden of choice",
+      "level": "C1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "good enough",
+      "definition": "meeting a satisfactory standard without being perfect",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "psychological peace",
+      "definition": "a state of mental calm and freedom from anxiety",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "individual well-being",
+      "definition": "the overall happiness and health of a single person",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "counterintuitive claim",
+      "definition": "an assertion that goes against what one would naturally expect",
+      "level": "C1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "below the threshold of conscious awareness",
+      "definition": "operating at a level too subtle to be noticed by the conscious mind",
+      "level": "C2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "sets in",
+      "definition": "begins and becomes established (of something unpleasant)",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "prone to",
+      "definition": "likely to suffer from or do something undesirable",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "stripped away",
+      "definition": "removed or taken away, often forcefully",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "bear serious consideration",
+      "definition": "deserve to be thought about carefully and thoroughly",
+      "level": "C1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "extend beyond",
+      "definition": "reach further than a particular limit or area",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "commonly",
+      "definition": "widely or generally believed or done",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "inherently",
+      "definition": "in a permanent, essential, or characteristic way",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "desirable",
+      "definition": "worth having or wanting; attractive",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "fulfilled",
+      "definition": "feeling happy and satisfied with one's life",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "assumption",
+      "definition": "something accepted as true without proof",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "underpins",
+      "definition": "supports or forms the basis of something",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "bombards",
+      "definition": "overwhelms someone with a large amount of something",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "array",
+      "definition": "an impressive range or variety of things",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "intuition",
+      "definition": "the ability to understand something instinctively, without reasoning",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "fundamentally",
+      "definition": "in a basic and important way",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "flawed",
+      "definition": "having a fault or weakness",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "entertaining",
+      "definition": "considering or giving attention to an idea or suggestion",
+      "level": "C1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "seminal",
+      "definition": "strongly influencing later developments; highly original",
+      "level": "C1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "paradox",
+      "definition": "a statement that seems contradictory but may be true",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "excessive",
+      "definition": "more than is necessary or reasonable",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "liberate",
+      "definition": "to set someone free from restrictions",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "paralyze",
+      "definition": "to make someone unable to act or function",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "confronted",
+      "definition": "faced with a difficult situation or challenge",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "alternatives",
+      "definition": "options available as another possibility",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "heightened",
+      "definition": "made more intense or stronger",
+      "level": "C1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "prolonged",
+      "definition": "continuing for a long time",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "deliberation",
+      "definition": "long and careful consideration or discussion",
+      "level": "C1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "paradoxically",
+      "definition": "in a way that seems contradictory but is nonetheless true",
+      "level": "C1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "diminished",
+      "definition": "reduced in size, importance, or quality",
+      "level": "C1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "ultimately",
+      "definition": "in the end; finally",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "contends",
+      "definition": "asserts or argues something as a position",
+      "level": "C1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "cognitive",
+      "definition": "relating to mental processes of thinking and understanding",
+      "level": "C1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "threshold",
+      "definition": "the level at which something begins to happen",
+      "level": "C1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "abundance",
+      "definition": "a very large quantity of something",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "opportunity cost",
+      "definition": "the loss of potential gain from other options when one is chosen",
+      "level": "C1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "foregone",
+      "definition": "given up or sacrificed",
+      "level": "C2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "regret",
+      "definition": "a feeling of sadness or disappointment about something done or not done",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "proliferate",
+      "definition": "to increase rapidly in number",
+      "level": "C1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "relinquished",
+      "definition": "voluntarily given up or surrendered",
+      "level": "C2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "expansive",
+      "definition": "covering a wide area; broad in scope",
+      "level": "C1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "boundless",
+      "definition": "having no limits; infinite",
+      "level": "C1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "inclined",
+      "definition": "having a tendency or preference to do something",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "compelled",
+      "definition": "forced or driven to do something",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "optimal",
+      "definition": "best or most favorable",
+      "level": "C1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "depletes",
+      "definition": "uses up or reduces a resource significantly",
+      "level": "C1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "ironically",
+      "definition": "in a way that is contrary to what is expected",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "impulsive",
+      "definition": "acting without thinking carefully first",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "mitigate",
+      "definition": "to make something less severe or harmful",
+      "level": "C1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "advocates",
+      "definition": "publicly recommends or supports a course of action",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "constraint",
+      "definition": "a limitation or restriction",
+      "level": "C1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "voluntarily",
+      "definition": "done of one's own free will, without being forced",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "narrowing",
+      "definition": "making something smaller in range or scope",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "scope",
+      "definition": "the range or extent of something",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "exhaustively",
+      "definition": "in a thorough and complete manner, leaving nothing out",
+      "level": "C1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "inadvertently",
+      "definition": "without intention; accidentally",
+      "level": "C1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "relentless",
+      "definition": "unceasingly intense; never stopping",
+      "level": "C1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "conducive",
+      "definition": "making a certain situation or outcome likely or possible",
+      "level": "C1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "flourishing",
+      "definition": "developing in a healthy or vigorous way; thriving",
+      "level": "C1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "undermines",
+      "definition": "weakens or damages something gradually",
+      "level": "C1",
+      "importance": 4
+    }
+  ],
+  "phraseCount": 18,
+  "vocabCount": 54,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (72 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "72 item(s) extracted"
+    }
+  ],
+  "rawResponse": "{\"v\":[[\"commonly\",\"widely or generally believed or done\",\"B1\",3],[\"inherently\",\"in a permanent, essential, or characteristic way\",\"B2\",4],[\"desirable\",\"worth having or wanting; attractive\",\"B1\",3],[\"fulfilled\",\"feeling happy and satisfied with one's life\",\"B2\",3],[\"assumption\",\"something accepted as true without proof\",\"B2\",4],[\"underpins\",\"supports or forms the basis of something\",\"B2\",4],[\"bombards\",\"overwhelms someone with a large amount of something\",\"B2\",3],[\"array\",\"an impressive range or variety of things\",\"B2\",3],[\"intuition\",\"the ability to understand something instinctively, without reasoning\",\"B2\",3],[\"fundamentally\",\"in a basic and important way\",\"B2\",3],[\"flawed\",\"having a fault or weakness\",\"B2\",4],[\"entertaining\",\"considering or giving attention to an idea or suggestion\",\"C1\",3],[\"seminal\",\"strongly influencing later developments; highly original\",\"C1\",3],[\"paradox\",\"a statement that seems contradictory but may be true\",\"B2\",4],[\"excessive\",\"more than is necessary or reasonable\",\"B2\",4],[\"liberate\",\"to set someone free from restrictions\",\"B2\",3],[\"paralyze\",\"to make someone unable to act or function\",\"B2\",4],[\"confronted\",\"faced with a difficult situation or challenge\",\"B2\",3],[\"alternatives\",\"options available as another possibility\",\"B1\",4],[\"heightened\",\"made more intense or stronger\",\"C1\",3],[\"prolonged\",\"continuing for a long time\",\"B2\",3],[\"deliberation\",\"long and careful consideration or discussion\",\"C1\",4],[\"paradoxically\",\"in a way that seems contradictory but is nonetheless true\",\"C1\",3],[\"diminished\",\"reduced in size, importance, or quality\",\"C1\",4],[\"ultimately\",\"in the end; finally\",\"B2\",3],[\"contends\",\"asserts or argues something as a position\",\"C1\",3],[\"cognitive\",\"relating to mental processes of thinking and understanding\",\"C1\",4],[\"threshold\",\"the level at which something begins to happen\",\"C1\",3],[\"abundance\",\"a very large quantity of something\",\"B2\",3],[\"opportunity cost\",\"the loss of potential gain from other options when one is chosen\",\"C1\",4],[\"foregone\",\"given up or sacrificed\",\"C2\",3],[\"regret\",\"a feeling of sadness or disappointment about something done or not done\",\"B1\",4],[\"proliferate\",\"to increase rapidly in number\",\"C1\",4],[\"relinquished\",\"voluntarily given up or surrendered\",\"C2\",4],[\"expansive\",\"covering a wide area; broad in scope\",\"C1\",3],[\"boundless\",\"having no limits; infinite\",\"C1\",3],[\"inclined\",\"having a tendency or preference to do something\",\"B2\",3],[\"compelled\",\"forced or driven to do something\",\"B2\",3],[\"optimal\",\"best or most favorable\",\"C1\",4],[\"depletes\",\"uses up or reduces a resource significantly\",\"C1\",4],[\"ironically\",\"in a way that is contrary to what is expected\",\"B2\",3],[\"impulsive\",\"acting without thinking carefully first\",\"B2\",3],[\"mitigate\",\"to make something less severe or harmful\",\"C1\",4],[\"advocates\",\"publicly recommends or supports a course of action\",\"B2\",3],[\"constraint\",\"a limitation or restriction\",\"C1\",4],[\"voluntarily\",\"done of one's own free will, without being forced\",\"B2\",3],[\"narrowing\",\"making something smaller in range or scope\",\"B2\",3],[\"scope\",\"the range or extent of something\",\"B2\",3],[\"exhaustively\",\"in a thorough and complete manner, leaving nothing out\",\"C1\",3],[\"inadvertently\",\"without intention; accidentally\",\"C1\",3],[\"relentless\",\"unceasingly intense; never stopping\",\"C1\",3],[\"conducive\",\"making a certain situation or outcome likely or possible\",\"C1\",4],[\"flourishing\",\"developing in a healthy or vigorous way; thriving\",\"C1\",4],[\"undermines\",\"weakens or damages something gradually\",\"C1\",4]],\"p\":[[\"freedom of choice\",\"the right or ability to choose among options without restriction\",\"B1\",4],[\"consumer culture\",\"a society in which the buying and selling of goods is the dominant activity and value\",\"B2\",4],[\"growing body of research\",\"an increasing amount of academic studies and evidence on a topic\",\"B2\",3],[\"the paradox of choice\",\"the theory that having too many options leads to anxiety and dissatisfaction rather than happiness\",\"C1\",4],[\"opportunity cost\",\"the value of the best alternative given up when making a decision\",\"C1\",4],[\"decision fatigue\",\"the deteriorating quality of decisions made after a long session of decision-making\",\"C1\",4],[\"cognitive resources\",\"mental energy and capacity used for thinking and decision-making\",\"C1\",4],[\"deliberate constraint\",\"an intentional self-imposed limitation to reduce the burden of choice\",\"C1\",4],[\"good enough\",\"meeting a satisfactory standard without being perfect\",\"A2\",3],[\"psychological peace\",\"a state of mental calm and freedom from anxiety\",\"B2\",4],[\"individual well-being\",\"the overall happiness and health of a single person\",\"B2\",3],[\"counterintuitive claim\",\"an assertion that goes against what one would naturally expect\",\"C1\",4],[\"below the threshold of conscious awareness\",\"operating at a level too subtle to be noticed by the conscious mind\",\"C2\",3],[\"sets in\",\"begins and becomes established (of something unpleasant)\",\"B2\",3],[\"prone to\",\"likely to suffer from or do something undesirable\",\"B2\",3],[\"stripped away\",\"removed or taken away, often forcefully\",\"B2\",3],[\"bear serious consideration\",\"deserve to be thought about carefully and thoroughly\",\"C1\",3],[\"extend beyond\",\"reach further than a particular limit or area\",\"B2\",3]]}",
+  "tokenUsage": {
+    "inputTokens": 1838,
+    "outputTokens": 1745,
+    "cacheRead": 0,
+    "cacheCreation": 0
+  },
+  "latencyMs": 25594,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v13",
+  "timestamp": "2026-04-15T13:16:36.994Z"
+}

@@ -1,0 +1,56 @@
+{
+  "fixtureId": "test-01",
+  "fixtureDescription": "Elementary passage — Min-jun's daily school routine",
+  "category": "normal",
+  "passage": "Min-jun is in the fourth grade. He likes school, but he doesn't feel well today because he has a math test. Every morning, he wakes up at seven o'clock. He brushes his teeth and has breakfast with his family. His mother is very kind and always asks, \"What kind of breakfast do you want?\" Today she makes him eggs and rice. After breakfast, he puts on his uniform and walks to school. School starts at eight thirty. His best friend Tom sits next to him. Tom runs like the wind and plays soccer well. They study English together, and Min-jun usually gets the right answer. After school, they play soccer in the playground. When Min-jun gets home, he does his homework before dinner.",
+  "items": [],
+  "parseErrors": [
+    "fourth grade|A1|Basic ordinal number for school level classification.|4|Essential for understanding Min-jun's age and context.|likes|A1|Common verb expressing preference or enjoyment.|4|Essential for understanding Min-jun's attitude toward school.|doesn't feel well|A2|Phrasal expression indicating illness or discomfort.|4|Critical for understanding why Min-jun is anxious today.|math test|A1|Compound noun for academic assessment in mathematics.|4|Essential for understanding the cause of Min-jun's worry.|wakes up|A2|Phrasal verb meaning to stop sleeping.|4|Essential daily routine verb.|brushes his teeth|A1|Common daily hygiene action.|3|Important for describing routine but not critical to main narrative.|has breakfast|A1|Common daily meal activity.|3|Important routine but not critical to main narrative.|kind|A1|Adjective describing a caring, gentle personality.|3|Helpful for characterizing Min-jun's mother.|asks|A1|Verb for posing a question.|4|Essential for dialogue and interaction.|What kind of breakfast do you want|A1|Question pattern for expressing preference.|3|Useful for understanding family interaction.|makes him eggs and rice|A1|Verb phrase for preparing food for someone.|3|Helpful for showing mother's care.|puts on|A2|Phrasal verb meaning to wear clothing.|4|Essential daily routine verb.|uniform|A1|Noun for school clothing.|3|Important for school context.|walks to school|A1|Common verb phrase for traveling.|3|Important routine but not critical.|School starts|A1|Verb phrase indicating when something begins.|4|Essential for understanding the schedule.|eight thirty|A1|Time expression.|3|Helpful for understanding schedule.|sits next to|A1|Verb phrase indicating proximity or seating position.|3|Helpful for spatial relationships.|best friend|A1|Noun phrase for closest friendship.|3|Important for character relationships.|runs like the wind|B1|Idiom meaning to run very fast.|2|Supplementary descriptive detail about Tom's speed.|plays soccer well|A1|Verb phrase indicating skill in a sport.|3|Important for characterizing Tom's abilities.|study English together|A1|Verb phrase for collaborative learning.|3|Helpful for showing friendship and academics.|usually|A1|Adverb indicating frequency or typical behavior.|3|Helpful for understanding Min-jun's academic performance.|gets the right answer|A1|Verb phrase meaning to answer correctly.|3|Important for showing academic success.|playground|A1|Noun for outdoor play area.|3|Important for school setting.|gets home|A1|Phrasal verb meaning to arrive at home.|4|Essential for understanding daily routine.|does his homework|A1|Verb phrase for completing schoolwork.|4|Essential daily routine verb.|before dinner|A1|Prepositional phrase indicating time sequence.|3|Helpful for understanding routine order.|"
+  ],
+  "structuralChecks": [
+    {
+      "name": "line_format",
+      "passed": false,
+      "message": "1 line(s) failed to parse: \"fourth grade|A1|Basic ordinal number for school level classi...\""
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_rationales",
+      "passed": true,
+      "message": "All rationales non-empty"
+    },
+    {
+      "name": "no_duplicate_terms",
+      "passed": true,
+      "message": "No duplicate terms"
+    },
+    {
+      "name": "has_output",
+      "passed": false,
+      "message": "No items extracted from non-empty input"
+    }
+  ],
+  "rawResponse": "fourth grade|A1|Basic ordinal number for school level classification.|4|Essential for understanding Min-jun's age and context.|likes|A1|Common verb expressing preference or enjoyment.|4|Essential for understanding Min-jun's attitude toward school.|doesn't feel well|A2|Phrasal expression indicating illness or discomfort.|4|Critical for understanding why Min-jun is anxious today.|math test|A1|Compound noun for academic assessment in mathematics.|4|Essential for understanding the cause of Min-jun's worry.|wakes up|A2|Phrasal verb meaning to stop sleeping.|4|Essential daily routine verb.|brushes his teeth|A1|Common daily hygiene action.|3|Important for describing routine but not critical to main narrative.|has breakfast|A1|Common daily meal activity.|3|Important routine but not critical to main narrative.|kind|A1|Adjective describing a caring, gentle personality.|3|Helpful for characterizing Min-jun's mother.|asks|A1|Verb for posing a question.|4|Essential for dialogue and interaction.|What kind of breakfast do you want|A1|Question pattern for expressing preference.|3|Useful for understanding family interaction.|makes him eggs and rice|A1|Verb phrase for preparing food for someone.|3|Helpful for showing mother's care.|puts on|A2|Phrasal verb meaning to wear clothing.|4|Essential daily routine verb.|uniform|A1|Noun for school clothing.|3|Important for school context.|walks to school|A1|Common verb phrase for traveling.|3|Important routine but not critical.|School starts|A1|Verb phrase indicating when something begins.|4|Essential for understanding the schedule.|eight thirty|A1|Time expression.|3|Helpful for understanding schedule.|sits next to|A1|Verb phrase indicating proximity or seating position.|3|Helpful for spatial relationships.|best friend|A1|Noun phrase for closest friendship.|3|Important for character relationships.|runs like the wind|B1|Idiom meaning to run very fast.|2|Supplementary descriptive detail about Tom's speed.|plays soccer well|A1|Verb phrase indicating skill in a sport.|3|Important for characterizing Tom's abilities.|study English together|A1|Verb phrase for collaborative learning.|3|Helpful for showing friendship and academics.|usually|A1|Adverb indicating frequency or typical behavior.|3|Helpful for understanding Min-jun's academic performance.|gets the right answer|A1|Verb phrase meaning to answer correctly.|3|Important for showing academic success.|playground|A1|Noun for outdoor play area.|3|Important for school setting.|gets home|A1|Phrasal verb meaning to arrive at home.|4|Essential for understanding daily routine.|does his homework|A1|Verb phrase for completing schoolwork.|4|Essential daily routine verb.|before dinner|A1|Prepositional phrase indicating time sequence.|3|Helpful for understanding routine order.|",
+  "tokenUsage": {
+    "inputTokens": 458,
+    "outputTokens": 660
+  },
+  "latencyMs": 8083,
+  "model": "claude-haiku-4-5-20251001",
+  "promptVersion": "v12",
+  "timestamp": "2026-04-14T14:32:58.425Z"
+}

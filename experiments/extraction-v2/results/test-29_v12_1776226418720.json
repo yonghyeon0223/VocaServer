@@ -1,0 +1,56 @@
+{
+  "fixtureId": "test-29",
+  "fixtureDescription": "Extremely repetitive passage using the same sentence frame ten times",
+  "category": "tricky",
+  "passage": "The implications of climate change are far-reaching. The implications of climate change are profound. The implications of climate change are devastating. The implications of climate change are undeniable. The implications of climate change are urgent. The implications of climate change require immediate action. The implications of climate change demand our attention. The implications of climate change cannot be overstated. The implications of climate change affect every nation. The implications of climate change will shape our future.",
+  "items": [],
+  "parseErrors": [
+    "implications|B2|This word refers to the consequences or effects of something, requiring understanding of abstract noun usage beyond basic vocabulary.|4|Essential for understanding the main topic and repeated throughout the passage as the central concept.|climate change|B2|This is a key collocational phrase referring to long-term shifts in global temperatures and weather patterns.|4|Critical for comprehension as it appears repeatedly and represents the core subject matter of the passage.|far-reaching|B2|This adjective describes something that has widespread effects or consequences across many areas.|3|Helpful for understanding the scope of climate change's effects, though the meaning can be inferred from context.|profound|B2|This adjective means very great in degree or having deep significance and importance.|3|Useful for recognizing the intensity of climate change's impact, though synonymous with other descriptors in the passage.|devastating|B2|This adjective describes something that causes severe damage or has overwhelming negative effects.|3|Helpful for understanding the severity emphasized in the passage, though the general meaning is conveyed by context.|undeniable|B2|This adjective means impossible to deny or clearly true and obvious.|3|Useful for recognizing the certainty being asserted, though the concept is reinforced by surrounding words.|urgent|B2|This adjective describes something requiring immediate attention or action due to its importance.|3|Helpful for understanding the time-sensitive nature of climate change, though the meaning is supported by context.|require|B2|This verb means to need something as a necessary condition or demand something as essential.|4|Essential for understanding what climate change necessitates, appearing in a key sentence about needed action.|immediate action|B2|This phrase refers to steps that must be taken without delay or postponement.|4|Critical for understanding the passage's main message about the necessity of prompt response to climate change.|demand|B2|This verb means to insist on or require something urgently and forcefully.|3|Helpful for recognizing the forceful tone regarding attention to climate change, though synonymous with \"require.\"| attention|B2|This noun refers to notice taken of something or the act of focusing on something.|3|Useful for understanding what climate change demands, though it is a common word with clear meaning.|overstated|B2|This verb in passive form means exaggerated or represented as more important than it actually is.|3|Helpful for understanding the rhetorical claim that climate change's importance cannot be exaggerated, though context supports meaning.|affect|B2|This verb means to influence or have an effect on something.|4|Essential for understanding how climate change impacts different parts of the world, appearing in a key descriptive sentence.|every nation|B2|This phrase emphasizes that all countries without exception are impacted by climate change.|3|Helpful for understanding the universal scope of climate change's effects, though the meaning is relatively straightforward.|shape|B2|This verb means to influence the development or form of something significantly.|3|Useful for understanding how climate change will influence the future, though the metaphorical meaning is common.|future|B2|This noun refers to the time that will come after the present.|3|Helpful for understanding the temporal scope of climate change's effects, though it is a fundamental concept.|"
+  ],
+  "structuralChecks": [
+    {
+      "name": "line_format",
+      "passed": false,
+      "message": "1 line(s) failed to parse: \"implications|B2|This word refers to the consequences or effe...\""
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_rationales",
+      "passed": true,
+      "message": "All rationales non-empty"
+    },
+    {
+      "name": "no_duplicate_terms",
+      "passed": true,
+      "message": "No duplicate terms"
+    },
+    {
+      "name": "has_output",
+      "passed": false,
+      "message": "No items extracted from non-empty input"
+    }
+  ],
+  "rawResponse": "implications|B2|This word refers to the consequences or effects of something, requiring understanding of abstract noun usage beyond basic vocabulary.|4|Essential for understanding the main topic and repeated throughout the passage as the central concept.|climate change|B2|This is a key collocational phrase referring to long-term shifts in global temperatures and weather patterns.|4|Critical for comprehension as it appears repeatedly and represents the core subject matter of the passage.|far-reaching|B2|This adjective describes something that has widespread effects or consequences across many areas.|3|Helpful for understanding the scope of climate change's effects, though the meaning can be inferred from context.|profound|B2|This adjective means very great in degree or having deep significance and importance.|3|Useful for recognizing the intensity of climate change's impact, though synonymous with other descriptors in the passage.|devastating|B2|This adjective describes something that causes severe damage or has overwhelming negative effects.|3|Helpful for understanding the severity emphasized in the passage, though the general meaning is conveyed by context.|undeniable|B2|This adjective means impossible to deny or clearly true and obvious.|3|Useful for recognizing the certainty being asserted, though the concept is reinforced by surrounding words.|urgent|B2|This adjective describes something requiring immediate attention or action due to its importance.|3|Helpful for understanding the time-sensitive nature of climate change, though the meaning is supported by context.|require|B2|This verb means to need something as a necessary condition or demand something as essential.|4|Essential for understanding what climate change necessitates, appearing in a key sentence about needed action.|immediate action|B2|This phrase refers to steps that must be taken without delay or postponement.|4|Critical for understanding the passage's main message about the necessity of prompt response to climate change.|demand|B2|This verb means to insist on or require something urgently and forcefully.|3|Helpful for recognizing the forceful tone regarding attention to climate change, though synonymous with \"require.\"| attention|B2|This noun refers to notice taken of something or the act of focusing on something.|3|Useful for understanding what climate change demands, though it is a common word with clear meaning.|overstated|B2|This verb in passive form means exaggerated or represented as more important than it actually is.|3|Helpful for understanding the rhetorical claim that climate change's importance cannot be exaggerated, though context supports meaning.|affect|B2|This verb means to influence or have an effect on something.|4|Essential for understanding how climate change impacts different parts of the world, appearing in a key descriptive sentence.|every nation|B2|This phrase emphasizes that all countries without exception are impacted by climate change.|3|Helpful for understanding the universal scope of climate change's effects, though the meaning is relatively straightforward.|shape|B2|This verb means to influence the development or form of something significantly.|3|Useful for understanding how climate change will influence the future, though the metaphorical meaning is common.|future|B2|This noun refers to the time that will come after the present.|3|Helpful for understanding the temporal scope of climate change's effects, though it is a fundamental concept.|",
+  "tokenUsage": {
+    "inputTokens": 417,
+    "outputTokens": 706
+  },
+  "latencyMs": 7897,
+  "model": "claude-haiku-4-5-20251001",
+  "promptVersion": "v12",
+  "timestamp": "2026-04-15T04:13:30.822Z"
+}

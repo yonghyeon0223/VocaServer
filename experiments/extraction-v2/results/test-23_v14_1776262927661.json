@@ -1,0 +1,117 @@
+{
+  "fixtureId": "test-23",
+  "fixtureDescription": "Mixed Korean-English Konglish text with English loanwords",
+  "category": "non-english",
+  "passage": "오늘 English class에서 presentation을 했는데 정말 nervous했어요. Teacher가 feedback을 주셨는데, pronunciation은 좋지만 vocabulary가 부족하다고 하셨어요. 그래서 오늘부터 매일 reading practice를 하려고 해요. 특히 academic words를 많이 외워야 할 것 같아요. Study group 친구들이랑 같이 하면 더 재미있을 것 같아요.",
+  "items": [
+    {
+      "type": "phrase",
+      "term": "study group",
+      "definition": "a group of students who meet together to study or learn",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "reading practice",
+      "definition": "the activity of reading regularly to improve language skills",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "academic words",
+      "definition": "words commonly used in formal education and study contexts",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "nervous",
+      "definition": "feeling worried or anxious about something",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "feedback",
+      "definition": "comments or advice about how well someone has done something",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "pronunciation",
+      "definition": "the way a word or language is spoken",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "vocabulary",
+      "definition": "all the words a person knows or uses",
+      "level": "A2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "academic",
+      "definition": "relating to education, schools, or studying",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "practice",
+      "definition": "doing something repeatedly to improve your skill",
+      "level": "A2",
+      "importance": 3
+    }
+  ],
+  "phraseCount": 3,
+  "vocabCount": 6,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (9 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    }
+  ],
+  "rawResponse": "{\"v\":[[\"nervous\",\"feeling worried or anxious about something\",\"A2\",3],[\"feedback\",\"comments or advice about how well someone has done something\",\"B1\",4],[\"pronunciation\",\"the way a word or language is spoken\",\"B1\",4],[\"vocabulary\",\"all the words a person knows or uses\",\"A2\",4],[\"academic\",\"relating to education, schools, or studying\",\"B1\",3],[\"practice\",\"doing something repeatedly to improve your skill\",\"A2\",3]],\"p\":[[\"study group\",\"a group of students who meet together to study or learn\",\"A2\",3],[\"reading practice\",\"the activity of reading regularly to improve language skills\",\"A2\",3],[\"academic words\",\"words commonly used in formal education and study contexts\",\"B1\",4]]}",
+  "tokenUsage": {
+    "inputTokens": 557,
+    "outputTokens": 238,
+    "cacheRead": 4142,
+    "cacheCreation": 0
+  },
+  "latencyMs": 4736,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v14",
+  "timestamp": "2026-04-15T14:22:02.925Z"
+}

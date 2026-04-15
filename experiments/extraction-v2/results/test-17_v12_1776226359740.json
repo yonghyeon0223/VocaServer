@@ -1,0 +1,56 @@
+{
+  "fixtureId": "test-17",
+  "fixtureDescription": "Empty whitespace-only input",
+  "category": "invalid",
+  "passage": "   \n\t  \n   ",
+  "items": [],
+  "parseErrors": [
+    "I don't see any passage provided in your message. Could you please share the text you'd like me to extract vocabulary from? Once you provide the passage, I'll analyze it and output the pipe-delimited lines in the exact format you specified."
+  ],
+  "structuralChecks": [
+    {
+      "name": "line_format",
+      "passed": false,
+      "message": "1 line(s) failed to parse: \"I don't see any passage provided in your message. Could you ...\""
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_rationales",
+      "passed": true,
+      "message": "All rationales non-empty"
+    },
+    {
+      "name": "no_duplicate_terms",
+      "passed": true,
+      "message": "No duplicate terms"
+    },
+    {
+      "name": "empty_for_invalid",
+      "passed": true,
+      "message": "Appropriate: 0 item(s) for invalid input"
+    }
+  ],
+  "rawResponse": "I don't see any passage provided in your message. Could you please share the text you'd like me to extract vocabulary from? Once you provide the passage, I'll analyze it and output the pipe-delimited lines in the exact format you specified.",
+  "tokenUsage": {
+    "inputTokens": 331,
+    "outputTokens": 54
+  },
+  "latencyMs": 1809,
+  "model": "claude-haiku-4-5-20251001",
+  "promptVersion": "v12",
+  "timestamp": "2026-04-15T04:12:37.930Z"
+}

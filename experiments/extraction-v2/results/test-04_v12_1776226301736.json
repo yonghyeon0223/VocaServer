@@ -1,0 +1,230 @@
+{
+  "fixtureId": "test-04",
+  "fixtureDescription": "Middle school passage — plastic pollution and student activism",
+  "category": "normal",
+  "passage": "These days, many young people are becoming more aware of environmental problems. Plastic pollution, in particular, has become a serious issue that we cannot ignore. Every year, millions of tons of plastic waste end up in the ocean, where they harm marine life and damage ecosystems.\n\nSarah, a fifteen-year-old student from Busan, decided to take action after watching a documentary about sea turtles. \"I was shocked when I saw a turtle struggling because of a plastic straw,\" she said. \"I wanted to make a difference, even if it was small.\" She started a club at her school that encourages students to bring reusable water bottles instead of disposable ones. The school now runs the program in every classroom.\n\nThe club has grown rapidly. As a result, the school has reduced its plastic waste by nearly forty percent in just six months. Sarah's teacher, Ms. Kim, points out that small changes can lead to big results. \"When students learn to face environmental challenges and address them directly, they carry that mindset into adulthood,\" she explained.\n\nOf course, individual efforts alone cannot solve the problem. Governments and companies must also play a role. However, students like Sarah show us that change often begins with one person who refuses to look away.",
+  "items": [
+    {
+      "term": "aware",
+      "level": "B1",
+      "levelRationale": "Requires understanding of a mental state beyond basic perception, typical of intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding the passage's main theme about consciousness of environmental issues."
+    },
+    {
+      "term": "environmental problems",
+      "level": "B1",
+      "levelRationale": "This collocation describes a specific category of issues requiring intermediate vocabulary and conceptual understanding.",
+      "importance": 4,
+      "importanceRationale": "Essential for comprehension as it frames the entire passage's subject matter."
+    },
+    {
+      "term": "Plastic pollution",
+      "level": "B1",
+      "levelRationale": "A specific compound noun referring to a major environmental issue, requiring intermediate-level vocabulary.",
+      "importance": 4,
+      "importanceRationale": "Critical to understanding the passage's central topic and concern."
+    },
+    {
+      "term": "serious issue",
+      "level": "B1",
+      "levelRationale": "Common collocation expressing severity, requiring intermediate understanding of consequence and importance.",
+      "importance": 3,
+      "importanceRationale": "Helpful for grasping why the topic matters and warrants action."
+    },
+    {
+      "term": "cannot ignore",
+      "level": "B1",
+      "levelRationale": "Phrasal construction expressing necessity and obligation, typical of intermediate discourse.",
+      "importance": 3,
+      "importanceRationale": "Useful for understanding the imperative nature of the environmental problem."
+    },
+    {
+      "term": "end up",
+      "level": "B1",
+      "levelRationale": "Phrasal verb meaning \"eventually reach\" or \"result in,\" commonly used in intermediate English.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding the consequence of plastic waste disposal."
+    },
+    {
+      "term": "harm",
+      "level": "B1",
+      "levelRationale": "Verb meaning to cause damage or injury, requiring intermediate vocabulary beyond basic \"hurt.\"",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the negative impact on marine ecosystems."
+    },
+    {
+      "term": "damage ecosystems",
+      "level": "B1",
+      "levelRationale": "Collocation expressing environmental harm at a systemic level, requiring intermediate understanding.",
+      "importance": 3,
+      "importanceRationale": "Useful for comprehending the scope of plastic pollution's effects."
+    },
+    {
+      "term": "take action",
+      "level": "B1",
+      "levelRationale": "Phrasal collocation meaning to do something to address a problem, typical of intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding Sarah's decision to respond to the issue."
+    },
+    {
+      "term": "struggling",
+      "level": "B1",
+      "levelRationale": "Present participle describing difficulty or hardship, requiring intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Useful for conveying the turtle's distress and emotional impact on Sarah."
+    },
+    {
+      "term": "make a difference",
+      "level": "B1",
+      "levelRationale": "Idiom meaning to have a positive impact or effect, common in intermediate English.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding Sarah's motivation and the passage's message."
+    },
+    {
+      "term": "disposable ones",
+      "level": "B1",
+      "levelRationale": "Adjective meaning single-use or meant to be thrown away, requiring intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding the contrast with reusable alternatives."
+    },
+    {
+      "term": "runs the program",
+      "level": "B1",
+      "levelRationale": "Phrasal verb meaning to manage or operate, used here in a specific institutional context.",
+      "importance": 3,
+      "importanceRationale": "Useful for understanding the school's implementation of the initiative."
+    },
+    {
+      "term": "grown rapidly",
+      "level": "B1",
+      "levelRationale": "Collocation describing quick expansion or increase, requiring intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Helpful for showing the club's success and momentum."
+    },
+    {
+      "term": "As a result",
+      "level": "B1",
+      "levelRationale": "Discourse marker indicating consequence or outcome, essential for intermediate-level discourse.",
+      "importance": 4,
+      "importanceRationale": "Critical for understanding the causal relationship between the club's actions and reduced waste."
+    },
+    {
+      "term": "reduced",
+      "level": "B1",
+      "levelRationale": "Verb meaning to make smaller or less, requiring intermediate vocabulary in this quantitative context.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the measurable success of the initiative."
+    },
+    {
+      "term": "points out",
+      "level": "B1",
+      "levelRationale": "Phrasal verb meaning to indicate or draw attention to, common in intermediate English.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding how the teacher emphasizes an important lesson."
+    },
+    {
+      "term": "lead to",
+      "level": "B1",
+      "levelRationale": "Phrasal verb expressing causation, typical of intermediate discourse patterns.",
+      "importance": 3,
+      "importanceRationale": "Useful for understanding the connection between small changes and big results."
+    },
+    {
+      "term": "face environmental challenges",
+      "level": "B1",
+      "levelRationale": "Collocation meaning to confront or deal with problems, requiring intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding the mindset Sarah's teacher describes."
+    },
+    {
+      "term": "address them directly",
+      "level": "B1",
+      "levelRationale": "Collocation meaning to tackle or handle issues, requiring intermediate vocabulary and discourse awareness.",
+      "importance": 3,
+      "importanceRationale": "Useful for understanding proactive problem-solving behavior."
+    },
+    {
+      "term": "carry that mindset",
+      "level": "B1",
+      "levelRationale": "Collocation meaning to maintain or retain a way of thinking, requiring intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding how attitudes persist into adulthood."
+    },
+    {
+      "term": "individual efforts",
+      "level": "B1",
+      "levelRationale": "Collocation referring to personal or personal-scale actions, requiring intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the limitation acknowledged in the passage."
+    },
+    {
+      "term": "play a role",
+      "level": "B1",
+      "levelRationale": "Idiom meaning to have a part or responsibility in something, common in intermediate English.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding the shared responsibility for solving environmental problems."
+    },
+    {
+      "term": "refuses to look away",
+      "level": "B2",
+      "levelRationale": "Phrasal verb with metaphorical meaning (to ignore or avoid), requiring upper-intermediate understanding.",
+      "importance": 2,
+      "importanceRationale": "Useful for the passage's concluding message about awareness and responsibility, though not essential."
+    },
+    {
+      "term": "change often begins",
+      "level": "B1",
+      "levelRationale": "Collocation expressing how transformation starts, requiring intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Important for the passage's central message about individual agency."
+    }
+  ],
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "line_format",
+      "passed": true,
+      "message": "All lines parsed successfully (25 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_rationales",
+      "passed": true,
+      "message": "All rationales non-empty"
+    },
+    {
+      "name": "no_duplicate_terms",
+      "passed": true,
+      "message": "No duplicate terms"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "25 item(s) extracted"
+    }
+  ],
+  "rawResponse": "aware|B1|Requires understanding of a mental state beyond basic perception, typical of intermediate vocabulary.|3|Helpful for understanding the passage's main theme about consciousness of environmental issues.|\nenvironmental problems|B1|This collocation describes a specific category of issues requiring intermediate vocabulary and conceptual understanding.|4|Essential for comprehension as it frames the entire passage's subject matter.|\nPlastic pollution|B1|A specific compound noun referring to a major environmental issue, requiring intermediate-level vocabulary.|4|Critical to understanding the passage's central topic and concern.|\nserious issue|B1|Common collocation expressing severity, requiring intermediate understanding of consequence and importance.|3|Helpful for grasping why the topic matters and warrants action.|\ncannot ignore|B1|Phrasal construction expressing necessity and obligation, typical of intermediate discourse.|3|Useful for understanding the imperative nature of the environmental problem.|\nend up|B1|Phrasal verb meaning \"eventually reach\" or \"result in,\" commonly used in intermediate English.|3|Helpful for understanding the consequence of plastic waste disposal.|\nharm|B1|Verb meaning to cause damage or injury, requiring intermediate vocabulary beyond basic \"hurt.\"|3|Important for understanding the negative impact on marine ecosystems.|\ndamage ecosystems|B1|Collocation expressing environmental harm at a systemic level, requiring intermediate understanding.|3|Useful for comprehending the scope of plastic pollution's effects.|\ntake action|B1|Phrasal collocation meaning to do something to address a problem, typical of intermediate vocabulary.|3|Helpful for understanding Sarah's decision to respond to the issue.|\nstruggling|B1|Present participle describing difficulty or hardship, requiring intermediate vocabulary.|3|Useful for conveying the turtle's distress and emotional impact on Sarah.|\nmake a difference|B1|Idiom meaning to have a positive impact or effect, common in intermediate English.|3|Important for understanding Sarah's motivation and the passage's message.|\ndisposable ones|B1|Adjective meaning single-use or meant to be thrown away, requiring intermediate vocabulary.|3|Helpful for understanding the contrast with reusable alternatives.|\nruns the program|B1|Phrasal verb meaning to manage or operate, used here in a specific institutional context.|3|Useful for understanding the school's implementation of the initiative.|\ngrown rapidly|B1|Collocation describing quick expansion or increase, requiring intermediate vocabulary.|3|Helpful for showing the club's success and momentum.|\nAs a result|B1|Discourse marker indicating consequence or outcome, essential for intermediate-level discourse.|4|Critical for understanding the causal relationship between the club's actions and reduced waste.|\nreduced|B1|Verb meaning to make smaller or less, requiring intermediate vocabulary in this quantitative context.|3|Important for understanding the measurable success of the initiative.|\npoints out|B1|Phrasal verb meaning to indicate or draw attention to, common in intermediate English.|3|Helpful for understanding how the teacher emphasizes an important lesson.|\nlead to|B1|Phrasal verb expressing causation, typical of intermediate discourse patterns.|3|Useful for understanding the connection between small changes and big results.|\nface environmental challenges|B1|Collocation meaning to confront or deal with problems, requiring intermediate vocabulary.|3|Helpful for understanding the mindset Sarah's teacher describes.|\naddress them directly|B1|Collocation meaning to tackle or handle issues, requiring intermediate vocabulary and discourse awareness.|3|Useful for understanding proactive problem-solving behavior.|\ncarry that mindset|B1|Collocation meaning to maintain or retain a way of thinking, requiring intermediate vocabulary.|3|Helpful for understanding how attitudes persist into adulthood.|\nindividual efforts|B1|Collocation referring to personal or personal-scale actions, requiring intermediate vocabulary.|3|Important for understanding the limitation acknowledged in the passage.|\nplay a role|B1|Idiom meaning to have a part or responsibility in something, common in intermediate English.|3|Helpful for understanding the shared responsibility for solving environmental problems.|\nrefuses to look away|B2|Phrasal verb with metaphorical meaning (to ignore or avoid), requiring upper-intermediate understanding.|2|Useful for the passage's concluding message about awareness and responsibility, though not essential.|\nchange often begins|B1|Collocation expressing how transformation starts, requiring intermediate vocabulary.|3|Important for the passage's central message about individual agency.|",
+  "tokenUsage": {
+    "inputTokens": 592,
+    "outputTokens": 966
+  },
+  "latencyMs": 9791,
+  "model": "claude-haiku-4-5-20251001",
+  "promptVersion": "v12",
+  "timestamp": "2026-04-15T04:11:31.945Z"
+}

@@ -1,0 +1,104 @@
+{
+  "fixtureId": "test-28",
+  "fixtureDescription": "Forum post with embedded URLs and email addresses",
+  "category": "tricky",
+  "passage": "Hi everyone! I've been struggling with my English pronunciation lately. I found some helpful resources at https://www.englishpractice.com/pronunciation-guide and also this YouTube channel: https://youtube.com/@speakfluently. If you want to join our study group, send an email to studygroup2026@gmail.com or visit our Discord server at https://discord.gg/englishlearners. The weekly sessions have really helped me improve my confidence. Let me know if you have any recommendations!",
+  "items": [
+    {
+      "term": "struggling with",
+      "level": "B1",
+      "levelRationale": "Describes ongoing difficulty or effort with a task, requiring understanding of the continuous struggle concept.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding the speaker's main challenge and motivation."
+    },
+    {
+      "term": "helpful resources",
+      "level": "B1",
+      "levelRationale": "Common collocation describing materials or tools that provide useful assistance.",
+      "importance": 3,
+      "importanceRationale": "Useful for identifying what the speaker found valuable."
+    },
+    {
+      "term": "study group",
+      "level": "A2",
+      "levelRationale": "A common noun phrase for a group of people learning together.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding the main topic and invitation."
+    },
+    {
+      "term": "weekly sessions",
+      "level": "B1",
+      "levelRationale": "Collocation describing regularly scheduled meetings, typically occurring once per week.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the frequency and structure of the learning activity."
+    },
+    {
+      "term": "improve confidence",
+      "level": "B1",
+      "levelRationale": "Collocation meaning to increase one's self-assurance or belief in one's abilities.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding the positive outcome of participation."
+    },
+    {
+      "term": "let me know",
+      "level": "A2",
+      "levelRationale": "Phrasal verb meaning to inform or tell someone; request for information or feedback.",
+      "importance": 4,
+      "importanceRationale": "Essential conversational phrase used to invite response."
+    },
+    {
+      "term": "recommendations",
+      "level": "B1",
+      "levelRationale": "Noun meaning suggestions or proposals for something that might be helpful or worthwhile.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding what the speaker is requesting from others."
+    }
+  ],
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "line_format",
+      "passed": true,
+      "message": "All lines parsed successfully (7 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_rationales",
+      "passed": true,
+      "message": "All rationales non-empty"
+    },
+    {
+      "name": "no_duplicate_terms",
+      "passed": true,
+      "message": "No duplicate terms"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "7 item(s) extracted"
+    }
+  ],
+  "rawResponse": "struggling with|B1|Describes ongoing difficulty or effort with a task, requiring understanding of the continuous struggle concept.|3|Helpful for understanding the speaker's main challenge and motivation.\nhelpful resources|B1|Common collocation describing materials or tools that provide useful assistance.|3|Useful for identifying what the speaker found valuable.\nstudy group|A2|A common noun phrase for a group of people learning together.|4|Essential for understanding the main topic and invitation.\nweekly sessions|B1|Collocation describing regularly scheduled meetings, typically occurring once per week.|3|Important for understanding the frequency and structure of the learning activity.\nimprove confidence|B1|Collocation meaning to increase one's self-assurance or belief in one's abilities.|3|Helpful for understanding the positive outcome of participation.\nlet me know|A2|Phrasal verb meaning to inform or tell someone; request for information or feedback.|4|Essential conversational phrase used to invite response.\nrecommendations|B1|Noun meaning suggestions or proposals for something that might be helpful or worthwhile.|3|Important for understanding what the speaker is requesting from others.",
+  "tokenUsage": {
+    "inputTokens": 437,
+    "outputTokens": 246
+  },
+  "latencyMs": 3977,
+  "model": "claude-haiku-4-5-20251001",
+  "promptVersion": "v12",
+  "timestamp": "2026-04-15T04:13:26.844Z"
+}

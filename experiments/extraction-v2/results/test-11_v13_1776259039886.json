@@ -1,0 +1,234 @@
+{
+  "fixtureId": "test-11",
+  "fixtureDescription": "Polysemy-dense business passage — every key word has a non-default sense",
+  "category": "edge",
+  "passage": "The company runs a tight ship. Last quarter, they faced a major setback when their flagship product failed to meet expectations. The board addressed the crisis head-on, holding an emergency meeting to weigh the options. Several executives entertained the idea of a merger, but the CEO struck down the proposal. She argued that the firm should bear the costs alone rather than give up its independence. In the end, the team drew on their experience to craft a new strategy, and the company bounced back stronger than before.",
+  "items": [
+    {
+      "type": "phrase",
+      "term": "run a tight ship",
+      "definition": "to manage an organization in a strict and efficient way",
+      "level": "C1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "last quarter",
+      "definition": "the most recent three-month business period",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "meet expectations",
+      "definition": "to achieve the required or hoped-for standard",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "head-on",
+      "definition": "in a direct and determined way, without avoiding difficulty",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "emergency meeting",
+      "definition": "an unplanned, urgent gathering to deal with a crisis",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "weigh the options",
+      "definition": "to carefully consider all available choices",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "entertained the idea",
+      "definition": "considered or thought seriously about a possibility",
+      "level": "C1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "struck down",
+      "definition": "rejected or dismissed a proposal or idea firmly",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "bear the costs",
+      "definition": "to accept and pay for the expenses oneself",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "give up",
+      "definition": "to stop doing or having something; to surrender",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "drew on",
+      "definition": "made use of (experience, knowledge, or resources)",
+      "level": "C1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "bounced back",
+      "definition": "recovered quickly after a difficulty or failure",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "tight",
+      "definition": "strictly controlled and efficient",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "quarter",
+      "definition": "a three-month period in a business/financial year",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "setback",
+      "definition": "a problem that delays or reverses progress",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "flagship",
+      "definition": "the most important or best product of a company",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "crisis",
+      "definition": "a time of intense difficulty or danger",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "merger",
+      "definition": "the combining of two companies into one",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "proposal",
+      "definition": "a formal plan or suggestion put forward for consideration",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "independence",
+      "definition": "the state of being free from outside control",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "strategy",
+      "definition": "a plan designed to achieve a long-term goal",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "executives",
+      "definition": "senior managers in a company",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "board",
+      "definition": "the group of directors who manage a company",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "firm",
+      "definition": "a company or business",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "craft",
+      "definition": "to make or create something with skill and care",
+      "level": "B2",
+      "importance": 3
+    }
+  ],
+  "phraseCount": 12,
+  "vocabCount": 13,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (25 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "25 item(s) extracted"
+    }
+  ],
+  "rawResponse": "{\"v\":[[\"tight\",\"strictly controlled and efficient\",\"B2\",3],[\"quarter\",\"a three-month period in a business/financial year\",\"B1\",3],[\"setback\",\"a problem that delays or reverses progress\",\"B2\",4],[\"flagship\",\"the most important or best product of a company\",\"B2\",4],[\"crisis\",\"a time of intense difficulty or danger\",\"B2\",4],[\"merger\",\"the combining of two companies into one\",\"B2\",4],[\"proposal\",\"a formal plan or suggestion put forward for consideration\",\"B2\",3],[\"independence\",\"the state of being free from outside control\",\"B2\",3],[\"strategy\",\"a plan designed to achieve a long-term goal\",\"B2\",4],[\"executives\",\"senior managers in a company\",\"B2\",3],[\"board\",\"the group of directors who manage a company\",\"B2\",3],[\"firm\",\"a company or business\",\"B1\",3],[\"craft\",\"to make or create something with skill and care\",\"B2\",3]],\"p\":[[\"run a tight ship\",\"to manage an organization in a strict and efficient way\",\"C1\",4],[\"last quarter\",\"the most recent three-month business period\",\"B1\",3],[\"meet expectations\",\"to achieve the required or hoped-for standard\",\"B2\",4],[\"head-on\",\"in a direct and determined way, without avoiding difficulty\",\"B2\",3],[\"emergency meeting\",\"an unplanned, urgent gathering to deal with a crisis\",\"B1\",3],[\"weigh the options\",\"to carefully consider all available choices\",\"B2\",4],[\"entertained the idea\",\"considered or thought seriously about a possibility\",\"C1\",4],[\"struck down\",\"rejected or dismissed a proposal or idea firmly\",\"B2\",4],[\"bear the costs\",\"to accept and pay for the expenses oneself\",\"B2\",4],[\"give up\",\"to stop doing or having something; to surrender\",\"A2\",3],[\"drew on\",\"made use of (experience, knowledge, or resources)\",\"C1\",4],[\"bounced back\",\"recovered quickly after a difficulty or failure\",\"B2\",4]]}",
+  "tokenUsage": {
+    "inputTokens": 1487,
+    "outputTokens": 576,
+    "cacheRead": 0,
+    "cacheCreation": 0
+  },
+  "latencyMs": 10562,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v13",
+  "timestamp": "2026-04-15T13:17:09.324Z"
+}

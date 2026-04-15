@@ -1,0 +1,79 @@
+{
+  "fixtureId": "test-01",
+  "fixtureDescription": "Elementary passage — Min-jun's daily school routine",
+  "category": "normal",
+  "passage": "Min-jun is in the fourth grade. He likes school, but he doesn't feel well today because he has a math test. Every morning, he wakes up at seven o'clock. He brushes his teeth and has breakfast with his family. His mother is very kind and always asks, \"What kind of breakfast do you want?\" Today she makes him eggs and rice. After breakfast, he puts on his uniform and walks to school. School starts at eight thirty. His best friend Tom sits next to him. Tom runs like the wind and plays soccer well. They study English together, and Min-jun usually gets the right answer. After school, they play soccer in the playground. When Min-jun gets home, he does his homework before dinner.",
+  "items": [],
+  "parseErrors": [
+    "feel well|A2|\"Feel well\" is a common collocation expressing physical health status used in everyday contexts.|4|Essential for understanding Min-jun's emotional and physical state, which is central to the passage's opening.|",
+    "doesn't feel well|A2|Negative form of the basic health expression used to describe not being in good physical condition.|4|Critical for comprehension as it establishes the main reason for Min-jun's anxiety in the passage.|",
+    "wakes up|A1|Phrasal verb meaning to stop sleeping, one of the most fundamental daily routine verbs.|4|Essential basic vocabulary for describing daily activities that appears early in the passage.|",
+    "brushes his teeth|A1|Common daily hygiene routine expressed with a simple transitive verb.|3|Important for understanding daily routines, though not central to the main narrative.|",
+    "has breakfast|A1|Collocation for eating the first meal of the day, fundamental vocabulary.|3|Useful for understanding daily routine structure, though not critical to main events.|",
+    "asks|A2|Verb meaning to request information or pose a question, basic communication verb.|2|Supports understanding dialogue but is not essential to the main narrative flow.|",
+    "makes him eggs|A1|Transitive verb phrase showing one person preparing food for another.|3|Helps illustrate the mother's caring nature and family dynamics.|",
+    "puts on|A1|Phrasal verb meaning to wear or dress in clothing, fundamental daily action.|4|Essential for understanding the sequence of morning routine events.|",
+    "walks to school|A1|Simple verb describing movement to a location, basic vocabulary.|2|Describes transportation method but is supplementary to main events.|",
+    "starts|A1|Verb indicating when an event begins, fundamental temporal vocabulary.|3|Important for understanding the school schedule structure.|",
+    "sits next to|A2|Phrasal verb/collocation indicating spatial proximity and seating arrangement.|2|Useful for understanding classroom relationships but not critical to main narrative.|",
+    "runs like the wind|B1|Idiom meaning to run very fast, using figurative comparison.|2|Colorful description of Tom's athletic ability but supplementary to main events.|",
+    "plays soccer|A1|Collocation for participating in the sport, basic activity vocabulary.|3|Important for understanding what the boys do after school.|",
+    "study together|A1|Collocation indicating collaborative learning, fundamental school vocabulary.|3|Relevant to understanding their friendship and academic activities.|",
+    "gets the right answer|A2|Collocation indicating correct response, common in academic contexts.|3|Shows Min-jun's academic competence, supporting characterization.|",
+    "play soccer|A1|Collocation for the recreational activity, basic vocabulary.|3|Important for understanding after-school activities.|",
+    "gets home|A2|Phrasal verb meaning to arrive at one's residence.|3|Marks transition to evening routine and homework.|",
+    "does his homework|A1|Collocation for completing school assignments, fundamental school vocabulary.|3|Important for understanding evening routine and academic responsibility.|",
+    "before dinner|A1|Temporal phrase indicating sequence of events, basic time expression.|2|Helps structure the daily timeline but is supplementary.|",
+    "best friend|A1|Collocation indicating closest friendship relationship, fundamental social vocabulary.|3|Important for understanding Min-jun's social relationships.|",
+    "kind|A2|Adjective meaning caring and considerate, basic personality descriptor.|2|Characterizes the mother but is supplementary to main events.|",
+    "always|A1|Adverb indicating habitual or continuous action, fundamental frequency word.|2|Shows the mother's consistent behavior but is supplementary.|",
+    "usually|A1|Adverb indicating typical or frequent occurrence, fundamental frequency word.|2|Shows Min-jun's typical academic performance but is supplementary.|",
+    "well|A2|Adverb indicating skillful performance or good health, context-dependent meaning.|3|Used twice with different meanings; important for understanding both health and ability.|"
+  ],
+  "structuralChecks": [
+    {
+      "name": "line_format",
+      "passed": false,
+      "message": "24 line(s) failed to parse: \"feel well|A2|\"Feel well\" is a common collocation expressing ...\", \"doesn't feel well|A2|Negative form of the basic health expre...\", \"wakes up|A1|Phrasal verb meaning to stop sleeping, one of th...\" and 21 more"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_rationales",
+      "passed": true,
+      "message": "All rationales non-empty"
+    },
+    {
+      "name": "no_duplicate_terms",
+      "passed": true,
+      "message": "No duplicate terms"
+    },
+    {
+      "name": "has_output",
+      "passed": false,
+      "message": "No items extracted from non-empty input"
+    }
+  ],
+  "rawResponse": "feel well|A2|\"Feel well\" is a common collocation expressing physical health status used in everyday contexts.|4|Essential for understanding Min-jun's emotional and physical state, which is central to the passage's opening.|\ndoesn't feel well|A2|Negative form of the basic health expression used to describe not being in good physical condition.|4|Critical for comprehension as it establishes the main reason for Min-jun's anxiety in the passage.|\nwakes up|A1|Phrasal verb meaning to stop sleeping, one of the most fundamental daily routine verbs.|4|Essential basic vocabulary for describing daily activities that appears early in the passage.|\nbrushes his teeth|A1|Common daily hygiene routine expressed with a simple transitive verb.|3|Important for understanding daily routines, though not central to the main narrative.|\nhas breakfast|A1|Collocation for eating the first meal of the day, fundamental vocabulary.|3|Useful for understanding daily routine structure, though not critical to main events.|\nasks|A2|Verb meaning to request information or pose a question, basic communication verb.|2|Supports understanding dialogue but is not essential to the main narrative flow.|\nmakes him eggs|A1|Transitive verb phrase showing one person preparing food for another.|3|Helps illustrate the mother's caring nature and family dynamics.|\nputs on|A1|Phrasal verb meaning to wear or dress in clothing, fundamental daily action.|4|Essential for understanding the sequence of morning routine events.|\nwalks to school|A1|Simple verb describing movement to a location, basic vocabulary.|2|Describes transportation method but is supplementary to main events.|\nstarts|A1|Verb indicating when an event begins, fundamental temporal vocabulary.|3|Important for understanding the school schedule structure.|\nsits next to|A2|Phrasal verb/collocation indicating spatial proximity and seating arrangement.|2|Useful for understanding classroom relationships but not critical to main narrative.|\nruns like the wind|B1|Idiom meaning to run very fast, using figurative comparison.|2|Colorful description of Tom's athletic ability but supplementary to main events.|\nplays soccer|A1|Collocation for participating in the sport, basic activity vocabulary.|3|Important for understanding what the boys do after school.|\nstudy together|A1|Collocation indicating collaborative learning, fundamental school vocabulary.|3|Relevant to understanding their friendship and academic activities.|\ngets the right answer|A2|Collocation indicating correct response, common in academic contexts.|3|Shows Min-jun's academic competence, supporting characterization.|\nplay soccer|A1|Collocation for the recreational activity, basic vocabulary.|3|Important for understanding after-school activities.|\ngets home|A2|Phrasal verb meaning to arrive at one's residence.|3|Marks transition to evening routine and homework.|\ndoes his homework|A1|Collocation for completing school assignments, fundamental school vocabulary.|3|Important for understanding evening routine and academic responsibility.|\nbefore dinner|A1|Temporal phrase indicating sequence of events, basic time expression.|2|Helps structure the daily timeline but is supplementary.|\nbest friend|A1|Collocation indicating closest friendship relationship, fundamental social vocabulary.|3|Important for understanding Min-jun's social relationships.|\nkind|A2|Adjective meaning caring and considerate, basic personality descriptor.|2|Characterizes the mother but is supplementary to main events.|\nalways|A1|Adverb indicating habitual or continuous action, fundamental frequency word.|2|Shows the mother's consistent behavior but is supplementary.|\nusually|A1|Adverb indicating typical or frequent occurrence, fundamental frequency word.|2|Shows Min-jun's typical academic performance but is supplementary.|\nwell|A2|Adverb indicating skillful performance or good health, context-dependent meaning.|3|Used twice with different meanings; important for understanding both health and ability.|",
+  "tokenUsage": {
+    "inputTokens": 480,
+    "outputTokens": 861
+  },
+  "latencyMs": 20333,
+  "model": "claude-haiku-4-5-20251001",
+  "promptVersion": "v12",
+  "timestamp": "2026-04-14T14:44:09.976Z"
+}

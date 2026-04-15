@@ -1,0 +1,199 @@
+{
+  "fixtureId": "test-29",
+  "fixtureDescription": "Extremely repetitive passage using the same sentence frame ten times",
+  "category": "tricky",
+  "passage": "The implications of climate change are far-reaching. The implications of climate change are profound. The implications of climate change are devastating. The implications of climate change are undeniable. The implications of climate change are urgent. The implications of climate change require immediate action. The implications of climate change demand our attention. The implications of climate change cannot be overstated. The implications of climate change affect every nation. The implications of climate change will shape our future.",
+  "items": [
+    {
+      "type": "phrase",
+      "term": "climate change",
+      "definition": "long-term shifts in global temperatures and weather patterns, largely caused by human activity",
+      "level": "A2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "far-reaching",
+      "definition": "having a wide range of influence or effects extending broadly",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "immediate action",
+      "definition": "steps taken without delay to address a problem",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "cannot be overstated",
+      "definition": "used to emphasize that something is extremely important and serious",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "shape our future",
+      "definition": "to influence or determine what will happen in times to come",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "implications",
+      "definition": "important consequences or effects of something",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "far-reaching",
+      "definition": "having a wide range of influence or effects",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "profound",
+      "definition": "very great or intense; having deep meaning or effect",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "devastating",
+      "definition": "highly destructive or damaging",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "undeniable",
+      "definition": "impossible to deny or dispute; clearly true",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "urgent",
+      "definition": "requiring immediate attention or action",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "immediate",
+      "definition": "happening or done without delay",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "overstated",
+      "definition": "described as more important or serious than it really is",
+      "level": "B2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "nation",
+      "definition": "a country considered as a group of people with shared identity",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "shape",
+      "definition": "to influence the development or nature of something",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "attention",
+      "definition": "the act of focusing one's mind on something",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "action",
+      "definition": "the process of doing something to achieve a goal",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "affect",
+      "definition": "to have an effect on; to influence",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "demand",
+      "definition": "to require something as necessary or essential",
+      "level": "B1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "require",
+      "definition": "to need something as necessary",
+      "level": "A2",
+      "importance": 2
+    }
+  ],
+  "phraseCount": 5,
+  "vocabCount": 15,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (20 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "20 item(s) extracted"
+    }
+  ],
+  "rawResponse": "{\"v\":[[\"implications\",\"important consequences or effects of something\",\"B2\",4],[\"far-reaching\",\"having a wide range of influence or effects\",\"B2\",3],[\"profound\",\"very great or intense; having deep meaning or effect\",\"B2\",3],[\"devastating\",\"highly destructive or damaging\",\"B2\",3],[\"undeniable\",\"impossible to deny or dispute; clearly true\",\"B2\",3],[\"urgent\",\"requiring immediate attention or action\",\"B1\",3],[\"immediate\",\"happening or done without delay\",\"B1\",3],[\"overstated\",\"described as more important or serious than it really is\",\"B2\",2],[\"nation\",\"a country considered as a group of people with shared identity\",\"A2\",2],[\"shape\",\"to influence the development or nature of something\",\"B1\",3],[\"attention\",\"the act of focusing one's mind on something\",\"A2\",2],[\"action\",\"the process of doing something to achieve a goal\",\"A1\",2],[\"affect\",\"to have an effect on; to influence\",\"B1\",3],[\"demand\",\"to require something as necessary or essential\",\"B1\",2],[\"require\",\"to need something as necessary\",\"A2\",2]],\"p\":[[\"climate change\",\"long-term shifts in global temperatures and weather patterns, largely caused by human activity\",\"A2\",4],[\"far-reaching\",\"having a wide range of influence or effects extending broadly\",\"B2\",3],[\"immediate action\",\"steps taken without delay to address a problem\",\"B1\",3],[\"cannot be overstated\",\"used to emphasize that something is extremely important and serious\",\"B2\",4],[\"shape our future\",\"to influence or determine what will happen in times to come\",\"B1\",3]]}",
+  "tokenUsage": {
+    "inputTokens": 1474,
+    "outputTokens": 477,
+    "cacheRead": 0,
+    "cacheCreation": 0
+  },
+  "latencyMs": 8783,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v13",
+  "timestamp": "2026-04-15T13:18:54.959Z"
+}

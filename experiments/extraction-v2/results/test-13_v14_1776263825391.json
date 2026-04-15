@@ -1,0 +1,241 @@
+{
+  "fixtureId": "test-13",
+  "fixtureDescription": "Proper-noun-heavy travel paragraph with city names, brands, and platforms",
+  "category": "edge",
+  "passage": "Last summer, Emily traveled from Seoul to Tokyo with her friend Sarah. They visited the famous Shibuya district and ate at a McDonald's near Harajuku Station. Emily bought a new Samsung phone at a shop in Akihabara. On their last day, they took the Shinkansen to Osaka and visited Osaka Castle. Sarah posted all the photos on Instagram, and Emily shared them on Facebook. Their Korean friend Minho commented that he wanted to visit Japan too.",
+  "items": [
+    {
+      "type": "phrase",
+      "term": "traveled from",
+      "definition": "moved away from a starting location to another place",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "on their last day",
+      "definition": "during the final day of a trip or stay",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "near",
+      "definition": "not far away; close to something",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "traveled",
+      "definition": "moved from one place to another, usually over a long distance",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "visited",
+      "definition": "went to see a place as a tourist or guest",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "famous",
+      "definition": "known and recognized by many people",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "district",
+      "definition": "a specific area or region of a city",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "ate",
+      "definition": "past tense of 'eat'; consumed food",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "bought",
+      "definition": "past tense of 'buy'; paid money to get something",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "shop",
+      "definition": "a place where goods are sold",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "last",
+      "definition": "final; coming at the end",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "took",
+      "definition": "used a form of transport to travel somewhere",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "posted",
+      "definition": "uploaded and shared content on a social media platform",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "photos",
+      "definition": "pictures taken with a camera or phone",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "shared",
+      "definition": "made something available for others to see online",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "commented",
+      "definition": "wrote a remark or response on a social media post",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "wanted",
+      "definition": "had a desire or wish for something",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "visit",
+      "definition": "to go to a place for a period of time",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "summer",
+      "definition": "the warmest season of the year",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "friend",
+      "definition": "a person you know well and like",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "castle",
+      "definition": "a large, old stone building that was built to defend against attack",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "station",
+      "definition": "a place where trains stop for passengers to get on or off",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "phone",
+      "definition": "a device used to make calls and access the internet",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "new",
+      "definition": "recently made or bought; not used before",
+      "level": "A1",
+      "importance": 1
+    },
+    {
+      "type": "vocabulary",
+      "term": "day",
+      "definition": "a period of 24 hours",
+      "level": "A1",
+      "importance": 1
+    },
+    {
+      "type": "vocabulary",
+      "term": "too",
+      "definition": "also; in addition",
+      "level": "A1",
+      "importance": 2
+    }
+  ],
+  "phraseCount": 3,
+  "vocabCount": 23,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (26 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "26 item(s) extracted"
+    }
+  ],
+  "rawResponse": "{\"v\":[[\"traveled\",\"moved from one place to another, usually over a long distance\",\"A1\",3],[\"visited\",\"went to see a place as a tourist or guest\",\"A1\",3],[\"famous\",\"known and recognized by many people\",\"A1\",2],[\"district\",\"a specific area or region of a city\",\"A2\",3],[\"ate\",\"past tense of 'eat'; consumed food\",\"A1\",2],[\"near\",\"not far away; close to something\",\"A1\",2],[\"bought\",\"past tense of 'buy'; paid money to get something\",\"A1\",2],[\"shop\",\"a place where goods are sold\",\"A1\",2],[\"last\",\"final; coming at the end\",\"A1\",2],[\"took\",\"used a form of transport to travel somewhere\",\"A1\",3],[\"posted\",\"uploaded and shared content on a social media platform\",\"A2\",2],[\"photos\",\"pictures taken with a camera or phone\",\"A1\",2],[\"shared\",\"made something available for others to see online\",\"A2\",2],[\"commented\",\"wrote a remark or response on a social media post\",\"A2\",2],[\"wanted\",\"had a desire or wish for something\",\"A1\",2],[\"visit\",\"to go to a place for a period of time\",\"A1\",3],[\"summer\",\"the warmest season of the year\",\"A1\",2],[\"friend\",\"a person you know well and like\",\"A1\",2],[\"castle\",\"a large, old stone building that was built to defend against attack\",\"A2\",2],[\"station\",\"a place where trains stop for passengers to get on or off\",\"A1\",2],[\"phone\",\"a device used to make calls and access the internet\",\"A1\",2],[\"new\",\"recently made or bought; not used before\",\"A1\",1],[\"day\",\"a period of 24 hours\",\"A1\",1],[\"too\",\"also; in addition\",\"A1\",2]],\"p\":[[\"traveled from\",\"moved away from a starting location to another place\",\"A2\",3],[\"on their last day\",\"during the final day of a trip or stay\",\"A2\",3],[\"near\",\"not far away; close to something\",\"A1\",2]]}",
+  "tokenUsage": {
+    "inputTokens": 523,
+    "outputTokens": 667,
+    "cacheRead": 4142,
+    "cacheCreation": 0
+  },
+  "latencyMs": 9632,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v14",
+  "timestamp": "2026-04-15T14:36:55.759Z"
+}

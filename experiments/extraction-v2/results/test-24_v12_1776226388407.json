@@ -1,0 +1,148 @@
+{
+  "fixtureId": "test-24",
+  "fixtureDescription": "Multi-language paragraph mixing Korean, Spanish, French, and English",
+  "category": "non-english",
+  "passage": "어제 나는 international food festival에 갔어요. Hadía muchos platos deliciosos de diferentes países. I tried sushi for the first time and it was absolutely delicious. Il y avait aussi des crêpes françaises magnifiques. 가장 인상 깊었던 건 the incredible variety of flavors from around the world. C'était une expérience formidable que je n'oublierai jamais. 다음에는 친구들과 함께 가려고요.",
+  "items": [
+    {
+      "term": "international food festival",
+      "level": "B1",
+      "levelRationale": "Compound noun referring to a cultural event featuring cuisine from multiple countries, requiring knowledge of both \"international\" and \"festival\" as a combined concept.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding the main context, though the individual words are more basic."
+    },
+    {
+      "term": "food festival",
+      "level": "B1",
+      "levelRationale": "Collocation describing a public event centered on culinary offerings.",
+      "importance": 3,
+      "importanceRationale": "Useful for recognizing how \"food\" and \"festival\" combine to create a specific event type."
+    },
+    {
+      "term": "tried",
+      "level": "A1",
+      "levelRationale": "Past tense of \"try\" meaning to taste or sample something for the first time.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding the speaker's action and experience at the event."
+    },
+    {
+      "term": "sushi",
+      "level": "A2",
+      "levelRationale": "Japanese dish of rice with raw fish and vegetables; a specific food item requiring cultural knowledge.",
+      "importance": 3,
+      "importanceRationale": "Important for following the narrative but depends on prior exposure to this cuisine term."
+    },
+    {
+      "term": "first time",
+      "level": "A1",
+      "levelRationale": "Phrase indicating an initial experience or occurrence.",
+      "importance": 4,
+      "importanceRationale": "Critical for understanding that this was a novel experience for the speaker."
+    },
+    {
+      "term": "absolutely delicious",
+      "level": "B1",
+      "levelRationale": "Intensified collocation expressing strong positive taste evaluation; \"absolutely\" as intensifier with \"delicious\" as evaluative adjective.",
+      "importance": 4,
+      "importanceRationale": "Essential for comprehending the speaker's enthusiastic reaction to the food."
+    },
+    {
+      "term": "delicious",
+      "level": "A2",
+      "levelRationale": "Adjective meaning having a very pleasant taste.",
+      "importance": 4,
+      "importanceRationale": "Core evaluative word necessary for understanding food descriptions throughout the passage."
+    },
+    {
+      "term": "variety",
+      "level": "B1",
+      "levelRationale": "Noun meaning diversity or range of different types or kinds.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding the speaker's appreciation of different food options."
+    },
+    {
+      "term": "flavors",
+      "level": "A2",
+      "levelRationale": "Noun meaning the taste qualities of food; plural form indicating multiple taste experiences.",
+      "importance": 4,
+      "importanceRationale": "Essential for discussing food experiences and the passage's central theme."
+    },
+    {
+      "term": "around the world",
+      "level": "B1",
+      "levelRationale": "Prepositional phrase indicating global scope or worldwide distribution.",
+      "importance": 3,
+      "importanceRationale": "Useful for understanding the international nature of the festival's offerings."
+    },
+    {
+      "term": "experience",
+      "level": "B1",
+      "levelRationale": "Noun meaning an event or occurrence that leaves an impression; here referring to the festival visit as a memorable event.",
+      "importance": 4,
+      "importanceRationale": "Critical for understanding the speaker's overall evaluation of attending the festival."
+    },
+    {
+      "term": "incredible",
+      "level": "B1",
+      "levelRationale": "Adjective meaning extraordinary or amazing; intensifier expressing strong positive emotion.",
+      "importance": 3,
+      "importanceRationale": "Helpful for conveying the speaker's enthusiasm about the variety encountered."
+    },
+    {
+      "term": "next time",
+      "level": "A2",
+      "levelRationale": "Phrase indicating a future occasion or subsequent opportunity.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the speaker's intention to return with friends."
+    },
+    {
+      "term": "go with friends",
+      "level": "B1",
+      "levelRationale": "Collocation expressing the intention to attend an event accompanied by companions.",
+      "importance": 3,
+      "importanceRationale": "Useful for understanding social plans and future actions."
+    }
+  ],
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "line_format",
+      "passed": true,
+      "message": "All lines parsed successfully (14 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_rationales",
+      "passed": true,
+      "message": "All rationales non-empty"
+    },
+    {
+      "name": "no_duplicate_terms",
+      "passed": true,
+      "message": "No duplicate terms"
+    }
+  ],
+  "rawResponse": "international food festival|B1|Compound noun referring to a cultural event featuring cuisine from multiple countries, requiring knowledge of both \"international\" and \"festival\" as a combined concept.|3|Helpful for understanding the main context, though the individual words are more basic.|\nfood festival|B1|Collocation describing a public event centered on culinary offerings.|3|Useful for recognizing how \"food\" and \"festival\" combine to create a specific event type.|\ntried|A1|Past tense of \"try\" meaning to taste or sample something for the first time.|4|Essential for understanding the speaker's action and experience at the event.|\nsushi|A2|Japanese dish of rice with raw fish and vegetables; a specific food item requiring cultural knowledge.|3|Important for following the narrative but depends on prior exposure to this cuisine term.|\nfirst time|A1|Phrase indicating an initial experience or occurrence.|4|Critical for understanding that this was a novel experience for the speaker.|\nabsolutely delicious|B1|Intensified collocation expressing strong positive taste evaluation; \"absolutely\" as intensifier with \"delicious\" as evaluative adjective.|4|Essential for comprehending the speaker's enthusiastic reaction to the food.|\ndelicious|A2|Adjective meaning having a very pleasant taste.|4|Core evaluative word necessary for understanding food descriptions throughout the passage.|\nvariety|B1|Noun meaning diversity or range of different types or kinds.|3|Helpful for understanding the speaker's appreciation of different food options.|\nflavors|A2|Noun meaning the taste qualities of food; plural form indicating multiple taste experiences.|4|Essential for discussing food experiences and the passage's central theme.|\naround the world|B1|Prepositional phrase indicating global scope or worldwide distribution.|3|Useful for understanding the international nature of the festival's offerings.|\nexperience|B1|Noun meaning an event or occurrence that leaves an impression; here referring to the festival visit as a memorable event.|4|Critical for understanding the speaker's overall evaluation of attending the festival.|\nincredible|B1|Adjective meaning extraordinary or amazing; intensifier expressing strong positive emotion.|3|Helpful for conveying the speaker's enthusiasm about the variety encountered.|\nnext time|A2|Phrase indicating a future occasion or subsequent opportunity.|3|Important for understanding the speaker's intention to return with friends.|\ngo with friends|B1|Collocation expressing the intention to attend an event accompanied by companions.|3|Useful for understanding social plans and future actions.|",
+  "tokenUsage": {
+    "inputTokens": 450,
+    "outputTokens": 548
+  },
+  "latencyMs": 6958,
+  "model": "claude-haiku-4-5-20251001",
+  "promptVersion": "v12",
+  "timestamp": "2026-04-15T04:13:01.449Z"
+}

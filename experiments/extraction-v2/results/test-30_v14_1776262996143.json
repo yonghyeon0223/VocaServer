@@ -1,0 +1,283 @@
+{
+  "fixtureId": "test-30",
+  "fixtureDescription": "Passage with deliberate spelling errors and typos throughout",
+  "category": "tricky",
+  "passage": "The goverment has anounced a new iniative to adress the growing conserns about enviromental polusion. Reserchers at the univercity have condcuted extensve studeis showing that pollutents in the atmosfere are contributing to globel warming at an alarming rate. Critcs argue that the propsed regulatons don't go far enuf, while suporters beleive they strke a reasnable balence.",
+  "items": [
+    {
+      "type": "phrase",
+      "term": "global warming",
+      "definition": "the gradual increase in the Earth's temperature caused by pollution",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "at an alarming rate",
+      "definition": "happening very fast in a way that causes worry",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "go far enough",
+      "definition": "to be sufficient or strong enough to achieve the desired result",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "strike a balance",
+      "definition": "to find a fair middle point between two opposing things",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "government",
+      "definition": "the group of people who officially control a country",
+      "level": "A2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "announced",
+      "definition": "made something known to the public officially",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "initiative",
+      "definition": "a new plan or action to achieve a goal",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "address",
+      "definition": "to deal with or try to solve a problem",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "growing",
+      "definition": "increasing in size, amount, or importance over time",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "concerns",
+      "definition": "worries or feelings that something is wrong or might go wrong",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "environmental",
+      "definition": "relating to the natural world and the effects of human activity on it",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "pollution",
+      "definition": "harmful substances that damage the air, water, or land",
+      "level": "A2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "researchers",
+      "definition": "people who study a subject carefully to discover new facts",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "university",
+      "definition": "a place of higher education where people study for degrees",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "conducted",
+      "definition": "carried out or organized a study or activity",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "extensive",
+      "definition": "covering a large area or range; thorough",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "studies",
+      "definition": "pieces of research that examine a subject in detail",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "pollutants",
+      "definition": "substances that cause pollution in the environment",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "atmosphere",
+      "definition": "the layer of gases surrounding the Earth",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "contributing",
+      "definition": "helping to cause or bring about a result",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "global",
+      "definition": "relating to the whole world",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "warming",
+      "definition": "a gradual increase in temperature",
+      "level": "A2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "alarming",
+      "definition": "causing worry or fear because of being dangerous or serious",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "rate",
+      "definition": "the speed at which something happens over a period of time",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "critics",
+      "definition": "people who express disapproval of something or point out its faults",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "proposed",
+      "definition": "suggested as a plan or idea for others to consider",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "regulations",
+      "definition": "official rules made by a government or authority",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "supporters",
+      "definition": "people who agree with and back a plan or idea",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "believe",
+      "definition": "to think that something is true or correct",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "strike",
+      "definition": "to achieve or find a balance or agreement",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "reasonable",
+      "definition": "fair and sensible; not extreme",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "balance",
+      "definition": "a situation where different things are given equal or fair weight",
+      "level": "B1",
+      "importance": 3
+    }
+  ],
+  "phraseCount": 4,
+  "vocabCount": 28,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (32 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "32 item(s) extracted"
+    }
+  ],
+  "rawResponse": "{\"v\":[[\"government\",\"the group of people who officially control a country\",\"A2\",4],[\"announced\",\"made something known to the public officially\",\"A2\",3],[\"initiative\",\"a new plan or action to achieve a goal\",\"B2\",4],[\"address\",\"to deal with or try to solve a problem\",\"B2\",4],[\"growing\",\"increasing in size, amount, or importance over time\",\"A2\",3],[\"concerns\",\"worries or feelings that something is wrong or might go wrong\",\"B1\",4],[\"environmental\",\"relating to the natural world and the effects of human activity on it\",\"B1\",4],[\"pollution\",\"harmful substances that damage the air, water, or land\",\"A2\",4],[\"researchers\",\"people who study a subject carefully to discover new facts\",\"B1\",3],[\"university\",\"a place of higher education where people study for degrees\",\"A1\",2],[\"conducted\",\"carried out or organized a study or activity\",\"B2\",3],[\"extensive\",\"covering a large area or range; thorough\",\"B2\",3],[\"studies\",\"pieces of research that examine a subject in detail\",\"B1\",3],[\"pollutants\",\"substances that cause pollution in the environment\",\"B2\",4],[\"atmosphere\",\"the layer of gases surrounding the Earth\",\"B1\",4],[\"contributing\",\"helping to cause or bring about a result\",\"B2\",3],[\"global\",\"relating to the whole world\",\"B1\",4],[\"warming\",\"a gradual increase in temperature\",\"A2\",4],[\"alarming\",\"causing worry or fear because of being dangerous or serious\",\"B2\",3],[\"rate\",\"the speed at which something happens over a period of time\",\"B1\",3],[\"critics\",\"people who express disapproval of something or point out its faults\",\"B2\",3],[\"proposed\",\"suggested as a plan or idea for others to consider\",\"B2\",3],[\"regulations\",\"official rules made by a government or authority\",\"B2\",4],[\"supporters\",\"people who agree with and back a plan or idea\",\"B1\",3],[\"believe\",\"to think that something is true or correct\",\"A1\",2],[\"strike\",\"to achieve or find a balance or agreement\",\"B2\",3],[\"reasonable\",\"fair and sensible; not extreme\",\"B1\",3],[\"balance\",\"a situation where different things are given equal or fair weight\",\"B1\",3]],\"p\":[[\"global warming\",\"the gradual increase in the Earth's temperature caused by pollution\",\"B1\",4],[\"at an alarming rate\",\"happening very fast in a way that causes worry\",\"B2\",3],[\"go far enough\",\"to be sufficient or strong enough to achieve the desired result\",\"B2\",3],[\"strike a balance\",\"to find a fair middle point between two opposing things\",\"B2\",3]]}",
+  "tokenUsage": {
+    "inputTokens": 522,
+    "outputTokens": 812,
+    "cacheRead": 4142,
+    "cacheCreation": 0
+  },
+  "latencyMs": 12833,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v14",
+  "timestamp": "2026-04-15T14:23:03.310Z"
+}

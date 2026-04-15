@@ -1,0 +1,199 @@
+{
+  "fixtureId": "test-13",
+  "fixtureDescription": "Proper-noun-heavy travel paragraph with city names, brands, and platforms",
+  "category": "edge",
+  "passage": "Last summer, Emily traveled from Seoul to Tokyo with her friend Sarah. They visited the famous Shibuya district and ate at a McDonald's near Harajuku Station. Emily bought a new Samsung phone at a shop in Akihabara. On their last day, they took the Shinkansen to Osaka and visited Osaka Castle. Sarah posted all the photos on Instagram, and Emily shared them on Facebook. Their Korean friend Minho commented that he wanted to visit Japan too.",
+  "items": [
+    {
+      "type": "phrase",
+      "term": "on their last day",
+      "definition": "used to refer to the final day of a trip or stay",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "near ... Station",
+      "definition": "in the vicinity of a named railway or transit station",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "traveled",
+      "definition": "moved from one place to another, typically over a distance",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "visited",
+      "definition": "went to see a place or person",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "famous",
+      "definition": "known by many people",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "district",
+      "definition": "an area of a city or region with a particular character or function",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "ate",
+      "definition": "past tense of 'eat'; consumed food",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "near",
+      "definition": "at a short distance from something",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "bought",
+      "definition": "past tense of 'buy'; obtained something by paying money",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "shop",
+      "definition": "a place where goods are sold",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "last",
+      "definition": "final in a series or sequence",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "took",
+      "definition": "past tense of 'take'; used a form of transport",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "posted",
+      "definition": "published content on a social media platform",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "photos",
+      "definition": "pictures taken with a camera",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "shared",
+      "definition": "made content available to others, especially on social media",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "commented",
+      "definition": "wrote a remark or response, especially online",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "castle",
+      "definition": "a large medieval fortified building",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "friend",
+      "definition": "a person with whom one has a bond of mutual affection",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "phone",
+      "definition": "a mobile device used for communication",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "summer",
+      "definition": "the warmest season of the year",
+      "level": "A1",
+      "importance": 2
+    }
+  ],
+  "phraseCount": 2,
+  "vocabCount": 18,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (20 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "20 item(s) extracted"
+    }
+  ],
+  "rawResponse": "{\"v\":[[\"traveled\",\"moved from one place to another, typically over a distance\",\"A1\",3],[\"visited\",\"went to see a place or person\",\"A1\",3],[\"famous\",\"known by many people\",\"A2\",2],[\"district\",\"an area of a city or region with a particular character or function\",\"B1\",3],[\"ate\",\"past tense of 'eat'; consumed food\",\"A1\",2],[\"near\",\"at a short distance from something\",\"A1\",2],[\"bought\",\"past tense of 'buy'; obtained something by paying money\",\"A1\",3],[\"shop\",\"a place where goods are sold\",\"A1\",2],[\"last\",\"final in a series or sequence\",\"A1\",2],[\"took\",\"past tense of 'take'; used a form of transport\",\"A1\",3],[\"posted\",\"published content on a social media platform\",\"A2\",3],[\"photos\",\"pictures taken with a camera\",\"A1\",3],[\"shared\",\"made content available to others, especially on social media\",\"A2\",3],[\"commented\",\"wrote a remark or response, especially online\",\"A2\",3],[\"castle\",\"a large medieval fortified building\",\"A2\",2],[\"friend\",\"a person with whom one has a bond of mutual affection\",\"A1\",2],[\"phone\",\"a mobile device used for communication\",\"A1\",2],[\"summer\",\"the warmest season of the year\",\"A1\",2]],\"p\":[[\"on their last day\",\"used to refer to the final day of a trip or stay\",\"A2\",3],[\"near ... Station\",\"in the vicinity of a named railway or transit station\",\"A1\",2]]}",
+  "tokenUsage": {
+    "inputTokens": 1485,
+    "outputTokens": 468,
+    "cacheRead": 0,
+    "cacheCreation": 0
+  },
+  "latencyMs": 20490,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v13",
+  "timestamp": "2026-04-15T13:17:30.180Z"
+}

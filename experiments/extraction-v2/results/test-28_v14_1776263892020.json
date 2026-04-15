@@ -1,0 +1,157 @@
+{
+  "fixtureId": "test-28",
+  "fixtureDescription": "Forum post with embedded URLs and email addresses",
+  "category": "tricky",
+  "passage": "Hi everyone! I've been struggling with my English pronunciation lately. I found some helpful resources at https://www.englishpractice.com/pronunciation-guide and also this YouTube channel: https://youtube.com/@speakfluently. If you want to join our study group, send an email to studygroup2026@gmail.com or visit our Discord server at https://discord.gg/englishlearners. The weekly sessions have really helped me improve my confidence. Let me know if you have any recommendations!",
+  "items": [
+    {
+      "type": "phrase",
+      "term": "struggling with",
+      "definition": "having ongoing difficulty with something",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "study group",
+      "definition": "a group of people who meet regularly to learn together",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "let me know",
+      "definition": "used to ask someone to tell you something or give you information",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "improve my confidence",
+      "definition": "make one's self-belief or trust in one's own abilities stronger",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "struggling",
+      "definition": "having difficulty with something over a period of time",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "pronunciation",
+      "definition": "the way sounds are made when speaking a word",
+      "level": "A2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "lately",
+      "definition": "recently; in the period just before now",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "helpful",
+      "definition": "useful; giving help or assistance",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "resources",
+      "definition": "materials or tools that help you learn or do something",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "channel",
+      "definition": "a dedicated page or account on a video platform where content is posted",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "weekly",
+      "definition": "happening once every week",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "sessions",
+      "definition": "periods of time set aside for a particular activity",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "confidence",
+      "definition": "a feeling of trust in your own abilities",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "recommendations",
+      "definition": "suggestions that something is good or useful",
+      "level": "B1",
+      "importance": 3
+    }
+  ],
+  "phraseCount": 4,
+  "vocabCount": 10,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (14 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "14 item(s) extracted"
+    }
+  ],
+  "rawResponse": "{\"v\":[[\"struggling\",\"having difficulty with something over a period of time\",\"B1\",3],[\"pronunciation\",\"the way sounds are made when speaking a word\",\"A2\",4],[\"lately\",\"recently; in the period just before now\",\"A2\",3],[\"helpful\",\"useful; giving help or assistance\",\"A1\",2],[\"resources\",\"materials or tools that help you learn or do something\",\"A2\",3],[\"channel\",\"a dedicated page or account on a video platform where content is posted\",\"A2\",2],[\"weekly\",\"happening once every week\",\"A1\",2],[\"sessions\",\"periods of time set aside for a particular activity\",\"B1\",3],[\"confidence\",\"a feeling of trust in your own abilities\",\"B1\",3],[\"recommendations\",\"suggestions that something is good or useful\",\"B1\",3]],\"p\":[[\"struggling with\",\"having ongoing difficulty with something\",\"B1\",4],[\"study group\",\"a group of people who meet regularly to learn together\",\"A2\",3],[\"let me know\",\"used to ask someone to tell you something or give you information\",\"A2\",3],[\"improve my confidence\",\"make one's self-belief or trust in one's own abilities stronger\",\"B1\",3]]}",
+  "tokenUsage": {
+    "inputTokens": 532,
+    "outputTokens": 380,
+    "cacheRead": 4142,
+    "cacheCreation": 0
+  },
+  "latencyMs": 8260,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v14",
+  "timestamp": "2026-04-15T14:38:03.760Z"
+}

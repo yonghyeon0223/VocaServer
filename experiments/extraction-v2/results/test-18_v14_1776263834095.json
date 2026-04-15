@@ -1,0 +1,58 @@
+{
+  "fixtureId": "test-18",
+  "fixtureDescription": "Random keyboard-smash characters with no recognizable English",
+  "category": "invalid",
+  "passage": "asdkjf8#$@lk2j!xmc9v&*()_+={}|:\"<>?zxcvbnm3847562qwerty!@#$%^&*asdf2847fjkl;'\\][poiuyt098765432ew3456789",
+  "items": [],
+  "phraseCount": 0,
+  "vocabCount": 0,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (0 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    },
+    {
+      "name": "empty_for_invalid",
+      "passed": true,
+      "message": "Appropriate: 0 item(s) for invalid input"
+    }
+  ],
+  "rawResponse": "{\"v\":[],\"p\":[]}",
+  "tokenUsage": {
+    "inputTokens": 491,
+    "outputTokens": 50,
+    "cacheRead": 4142,
+    "cacheCreation": 0
+  },
+  "latencyMs": 2045,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v14",
+  "timestamp": "2026-04-15T14:37:12.050Z"
+}

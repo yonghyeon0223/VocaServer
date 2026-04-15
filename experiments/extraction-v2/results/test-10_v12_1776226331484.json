@@ -1,0 +1,139 @@
+{
+  "fixtureId": "test-10",
+  "fixtureDescription": "Bare comma-separated word list with no sentence context",
+  "category": "edge",
+  "passage": "happy, environment, consequence, struggle, breathe, sustainable, atmosphere, determine, reluctant, furthermore, magnificent, peculiar",
+  "items": [
+    {
+      "term": "happy",
+      "level": "A1",
+      "levelRationale": "Basic emotion word known to elementary learners.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding the main emotional state described in the passage."
+    },
+    {
+      "term": "environment",
+      "level": "A2",
+      "levelRationale": "Common word for surroundings and natural world taught in early intermediate courses.",
+      "importance": 4,
+      "importanceRationale": "Central concept for understanding ecological and contextual themes."
+    },
+    {
+      "term": "consequence",
+      "level": "B1",
+      "levelRationale": "Result or effect of an action, requiring understanding of cause-effect relationships.",
+      "importance": 3,
+      "importanceRationale": "Important for comprehending outcomes and implications in discourse."
+    },
+    {
+      "term": "struggle",
+      "level": "B1",
+      "levelRationale": "Difficulty or effort in achieving something, beyond basic vocabulary level.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding challenges and conflicts in narratives."
+    },
+    {
+      "term": "breathe",
+      "level": "A1",
+      "levelRationale": "Basic physical action known to elementary learners.",
+      "importance": 3,
+      "importanceRationale": "Useful for literal and figurative meanings in context."
+    },
+    {
+      "term": "sustainable",
+      "level": "B2",
+      "levelRationale": "Adjective meaning able to be maintained long-term, common in environmental discourse.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding modern environmental and development discussions."
+    },
+    {
+      "term": "atmosphere",
+      "level": "B1",
+      "levelRationale": "Physical air/environment or emotional mood, requiring intermediate understanding.",
+      "importance": 3,
+      "importanceRationale": "Useful for both literal and figurative interpretations."
+    },
+    {
+      "term": "determine",
+      "level": "B1",
+      "levelRationale": "To decide or establish something, beyond basic vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding decision-making and causation in text."
+    },
+    {
+      "term": "reluctant",
+      "level": "B2",
+      "levelRationale": "Unwilling or hesitant, requiring nuanced emotional vocabulary.",
+      "importance": 2,
+      "importanceRationale": "Useful for character description but not essential to main comprehension."
+    },
+    {
+      "term": "furthermore",
+      "level": "B2",
+      "levelRationale": "Discourse marker meaning \"in addition,\" used in formal writing.",
+      "importance": 3,
+      "importanceRationale": "Important for following logical progression and argument structure."
+    },
+    {
+      "term": "magnificent",
+      "level": "B1",
+      "levelRationale": "Impressive or grand in appearance, intermediate descriptive vocabulary.",
+      "importance": 2,
+      "importanceRationale": "Useful for vivid description but not critical to core meaning."
+    },
+    {
+      "term": "peculiar",
+      "level": "B1",
+      "levelRationale": "Strange or unusual, intermediate descriptive vocabulary.",
+      "importance": 2,
+      "importanceRationale": "Useful for characterization but supplementary to main narrative."
+    }
+  ],
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "line_format",
+      "passed": true,
+      "message": "All lines parsed successfully (12 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_rationales",
+      "passed": true,
+      "message": "All rationales non-empty"
+    },
+    {
+      "name": "no_duplicate_terms",
+      "passed": true,
+      "message": "No duplicate terms"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "12 item(s) extracted"
+    }
+  ],
+  "rawResponse": "happy|A1|Basic emotion word known to elementary learners.|4|Essential for understanding the main emotional state described in the passage.|\nenvironment|A2|Common word for surroundings and natural world taught in early intermediate courses.|4|Central concept for understanding ecological and contextual themes.|\nconsequence|B1|Result or effect of an action, requiring understanding of cause-effect relationships.|3|Important for comprehending outcomes and implications in discourse.|\nstruggle|B1|Difficulty or effort in achieving something, beyond basic vocabulary level.|3|Helpful for understanding challenges and conflicts in narratives.|\nbreathe|A1|Basic physical action known to elementary learners.|3|Useful for literal and figurative meanings in context.|\nsustainable|B2|Adjective meaning able to be maintained long-term, common in environmental discourse.|3|Important for understanding modern environmental and development discussions.|\natmosphere|B1|Physical air/environment or emotional mood, requiring intermediate understanding.|3|Useful for both literal and figurative interpretations.|\ndetermine|B1|To decide or establish something, beyond basic vocabulary.|3|Helpful for understanding decision-making and causation in text.|\nreluctant|B2|Unwilling or hesitant, requiring nuanced emotional vocabulary.|2|Useful for character description but not essential to main comprehension.|\nfurthermore|B2|Discourse marker meaning \"in addition,\" used in formal writing.|3|Important for following logical progression and argument structure.|\nmagnificent|B1|Impressive or grand in appearance, intermediate descriptive vocabulary.|2|Useful for vivid description but not critical to core meaning.|\npeculiar|B1|Strange or unusual, intermediate descriptive vocabulary.|2|Useful for characterization but supplementary to main narrative.|",
+  "tokenUsage": {
+    "inputTokens": 351,
+    "outputTokens": 383
+  },
+  "latencyMs": 4716,
+  "model": "claude-haiku-4-5-20251001",
+  "promptVersion": "v12",
+  "timestamp": "2026-04-15T04:12:06.768Z"
+}

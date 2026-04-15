@@ -1,0 +1,51 @@
+{
+  "fixtureId": "test-21",
+  "fixtureDescription": "Full Spanish paragraph about a morning market trip",
+  "category": "non-english",
+  "passage": "Esta mañana fui al mercado con mi madre. Compramos frutas frescas y verduras para la cena. El vendedor era muy amable y nos dio un descuento. Después fuimos a la panadería y compramos pan recién hecho. Me encanta el olor del pan caliente.",
+  "items": [],
+  "phraseCount": 0,
+  "vocabCount": 0,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (0 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    }
+  ],
+  "rawResponse": "{\"v\":[],\"p\":[]}",
+  "tokenUsage": {
+    "inputTokens": 1455,
+    "outputTokens": 50
+  },
+  "latencyMs": 1359,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v13",
+  "timestamp": "2026-04-15T12:55:41.053Z"
+}

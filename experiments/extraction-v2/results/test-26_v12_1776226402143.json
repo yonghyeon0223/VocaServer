@@ -1,0 +1,181 @@
+{
+  "fixtureId": "test-26",
+  "fixtureDescription": "All-uppercase government regulation text",
+  "category": "tricky",
+  "passage": "THE GOVERNMENT ANNOUNCED NEW REGULATIONS TO ADDRESS THE GROWING CONCERNS ABOUT DATA PRIVACY. CRITICS ARGUE THAT THE PROPOSED MEASURES DO NOT GO FAR ENOUGH TO PROTECT CONSUMERS, WHILE SUPPORTERS CONTEND THAT THE REGULATIONS STRIKE A REASONABLE BALANCE BETWEEN INNOVATION AND SECURITY.",
+  "items": [
+    {
+      "term": "government",
+      "level": "B2",
+      "levelRationale": "Government as an institution requires intermediate vocabulary knowledge.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding the main subject and context of the passage."
+    },
+    {
+      "term": "announced",
+      "level": "B1",
+      "levelRationale": "Past tense of announce, a common verb for formal communication.",
+      "importance": 4,
+      "importanceRationale": "Critical for understanding what action the government took."
+    },
+    {
+      "term": "new",
+      "level": "A1",
+      "levelRationale": "Basic adjective indicating something not existing before.",
+      "importance": 4,
+      "importanceRationale": "Essential for describing the regulations being introduced."
+    },
+    {
+      "term": "regulations",
+      "level": "B2",
+      "levelRationale": "Formal rules or requirements set by authorities.",
+      "importance": 4,
+      "importanceRationale": "Core vocabulary for understanding the passage's main topic."
+    },
+    {
+      "term": "address",
+      "level": "B2",
+      "levelRationale": "To deal with or tackle a problem or issue.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding the purpose of the regulations."
+    },
+    {
+      "term": "growing concerns",
+      "level": "B2",
+      "levelRationale": "Increasing worries or anxieties about a particular issue.",
+      "importance": 3,
+      "importanceRationale": "Helps understand the motivation behind the regulations."
+    },
+    {
+      "term": "data privacy",
+      "level": "B2",
+      "levelRationale": "Protection of personal information collected and stored digitally.",
+      "importance": 4,
+      "importanceRationale": "Central concept of the passage requiring clear understanding."
+    },
+    {
+      "term": "critics",
+      "level": "B2",
+      "levelRationale": "People who express disapproval or analysis of something.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding opposing viewpoints presented."
+    },
+    {
+      "term": "argue",
+      "level": "B2",
+      "levelRationale": "To present reasons or evidence for a position.",
+      "importance": 3,
+      "importanceRationale": "Necessary for following the debate structure in the passage."
+    },
+    {
+      "term": "proposed measures",
+      "level": "B2",
+      "levelRationale": "Suggested actions or steps intended to achieve a goal.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding what is being debated."
+    },
+    {
+      "term": "go far enough",
+      "level": "B2",
+      "levelRationale": "Achieve a sufficient degree or extent of something.",
+      "importance": 3,
+      "importanceRationale": "Helps understand the critics' position on adequacy."
+    },
+    {
+      "term": "protect",
+      "level": "B1",
+      "levelRationale": "To keep safe from harm or danger.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding the purpose of regulations."
+    },
+    {
+      "term": "consumers",
+      "level": "B1",
+      "levelRationale": "People who buy and use products or services.",
+      "importance": 4,
+      "importanceRationale": "Key group affected by the regulations."
+    },
+    {
+      "term": "supporters",
+      "level": "B2",
+      "levelRationale": "People who approve of or back a particular position.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the opposing viewpoint."
+    },
+    {
+      "term": "contend",
+      "level": "B2",
+      "levelRationale": "To assert or argue that something is true.",
+      "importance": 3,
+      "importanceRationale": "Necessary for following the supporters' argument."
+    },
+    {
+      "term": "strike a balance",
+      "level": "B2",
+      "levelRationale": "To find a middle ground between two opposing things.",
+      "importance": 3,
+      "importanceRationale": "Key phrase for understanding the compromise position."
+    },
+    {
+      "term": "innovation",
+      "level": "B2",
+      "levelRationale": "Introduction of new ideas, methods, or technologies.",
+      "importance": 3,
+      "importanceRationale": "Important concept in the debate about regulations."
+    },
+    {
+      "term": "security",
+      "level": "B2",
+      "levelRationale": "Protection from danger, risk, or loss.",
+      "importance": 3,
+      "importanceRationale": "Important concept balanced against innovation in the passage."
+    }
+  ],
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "line_format",
+      "passed": true,
+      "message": "All lines parsed successfully (18 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_rationales",
+      "passed": true,
+      "message": "All rationales non-empty"
+    },
+    {
+      "name": "no_duplicate_terms",
+      "passed": true,
+      "message": "No duplicate terms"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "18 item(s) extracted"
+    }
+  ],
+  "rawResponse": "government|B2|Government as an institution requires intermediate vocabulary knowledge.|4|Essential for understanding the main subject and context of the passage.\nannounced|B1|Past tense of announce, a common verb for formal communication.|4|Critical for understanding what action the government took.\nnew|A1|Basic adjective indicating something not existing before.|4|Essential for describing the regulations being introduced.\nregulations|B2|Formal rules or requirements set by authorities.|4|Core vocabulary for understanding the passage's main topic.\naddress|B2|To deal with or tackle a problem or issue.|4|Essential for understanding the purpose of the regulations.\ngrowing concerns|B2|Increasing worries or anxieties about a particular issue.|3|Helps understand the motivation behind the regulations.\ndata privacy|B2|Protection of personal information collected and stored digitally.|4|Central concept of the passage requiring clear understanding.\ncritics|B2|People who express disapproval or analysis of something.|3|Important for understanding opposing viewpoints presented.\nargue|B2|To present reasons or evidence for a position.|3|Necessary for following the debate structure in the passage.\nproposed measures|B2|Suggested actions or steps intended to achieve a goal.|3|Important for understanding what is being debated.\ngo far enough|B2|Achieve a sufficient degree or extent of something.|3|Helps understand the critics' position on adequacy.\nprotect|B1|To keep safe from harm or danger.|4|Essential for understanding the purpose of regulations.\nconsumers|B1|People who buy and use products or services.|4|Key group affected by the regulations.\nsupporters|B2|People who approve of or back a particular position.|3|Important for understanding the opposing viewpoint.\ncontend|B2|To assert or argue that something is true.|3|Necessary for following the supporters' argument.\nstrike a balance|B2|To find a middle ground between two opposing things.|3|Key phrase for understanding the compromise position.\ninnovation|B2|Introduction of new ideas, methods, or technologies.|3|Important concept in the debate about regulations.\nsecurity|B2|Protection from danger, risk, or loss.|3|Important concept balanced against innovation in the passage.",
+  "tokenUsage": {
+    "inputTokens": 397,
+    "outputTokens": 495
+  },
+  "latencyMs": 5541,
+  "model": "claude-haiku-4-5-20251001",
+  "promptVersion": "v12",
+  "timestamp": "2026-04-15T04:13:16.602Z"
+}

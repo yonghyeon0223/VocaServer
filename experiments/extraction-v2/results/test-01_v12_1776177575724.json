@@ -1,0 +1,216 @@
+{
+  "fixtureId": "test-01",
+  "fixtureDescription": "Elementary passage — Min-jun's daily school routine",
+  "category": "normal",
+  "passage": "Min-jun is in the fourth grade. He likes school, but he doesn't feel well today because he has a math test. Every morning, he wakes up at seven o'clock. He brushes his teeth and has breakfast with his family. His mother is very kind and always asks, \"What kind of breakfast do you want?\" Today she makes him eggs and rice. After breakfast, he puts on his uniform and walks to school. School starts at eight thirty. His best friend Tom sits next to him. Tom runs like the wind and plays soccer well. They study English together, and Min-jun usually gets the right answer. After school, they play soccer in the playground. When Min-jun gets home, he does his homework before dinner.",
+  "items": [
+    {
+      "term": "fourth grade",
+      "level": "A1",
+      "levelRationale": "Basic educational level designation used in elementary school contexts.",
+      "importance": 2,
+      "importanceRationale": "Provides context about Min-jun's age but not essential to understanding the main narrative."
+    },
+    {
+      "term": "doesn't feel well",
+      "level": "A2",
+      "levelRationale": "Common phrase for expressing mild illness or discomfort in everyday conversation.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding Min-jun's emotional state and motivation for the day's events."
+    },
+    {
+      "term": "math test",
+      "level": "A1",
+      "levelRationale": "Basic compound noun referring to a school assessment in mathematics.",
+      "importance": 4,
+      "importanceRationale": "Critical for understanding why Min-jun doesn't feel well and the cause of his anxiety."
+    },
+    {
+      "term": "wakes up",
+      "level": "A1",
+      "levelRationale": "Fundamental phrasal verb for the action of getting out of bed in the morning.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding daily routine vocabulary and narrative flow."
+    },
+    {
+      "term": "brushes his teeth",
+      "level": "A1",
+      "levelRationale": "Basic daily hygiene activity expressed with simple present tense.",
+      "importance": 2,
+      "importanceRationale": "Useful for describing routine but not critical to the main story."
+    },
+    {
+      "term": "has breakfast",
+      "level": "A1",
+      "levelRationale": "Elementary phrase for eating the first meal of the day.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding daily routine and family interaction."
+    },
+    {
+      "term": "kind",
+      "level": "A1",
+      "levelRationale": "Basic adjective describing a positive character trait.",
+      "importance": 3,
+      "importanceRationale": "Helps characterize Min-jun's mother and establish family relationships."
+    },
+    {
+      "term": "always asks",
+      "level": "A1",
+      "levelRationale": "Simple present tense with frequency adverb describing habitual action.",
+      "importance": 2,
+      "importanceRationale": "Shows routine behavior but is supplementary to main narrative."
+    },
+    {
+      "term": "makes him eggs",
+      "level": "A1",
+      "levelRationale": "Simple present tense with indirect object, describing food preparation.",
+      "importance": 2,
+      "importanceRationale": "Illustrates family care but is not essential to understanding the main story."
+    },
+    {
+      "term": "puts on",
+      "level": "A1",
+      "levelRationale": "Common phrasal verb for dressing or wearing clothing.",
+      "importance": 3,
+      "importanceRationale": "Important phrasal verb for daily routine vocabulary."
+    },
+    {
+      "term": "uniform",
+      "level": "A1",
+      "levelRationale": "Basic noun for standardized school clothing worn by students.",
+      "importance": 2,
+      "importanceRationale": "Provides cultural context about school but not essential to comprehension."
+    },
+    {
+      "term": "walks to school",
+      "level": "A1",
+      "levelRationale": "Simple present tense describing mode of transportation to school.",
+      "importance": 2,
+      "importanceRationale": "Describes routine but is not critical to understanding the narrative."
+    },
+    {
+      "term": "starts",
+      "level": "A1",
+      "levelRationale": "Basic verb meaning to begin, used here for school commencement time.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the daily schedule and timeline."
+    },
+    {
+      "term": "best friend",
+      "level": "A1",
+      "levelRationale": "Basic noun phrase for one's closest friend.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding Min-jun's relationships and social context."
+    },
+    {
+      "term": "sits next to",
+      "level": "A1",
+      "levelRationale": "Simple present tense describing physical proximity in a classroom.",
+      "importance": 2,
+      "importanceRationale": "Provides context about seating but is not essential to main narrative."
+    },
+    {
+      "term": "runs like the wind",
+      "level": "B1",
+      "levelRationale": "Simile comparing speed to wind, requiring understanding of figurative language.",
+      "importance": 2,
+      "importanceRationale": "Colorful description of Tom's athletic ability but not essential to comprehension."
+    },
+    {
+      "term": "plays soccer well",
+      "level": "A1",
+      "levelRationale": "Simple present tense describing athletic skill.",
+      "importance": 2,
+      "importanceRationale": "Characterizes Tom but is supplementary to the main narrative."
+    },
+    {
+      "term": "study English together",
+      "level": "A1",
+      "levelRationale": "Simple present tense describing collaborative learning activity.",
+      "importance": 3,
+      "importanceRationale": "Shows friendship and academic interaction important to the story."
+    },
+    {
+      "term": "gets the right answer",
+      "level": "A1",
+      "levelRationale": "Simple present tense describing academic success.",
+      "importance": 2,
+      "importanceRationale": "Shows Min-jun's academic ability but is not critical to main narrative."
+    },
+    {
+      "term": "playground",
+      "level": "A1",
+      "levelRationale": "Basic noun for outdoor area where children play at school.",
+      "importance": 2,
+      "importanceRationale": "Provides setting context but is not essential to understanding the story."
+    },
+    {
+      "term": "gets home",
+      "level": "A1",
+      "levelRationale": "Simple present tense describing arrival at home.",
+      "importance": 2,
+      "importanceRationale": "Marks transition in daily routine but is not critical to comprehension."
+    },
+    {
+      "term": "does his homework",
+      "level": "A1",
+      "levelRationale": "Simple present tense describing academic work after school.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding Min-jun's daily responsibilities and routine."
+    },
+    {
+      "term": "before dinner",
+      "level": "A1",
+      "levelRationale": "Temporal preposition phrase indicating sequence of events.",
+      "importance": 2,
+      "importanceRationale": "Provides timing context but is supplementary to main narrative."
+    }
+  ],
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "line_format",
+      "passed": true,
+      "message": "All lines parsed successfully (23 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_rationales",
+      "passed": true,
+      "message": "All rationales non-empty"
+    },
+    {
+      "name": "no_duplicate_terms",
+      "passed": true,
+      "message": "No duplicate terms"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "23 item(s) extracted"
+    }
+  ],
+  "rawResponse": "{\"items\":[{\"term\":\"fourth grade\",\"level\":\"A1\",\"levelRationale\":\"Basic educational level designation used in elementary school contexts.\",\"importance\":2,\"importanceRationale\":\"Provides context about Min-jun's age but not essential to understanding the main narrative.\"},{\"term\":\"doesn't feel well\",\"level\":\"A2\",\"levelRationale\":\"Common phrase for expressing mild illness or discomfort in everyday conversation.\",\"importance\":4,\"importanceRationale\":\"Essential for understanding Min-jun's emotional state and motivation for the day's events.\"},{\"term\":\"math test\",\"level\":\"A1\",\"levelRationale\":\"Basic compound noun referring to a school assessment in mathematics.\",\"importance\":4,\"importanceRationale\":\"Critical for understanding why Min-jun doesn't feel well and the cause of his anxiety.\"},{\"term\":\"wakes up\",\"level\":\"A1\",\"levelRationale\":\"Fundamental phrasal verb for the action of getting out of bed in the morning.\",\"importance\":3,\"importanceRationale\":\"Important for understanding daily routine vocabulary and narrative flow.\"},{\"term\":\"brushes his teeth\",\"level\":\"A1\",\"levelRationale\":\"Basic daily hygiene activity expressed with simple present tense.\",\"importance\":2,\"importanceRationale\":\"Useful for describing routine but not critical to the main story.\"},{\"term\":\"has breakfast\",\"level\":\"A1\",\"levelRationale\":\"Elementary phrase for eating the first meal of the day.\",\"importance\":3,\"importanceRationale\":\"Important for understanding daily routine and family interaction.\"},{\"term\":\"kind\",\"level\":\"A1\",\"levelRationale\":\"Basic adjective describing a positive character trait.\",\"importance\":3,\"importanceRationale\":\"Helps characterize Min-jun's mother and establish family relationships.\"},{\"term\":\"always asks\",\"level\":\"A1\",\"levelRationale\":\"Simple present tense with frequency adverb describing habitual action.\",\"importance\":2,\"importanceRationale\":\"Shows routine behavior but is supplementary to main narrative.\"},{\"term\":\"makes him eggs\",\"level\":\"A1\",\"levelRationale\":\"Simple present tense with indirect object, describing food preparation.\",\"importance\":2,\"importanceRationale\":\"Illustrates family care but is not essential to understanding the main story.\"},{\"term\":\"puts on\",\"level\":\"A1\",\"levelRationale\":\"Common phrasal verb for dressing or wearing clothing.\",\"importance\":3,\"importanceRationale\":\"Important phrasal verb for daily routine vocabulary.\"},{\"term\":\"uniform\",\"level\":\"A1\",\"levelRationale\":\"Basic noun for standardized school clothing worn by students.\",\"importance\":2,\"importanceRationale\":\"Provides cultural context about school but not essential to comprehension.\"},{\"term\":\"walks to school\",\"level\":\"A1\",\"levelRationale\":\"Simple present tense describing mode of transportation to school.\",\"importance\":2,\"importanceRationale\":\"Describes routine but is not critical to understanding the narrative.\"},{\"term\":\"starts\",\"level\":\"A1\",\"levelRationale\":\"Basic verb meaning to begin, used here for school commencement time.\",\"importance\":3,\"importanceRationale\":\"Important for understanding the daily schedule and timeline.\"},{\"term\":\"best friend\",\"level\":\"A1\",\"levelRationale\":\"Basic noun phrase for one's closest friend.\",\"importance\":3,\"importanceRationale\":\"Important for understanding Min-jun's relationships and social context.\"},{\"term\":\"sits next to\",\"level\":\"A1\",\"levelRationale\":\"Simple present tense describing physical proximity in a classroom.\",\"importance\":2,\"importanceRationale\":\"Provides context about seating but is not essential to main narrative.\"},{\"term\":\"runs like the wind\",\"level\":\"B1\",\"levelRationale\":\"Simile comparing speed to wind, requiring understanding of figurative language.\",\"importance\":2,\"importanceRationale\":\"Colorful description of Tom's athletic ability but not essential to comprehension.\"},{\"term\":\"plays soccer well\",\"level\":\"A1\",\"levelRationale\":\"Simple present tense describing athletic skill.\",\"importance\":2,\"importanceRationale\":\"Characterizes Tom but is supplementary to the main narrative.\"},{\"term\":\"study English together\",\"level\":\"A1\",\"levelRationale\":\"Simple present tense describing collaborative learning activity.\",\"importance\":3,\"importanceRationale\":\"Shows friendship and academic interaction important to the story.\"},{\"term\":\"gets the right answer\",\"level\":\"A1\",\"levelRationale\":\"Simple present tense describing academic success.\",\"importance\":2,\"importanceRationale\":\"Shows Min-jun's academic ability but is not critical to main narrative.\"},{\"term\":\"playground\",\"level\":\"A1\",\"levelRationale\":\"Basic noun for outdoor area where children play at school.\",\"importance\":2,\"importanceRationale\":\"Provides setting context but is not essential to understanding the story.\"},{\"term\":\"gets home\",\"level\":\"A1\",\"levelRationale\":\"Simple present tense describing arrival at home.\",\"importance\":2,\"importanceRationale\":\"Marks transition in daily routine but is not critical to comprehension.\"},{\"term\":\"does his homework\",\"level\":\"A1\",\"levelRationale\":\"Simple present tense describing academic work after school.\",\"importance\":3,\"importanceRationale\":\"Important for understanding Min-jun's daily responsibilities and routine.\"},{\"term\":\"before dinner\",\"level\":\"A1\",\"levelRationale\":\"Temporal preposition phrase indicating sequence of events.\",\"importance\":2,\"importanceRationale\":\"Provides timing context but is supplementary to main narrative.\"}]}",
+  "tokenUsage": {
+    "inputTokens": 1300,
+    "outputTokens": 1776
+  },
+  "latencyMs": 11215,
+  "model": "claude-haiku-4-5-20251001",
+  "promptVersion": "v12",
+  "timestamp": "2026-04-14T14:39:24.508Z"
+}

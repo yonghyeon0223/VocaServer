@@ -1,0 +1,108 @@
+{
+  "fixtureId": "test-24",
+  "fixtureDescription": "Multi-language paragraph mixing Korean, Spanish, French, and English",
+  "category": "non-english",
+  "passage": "어제 나는 international food festival에 갔어요. Hadía muchos platos deliciosos de diferentes países. I tried sushi for the first time and it was absolutely delicious. Il y avait aussi des crêpes françaises magnifiques. 가장 인상 깊었던 건 the incredible variety of flavors from around the world. C'était une expérience formidable que je n'oublierai jamais. 다음에는 친구들과 함께 가려고요.",
+  "items": [
+    {
+      "type": "phrase",
+      "term": "for the first time",
+      "definition": "used to say that something has never happened before this occasion",
+      "level": "A2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "the incredible variety of flavors from around the world",
+      "definition": "an amazingly wide range of tastes originating from many different countries",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "tried",
+      "definition": "attempted or experienced something for the first time",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "absolutely",
+      "definition": "completely; used to emphasize an adjective",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "delicious",
+      "definition": "having a very pleasant taste or smell",
+      "level": "A2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "incredible",
+      "definition": "extremely good or impressive; hard to believe",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "variety",
+      "definition": "a number of different types of things",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "flavors",
+      "definition": "the distinctive taste of a food or drink",
+      "level": "A2",
+      "importance": 4
+    }
+  ],
+  "phraseCount": 2,
+  "vocabCount": 6,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (8 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    }
+  ],
+  "rawResponse": "{\"v\":[[\"tried\",\"attempted or experienced something for the first time\",\"A1\",3],[\"absolutely\",\"completely; used to emphasize an adjective\",\"B1\",3],[\"delicious\",\"having a very pleasant taste or smell\",\"A2\",4],[\"incredible\",\"extremely good or impressive; hard to believe\",\"B1\",4],[\"variety\",\"a number of different types of things\",\"B1\",4],[\"flavors\",\"the distinctive taste of a food or drink\",\"A2\",4]],\"p\":[[\"for the first time\",\"used to say that something has never happened before this occasion\",\"A2\",4],[\"the incredible variety of flavors from around the world\",\"an amazingly wide range of tastes originating from many different countries\",\"B1\",4]]}",
+  "tokenUsage": {
+    "inputTokens": 1508,
+    "outputTokens": 232
+  },
+  "latencyMs": 4954,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v13",
+  "timestamp": "2026-04-15T12:55:50.978Z"
+}

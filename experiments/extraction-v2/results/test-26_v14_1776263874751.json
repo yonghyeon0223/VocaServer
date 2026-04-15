@@ -1,0 +1,241 @@
+{
+  "fixtureId": "test-26",
+  "fixtureDescription": "All-uppercase government regulation text",
+  "category": "tricky",
+  "passage": "THE GOVERNMENT ANNOUNCED NEW REGULATIONS TO ADDRESS THE GROWING CONCERNS ABOUT DATA PRIVACY. CRITICS ARGUE THAT THE PROPOSED MEASURES DO NOT GO FAR ENOUGH TO PROTECT CONSUMERS, WHILE SUPPORTERS CONTEND THAT THE REGULATIONS STRIKE A REASONABLE BALANCE BETWEEN INNOVATION AND SECURITY.",
+  "items": [
+    {
+      "type": "phrase",
+      "term": "go far enough",
+      "definition": "to be sufficient or adequate in achieving a desired result",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "strike a balance",
+      "definition": "to find an acceptable middle point between two opposing things",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "data privacy",
+      "definition": "the protection of personal digital information from unauthorized access or misuse",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "do not go far enough",
+      "definition": "to be insufficient in achieving the desired level of change or protection",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "proposed measures",
+      "definition": "specific actions officially suggested as part of a plan or policy",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "announced",
+      "definition": "made an official public statement about something",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "regulations",
+      "definition": "official rules made by a government or authority",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "address",
+      "definition": "to deal with or give attention to a problem or issue",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "growing",
+      "definition": "increasing in size, amount, or importance over time",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "concerns",
+      "definition": "feelings of worry or anxiety about something",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "privacy",
+      "definition": "the state of being free from public attention or having personal information kept secret",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "critics",
+      "definition": "people who express disapproval or find faults with something",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "argue",
+      "definition": "to give reasons or evidence in support of an idea or opinion",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "proposed",
+      "definition": "suggested as a plan or idea for others to consider",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "measures",
+      "definition": "actions taken to achieve a particular goal, especially to solve a problem",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "protect",
+      "definition": "to keep someone or something safe from harm or damage",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "consumers",
+      "definition": "people who buy and use goods or services",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "supporters",
+      "definition": "people who agree with and back a particular idea or plan",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "contend",
+      "definition": "to claim or argue that something is true",
+      "level": "C1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "strike",
+      "definition": "to achieve or reach a particular state or balance",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "reasonable",
+      "definition": "fair and sensible; not extreme",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "balance",
+      "definition": "a situation in which two things exist in equal or appropriate amounts",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "innovation",
+      "definition": "the introduction of new ideas, methods, or products",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "security",
+      "definition": "the state of being safe from danger, threat, or harm",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "government",
+      "definition": "the group of people who officially control and run a country",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "data",
+      "definition": "facts and information, especially when stored digitally",
+      "level": "A2",
+      "importance": 4
+    }
+  ],
+  "phraseCount": 5,
+  "vocabCount": 21,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (26 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "26 item(s) extracted"
+    }
+  ],
+  "rawResponse": "{\"v\":[[\"announced\",\"made an official public statement about something\",\"A2\",3],[\"regulations\",\"official rules made by a government or authority\",\"B1\",4],[\"address\",\"to deal with or give attention to a problem or issue\",\"B2\",4],[\"growing\",\"increasing in size, amount, or importance over time\",\"A2\",3],[\"concerns\",\"feelings of worry or anxiety about something\",\"B1\",4],[\"privacy\",\"the state of being free from public attention or having personal information kept secret\",\"B1\",4],[\"critics\",\"people who express disapproval or find faults with something\",\"B2\",3],[\"argue\",\"to give reasons or evidence in support of an idea or opinion\",\"B1\",3],[\"proposed\",\"suggested as a plan or idea for others to consider\",\"B1\",3],[\"measures\",\"actions taken to achieve a particular goal, especially to solve a problem\",\"B2\",4],[\"protect\",\"to keep someone or something safe from harm or damage\",\"A2\",3],[\"consumers\",\"people who buy and use goods or services\",\"B1\",3],[\"supporters\",\"people who agree with and back a particular idea or plan\",\"A2\",2],[\"contend\",\"to claim or argue that something is true\",\"C1\",3],[\"strike\",\"to achieve or reach a particular state or balance\",\"B2\",3],[\"reasonable\",\"fair and sensible; not extreme\",\"B1\",3],[\"balance\",\"a situation in which two things exist in equal or appropriate amounts\",\"B1\",3],[\"innovation\",\"the introduction of new ideas, methods, or products\",\"B2\",4],[\"security\",\"the state of being safe from danger, threat, or harm\",\"B1\",4],[\"government\",\"the group of people who officially control and run a country\",\"A1\",3],[\"data\",\"facts and information, especially when stored digitally\",\"A2\",4]],\"p\":[[\"go far enough\",\"to be sufficient or adequate in achieving a desired result\",\"B2\",4],[\"strike a balance\",\"to find an acceptable middle point between two opposing things\",\"B2\",4],[\"data privacy\",\"the protection of personal digital information from unauthorized access or misuse\",\"B1\",4],[\"do not go far enough\",\"to be insufficient in achieving the desired level of change or protection\",\"B2\",4],[\"proposed measures\",\"specific actions officially suggested as part of a plan or policy\",\"B2\",3]]}",
+  "tokenUsage": {
+    "inputTokens": 492,
+    "outputTokens": 695,
+    "cacheRead": 4142,
+    "cacheCreation": 0
+  },
+  "latencyMs": 12496,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v14",
+  "timestamp": "2026-04-15T14:37:42.255Z"
+}

@@ -1,0 +1,176 @@
+{
+  "fixtureId": "test-25",
+  "fixtureDescription": "Blog post with HTML tags and code snippets mixed into prose",
+  "category": "tricky",
+  "passage": "<div class=\"blog-post\">\n<h2>My Experience Learning to Code</h2>\n<p>When I first started learning to code, I felt completely overwhelmed. The syntax looked like a foreign language, and I struggled to understand even basic concepts like variables and functions.</p>\n<pre>\nconst greeting = \"Hello World\";\nconsole.log(greeting);\n</pre>\n<p>But gradually, things began to make sense. I learned that persistence is more important than talent. Every error message was an opportunity to improve.</p>\n<p style=\"color: #333; font-size: 14px;\">Now I build websites and feel a genuine sense of accomplishment.</p>\n</div>",
+  "items": [
+    {
+      "type": "phrase",
+      "term": "learning to code",
+      "definition": "the process of studying and practising computer programming",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "foreign language",
+      "definition": "a language that is not one's native tongue; used here to mean something completely unfamiliar",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "make sense",
+      "definition": "to become understandable or logical",
+      "level": "A2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "error message",
+      "definition": "a notification produced by a program indicating that something has gone wrong",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "sense of accomplishment",
+      "definition": "a feeling of pride and satisfaction from completing something successfully",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "build websites",
+      "definition": "to design and create pages or applications on the internet",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "overwhelmed",
+      "definition": "feeling completely overcome by too much difficulty or emotion",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "syntax",
+      "definition": "the set of rules that define how code (or language) must be structured",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "foreign",
+      "definition": "belonging to or coming from another place; unfamiliar",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "variables",
+      "definition": "named storage locations in a program that hold values",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "functions",
+      "definition": "reusable blocks of code designed to perform a specific task",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "gradually",
+      "definition": "slowly and steadily over time",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "persistence",
+      "definition": "the quality of continuing to do something despite difficulty",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "talent",
+      "definition": "a natural ability or skill",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "error",
+      "definition": "a mistake or fault, especially in code",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "accomplishment",
+      "definition": "something successfully achieved; a sense of pride in achievement",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "genuine",
+      "definition": "truly felt; real and sincere",
+      "level": "B2",
+      "importance": 3
+    }
+  ],
+  "phraseCount": 6,
+  "vocabCount": 11,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (17 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "17 item(s) extracted"
+    }
+  ],
+  "rawResponse": "{\"v\":[[\"overwhelmed\",\"feeling completely overcome by too much difficulty or emotion\",\"B1\",3],[\"syntax\",\"the set of rules that define how code (or language) must be structured\",\"B2\",4],[\"foreign\",\"belonging to or coming from another place; unfamiliar\",\"A2\",2],[\"variables\",\"named storage locations in a program that hold values\",\"B1\",3],[\"functions\",\"reusable blocks of code designed to perform a specific task\",\"B1\",3],[\"gradually\",\"slowly and steadily over time\",\"B1\",3],[\"persistence\",\"the quality of continuing to do something despite difficulty\",\"B2\",4],[\"talent\",\"a natural ability or skill\",\"A2\",2],[\"error\",\"a mistake or fault, especially in code\",\"A2\",3],[\"accomplishment\",\"something successfully achieved; a sense of pride in achievement\",\"B2\",4],[\"genuine\",\"truly felt; real and sincere\",\"B2\",3]],\"p\":[[\"learning to code\",\"the process of studying and practising computer programming\",\"A2\",3],[\"foreign language\",\"a language that is not one's native tongue; used here to mean something completely unfamiliar\",\"A2\",3],[\"make sense\",\"to become understandable or logical\",\"A2\",4],[\"error message\",\"a notification produced by a program indicating that something has gone wrong\",\"B1\",4],[\"sense of accomplishment\",\"a feeling of pride and satisfaction from completing something successfully\",\"B2\",4],[\"build websites\",\"to design and create pages or applications on the internet\",\"A2\",3]]}",
+  "tokenUsage": {
+    "inputTokens": 1539,
+    "outputTokens": 433
+  },
+  "latencyMs": 8240,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v13",
+  "timestamp": "2026-04-15T12:55:55.934Z"
+}

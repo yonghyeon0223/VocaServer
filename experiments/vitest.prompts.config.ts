@@ -31,7 +31,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'node',
-    include: ['experiments/**/*.test.ts'],
+    include: ['experiments/extraction-v2/**/*.test.ts'],
     exclude: ['experiments/**/__tests__/**'],
     env: {
       ...projectEnv,

@@ -1,0 +1,155 @@
+{
+  "fixtureId": "test-31",
+  "fixtureDescription": "SMS-style abbreviated text with slang and emoji",
+  "category": "tricky",
+  "passage": "hey u!! r u coming 2 the party 2nite?? gonna b SO much fun lol 😂 btw did u finish ur hw? cuz i totally 4got about it smh 🤦 tbh idk if i can even go bc my mom said i need 2 study 4 the test tmrw ugh 😩 but w/e ill figure it out lmk if ur going ok?? ttyl 💕",
+  "items": [
+    {
+      "type": "phrase",
+      "term": "figure it out",
+      "definition": "to find a solution or decide what to do",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "lmk",
+      "definition": "informal abbreviation for 'let me know'",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "tbh",
+      "definition": "informal abbreviation for 'to be honest'",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "phrase",
+      "term": "idk",
+      "definition": "informal abbreviation for 'I don't know'",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "smh",
+      "definition": "informal abbreviation for 'shaking my head', expressing disappointment or disbelief",
+      "level": "B1",
+      "importance": 2
+    },
+    {
+      "type": "phrase",
+      "term": "btw",
+      "definition": "informal abbreviation for 'by the way'",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "phrase",
+      "term": "ttyl",
+      "definition": "informal abbreviation for 'talk to you later'",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "phrase",
+      "term": "w/e",
+      "definition": "informal abbreviation for 'whatever', expressing indifference",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "party",
+      "definition": "a social gathering for celebration or fun",
+      "level": "A1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "fun",
+      "definition": "enjoyment or amusement",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "finish",
+      "definition": "to complete something",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "forgot",
+      "definition": "failed to remember something",
+      "level": "A1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "study",
+      "definition": "to spend time learning about a subject",
+      "level": "A1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "test",
+      "definition": "an examination to measure knowledge or ability",
+      "level": "A1",
+      "importance": 4
+    }
+  ],
+  "phraseCount": 8,
+  "vocabCount": 6,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (14 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "14 item(s) extracted"
+    }
+  ],
+  "rawResponse": "{\"v\":[[\"party\",\"a social gathering for celebration or fun\",\"A1\",4],[\"fun\",\"enjoyment or amusement\",\"A1\",3],[\"finish\",\"to complete something\",\"A1\",3],[\"forgot\",\"failed to remember something\",\"A1\",4],[\"study\",\"to spend time learning about a subject\",\"A1\",4],[\"test\",\"an examination to measure knowledge or ability\",\"A1\",4]],\"p\":[[\"figure it out\",\"to find a solution or decide what to do\",\"A2\",3],[\"lmk\",\"informal abbreviation for 'let me know'\",\"A2\",3],[\"tbh\",\"informal abbreviation for 'to be honest'\",\"A2\",2],[\"idk\",\"informal abbreviation for 'I don't know'\",\"A2\",3],[\"smh\",\"informal abbreviation for 'shaking my head', expressing disappointment or disbelief\",\"B1\",2],[\"btw\",\"informal abbreviation for 'by the way'\",\"A2\",2],[\"ttyl\",\"informal abbreviation for 'talk to you later'\",\"A2\",2],[\"w/e\",\"informal abbreviation for 'whatever', expressing indifference\",\"A2\",2]]}",
+  "tokenUsage": {
+    "inputTokens": 1489,
+    "outputTokens": 354
+  },
+  "latencyMs": 6182,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v13",
+  "timestamp": "2026-04-15T12:56:45.734Z"
+}

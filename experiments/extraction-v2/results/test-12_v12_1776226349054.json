@@ -1,0 +1,181 @@
+{
+  "fixtureId": "test-12",
+  "fixtureDescription": "Phrase-dense passage packed with phrasal verbs and idioms",
+  "category": "edge",
+  "passage": "When the project fell apart, the team had to go back to square one. The manager pointed out that they had been cutting corners for months, and it finally caught up with them. Rather than dwell on the failure, she encouraged everyone to come up with fresh ideas. One junior developer, who had been keeping a low profile, spoke up and put forward a bold plan. At first, the others were taken aback, but as they talked it through, the idea began to take shape. By the end of the week, they had turned things around and were back on track.",
+  "items": [
+    {
+      "term": "project fell apart",
+      "level": "B2",
+      "levelRationale": "Describes a complete failure or collapse of a planned undertaking.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding the main situation that triggers the team's need to restart."
+    },
+    {
+      "term": "go back to square one",
+      "level": "B2",
+      "levelRationale": "Idiom meaning to start completely over from the beginning.",
+      "importance": 4,
+      "importanceRationale": "Critical idiom for understanding the team's need to restart their work from scratch."
+    },
+    {
+      "term": "cutting corners",
+      "level": "B2",
+      "levelRationale": "Phrasal verb meaning to do something inadequately by skipping important steps to save time or money.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding the root cause of the project's failure."
+    },
+    {
+      "term": "caught up with them",
+      "level": "B2",
+      "levelRationale": "Phrasal verb meaning negative consequences finally materialized or became unavoidable.",
+      "importance": 4,
+      "importanceRationale": "Key to understanding how poor practices led to the project's collapse."
+    },
+    {
+      "term": "dwell on",
+      "level": "B2",
+      "levelRationale": "Phrasal verb meaning to think about something repeatedly or focus excessively on it.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding the manager's advice to move forward rather than ruminate."
+    },
+    {
+      "term": "come up with",
+      "level": "B2",
+      "levelRationale": "Phrasal verb meaning to produce, create, or suggest something new.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding the team's task to generate solutions."
+    },
+    {
+      "term": "keeping a low profile",
+      "level": "B2",
+      "levelRationale": "Idiom meaning to avoid attention or remain inconspicuous.",
+      "importance": 3,
+      "importanceRationale": "Useful for characterizing the junior developer's previous behavior before speaking up."
+    },
+    {
+      "term": "spoke up",
+      "level": "B1",
+      "levelRationale": "Phrasal verb meaning to express one's opinion or voice something aloud.",
+      "importance": 3,
+      "importanceRationale": "Helpful for showing the junior developer's decision to contribute."
+    },
+    {
+      "term": "put forward",
+      "level": "B2",
+      "levelRationale": "Phrasal verb meaning to propose or present an idea for consideration.",
+      "importance": 4,
+      "importanceRationale": "Essential for describing how the junior developer presented the plan."
+    },
+    {
+      "term": "taken aback",
+      "level": "B2",
+      "levelRationale": "Idiom meaning surprised or shocked by something unexpected.",
+      "importance": 3,
+      "importanceRationale": "Useful for showing the team's initial reaction to the bold proposal."
+    },
+    {
+      "term": "talk it through",
+      "level": "B2",
+      "levelRationale": "Phrasal verb meaning to discuss something thoroughly to reach understanding.",
+      "importance": 3,
+      "importanceRationale": "Helpful for describing the team's process of evaluating the idea."
+    },
+    {
+      "term": "take shape",
+      "level": "B2",
+      "levelRationale": "Phrasal verb meaning to develop or become more defined and concrete.",
+      "importance": 3,
+      "importanceRationale": "Useful for showing how the idea evolved during discussion."
+    },
+    {
+      "term": "turned things around",
+      "level": "B2",
+      "levelRationale": "Phrasal verb meaning to reverse a negative situation and achieve success.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding the team's successful recovery and progress."
+    },
+    {
+      "term": "back on track",
+      "level": "B2",
+      "levelRationale": "Idiom meaning to return to the correct or intended course of progress.",
+      "importance": 4,
+      "importanceRationale": "Critical for showing the team's return to normal functioning and success."
+    },
+    {
+      "term": "manager",
+      "level": "B1",
+      "levelRationale": "A person responsible for directing and controlling a team or organization.",
+      "importance": 4,
+      "importanceRationale": "Essential for identifying the key figure who guides the team's response."
+    },
+    {
+      "term": "junior developer",
+      "level": "B1",
+      "levelRationale": "A less experienced programmer or software engineer at an early career stage.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding the hierarchy and the significance of the junior person's contribution."
+    },
+    {
+      "term": "bold",
+      "level": "B1",
+      "levelRationale": "Adjective meaning daring, courageous, or showing confidence in a striking way.",
+      "importance": 3,
+      "importanceRationale": "Useful for characterizing the nature of the proposed plan."
+    },
+    {
+      "term": "fresh",
+      "level": "B1",
+      "levelRationale": "Adjective meaning new, original, or different from what existed before.",
+      "importance": 3,
+      "importanceRationale": "Helpful for describing the type of ideas the manager encourages the team to generate."
+    }
+  ],
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "line_format",
+      "passed": true,
+      "message": "All lines parsed successfully (18 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_rationales",
+      "passed": true,
+      "message": "All rationales non-empty"
+    },
+    {
+      "name": "no_duplicate_terms",
+      "passed": true,
+      "message": "No duplicate terms"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "18 item(s) extracted"
+    }
+  ],
+  "rawResponse": "project fell apart|B2|Describes a complete failure or collapse of a planned undertaking.|4|Essential for understanding the main situation that triggers the team's need to restart.|\ngo back to square one|B2|Idiom meaning to start completely over from the beginning.|4|Critical idiom for understanding the team's need to restart their work from scratch.|\ncutting corners|B2|Phrasal verb meaning to do something inadequately by skipping important steps to save time or money.|4|Essential for understanding the root cause of the project's failure.|\ncaught up with them|B2|Phrasal verb meaning negative consequences finally materialized or became unavoidable.|4|Key to understanding how poor practices led to the project's collapse.|\ndwell on|B2|Phrasal verb meaning to think about something repeatedly or focus excessively on it.|3|Helpful for understanding the manager's advice to move forward rather than ruminate.|\ncome up with|B2|Phrasal verb meaning to produce, create, or suggest something new.|4|Essential for understanding the team's task to generate solutions.|\nkeeping a low profile|B2|Idiom meaning to avoid attention or remain inconspicuous.|3|Useful for characterizing the junior developer's previous behavior before speaking up.|\nspoke up|B1|Phrasal verb meaning to express one's opinion or voice something aloud.|3|Helpful for showing the junior developer's decision to contribute.|\nput forward|B2|Phrasal verb meaning to propose or present an idea for consideration.|4|Essential for describing how the junior developer presented the plan.|\ntaken aback|B2|Idiom meaning surprised or shocked by something unexpected.|3|Useful for showing the team's initial reaction to the bold proposal.|\ntalk it through|B2|Phrasal verb meaning to discuss something thoroughly to reach understanding.|3|Helpful for describing the team's process of evaluating the idea.|\ntake shape|B2|Phrasal verb meaning to develop or become more defined and concrete.|3|Useful for showing how the idea evolved during discussion.|\nturned things around|B2|Phrasal verb meaning to reverse a negative situation and achieve success.|4|Essential for understanding the team's successful recovery and progress.|\nback on track|B2|Idiom meaning to return to the correct or intended course of progress.|4|Critical for showing the team's return to normal functioning and success.|\nmanager|B1|A person responsible for directing and controlling a team or organization.|4|Essential for identifying the key figure who guides the team's response.|\njunior developer|B1|A less experienced programmer or software engineer at an early career stage.|3|Helpful for understanding the hierarchy and the significance of the junior person's contribution.|\nbold|B1|Adjective meaning daring, courageous, or showing confidence in a striking way.|3|Useful for characterizing the nature of the proposed plan.|\nfresh|B1|Adjective meaning new, original, or different from what existed before.|3|Helpful for describing the type of ideas the manager encourages the team to generate.|",
+  "tokenUsage": {
+    "inputTokens": 443,
+    "outputTokens": 682
+  },
+  "latencyMs": 7131,
+  "model": "claude-haiku-4-5-20251001",
+  "promptVersion": "v12",
+  "timestamp": "2026-04-15T04:12:21.922Z"
+}

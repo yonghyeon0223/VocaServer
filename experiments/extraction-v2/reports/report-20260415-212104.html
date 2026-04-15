@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Extraction v2 — report-20260415-212104</title>
+<style>
+:root {
+  --bg: #f8fafc; --card: #fff; --border: #e2e8f0; --border-light: #f1f5f9;
+  --text: #1e293b; --text-muted: #64748b; --text-faint: #94a3b8;
+  --phrase: #7c3aed; --phrase-bg: #f5f3ff; --phrase-border: #ddd6fe;
+  --vocab: #0369a1; --vocab-bg: #f0f9ff; --vocab-border: #bae6fd;
+  --pass: #16a34a; --fail: #dc2626;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.5; padding: 24px; max-width: 1400px; margin: 0 auto; background: var(--bg); color: var(--text); font-size: 14px; }
+h1 { font-size: 22px; font-weight: 700; margin-bottom: 20px; letter-spacing: -0.3px; }
+h4 { font-size: 13px; font-weight: 600; color: var(--text-muted); margin: 14px 0 8px; display: flex; align-items: center; gap: 8px; }
+.legend { font-weight: 400; font-size: 11px; color: var(--text-faint); margin-left: auto; }
+
+/* Summary */
+.summary { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+.summary-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 12px; }
+.sg-item { text-align: center; padding: 10px; background: var(--bg); border-radius: 8px; }
+.sg-value { font-size: 20px; font-weight: 700; }
+.sg-label { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.5px; }
+.summary-meta { font-size: 12px; color: var(--text-faint); margin-bottom: 16px; text-align: center; }
+
+/* Overview table */
+.overview-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.overview-table th { text-align: left; padding: 8px 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-faint); border-bottom: 2px solid var(--border); }
+.overview-table td { padding: 6px; border-bottom: 1px solid var(--border-light); }
+.overview-table a { color: var(--vocab); text-decoration: none; font-weight: 600; }
+.overview-table a:hover { text-decoration: underline; }
+.tok-cell { font-size: 11px; color: var(--text-faint); }
+.err-count { color: var(--fail); font-weight: 700; }
+.cat-badge { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; background: #f1f5f9; color: var(--text-muted); }
+
+/* Fixture card */
+.fixture { background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
+.fixture-header { padding: 10px 16px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.fixture-header:hover { background: #fafbfc; }
+.fixture-id { font-weight: 700; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12px; min-width: 64px; }
+.fixture-desc { flex: 1; color: var(--text-muted); font-size: 12px; }
+.fixture-stats { display: flex; gap: 10px; font-size: 11px; color: var(--text-faint); }
+.stat-p { color: var(--phrase); font-weight: 600; }
+.stat-v { color: var(--vocab); font-weight: 600; }
+.stat-checks { color: var(--pass); }
+.fixture-body { padding: 0 16px 16px; }
+.section { margin-top: 14px; }
+
+/* Checks bar */
+.checks-bar { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+.ck-pass, .ck-fail { font-size: 11px; padding: 2px 8px; border-radius: 4px; cursor: default; }
+.ck-pass { color: var(--pass); background: #f0fdf4; }
+.ck-fail { color: var(--fail); background: #fef2f2; }
+
+/* Passage */
+.passage-details { margin-bottom: 4px; }
+.passage-toggle { font-size: 12px; color: var(--text-faint); cursor: pointer; }
+.passage { background: var(--bg); padding: 12px; border-radius: 6px; font-size: 12px; white-space: pre-wrap; max-height: 180px; overflow-y: auto; color: var(--text-muted); line-height: 1.7; margin-top: 6px; }
+
+/* Level x Importance Grid */
+.grid-container { overflow-x: auto; }
+.level-grid { width: 100%; border-collapse: separate; border-spacing: 3px; }
+.grid-corner { width: 120px; background: transparent !important; }
+.grid-level-header { text-align: center; padding: 6px 4px; color: #fff; font-weight: 700; font-size: 13px; border-radius: 6px 6px 0 0; min-width: 100px; }
+.grid-imp-header { padding: 6px 10px; font-size: 12px; font-weight: 600; color: var(--text-muted); white-space: nowrap; text-align: right; background: transparent !important; }
+.grid-cell { padding: 6px; border-radius: 4px; vertical-align: top; min-height: 36px; }
+.grid-empty { color: #d4d4d8; font-size: 11px; }
+
+/* Term chips */
+.chip { display: inline-block; padding: 2px 8px; margin: 2px; border-radius: 6px; font-size: 12px; cursor: pointer; position: relative; transition: all 0.15s; font-weight: 500; }
+.chip:hover { transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+.chip-phrase { background: var(--phrase-bg); color: var(--phrase); border: 1px solid var(--phrase-border); }
+.chip-vocab { background: var(--vocab-bg); color: var(--vocab); border: 1px solid var(--vocab-border); }
+.chip-legend { font-size: 10px; padding: 1px 6px; cursor: default; }
+.tip { display: none; position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); background: #1e293b; color: #fff; padding: 6px 10px; border-radius: 6px; font-size: 11px; font-weight: 400; white-space: nowrap; max-width: 300px; white-space: normal; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.2); pointer-events: none; }
+.tip.show { display: block; }
+.tip::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: #1e293b; }
+
+/* Stats bar */
+.stats-bar { display: flex; gap: 16px; font-size: 11px; color: var(--text-faint); margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--border-light); }
+
+/* Parse errors */
+.parse-error { background: #fef2f2; color: var(--fail); padding: 4px 8px; border-radius: 4px; font-size: 11px; font-family: monospace; margin: 2px 0; word-break: break-all; }
+
+/* Rubric */
+.rubric-details { margin-top: 12px; }
+.rubric-details summary { font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; }
+.rubric-body { margin-top: 8px; }
+.rubric-note { font-size: 11px; color: var(--text-faint); margin-bottom: 6px; }
+.rubric-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.rubric-table th { padding: 4px 6px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-faint); border-bottom: 1px solid var(--border); text-align: center; }
+.rubric-table th:nth-child(1), .rubric-table th:nth-child(3) { text-align: left; }
+.rubric-table td { padding: 4px 6px; border-bottom: 1px solid var(--border-light); }
+.rubric-desc { color: var(--text-muted); font-size: 11px; }
+.rc { text-align: center; width: 32px; }
+.score-row { margin-top: 8px; font-size: 16px; }
+.notes { width: 100%; margin-top: 6px; padding: 6px 8px; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; font-family: inherit; resize: vertical; }
+
+@media print { details[open] summary ~ * { display: block !important; } .fixture { break-inside: avoid; } }
+@media (max-width: 900px) { .summary-grid { grid-template-columns: repeat(3, 1fr); } }
+</style>
+</head>
+<body>
+<h1>Extraction v2 — report-20260415-212104</h1>
+<div class="summary">
+    <div class="summary-grid">
+      <div class="sg-item"><div class="sg-value">1</div><div class="sg-label">Fixtures</div></div>
+      <div class="sg-item"><div class="sg-value">0</div><div class="sg-label">Items</div></div>
+      <div class="sg-item"><div class="sg-value">0/1</div><div class="sg-label">Checks</div></div>
+      <div class="sg-item"><div class="sg-value">0</div><div class="sg-label">Errors</div></div>
+      <div class="sg-item"><div class="sg-value">$0.000</div><div class="sg-label">Cost</div></div>
+      <div class="sg-item"><div class="sg-value">0.0k / 0.0k</div><div class="sg-label">Tokens in/out</div></div>
+    </div>
+    <div class="summary-meta">claude-sonnet-4-6-20250514 · v12 · temp 0 · 2026-04-15T12:21:04.955Z</div>
+
+    <table class="overview-table"><thead><tr>
+      <th>ID</th><th>Cat</th><th>P</th><th>V</th><th>Total</th><th>Err</th><th>Checks</th><th>Tokens</th><th>Cost</th><th>Score</th>
+    </tr></thead><tbody><tr>
+      <td><a href="#fixture-test-01">test-01</a></td>
+      <td><span class="cat-badge">normal</span></td>
+      <td>0</td>
+      <td>0</td>
+      <td><strong>0</strong></td>
+      <td>—</td>
+      <td>0/1</td>
+      <td class="tok-cell">0/0</td>
+      <td>$0.0000</td>
+      <td><span id="overview-score-test-01">—</span></td>
+    </tr></tbody></table></div>
+
+    <div class="fixture" id="fixture-test-01">
+      <details open>
+        <summary class="fixture-header">
+          <span class="fixture-id">test-01</span>
+          <span class="cat-badge">normal</span>
+          <span class="fixture-desc">Elementary passage — Min-jun&#39;s daily school routine</span>
+          <span class="fixture-stats">
+            <span class="stat-p">0p</span>
+            <span class="stat-v">0v</span>
+            <span class="stat-checks">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="fixture-body"><div class="checks-bar"><span class="ck-fail" title="Error: 404 {&quot;type&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;type&quot;:&quot;not_found_error&quot;,&quot;message&quot;:&quot;model: claude-sonnet-4-6-20250514&quot;},&quot;request_id&quot;:&quot;req_011Ca5Yh4niLsrLZNGyxskMV&quot;}">✗ api_call</span></div><details class="passage-details"><summary class="passage-toggle">Passage</summary><div class="passage">Min-jun is in the fourth grade. He likes school, but he doesn&#39;t feel well today because he has a math test. Every morning, he wakes up at seven o&#39;clock. He brushes his teeth and has breakfast with his family. His mother is very kind and always asks, &quot;What kind of breakfast do you want?&quot; Today she makes him eggs and rice. After breakfast, he puts on his uniform and walks to school. School starts at eight thirty. His best friend Tom sits next to him. Tom runs like the wind and plays soccer well. They study English together, and Min-jun usually gets the right answer. After school, they play soccer in the playground. When Min-jun gets home, he does his homework before dinner.</div></details><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+  </div><details class="rubric-details"><summary>Score — Rubric A</summary>
+    <div class="rubric-body">
+    <p class="rubric-note">Rate 1-5. Score = sum(rating × weight) / 5.</p>
+    <table class="rubric-table"><thead><tr><th>Item</th><th>Wt</th><th>Description</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead><tbody><tr><td><strong>Completeness</strong></td><td>20</td><td class="rubric-desc">Caught all words and phrases a student would want to learn?</td><td class="rc"><input type="radio" name="test-01_Completeness" value="1" data-fixture="test-01" data-weight="20" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Completeness" value="2" data-fixture="test-01" data-weight="20" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Completeness" value="3" data-fixture="test-01" data-weight="20" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Completeness" value="4" data-fixture="test-01" data-weight="20" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Completeness" value="5" data-fixture="test-01" data-weight="20" onchange="calcScore('test-01')"></td></tr><tr><td><strong>Phrase detection</strong></td><td>15</td><td class="rubric-desc">Right phrases identified as units? Excluded obvious-from-parts combinations?</td><td class="rc"><input type="radio" name="test-01_Phrase_detection" value="1" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Phrase_detection" value="2" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Phrase_detection" value="3" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Phrase_detection" value="4" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Phrase_detection" value="5" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')"></td></tr><tr><td><strong>Definition quality</strong></td><td>15</td><td class="rubric-desc">Definitions accurate for the specific meaning in this passage? Concise?</td><td class="rc"><input type="radio" name="test-01_Definition_quality" value="1" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Definition_quality" value="2" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Definition_quality" value="3" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Definition_quality" value="4" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Definition_quality" value="5" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')"></td></tr><tr><td><strong>Importance accuracy</strong></td><td>15</td><td class="rubric-desc">Do the 4/3/2/1/0 ratings feel right?</td><td class="rc"><input type="radio" name="test-01_Importance_accuracy" value="1" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Importance_accuracy" value="2" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Importance_accuracy" value="3" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Importance_accuracy" value="4" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Importance_accuracy" value="5" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')"></td></tr><tr><td><strong>Level accuracy</strong></td><td>15</td><td class="rubric-desc">CEFR ratings reasonable for each term?</td><td class="rc"><input type="radio" name="test-01_Level_accuracy" value="1" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Level_accuracy" value="2" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Level_accuracy" value="3" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Level_accuracy" value="4" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Level_accuracy" value="5" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')"></td></tr><tr><td><strong>Polysemy handling</strong></td><td>10</td><td class="rubric-desc">Multiple meanings extracted as separate entries with distinct definitions?</td><td class="rc"><input type="radio" name="test-01_Polysemy_handling" value="1" data-fixture="test-01" data-weight="10" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Polysemy_handling" value="2" data-fixture="test-01" data-weight="10" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Polysemy_handling" value="3" data-fixture="test-01" data-weight="10" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Polysemy_handling" value="4" data-fixture="test-01" data-weight="10" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Polysemy_handling" value="5" data-fixture="test-01" data-weight="10" onchange="calcScore('test-01')"></td></tr><tr><td><strong>Exclusions</strong></td><td>10</td><td class="rubric-desc">Properly skipped proper nouns, numbers? No garbage?</td><td class="rc"><input type="radio" name="test-01_Exclusions" value="1" data-fixture="test-01" data-weight="10" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Exclusions" value="2" data-fixture="test-01" data-weight="10" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Exclusions" value="3" data-fixture="test-01" data-weight="10" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Exclusions" value="4" data-fixture="test-01" data-weight="10" onchange="calcScore('test-01')"></td><td class="rc"><input type="radio" name="test-01_Exclusions" value="5" data-fixture="test-01" data-weight="10" onchange="calcScore('test-01')"></td></tr></tbody></table>
+    <div class="score-row">Score: <strong id="score-test-01">—</strong> / 100</div>
+    <textarea id="notes-test-01" rows="2" class="notes" placeholder="Notes..."></textarea>
+    </div></details></div></details></div>
+<script>
+function toggleTip(id) {
+  var el = document.getElementById(id);
+  // close all other tips
+  document.querySelectorAll('.tip.show').forEach(function(t) { if (t.id !== id) t.classList.remove('show'); });
+  el.classList.toggle('show');
+}
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.chip')) {
+    document.querySelectorAll('.tip.show').forEach(function(t) { t.classList.remove('show'); });
+  }
+});
+function calcScore(fixtureId) {
+  var inputs = document.querySelectorAll('input[data-fixture="' + fixtureId + '"]:checked');
+  var sum = 0;
+  inputs.forEach(function(input) {
+    sum += parseInt(input.value) * parseInt(input.dataset.weight);
+  });
+  var score = Math.round(sum / 5);
+  document.getElementById('score-' + fixtureId).textContent = score;
+  var ov = document.getElementById('overview-score-' + fixtureId);
+  if (ov) ov.textContent = score;
+}
+</script>
+</body>
+</html>

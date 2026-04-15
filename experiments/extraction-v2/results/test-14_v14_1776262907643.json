@@ -1,0 +1,129 @@
+{
+  "fixtureId": "test-14",
+  "fixtureDescription": "Very short two-sentence passage — minimum viable input",
+  "category": "edge",
+  "passage": "The cat sat on the mat. It was a sunny day, and the children played in the park.",
+  "items": [
+    {
+      "type": "phrase",
+      "term": "sat on",
+      "definition": "to be positioned on top of a surface (fixed verb + preposition pairing)",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "phrase",
+      "term": "played in",
+      "definition": "engaged in activity within a place (verb + preposition pairing)",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "cat",
+      "definition": "a small furry animal often kept as a pet",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "sat",
+      "definition": "past tense of 'sit'; rested in a seated position",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "mat",
+      "definition": "a small flat piece of material placed on the floor",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "sunny",
+      "definition": "bright with sunlight; clear and warm",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "day",
+      "definition": "a period of 24 hours",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "children",
+      "definition": "young people; more than one child",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "played",
+      "definition": "past tense of 'play'; took part in a game or fun activity",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "park",
+      "definition": "an outdoor public area with grass and trees for recreation",
+      "level": "A1",
+      "importance": 3
+    }
+  ],
+  "phraseCount": 2,
+  "vocabCount": 8,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (10 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "10 item(s) extracted"
+    }
+  ],
+  "rawResponse": "{\"v\":[[\"cat\",\"a small furry animal often kept as a pet\",\"A1\",2],[\"sat\",\"past tense of 'sit'; rested in a seated position\",\"A1\",2],[\"mat\",\"a small flat piece of material placed on the floor\",\"A1\",2],[\"sunny\",\"bright with sunlight; clear and warm\",\"A1\",3],[\"day\",\"a period of 24 hours\",\"A1\",2],[\"children\",\"young people; more than one child\",\"A1\",3],[\"played\",\"past tense of 'play'; took part in a game or fun activity\",\"A1\",3],[\"park\",\"an outdoor public area with grass and trees for recreation\",\"A1\",3]],\"p\":[[\"sat on\",\"to be positioned on top of a surface (fixed verb + preposition pairing)\",\"A1\",2],[\"played in\",\"engaged in activity within a place (verb + preposition pairing)\",\"A1\",2]]}",
+  "tokenUsage": {
+    "inputTokens": 441,
+    "outputTokens": 283,
+    "cacheRead": 4142,
+    "cacheCreation": 0
+  },
+  "latencyMs": 7498,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v14",
+  "timestamp": "2026-04-15T14:21:40.145Z"
+}

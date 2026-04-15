@@ -1,0 +1,57 @@
+{
+  "fixtureId": "test-19",
+  "fixtureDescription": "Numbers-only input with math equations, phone numbers, and prices",
+  "category": "invalid",
+  "passage": "3.14159 × 2 = 6.28318\n(02) 555-0147\n2026-04-12\n42 + 58 = 100\n√144 = 12\n$49.99 + $12.50 = $62.49\nGPA: 3.85 / 4.0",
+  "items": [],
+  "parseErrors": [
+    "No entries to extract.",
+    "This passage contains only numbers, mathematical operations, phone numbers, dates, and currency values. According to the extraction criteria, numbers and proper nouns (including numerical identifiers) are excluded. There are no words, phrases, grammar patterns, idioms, collocations, or discourse markers present."
+  ],
+  "structuralChecks": [
+    {
+      "name": "line_format",
+      "passed": false,
+      "message": "2 line(s) failed to parse: \"No entries to extract....\", \"This passage contains only numbers, mathematical operations,...\""
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_rationales",
+      "passed": true,
+      "message": "All rationales non-empty"
+    },
+    {
+      "name": "no_duplicate_terms",
+      "passed": true,
+      "message": "No duplicate terms"
+    },
+    {
+      "name": "empty_for_invalid",
+      "passed": true,
+      "message": "Appropriate: 0 item(s) for invalid input"
+    }
+  ],
+  "rawResponse": "No entries to extract.\n\nThis passage contains only numbers, mathematical operations, phone numbers, dates, and currency values. According to the extraction criteria, numbers and proper nouns (including numerical identifiers) are excluded. There are no words, phrases, grammar patterns, idioms, collocations, or discourse markers present.",
+  "tokenUsage": {
+    "inputTokens": 404,
+    "outputTokens": 69
+  },
+  "latencyMs": 1545,
+  "model": "claude-haiku-4-5-20251001",
+  "promptVersion": "v12",
+  "timestamp": "2026-04-15T04:12:41.788Z"
+}

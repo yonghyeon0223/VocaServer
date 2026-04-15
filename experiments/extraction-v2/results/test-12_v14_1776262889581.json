@@ -1,0 +1,234 @@
+{
+  "fixtureId": "test-12",
+  "fixtureDescription": "Phrase-dense passage packed with phrasal verbs and idioms",
+  "category": "edge",
+  "passage": "When the project fell apart, the team had to go back to square one. The manager pointed out that they had been cutting corners for months, and it finally caught up with them. Rather than dwell on the failure, she encouraged everyone to come up with fresh ideas. One junior developer, who had been keeping a low profile, spoke up and put forward a bold plan. At first, the others were taken aback, but as they talked it through, the idea began to take shape. By the end of the week, they had turned things around and were back on track.",
+  "items": [
+    {
+      "type": "phrase",
+      "term": "fell apart",
+      "definition": "completely failed or stopped working",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "go back to square one",
+      "definition": "return to the very beginning because a plan has failed",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "pointed out",
+      "definition": "drew attention to a fact or problem",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "cutting corners",
+      "definition": "doing something in a quick, careless way to save time or money",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "caught up with them",
+      "definition": "the negative consequences of past actions finally affected them",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "dwell on",
+      "definition": "spend too much time thinking or worrying about something",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "come up with",
+      "definition": "think of or produce a new idea or solution",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "keeping a low profile",
+      "definition": "avoiding attention or staying out of the spotlight",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "spoke up",
+      "definition": "said something openly, especially when it takes courage",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "put forward",
+      "definition": "suggested or proposed an idea for others to consider",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "taken aback",
+      "definition": "surprised or shocked by something unexpected",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "talked it through",
+      "definition": "discussed something in detail to reach understanding",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "take shape",
+      "definition": "gradually become clearer or more developed",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "turned things around",
+      "definition": "changed a bad situation into a successful one",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "back on track",
+      "definition": "returning to the correct or intended course after a problem",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "project",
+      "definition": "a planned piece of work with a specific goal",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "manager",
+      "definition": "a person who is in charge of a team or organization",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "junior",
+      "definition": "lower in rank or less experienced",
+      "level": "B1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "developer",
+      "definition": "a person who writes and builds software or programs",
+      "level": "B1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "bold",
+      "definition": "confident, brave, and not afraid to take risks",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "failure",
+      "definition": "the fact of not achieving what was expected or intended",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "fresh",
+      "definition": "new and different, not used before",
+      "level": "B1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "profile",
+      "definition": "the level of attention or public notice someone receives",
+      "level": "B2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "encouraged",
+      "definition": "gave someone confidence or support to do something",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "rather",
+      "definition": "used to introduce a preferred or contrasting alternative",
+      "level": "B1",
+      "importance": 3
+    }
+  ],
+  "phraseCount": 15,
+  "vocabCount": 10,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (25 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "25 item(s) extracted"
+    }
+  ],
+  "rawResponse": "{\"v\":[[\"project\",\"a planned piece of work with a specific goal\",\"B1\",3],[\"manager\",\"a person who is in charge of a team or organization\",\"A2\",3],[\"junior\",\"lower in rank or less experienced\",\"B1\",2],[\"developer\",\"a person who writes and builds software or programs\",\"B1\",2],[\"bold\",\"confident, brave, and not afraid to take risks\",\"B2\",3],[\"failure\",\"the fact of not achieving what was expected or intended\",\"B1\",3],[\"fresh\",\"new and different, not used before\",\"B1\",2],[\"profile\",\"the level of attention or public notice someone receives\",\"B2\",2],[\"encouraged\",\"gave someone confidence or support to do something\",\"B1\",3],[\"rather\",\"used to introduce a preferred or contrasting alternative\",\"B1\",3]],\"p\":[[\"fell apart\",\"completely failed or stopped working\",\"B2\",4],[\"go back to square one\",\"return to the very beginning because a plan has failed\",\"B2\",4],[\"pointed out\",\"drew attention to a fact or problem\",\"B1\",3],[\"cutting corners\",\"doing something in a quick, careless way to save time or money\",\"B2\",4],[\"caught up with them\",\"the negative consequences of past actions finally affected them\",\"B2\",4],[\"dwell on\",\"spend too much time thinking or worrying about something\",\"B2\",3],[\"come up with\",\"think of or produce a new idea or solution\",\"B1\",4],[\"keeping a low profile\",\"avoiding attention or staying out of the spotlight\",\"B2\",4],[\"spoke up\",\"said something openly, especially when it takes courage\",\"B2\",3],[\"put forward\",\"suggested or proposed an idea for others to consider\",\"B2\",4],[\"taken aback\",\"surprised or shocked by something unexpected\",\"B2\",4],[\"talked it through\",\"discussed something in detail to reach understanding\",\"B2\",3],[\"take shape\",\"gradually become clearer or more developed\",\"B2\",4],[\"turned things around\",\"changed a bad situation into a successful one\",\"B2\",4],[\"back on track\",\"returning to the correct or intended course after a problem\",\"B2\",4]]}",
+  "tokenUsage": {
+    "inputTokens": 538,
+    "outputTokens": 648,
+    "cacheRead": 4142,
+    "cacheCreation": 0
+  },
+  "latencyMs": 11118,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v14",
+  "timestamp": "2026-04-15T14:21:18.463Z"
+}

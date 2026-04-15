@@ -1,0 +1,167 @@
+{
+  "fixtureId": "test-01",
+  "fixtureDescription": "Elementary passage — Min-jun's daily school routine",
+  "category": "normal",
+  "passage": "Min-jun is in the fourth grade. He likes school, but he doesn't feel well today because he has a math test. Every morning, he wakes up at seven o'clock. He brushes his teeth and has breakfast with his family. His mother is very kind and always asks, \"What kind of breakfast do you want?\" Today she makes him eggs and rice. After breakfast, he puts on his uniform and walks to school. School starts at eight thirty. His best friend Tom sits next to him. Tom runs like the wind and plays soccer well. They study English together, and Min-jun usually gets the right answer. After school, they play soccer in the playground. When Min-jun gets home, he does his homework before dinner.",
+  "items": [
+    {
+      "term": "feel well",
+      "level": "A2",
+      "levelRationale": "\"Feel well\" is a common collocation expressing physical health status used in everyday contexts.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding Min-jun's emotional and physical state, which is central to the passage's opening."
+    },
+    {
+      "term": "doesn't feel well",
+      "level": "A2",
+      "levelRationale": "Negative form of the basic health expression used to describe not being in good physical condition.",
+      "importance": 4,
+      "importanceRationale": "Critical for comprehension as it establishes the main reason for Min-jun's anxiety in the passage."
+    },
+    {
+      "term": "wakes up",
+      "level": "A1",
+      "levelRationale": "Phrasal verb meaning to stop sleeping, one of the most fundamental daily routine verbs.",
+      "importance": 4,
+      "importanceRationale": "Essential basic vocabulary for describing daily routines that appears early in the passage."
+    },
+    {
+      "term": "brushes his teeth",
+      "level": "A1",
+      "levelRationale": "Common daily hygiene activity expressed as a collocation with \"brush\" and \"teeth\".",
+      "importance": 3,
+      "importanceRationale": "Important for understanding daily routine sequences, though not central to the main narrative."
+    },
+    {
+      "term": "has breakfast",
+      "level": "A1",
+      "levelRationale": "Collocation describing the act of eating the morning meal.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding daily routine structure, though the specific meal is less critical than the overall context."
+    },
+    {
+      "term": "asks",
+      "level": "A1",
+      "levelRationale": "Basic verb meaning to request information or pose a question.",
+      "importance": 3,
+      "importanceRationale": "Useful for understanding dialogue and interaction, though the specific question is straightforward."
+    },
+    {
+      "term": "makes him eggs",
+      "level": "A1",
+      "levelRationale": "Collocation showing the action of preparing food for someone; \"make\" in the sense of prepare/cook.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding the mother's caring action and the breakfast scene."
+    },
+    {
+      "term": "puts on",
+      "level": "A1",
+      "levelRationale": "Phrasal verb meaning to dress oneself or wear clothing.",
+      "importance": 4,
+      "importanceRationale": "Essential basic vocabulary for describing getting dressed, a key part of the morning routine."
+    },
+    {
+      "term": "walks to school",
+      "level": "A1",
+      "levelRationale": "Collocation describing the action of going to school on foot.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding the journey to school, though not critical to main events."
+    },
+    {
+      "term": "runs like the wind",
+      "level": "B1",
+      "levelRationale": "Idiom meaning to run very fast, using a simile to emphasize speed.",
+      "importance": 2,
+      "importanceRationale": "Supplementary descriptive phrase that characterizes Tom's athletic ability but doesn't affect plot comprehension."
+    },
+    {
+      "term": "plays soccer",
+      "level": "A1",
+      "levelRationale": "Collocation describing participation in the sport of soccer.",
+      "importance": 3,
+      "importanceRationale": "Useful for understanding activities and interests, though not essential to the main narrative."
+    },
+    {
+      "term": "study together",
+      "level": "A1",
+      "levelRationale": "Collocation expressing collaborative learning between two people.",
+      "importance": 3,
+      "importanceRationale": "Helpful for showing the friendship and academic cooperation between Min-jun and Tom."
+    },
+    {
+      "term": "gets the right answer",
+      "level": "A2",
+      "levelRationale": "Collocation meaning to answer correctly or succeed in solving a problem.",
+      "importance": 3,
+      "importanceRationale": "Useful for showing Min-jun's academic competence, though not critical to overall comprehension."
+    },
+    {
+      "term": "gets home",
+      "level": "A1",
+      "levelRationale": "Phrasal verb or collocation meaning to arrive at one's residence.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding the daily routine structure, though not essential to main events."
+    },
+    {
+      "term": "does his homework",
+      "level": "A1",
+      "levelRationale": "Collocation describing the action of completing assigned schoolwork.",
+      "importance": 3,
+      "importanceRationale": "Useful for showing responsibility and routine, though not critical to the passage's main point."
+    },
+    {
+      "term": "before dinner",
+      "level": "A1",
+      "levelRationale": "Prepositional phrase indicating time sequence relative to the evening meal.",
+      "importance": 2,
+      "importanceRationale": "Supplementary temporal marker that shows routine order but doesn't affect main comprehension."
+    }
+  ],
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "line_format",
+      "passed": true,
+      "message": "All lines parsed successfully (16 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_rationales",
+      "passed": true,
+      "message": "All rationales non-empty"
+    },
+    {
+      "name": "no_duplicate_terms",
+      "passed": true,
+      "message": "No duplicate terms"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "16 item(s) extracted"
+    }
+  ],
+  "rawResponse": "feel well|A2|\"Feel well\" is a common collocation expressing physical health status used in everyday contexts.|4|Essential for understanding Min-jun's emotional and physical state, which is central to the passage's opening.|\ndoesn't feel well|A2|Negative form of the basic health expression used to describe not being in good physical condition.|4|Critical for comprehension as it establishes the main reason for Min-jun's anxiety in the passage.|\nwakes up|A1|Phrasal verb meaning to stop sleeping, one of the most fundamental daily routine verbs.|4|Essential basic vocabulary for describing daily routines that appears early in the passage.|\nbrushes his teeth|A1|Common daily hygiene activity expressed as a collocation with \"brush\" and \"teeth\".|3|Important for understanding daily routine sequences, though not central to the main narrative.|\nhas breakfast|A1|Collocation describing the act of eating the morning meal.|3|Helpful for understanding daily routine structure, though the specific meal is less critical than the overall context.|\nasks|A1|Basic verb meaning to request information or pose a question.|3|Useful for understanding dialogue and interaction, though the specific question is straightforward.|\nmakes him eggs|A1|Collocation showing the action of preparing food for someone; \"make\" in the sense of prepare/cook.|4|Essential for understanding the mother's caring action and the breakfast scene.|\nputs on|A1|Phrasal verb meaning to dress oneself or wear clothing.|4|Essential basic vocabulary for describing getting dressed, a key part of the morning routine.|\nwalks to school|A1|Collocation describing the action of going to school on foot.|3|Helpful for understanding the journey to school, though not critical to main events.|\nruns like the wind|B1|Idiom meaning to run very fast, using a simile to emphasize speed.|2|Supplementary descriptive phrase that characterizes Tom's athletic ability but doesn't affect plot comprehension.|\nplays soccer|A1|Collocation describing participation in the sport of soccer.|3|Useful for understanding activities and interests, though not essential to the main narrative.|\nstudy together|A1|Collocation expressing collaborative learning between two people.|3|Helpful for showing the friendship and academic cooperation between Min-jun and Tom.|\ngets the right answer|A2|Collocation meaning to answer correctly or succeed in solving a problem.|3|Useful for showing Min-jun's academic competence, though not critical to overall comprehension.|\ngets home|A1|Phrasal verb or collocation meaning to arrive at one's residence.|3|Helpful for understanding the daily routine structure, though not essential to main events.|\ndoes his homework|A1|Collocation describing the action of completing assigned schoolwork.|3|Useful for showing responsibility and routine, though not critical to the passage's main point.|\nbefore dinner|A1|Prepositional phrase indicating time sequence relative to the evening meal.|2|Supplementary temporal marker that shows routine order but doesn't affect main comprehension.|",
+  "tokenUsage": {
+    "inputTokens": 480,
+    "outputTokens": 674
+  },
+  "latencyMs": 9687,
+  "model": "claude-haiku-4-5-20251001",
+  "promptVersion": "v12",
+  "timestamp": "2026-04-14T14:46:53.166Z"
+}

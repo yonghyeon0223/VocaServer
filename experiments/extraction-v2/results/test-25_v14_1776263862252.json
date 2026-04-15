@@ -1,0 +1,220 @@
+{
+  "fixtureId": "test-25",
+  "fixtureDescription": "Blog post with HTML tags and code snippets mixed into prose",
+  "category": "tricky",
+  "passage": "<div class=\"blog-post\">\n<h2>My Experience Learning to Code</h2>\n<p>When I first started learning to code, I felt completely overwhelmed. The syntax looked like a foreign language, and I struggled to understand even basic concepts like variables and functions.</p>\n<pre>\nconst greeting = \"Hello World\";\nconsole.log(greeting);\n</pre>\n<p>But gradually, things began to make sense. I learned that persistence is more important than talent. Every error message was an opportunity to improve.</p>\n<p style=\"color: #333; font-size: 14px;\">Now I build websites and feel a genuine sense of accomplishment.</p>\n</div>",
+  "items": [
+    {
+      "type": "phrase",
+      "term": "learning to code",
+      "definition": "the process of studying how to write computer programs",
+      "level": "A2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "felt completely overwhelmed",
+      "definition": "experienced a strong feeling of being unable to cope",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "foreign language",
+      "definition": "a language that is not one's own native language",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "phrase",
+      "term": "make sense",
+      "definition": "to become understandable or logical",
+      "level": "A2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "more important than",
+      "definition": "used to compare the value or significance of two things",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "error message",
+      "definition": "a notification from a computer indicating that something went wrong",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "sense of accomplishment",
+      "definition": "a feeling of satisfaction from completing something successfully",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "build websites",
+      "definition": "to create and develop pages on the internet",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "code",
+      "definition": "to write instructions for a computer program",
+      "level": "A2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "overwhelmed",
+      "definition": "feeling unable to cope because something is too much to handle",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "syntax",
+      "definition": "the set of rules that define how code or language must be written",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "foreign",
+      "definition": "belonging to or coming from another country or place; unfamiliar",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "struggled",
+      "definition": "tried hard to do something that was very difficult",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "variables",
+      "definition": "named storage locations in a program that hold a value",
+      "level": "B2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "functions",
+      "definition": "blocks of reusable code designed to perform a specific task",
+      "level": "B2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "gradually",
+      "definition": "slowly and steadily over time",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "persistence",
+      "definition": "continuing to do something despite difficulty or obstacles",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "talent",
+      "definition": "a natural ability to do something well",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "error",
+      "definition": "a mistake or problem in a program or process",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "opportunity",
+      "definition": "a situation that makes it possible to do something",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "genuine",
+      "definition": "real and true, not fake or pretended",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "accomplishment",
+      "definition": "something successfully achieved, often with effort",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "concepts",
+      "definition": "abstract ideas or general principles",
+      "level": "B2",
+      "importance": 3
+    }
+  ],
+  "phraseCount": 8,
+  "vocabCount": 15,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (23 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "23 item(s) extracted"
+    }
+  ],
+  "rawResponse": "{\"v\":[[\"code\",\"to write instructions for a computer program\",\"A2\",4],[\"overwhelmed\",\"feeling unable to cope because something is too much to handle\",\"B1\",4],[\"syntax\",\"the set of rules that define how code or language must be written\",\"B2\",3],[\"foreign\",\"belonging to or coming from another country or place; unfamiliar\",\"A2\",2],[\"struggled\",\"tried hard to do something that was very difficult\",\"B1\",3],[\"variables\",\"named storage locations in a program that hold a value\",\"B2\",2],[\"functions\",\"blocks of reusable code designed to perform a specific task\",\"B2\",2],[\"gradually\",\"slowly and steadily over time\",\"B1\",3],[\"persistence\",\"continuing to do something despite difficulty or obstacles\",\"B2\",4],[\"talent\",\"a natural ability to do something well\",\"A2\",3],[\"error\",\"a mistake or problem in a program or process\",\"A2\",3],[\"opportunity\",\"a situation that makes it possible to do something\",\"B1\",3],[\"genuine\",\"real and true, not fake or pretended\",\"B1\",3],[\"accomplishment\",\"something successfully achieved, often with effort\",\"B2\",4],[\"concepts\",\"abstract ideas or general principles\",\"B2\",3]],\"p\":[[\"learning to code\",\"the process of studying how to write computer programs\",\"A2\",4],[\"felt completely overwhelmed\",\"experienced a strong feeling of being unable to cope\",\"B1\",3],[\"foreign language\",\"a language that is not one's own native language\",\"A1\",2],[\"make sense\",\"to become understandable or logical\",\"A2\",4],[\"more important than\",\"used to compare the value or significance of two things\",\"A1\",3],[\"error message\",\"a notification from a computer indicating that something went wrong\",\"A2\",3],[\"sense of accomplishment\",\"a feeling of satisfaction from completing something successfully\",\"B2\",4],[\"build websites\",\"to create and develop pages on the internet\",\"A2\",3]]}",
+  "tokenUsage": {
+    "inputTokens": 577,
+    "outputTokens": 598,
+    "cacheRead": 4142,
+    "cacheCreation": 0
+  },
+  "latencyMs": 9641,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v14",
+  "timestamp": "2026-04-15T14:37:32.611Z"
+}

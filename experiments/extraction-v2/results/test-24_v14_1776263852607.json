@@ -1,0 +1,131 @@
+{
+  "fixtureId": "test-24",
+  "fixtureDescription": "Multi-language paragraph mixing Korean, Spanish, French, and English",
+  "category": "non-english",
+  "passage": "어제 나는 international food festival에 갔어요. Hadía muchos platos deliciosos de diferentes países. I tried sushi for the first time and it was absolutely delicious. Il y avait aussi des crêpes françaises magnifiques. 가장 인상 깊었던 건 the incredible variety of flavors from around the world. C'était une expérience formidable que je n'oublierai jamais. 다음에는 친구들과 함께 가려고요.",
+  "items": [
+    {
+      "type": "phrase",
+      "term": "for the first time",
+      "definition": "used to say that something has never happened before this moment",
+      "level": "A2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "from around the world",
+      "definition": "coming from many different countries",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "international",
+      "definition": "involving many different countries",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "festival",
+      "definition": "a special event or celebration, often with food, music, or culture",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "tried",
+      "definition": "attempted or experienced something for the first time",
+      "level": "A1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "sushi",
+      "definition": "a Japanese dish made with rice and raw fish or other toppings",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "absolutely",
+      "definition": "completely; used to make a statement stronger",
+      "level": "B1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "delicious",
+      "definition": "having a very pleasant taste",
+      "level": "A1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "incredible",
+      "definition": "extremely impressive or hard to believe",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "variety",
+      "definition": "a range of different things",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "flavors",
+      "definition": "the particular taste of a food or drink",
+      "level": "A2",
+      "importance": 4
+    }
+  ],
+  "phraseCount": 2,
+  "vocabCount": 9,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (11 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    }
+  ],
+  "rawResponse": "{\"v\":[[\"international\",\"involving many different countries\",\"A2\",3],[\"festival\",\"a special event or celebration, often with food, music, or culture\",\"A1\",3],[\"tried\",\"attempted or experienced something for the first time\",\"A1\",4],[\"sushi\",\"a Japanese dish made with rice and raw fish or other toppings\",\"A1\",3],[\"absolutely\",\"completely; used to make a statement stronger\",\"B1\",2],[\"delicious\",\"having a very pleasant taste\",\"A1\",4],[\"incredible\",\"extremely impressive or hard to believe\",\"B1\",3],[\"variety\",\"a range of different things\",\"A2\",3],[\"flavors\",\"the particular taste of a food or drink\",\"A2\",4]],\"p\":[[\"for the first time\",\"used to say that something has never happened before this moment\",\"A2\",4],[\"from around the world\",\"coming from many different countries\",\"A2\",3]]}",
+  "tokenUsage": {
+    "inputTokens": 546,
+    "outputTokens": 279,
+    "cacheRead": 4142,
+    "cacheCreation": 0
+  },
+  "latencyMs": 5847,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v14",
+  "timestamp": "2026-04-15T14:37:26.760Z"
+}

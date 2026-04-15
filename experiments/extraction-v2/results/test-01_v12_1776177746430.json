@@ -1,0 +1,102 @@
+{
+  "fixtureId": "test-01",
+  "fixtureDescription": "Elementary passage — Min-jun's daily school routine",
+  "category": "normal",
+  "passage": "Min-jun is in the fourth grade. He likes school, but he doesn't feel well today because he has a math test. Every morning, he wakes up at seven o'clock. He brushes his teeth and has breakfast with his family. His mother is very kind and always asks, \"What kind of breakfast do you want?\" Today she makes him eggs and rice. After breakfast, he puts on his uniform and walks to school. School starts at eight thirty. His best friend Tom sits next to him. Tom runs like the wind and plays soccer well. They study English together, and Min-jun usually gets the right answer. After school, they play soccer in the playground. When Min-jun gets home, he does his homework before dinner.",
+  "items": [],
+  "parseErrors": [
+    "# Korean EFL Learners: Vocabulary & Grammar Extraction",
+    "| Entry | CEFR | Level Rationale | Importance | Importance Rationale |",
+    "|-------|------|-----------------|-----------|----------------------|",
+    "| **fourth grade** | A1 | Basic educational level designation used in everyday contexts. | 4 | Essential for understanding Min-jun's age and school context. |",
+    "| **feel well** | A1 | Common collocation for describing physical health status. | 4 | Critical for understanding the main problem in the passage. |",
+    "| **doesn't feel well** | A1 | Negative form of basic health expression. | 4 | Directly states Min-jun's condition and motivation. |",
+    "| **wake up** | A1 | Phrasal verb for getting out of bed in the morning. | 4 | Essential daily routine vocabulary. |",
+    "| **brush teeth** | A1 | Common collocation for personal hygiene. | 4 | Key morning routine activity. |",
+    "| **have breakfast** | A1 | Collocation for eating the first meal of the day. | 4 | Essential daily routine. |",
+    "| **kind** | A1 | Adjective describing a caring, gentle personality. | 3 | Helps characterize Min-jun's mother. |",
+    "| **always** | A1 | Adverb indicating habitual/repeated action. | 4 | Shows frequency of mother's behavior. |",
+    "| **ask** | A1 | Verb for requesting information or posing a question. | 4 | Basic communication verb. |",
+    "| **What kind of** | A1 | Question phrase requesting specification/category. | 4 | Common pattern for asking preferences. |",
+    "| **make** | A1 | Verb meaning to prepare/cook food. | 4 | Essential for describing food preparation. |",
+    "| **makes him eggs** | A1 | Pattern: \"make + object + food item\" for cooking. | 4 | Shows indirect object construction with food. |",
+    "| **put on** | A1 | Phrasal verb for dressing/wearing clothing. | 4 | Essential daily routine action. |",
+    "| **uniform** | A1 | Noun for standardized school clothing. | 3 | Specific to school context. |",
+    "| **walk to** | A1 | Verb phrase for traveling on foot to a destination. | 3 | Describes commute method. |",
+    "| **start** | A1 | Verb meaning to begin. | 4 | Basic temporal marker for school schedule. |",
+    "| **best friend** | A1 | Collocation for closest friendship. | 3 | Characterizes Min-jun's relationship with Tom. |",
+    "| **sit next to** | A1 | Verb phrase for seating position. | 3 | Describes classroom arrangement. |",
+    "| **run like the wind** | B1 | Idiom meaning to run very fast. | 2 | Colorful description of Tom's speed; not essential but illustrative. |",
+    "| **play soccer** | A1 | Collocation for participating in the sport. | 3 | Describes recreational activity. |",
+    "| **well** | A1 | Adverb meaning skillfully/competently. | 3 | Modifies how Tom plays soccer. |",
+    "| **study** | A1 | Verb for learning/academic work. | 4 | Core school activity. |",
+    "| **study together** | A1 | Collocation for collaborative learning. | 3 | Shows peer learning relationship. |",
+    "| **usually** | A1 | Adverb indicating typical/habitual occurrence. | 3 | Shows frequency of Min-jun's success. |",
+    "| **get the right answer** | A1 | Collocation for answering correctly. | 3 | Indicates academic success. |",
+    "| **playground** | A1 | Noun for outdoor school recreation area. | 3 | Specific location for after-school play. |",
+    "| **get home** | A1 | Phrasal verb for arriving at one's residence. | 3 | Describes return from school. |",
+    "| **do homework** | A1 | Collocation for completing school assignments. | 4 | Essential school routine. |",
+    "| **before dinner** | A1 | Prepositional phrase indicating temporal sequence. | 3 | Shows order of daily activities. |",
+    "| **because** | A1 | Conjunction introducing reason/cause. | 4 | Explains causal relationship (anxiety about test). |",
+    "| **math test** | A1 | Collocation for academic assessment in mathematics. | 4 | Central to understanding Min-jun's anxiety. |",
+    "| **Every morning** | A1 | Temporal phrase indicating daily repetition. | 3 | Establishes habitual routine. |",
+    "| **After breakfast** | A1 | Temporal phrase indicating sequence. | 3 | Marks transition in daily routine. |",
+    "| **After school** | A1 | Temporal phrase for post-school time. | 3 | Indicates when recreational activity occurs. |",
+    "| **When Min-jun gets home** | A1 | Temporal clause establishing condition for homework. | 3 | Shows sequence and timing of activities. |",
+    "---",
+    "## Grammar Patterns to Note",
+    "| Pattern | Example | CEFR | Note |",
+    "|---------|---------|------|------|",
+    "| **Subject + doesn't + base verb** | \"he doesn't feel well\" | A1 | Simple present negative. |",
+    "| **Subject + verb + object + noun** | \"makes him eggs\" | A1 | Indirect object + direct object construction. |",
+    "| **Adverb + usually + verb** | \"usually gets the right answer\" | A1 | Adverb of frequency placement. |",
+    "| **Temporal clause + main clause** | \"When Min-jun gets home, he does his homework\" | A1 | Adverbial clause of time. |",
+    "| **Collocation: verb + preposition + noun** | \"sits next to him\" | A1 | Positional relationship. |"
+  ],
+  "structuralChecks": [
+    {
+      "name": "line_format",
+      "passed": false,
+      "message": "47 line(s) failed to parse: \"# Korean EFL Learners: Vocabulary & Grammar Extraction...\", \"| Entry | CEFR | Level Rationale | Importance | Importance R...\", \"|-------|------|-----------------|-----------|--------------...\" and 44 more"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_rationales",
+      "passed": true,
+      "message": "All rationales non-empty"
+    },
+    {
+      "name": "no_duplicate_terms",
+      "passed": true,
+      "message": "No duplicate terms"
+    },
+    {
+      "name": "has_output",
+      "passed": false,
+      "message": "No items extracted from non-empty input"
+    }
+  ],
+  "rawResponse": "# Korean EFL Learners: Vocabulary & Grammar Extraction\n\n| Entry | CEFR | Level Rationale | Importance | Importance Rationale |\n|-------|------|-----------------|-----------|----------------------|\n| **fourth grade** | A1 | Basic educational level designation used in everyday contexts. | 4 | Essential for understanding Min-jun's age and school context. |\n| **feel well** | A1 | Common collocation for describing physical health status. | 4 | Critical for understanding the main problem in the passage. |\n| **doesn't feel well** | A1 | Negative form of basic health expression. | 4 | Directly states Min-jun's condition and motivation. |\n| **wake up** | A1 | Phrasal verb for getting out of bed in the morning. | 4 | Essential daily routine vocabulary. |\n| **brush teeth** | A1 | Common collocation for personal hygiene. | 4 | Key morning routine activity. |\n| **have breakfast** | A1 | Collocation for eating the first meal of the day. | 4 | Essential daily routine. |\n| **kind** | A1 | Adjective describing a caring, gentle personality. | 3 | Helps characterize Min-jun's mother. |\n| **always** | A1 | Adverb indicating habitual/repeated action. | 4 | Shows frequency of mother's behavior. |\n| **ask** | A1 | Verb for requesting information or posing a question. | 4 | Basic communication verb. |\n| **What kind of** | A1 | Question phrase requesting specification/category. | 4 | Common pattern for asking preferences. |\n| **make** | A1 | Verb meaning to prepare/cook food. | 4 | Essential for describing food preparation. |\n| **makes him eggs** | A1 | Pattern: \"make + object + food item\" for cooking. | 4 | Shows indirect object construction with food. |\n| **put on** | A1 | Phrasal verb for dressing/wearing clothing. | 4 | Essential daily routine action. |\n| **uniform** | A1 | Noun for standardized school clothing. | 3 | Specific to school context. |\n| **walk to** | A1 | Verb phrase for traveling on foot to a destination. | 3 | Describes commute method. |\n| **start** | A1 | Verb meaning to begin. | 4 | Basic temporal marker for school schedule. |\n| **best friend** | A1 | Collocation for closest friendship. | 3 | Characterizes Min-jun's relationship with Tom. |\n| **sit next to** | A1 | Verb phrase for seating position. | 3 | Describes classroom arrangement. |\n| **run like the wind** | B1 | Idiom meaning to run very fast. | 2 | Colorful description of Tom's speed; not essential but illustrative. |\n| **play soccer** | A1 | Collocation for participating in the sport. | 3 | Describes recreational activity. |\n| **well** | A1 | Adverb meaning skillfully/competently. | 3 | Modifies how Tom plays soccer. |\n| **study** | A1 | Verb for learning/academic work. | 4 | Core school activity. |\n| **study together** | A1 | Collocation for collaborative learning. | 3 | Shows peer learning relationship. |\n| **usually** | A1 | Adverb indicating typical/habitual occurrence. | 3 | Shows frequency of Min-jun's success. |\n| **get the right answer** | A1 | Collocation for answering correctly. | 3 | Indicates academic success. |\n| **playground** | A1 | Noun for outdoor school recreation area. | 3 | Specific location for after-school play. |\n| **get home** | A1 | Phrasal verb for arriving at one's residence. | 3 | Describes return from school. |\n| **do homework** | A1 | Collocation for completing school assignments. | 4 | Essential school routine. |\n| **before dinner** | A1 | Prepositional phrase indicating temporal sequence. | 3 | Shows order of daily activities. |\n| **because** | A1 | Conjunction introducing reason/cause. | 4 | Explains causal relationship (anxiety about test). |\n| **math test** | A1 | Collocation for academic assessment in mathematics. | 4 | Central to understanding Min-jun's anxiety. |\n| **Every morning** | A1 | Temporal phrase indicating daily repetition. | 3 | Establishes habitual routine. |\n| **After breakfast** | A1 | Temporal phrase indicating sequence. | 3 | Marks transition in daily routine. |\n| **After school** | A1 | Temporal phrase for post-school time. | 3 | Indicates when recreational activity occurs. |\n| **When Min-jun gets home** | A1 | Temporal clause establishing condition for homework. | 3 | Shows sequence and timing of activities. |\n\n---\n\n## Grammar Patterns to Note\n\n| Pattern | Example | CEFR | Note |\n|---------|---------|------|------|\n| **Subject + doesn't + base verb** | \"he doesn't feel well\" | A1 | Simple present negative. |\n| **Subject + verb + object + noun** | \"makes him eggs\" | A1 | Indirect object + direct object construction. |\n| **Adverb + usually + verb** | \"usually gets the right answer\" | A1 | Adverb of frequency placement. |\n| **Temporal clause + main clause** | \"When Min-jun gets home, he does his homework\" | A1 | Adverbial clause of time. |\n| **Collocation: verb + preposition + noun** | \"sits next to him\" | A1 | Positional relationship. |",
+  "tokenUsage": {
+    "inputTokens": 429,
+    "outputTokens": 1412
+  },
+  "latencyMs": 19153,
+  "model": "claude-haiku-4-5-20251001",
+  "promptVersion": "v12",
+  "timestamp": "2026-04-14T14:42:07.274Z"
+}

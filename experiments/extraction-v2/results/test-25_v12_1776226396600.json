@@ -1,0 +1,56 @@
+{
+  "fixtureId": "test-25",
+  "fixtureDescription": "Blog post with HTML tags and code snippets mixed into prose",
+  "category": "tricky",
+  "passage": "<div class=\"blog-post\">\n<h2>My Experience Learning to Code</h2>\n<p>When I first started learning to code, I felt completely overwhelmed. The syntax looked like a foreign language, and I struggled to understand even basic concepts like variables and functions.</p>\n<pre>\nconst greeting = \"Hello World\";\nconsole.log(greeting);\n</pre>\n<p>But gradually, things began to make sense. I learned that persistence is more important than talent. Every error message was an opportunity to improve.</p>\n<p style=\"color: #333; font-size: 14px;\">Now I build websites and feel a genuine sense of accomplishment.</p>\n</div>",
+  "items": [],
+  "parseErrors": [
+    "learning to code|B1|This gerund phrase represents a sustained educational process requiring intermediate language proficiency to discuss.|4|Essential for understanding the main topic and the learner's journey throughout the passage.|felt completely overwhelmed|B2|This collocation expresses intense emotional response and requires understanding of degree adverbs with emotional verbs.|4|Critical for comprehending the narrator's initial emotional state and the passage's emotional arc.|syntax|B2|Technical term for grammatical structure of programming languages, requiring subject-specific vocabulary knowledge.|3|Important for understanding the coding context but not essential to grasp the overall narrative message.|foreign language|B1|Idiomatic expression meaning something incomprehensible or unfamiliar, commonly used in comparative contexts.|3|Helpful for understanding the narrator's perception but the meaning is supported by surrounding context.|struggled to understand|B1|Collocation expressing difficulty in comprehension, combining a common verb with a cognitive object.|4|Essential for conveying the narrator's initial challenges and is fundamental to the passage's narrative structure.|basic concepts|B1|Common collocation referring to fundamental or foundational ideas in any field.|3|Useful for understanding what the narrator found difficult but not critical to overall comprehension.|variables and functions|B2|Technical terms from programming representing core computational concepts.|3|Important for coding context but comprehensible from surrounding explanation of difficulty.|gradually|B1|Adverb indicating slow, incremental change over time.|4|Essential for marking the transition from struggle to understanding in the narrative progression.|things began to make sense|B2|Idiomatic expression meaning gradual comprehension or understanding of previously confusing material.|4|Critical for understanding the turning point in the narrator's learning journey.|persistence|B2|Abstract noun meaning sustained effort despite difficulty, a key value in learning contexts.|4|Essential for the passage's central message about what matters more than innate ability.|more important than talent|B2|Comparative structure emphasizing relative value of effort over natural ability.|4|Critical for the passage's main argument about learning and personal development.|Every error message was an opportunity|B2|Metaphorical construction treating mistakes as learning chances, requiring understanding of abstract noun \"opportunity\".|3|Helpful for understanding the narrator's mindset shift but not essential to basic comprehension.|improve|B1|Verb meaning to make or become better, fundamental to learning contexts.|3|Useful for understanding the learning process but supported by surrounding context.|build websites|B1|Collocation representing the practical application of coding skills.|3|Helpful for showing the narrator's current capability but not critical to the main message.|genuine sense of accomplishment|B2|Collocation expressing authentic feeling of achievement, combining abstract nouns with evaluative adjective.|3|Useful for showing the narrator's emotional outcome but the meaning is clear from context.|"
+  ],
+  "structuralChecks": [
+    {
+      "name": "line_format",
+      "passed": false,
+      "message": "1 line(s) failed to parse: \"learning to code|B1|This gerund phrase represents a sustaine...\""
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_rationales",
+      "passed": true,
+      "message": "All rationales non-empty"
+    },
+    {
+      "name": "no_duplicate_terms",
+      "passed": true,
+      "message": "No duplicate terms"
+    },
+    {
+      "name": "has_output",
+      "passed": false,
+      "message": "No items extracted from non-empty input"
+    }
+  ],
+  "rawResponse": "learning to code|B1|This gerund phrase represents a sustained educational process requiring intermediate language proficiency to discuss.|4|Essential for understanding the main topic and the learner's journey throughout the passage.|felt completely overwhelmed|B2|This collocation expresses intense emotional response and requires understanding of degree adverbs with emotional verbs.|4|Critical for comprehending the narrator's initial emotional state and the passage's emotional arc.|syntax|B2|Technical term for grammatical structure of programming languages, requiring subject-specific vocabulary knowledge.|3|Important for understanding the coding context but not essential to grasp the overall narrative message.|foreign language|B1|Idiomatic expression meaning something incomprehensible or unfamiliar, commonly used in comparative contexts.|3|Helpful for understanding the narrator's perception but the meaning is supported by surrounding context.|struggled to understand|B1|Collocation expressing difficulty in comprehension, combining a common verb with a cognitive object.|4|Essential for conveying the narrator's initial challenges and is fundamental to the passage's narrative structure.|basic concepts|B1|Common collocation referring to fundamental or foundational ideas in any field.|3|Useful for understanding what the narrator found difficult but not critical to overall comprehension.|variables and functions|B2|Technical terms from programming representing core computational concepts.|3|Important for coding context but comprehensible from surrounding explanation of difficulty.|gradually|B1|Adverb indicating slow, incremental change over time.|4|Essential for marking the transition from struggle to understanding in the narrative progression.|things began to make sense|B2|Idiomatic expression meaning gradual comprehension or understanding of previously confusing material.|4|Critical for understanding the turning point in the narrator's learning journey.|persistence|B2|Abstract noun meaning sustained effort despite difficulty, a key value in learning contexts.|4|Essential for the passage's central message about what matters more than innate ability.|more important than talent|B2|Comparative structure emphasizing relative value of effort over natural ability.|4|Critical for the passage's main argument about learning and personal development.|Every error message was an opportunity|B2|Metaphorical construction treating mistakes as learning chances, requiring understanding of abstract noun \"opportunity\".|3|Helpful for understanding the narrator's mindset shift but not essential to basic comprehension.|improve|B1|Verb meaning to make or become better, fundamental to learning contexts.|3|Useful for understanding the learning process but supported by surrounding context.|build websites|B1|Collocation representing the practical application of coding skills.|3|Helpful for showing the narrator's current capability but not critical to the main message.|genuine sense of accomplishment|B2|Collocation expressing authentic feeling of achievement, combining abstract nouns with evaluative adjective.|3|Useful for showing the narrator's emotional outcome but the meaning is clear from context.|",
+  "tokenUsage": {
+    "inputTokens": 482,
+    "outputTokens": 615
+  },
+  "latencyMs": 8189,
+  "model": "claude-haiku-4-5-20251001",
+  "promptVersion": "v12",
+  "timestamp": "2026-04-15T04:13:08.411Z"
+}

@@ -1,0 +1,51 @@
+{
+  "fixtureId": "test-20",
+  "fixtureDescription": "Full Korean paragraph with no English content",
+  "category": "non-english",
+  "passage": "오늘 아침에 학교에 갔는데 친구가 새로운 책을 가지고 왔어요. 그 책은 영어로 쓰여져 있었지만 그림이 많아서 재미있어 보였어요. 점심시간에 같이 읽어보기로 했는데 생각보다 어려웠어요. 선생님께서 도와주셔서 조금은 이해할 수 있었어요. 방과 후에는 도서관에서 비슷한 책을 더 찾아보려고 해요.",
+  "items": [],
+  "parseErrors": [
+    "학교|A1|Basic location word essential for daily communication.|4|Fundamental setting in the passage that frames the entire narrative.|아침|A1|Time of day expression used in basic temporal descriptions.|4|Essential for understanding when the events occurred.|친구|A1|Basic social relationship word necessary for elementary communication.|4|Key to understanding who brought the book and participated in reading.|새로운|A1|Common adjective describing something not seen before.|4|Critical for understanding the book's novelty and the friend's action.|책|A1|Basic object word for fundamental literacy and education contexts.|4|Central noun around which the entire passage revolves.|가지고 오다|A2|Phrasal verb meaning to bring or carry something to a location.|3|Helps understand the friend's action of bringing the book.|영어|A1|Language name essential for language learners.|4|Directly relevant to understanding the book's language and context.|쓰여지다|B1|Passive voice verb meaning to be written.|3|Important for understanding the book's composition and origin.|그림|A1|Basic noun for visual representations.|4|Essential detail explaining why the book seemed interesting.|많다|A1|Common adjective meaning numerous or abundant.|4|Key descriptor for understanding the book's visual appeal.|재미있다|A1|Common adjective meaning interesting or fun.|4|Critical for understanding the speaker's initial impression of the book.|보이다|A2|Verb meaning to appear or seem.|3|Important for expressing subjective impressions and perceptions.|점심시간|A1|Compound noun for lunch period.|4|Specific time reference for when they decided to read together.|같이 읽다|A1|Collocation meaning to read together.|3|Describes the shared activity planned with the friend.|생각보다|B1|Adverbial phrase meaning more than expected or contrary to expectation.|3|Important discourse marker showing contrast with initial impression.|어렵다|A1|Common adjective meaning difficult.|4|Essential for understanding the actual experience versus expectation.|선생님|A1|Basic noun for teacher.|4|Key person who provided help and support.|도와주다|A2|Verb meaning to help or assist.|4|Critical action that enabled partial comprehension.|조금|A1|Adverb meaning a little or somewhat.|3|Qualifier showing limited but meaningful understanding achieved.|이해하다|A2|Verb meaning to understand or comprehend.|4|Essential for describing the outcome of the teacher's help.|방과 후|A2|Compound noun meaning after school.|3|Temporal reference for the final planned activity.|도서관|A1|Basic noun for library.|4|Location where additional similar books will be sought.|비슷한|A2|Adjective meaning similar or alike.|3|Important for describing the type of books to search for.|찾아보다|B1|Phrasal verb meaning to search for or look for.|3|Describes the intended action of seeking additional books.|더|A1|Adverb meaning more or additional.|3|Qualifier indicating the search for more books beyond the first one.|"
+  ],
+  "structuralChecks": [
+    {
+      "name": "line_format",
+      "passed": false,
+      "message": "1 line(s) failed to parse: \"학교|A1|Basic location word essential for daily communication....\""
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_rationales",
+      "passed": true,
+      "message": "All rationales non-empty"
+    },
+    {
+      "name": "no_duplicate_terms",
+      "passed": true,
+      "message": "No duplicate terms"
+    }
+  ],
+  "rawResponse": "학교|A1|Basic location word essential for daily communication.|4|Fundamental setting in the passage that frames the entire narrative.|아침|A1|Time of day expression used in basic temporal descriptions.|4|Essential for understanding when the events occurred.|친구|A1|Basic social relationship word necessary for elementary communication.|4|Key to understanding who brought the book and participated in reading.|새로운|A1|Common adjective describing something not seen before.|4|Critical for understanding the book's novelty and the friend's action.|책|A1|Basic object word for fundamental literacy and education contexts.|4|Central noun around which the entire passage revolves.|가지고 오다|A2|Phrasal verb meaning to bring or carry something to a location.|3|Helps understand the friend's action of bringing the book.|영어|A1|Language name essential for language learners.|4|Directly relevant to understanding the book's language and context.|쓰여지다|B1|Passive voice verb meaning to be written.|3|Important for understanding the book's composition and origin.|그림|A1|Basic noun for visual representations.|4|Essential detail explaining why the book seemed interesting.|많다|A1|Common adjective meaning numerous or abundant.|4|Key descriptor for understanding the book's visual appeal.|재미있다|A1|Common adjective meaning interesting or fun.|4|Critical for understanding the speaker's initial impression of the book.|보이다|A2|Verb meaning to appear or seem.|3|Important for expressing subjective impressions and perceptions.|점심시간|A1|Compound noun for lunch period.|4|Specific time reference for when they decided to read together.|같이 읽다|A1|Collocation meaning to read together.|3|Describes the shared activity planned with the friend.|생각보다|B1|Adverbial phrase meaning more than expected or contrary to expectation.|3|Important discourse marker showing contrast with initial impression.|어렵다|A1|Common adjective meaning difficult.|4|Essential for understanding the actual experience versus expectation.|선생님|A1|Basic noun for teacher.|4|Key person who provided help and support.|도와주다|A2|Verb meaning to help or assist.|4|Critical action that enabled partial comprehension.|조금|A1|Adverb meaning a little or somewhat.|3|Qualifier showing limited but meaningful understanding achieved.|이해하다|A2|Verb meaning to understand or comprehend.|4|Essential for describing the outcome of the teacher's help.|방과 후|A2|Compound noun meaning after school.|3|Temporal reference for the final planned activity.|도서관|A1|Basic noun for library.|4|Location where additional similar books will be sought.|비슷한|A2|Adjective meaning similar or alike.|3|Important for describing the type of books to search for.|찾아보다|B1|Phrasal verb meaning to search for or look for.|3|Describes the intended action of seeking additional books.|더|A1|Adverb meaning more or additional.|3|Qualifier indicating the search for more books beyond the first one.|",
+  "tokenUsage": {
+    "inputTokens": 497,
+    "outputTokens": 714
+  },
+  "latencyMs": 8264,
+  "model": "claude-haiku-4-5-20251001",
+  "promptVersion": "v12",
+  "timestamp": "2026-04-15T04:12:43.351Z"
+}

@@ -1,0 +1,56 @@
+{
+  "fixtureId": "test-27",
+  "fixtureDescription": "Emoji-heavy social media post about a shopping day",
+  "category": "tricky",
+  "passage": "OMG 😱😱 just had the BEST day ever!! 🎉🎊 Went shopping with my bestie 👯‍♀️ and found the cutest shoes 👟✨ at the mall 🏬 Then we grabbed lunch 🍕🍔 at this amazing new restaurant 🍽️ The food was absolutely incredible 🤤💯 Can't wait to go back next weekend!! 😍🙌 #blessed #bestdayever #foodie 🥰",
+  "items": [],
+  "parseErrors": [
+    "best day ever|A2|Common colloquial expression for describing an exceptionally good experience.|4|Essential for understanding the speaker's enthusiasm and overall message.|bestie|A2|Informal shortened form of \"best friend\" commonly used in casual speech.|3|Helpful for recognizing informal register and peer communication patterns.|went shopping|A1|Basic phrasal verb describing the activity of purchasing items at stores.|4|Essential action verb for everyday communication about common activities.|grabbed lunch|B1|Phrasal verb meaning to quickly obtain and eat a meal, often casually.|3|Useful for describing informal dining experiences in natural conversation.|amazing|A2|Adjective expressing strong positive evaluation of something.|4|Essential for expressing opinions and evaluations in everyday speech.|incredible|B1|Adjective meaning extremely good or impressive, stronger than \"good\".|3|Helpful for expressing strong positive opinions with varied vocabulary.|can't wait|A2|Expression indicating eager anticipation for a future event.|4|Essential for conveying enthusiasm and future plans in casual speech.|go back|A1|Phrasal verb meaning to return to a place previously visited.|4|Essential for describing repeated visits and future intentions.|next weekend|A1|Time expression referring to the weekend following the current week.|4|Essential for discussing near-future plans and time references.|blessed|B2|Adjective or exclamation expressing gratitude and feeling fortunate.|3|Useful for understanding expressions of appreciation in social media contexts.|foodie|B1|Noun referring to a person who has a strong interest in food and cooking.|3|Helpful for recognizing identity terms related to food enthusiasm.|"
+  ],
+  "structuralChecks": [
+    {
+      "name": "line_format",
+      "passed": false,
+      "message": "1 line(s) failed to parse: \"best day ever|A2|Common colloquial expression for describing...\""
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_rationales",
+      "passed": true,
+      "message": "All rationales non-empty"
+    },
+    {
+      "name": "no_duplicate_terms",
+      "passed": true,
+      "message": "No duplicate terms"
+    },
+    {
+      "name": "has_output",
+      "passed": false,
+      "message": "No items extracted from non-empty input"
+    }
+  ],
+  "rawResponse": "best day ever|A2|Common colloquial expression for describing an exceptionally good experience.|4|Essential for understanding the speaker's enthusiasm and overall message.|bestie|A2|Informal shortened form of \"best friend\" commonly used in casual speech.|3|Helpful for recognizing informal register and peer communication patterns.|went shopping|A1|Basic phrasal verb describing the activity of purchasing items at stores.|4|Essential action verb for everyday communication about common activities.|grabbed lunch|B1|Phrasal verb meaning to quickly obtain and eat a meal, often casually.|3|Useful for describing informal dining experiences in natural conversation.|amazing|A2|Adjective expressing strong positive evaluation of something.|4|Essential for expressing opinions and evaluations in everyday speech.|incredible|B1|Adjective meaning extremely good or impressive, stronger than \"good\".|3|Helpful for expressing strong positive opinions with varied vocabulary.|can't wait|A2|Expression indicating eager anticipation for a future event.|4|Essential for conveying enthusiasm and future plans in casual speech.|go back|A1|Phrasal verb meaning to return to a place previously visited.|4|Essential for describing repeated visits and future intentions.|next weekend|A1|Time expression referring to the weekend following the current week.|4|Essential for discussing near-future plans and time references.|blessed|B2|Adjective or exclamation expressing gratitude and feeling fortunate.|3|Useful for understanding expressions of appreciation in social media contexts.|foodie|B1|Noun referring to a person who has a strong interest in food and cooking.|3|Helpful for recognizing identity terms related to food enthusiasm.|",
+  "tokenUsage": {
+    "inputTokens": 451,
+    "outputTokens": 360
+  },
+  "latencyMs": 4694,
+  "model": "claude-haiku-4-5-20251001",
+  "promptVersion": "v12",
+  "timestamp": "2026-04-15T04:13:22.147Z"
+}

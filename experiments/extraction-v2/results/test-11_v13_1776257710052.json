@@ -1,0 +1,253 @@
+{
+  "fixtureId": "test-11",
+  "fixtureDescription": "Polysemy-dense business passage — every key word has a non-default sense",
+  "category": "edge",
+  "passage": "The company runs a tight ship. Last quarter, they faced a major setback when their flagship product failed to meet expectations. The board addressed the crisis head-on, holding an emergency meeting to weigh the options. Several executives entertained the idea of a merger, but the CEO struck down the proposal. She argued that the firm should bear the costs alone rather than give up its independence. In the end, the team drew on their experience to craft a new strategy, and the company bounced back stronger than before.",
+  "items": [
+    {
+      "type": "phrase",
+      "term": "run a tight ship",
+      "definition": "manage an organization in a strict and efficient way",
+      "level": "C1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "last quarter",
+      "definition": "the most recent three-month business period",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "flagship product",
+      "definition": "a company's most important or representative product",
+      "level": "C1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "meet expectations",
+      "definition": "achieve the standard or result that was hoped for",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "head-on",
+      "definition": "in a direct and determined way, without avoiding difficulty",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "emergency meeting",
+      "definition": "an unplanned meeting called urgently to deal with a serious problem",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "weigh the options",
+      "definition": "carefully consider all available choices before deciding",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "entertain the idea",
+      "definition": "consider a suggestion or possibility seriously",
+      "level": "C1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "struck down",
+      "definition": "officially rejected or dismissed a proposal or idea",
+      "level": "C1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "bear the costs",
+      "definition": "accept and pay for the financial burden",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "give up",
+      "definition": "stop doing or having something; surrender",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "draw on",
+      "definition": "make use of a resource or experience",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "bounce back",
+      "definition": "recover quickly after a difficulty or setback",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "tight",
+      "definition": "strictly controlled and efficient",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "quarter",
+      "definition": "a three-month period of a financial year",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "setback",
+      "definition": "a problem that delays or reverses progress",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "flagship",
+      "definition": "the most important or best product of a company",
+      "level": "C1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "expectations",
+      "definition": "standards or results that are hoped for or anticipated",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "board",
+      "definition": "the group of directors who manage a company",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "crisis",
+      "definition": "a time of serious difficulty or danger",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "emergency",
+      "definition": "a sudden serious situation requiring immediate action",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "merger",
+      "definition": "the combining of two companies into one",
+      "level": "C1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "proposal",
+      "definition": "a formal suggestion or plan put forward for consideration",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "firm",
+      "definition": "a business or company",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "independence",
+      "definition": "the state of being free from outside control",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "strategy",
+      "definition": "a plan designed to achieve a long-term goal",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "executives",
+      "definition": "senior managers in a company",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "craft",
+      "definition": "to make or create something with skill and care",
+      "level": "B2",
+      "importance": 2
+    }
+  ],
+  "phraseCount": 13,
+  "vocabCount": 15,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (28 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "28 item(s) extracted"
+    }
+  ],
+  "rawResponse": "{\"v\":[[\"tight\",\"strictly controlled and efficient\",\"B2\",3],[\"quarter\",\"a three-month period of a financial year\",\"B1\",3],[\"setback\",\"a problem that delays or reverses progress\",\"B2\",4],[\"flagship\",\"the most important or best product of a company\",\"C1\",3],[\"expectations\",\"standards or results that are hoped for or anticipated\",\"B2\",3],[\"board\",\"the group of directors who manage a company\",\"B2\",4],[\"crisis\",\"a time of serious difficulty or danger\",\"B2\",4],[\"emergency\",\"a sudden serious situation requiring immediate action\",\"B2\",3],[\"merger\",\"the combining of two companies into one\",\"C1\",4],[\"proposal\",\"a formal suggestion or plan put forward for consideration\",\"B2\",3],[\"firm\",\"a business or company\",\"B1\",3],[\"independence\",\"the state of being free from outside control\",\"B2\",3],[\"strategy\",\"a plan designed to achieve a long-term goal\",\"B2\",4],[\"executives\",\"senior managers in a company\",\"B2\",3],[\"craft\",\"to make or create something with skill and care\",\"B2\",2]],\"p\":[[\"run a tight ship\",\"manage an organization in a strict and efficient way\",\"C1\",4],[\"last quarter\",\"the most recent three-month business period\",\"B1\",3],[\"flagship product\",\"a company's most important or representative product\",\"C1\",4],[\"meet expectations\",\"achieve the standard or result that was hoped for\",\"B2\",4],[\"head-on\",\"in a direct and determined way, without avoiding difficulty\",\"B2\",3],[\"emergency meeting\",\"an unplanned meeting called urgently to deal with a serious problem\",\"B2\",3],[\"weigh the options\",\"carefully consider all available choices before deciding\",\"B2\",4],[\"entertain the idea\",\"consider a suggestion or possibility seriously\",\"C1\",3],[\"struck down\",\"officially rejected or dismissed a proposal or idea\",\"C1\",4],[\"bear the costs\",\"accept and pay for the financial burden\",\"B2\",4],[\"give up\",\"stop doing or having something; surrender\",\"A2\",3],[\"draw on\",\"make use of a resource or experience\",\"B2\",4],[\"bounce back\",\"recover quickly after a difficulty or setback\",\"B2\",4]]}",
+  "tokenUsage": {
+    "inputTokens": 1487,
+    "outputTokens": 629
+  },
+  "latencyMs": 10626,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v13",
+  "timestamp": "2026-04-15T12:54:59.426Z"
+}

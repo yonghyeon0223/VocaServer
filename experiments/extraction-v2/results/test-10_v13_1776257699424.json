@@ -1,0 +1,141 @@
+{
+  "fixtureId": "test-10",
+  "fixtureDescription": "Bare comma-separated word list with no sentence context",
+  "category": "edge",
+  "passage": "happy, environment, consequence, struggle, breathe, sustainable, atmosphere, determine, reluctant, furthermore, magnificent, peculiar",
+  "items": [
+    {
+      "type": "vocabulary",
+      "term": "happy",
+      "definition": "feeling or showing pleasure or contentment",
+      "level": "A1",
+      "importance": 0
+    },
+    {
+      "type": "vocabulary",
+      "term": "environment",
+      "definition": "the natural world, including land, water, and air",
+      "level": "A2",
+      "importance": 0
+    },
+    {
+      "type": "vocabulary",
+      "term": "consequence",
+      "definition": "a result or effect of an action or condition",
+      "level": "B1",
+      "importance": 0
+    },
+    {
+      "type": "vocabulary",
+      "term": "struggle",
+      "definition": "to make great efforts to do something difficult",
+      "level": "B1",
+      "importance": 0
+    },
+    {
+      "type": "vocabulary",
+      "term": "breathe",
+      "definition": "to take air into the lungs and send it out again",
+      "level": "A2",
+      "importance": 0
+    },
+    {
+      "type": "vocabulary",
+      "term": "sustainable",
+      "definition": "able to be maintained without depleting natural resources or causing long-term harm",
+      "level": "B2",
+      "importance": 0
+    },
+    {
+      "type": "vocabulary",
+      "term": "atmosphere",
+      "definition": "the layer of gases surrounding the Earth",
+      "level": "B1",
+      "importance": 0
+    },
+    {
+      "type": "vocabulary",
+      "term": "determine",
+      "definition": "to cause or decide something; to find out something",
+      "level": "B2",
+      "importance": 0
+    },
+    {
+      "type": "vocabulary",
+      "term": "reluctant",
+      "definition": "unwilling or hesitant to do something",
+      "level": "B2",
+      "importance": 0
+    },
+    {
+      "type": "vocabulary",
+      "term": "furthermore",
+      "definition": "in addition; used to introduce extra information",
+      "level": "B2",
+      "importance": 0
+    },
+    {
+      "type": "vocabulary",
+      "term": "magnificent",
+      "definition": "impressively beautiful or elaborate",
+      "level": "B2",
+      "importance": 0
+    },
+    {
+      "type": "vocabulary",
+      "term": "peculiar",
+      "definition": "strange or unusual; different from what is normal",
+      "level": "B2",
+      "importance": 0
+    }
+  ],
+  "phraseCount": 0,
+  "vocabCount": 12,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (12 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "12 item(s) extracted"
+    }
+  ],
+  "rawResponse": "{\"v\":[[\"happy\",\"feeling or showing pleasure or contentment\",\"A1\",0],[\"environment\",\"the natural world, including land, water, and air\",\"A2\",0],[\"consequence\",\"a result or effect of an action or condition\",\"B1\",0],[\"struggle\",\"to make great efforts to do something difficult\",\"B1\",0],[\"breathe\",\"to take air into the lungs and send it out again\",\"A2\",0],[\"sustainable\",\"able to be maintained without depleting natural resources or causing long-term harm\",\"B2\",0],[\"atmosphere\",\"the layer of gases surrounding the Earth\",\"B1\",0],[\"determine\",\"to cause or decide something; to find out something\",\"B2\",0],[\"reluctant\",\"unwilling or hesitant to do something\",\"B2\",0],[\"furthermore\",\"in addition; used to introduce extra information\",\"B2\",0],[\"magnificent\",\"impressively beautiful or elaborate\",\"B2\",0],[\"peculiar\",\"strange or unusual; different from what is normal\",\"B2\",0]],\"p\":[]}",
+  "tokenUsage": {
+    "inputTokens": 1408,
+    "outputTokens": 307
+  },
+  "latencyMs": 5481,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v13",
+  "timestamp": "2026-04-15T12:54:53.943Z"
+}

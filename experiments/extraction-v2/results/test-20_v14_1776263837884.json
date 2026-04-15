@@ -1,0 +1,53 @@
+{
+  "fixtureId": "test-20",
+  "fixtureDescription": "Full Korean paragraph with no English content",
+  "category": "non-english",
+  "passage": "오늘 아침에 학교에 갔는데 친구가 새로운 책을 가지고 왔어요. 그 책은 영어로 쓰여져 있었지만 그림이 많아서 재미있어 보였어요. 점심시간에 같이 읽어보기로 했는데 생각보다 어려웠어요. 선생님께서 도와주셔서 조금은 이해할 수 있었어요. 방과 후에는 도서관에서 비슷한 책을 더 찾아보려고 해요.",
+  "items": [],
+  "phraseCount": 0,
+  "vocabCount": 0,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (0 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    }
+  ],
+  "rawResponse": "{\"v\":[],\"p\":[]}",
+  "tokenUsage": {
+    "inputTokens": 593,
+    "outputTokens": 50,
+    "cacheRead": 4142,
+    "cacheCreation": 0
+  },
+  "latencyMs": 1940,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v14",
+  "timestamp": "2026-04-15T14:37:15.944Z"
+}

@@ -1,0 +1,153 @@
+{
+  "fixtureId": "test-13",
+  "fixtureDescription": "Proper-noun-heavy travel paragraph with city names, brands, and platforms",
+  "category": "edge",
+  "passage": "Last summer, Emily traveled from Seoul to Tokyo with her friend Sarah. They visited the famous Shibuya district and ate at a McDonald's near Harajuku Station. Emily bought a new Samsung phone at a shop in Akihabara. On their last day, they took the Shinkansen to Osaka and visited Osaka Castle. Sarah posted all the photos on Instagram, and Emily shared them on Facebook. Their Korean friend Minho commented that he wanted to visit Japan too.",
+  "items": [
+    {
+      "term": "traveled",
+      "level": "B1",
+      "levelRationale": "Past tense of travel indicating movement to a destination, commonly used in narratives.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding the main action and timeline of the passage."
+    },
+    {
+      "term": "visited",
+      "level": "B1",
+      "levelRationale": "Past tense of visit indicating going to see a place, fundamental to narrative comprehension.",
+      "importance": 4,
+      "importanceRationale": "Critical for understanding what activities Emily and Sarah did during their trip."
+    },
+    {
+      "term": "famous",
+      "level": "B1",
+      "levelRationale": "Adjective describing something well-known, used to characterize the Shibuya district.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding the significance of the locations they visited."
+    },
+    {
+      "term": "district",
+      "level": "B1",
+      "levelRationale": "Noun referring to a defined area or region of a city, used to describe Shibuya.",
+      "importance": 3,
+      "importanceRationale": "Useful for understanding geographical divisions and urban areas in travel contexts."
+    },
+    {
+      "term": "ate",
+      "level": "A1",
+      "levelRationale": "Past tense of eat, basic action verb in the narrative.",
+      "importance": 4,
+      "importanceRationale": "Essential for following the sequence of activities during the trip."
+    },
+    {
+      "term": "bought",
+      "level": "B1",
+      "levelRationale": "Past tense of buy indicating a purchase transaction.",
+      "importance": 4,
+      "importanceRationale": "Critical for understanding what Emily acquired during the trip."
+    },
+    {
+      "term": "new",
+      "level": "A1",
+      "levelRationale": "Adjective describing something recently made or acquired, modifying phone.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding the nature of the item purchased."
+    },
+    {
+      "term": "shop",
+      "level": "A1",
+      "levelRationale": "Noun referring to a retail store, basic vocabulary for shopping contexts.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding where the phone was purchased."
+    },
+    {
+      "term": "took",
+      "level": "A1",
+      "levelRationale": "Past tense of take indicating traveling by a mode of transport.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding how they traveled between cities."
+    },
+    {
+      "term": "posted",
+      "level": "B1",
+      "levelRationale": "Past tense of post meaning to share content on social media.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding how they shared their travel experience online."
+    },
+    {
+      "term": "photos",
+      "level": "A1",
+      "levelRationale": "Noun referring to pictures, basic vocabulary in modern communication.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding what was shared on social media."
+    },
+    {
+      "term": "shared",
+      "level": "B1",
+      "levelRationale": "Past tense of share indicating distribution of content with others.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding how Emily distributed the travel photos."
+    },
+    {
+      "term": "commented",
+      "level": "B1",
+      "levelRationale": "Past tense of comment meaning to express an opinion or remark.",
+      "importance": 3,
+      "importanceRationale": "Useful for understanding Minho's response to the shared photos."
+    },
+    {
+      "term": "wanted",
+      "level": "A1",
+      "levelRationale": "Past tense of want indicating desire, basic modal expression.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding Minho's expressed intention."
+    }
+  ],
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "line_format",
+      "passed": true,
+      "message": "All lines parsed successfully (14 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_rationales",
+      "passed": true,
+      "message": "All rationales non-empty"
+    },
+    {
+      "name": "no_duplicate_terms",
+      "passed": true,
+      "message": "No duplicate terms"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "14 item(s) extracted"
+    }
+  ],
+  "rawResponse": "traveled|B1|Past tense of travel indicating movement to a destination, commonly used in narratives.|4|Essential for understanding the main action and timeline of the passage.\nvisited|B1|Past tense of visit indicating going to see a place, fundamental to narrative comprehension.|4|Critical for understanding what activities Emily and Sarah did during their trip.\nfamous|B1|Adjective describing something well-known, used to characterize the Shibuya district.|3|Helpful for understanding the significance of the locations they visited.\ndistrict|B1|Noun referring to a defined area or region of a city, used to describe Shibuya.|3|Useful for understanding geographical divisions and urban areas in travel contexts.\nate|A1|Past tense of eat, basic action verb in the narrative.|4|Essential for following the sequence of activities during the trip.\nbought|B1|Past tense of buy indicating a purchase transaction.|4|Critical for understanding what Emily acquired during the trip.\nnew|A1|Adjective describing something recently made or acquired, modifying phone.|4|Essential for understanding the nature of the item purchased.\nshop|A1|Noun referring to a retail store, basic vocabulary for shopping contexts.|4|Essential for understanding where the phone was purchased.\ntook|A1|Past tense of take indicating traveling by a mode of transport.|4|Essential for understanding how they traveled between cities.\nposted|B1|Past tense of post meaning to share content on social media.|3|Helpful for understanding how they shared their travel experience online.\nphotos|A1|Noun referring to pictures, basic vocabulary in modern communication.|4|Essential for understanding what was shared on social media.\nshared|B1|Past tense of share indicating distribution of content with others.|3|Helpful for understanding how Emily distributed the travel photos.\ncommented|B1|Past tense of comment meaning to express an opinion or remark.|3|Useful for understanding Minho's response to the shared photos.\nwanted|A1|Past tense of want indicating desire, basic modal expression.|4|Essential for understanding Minho's expressed intention.",
+  "tokenUsage": {
+    "inputTokens": 428,
+    "outputTokens": 473
+  },
+  "latencyMs": 5305,
+  "model": "claude-haiku-4-5-20251001",
+  "promptVersion": "v12",
+  "timestamp": "2026-04-15T04:12:29.057Z"
+}

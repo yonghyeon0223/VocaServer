@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Extraction v2 — report-20260414-234702</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.5; padding: 20px; max-width: 1400px; margin: 0 auto; background: #f8fafc; color: #1e293b; }
+  h1 { font-size: 24px; margin-bottom: 20px; }
+  h2 { font-size: 20px; margin: 20px 0 12px; }
+  h3 { font-size: 16px; margin: 16px 0 8px; }
+  h4 { font-size: 14px; margin: 12px 0 6px; color: #475569; }
+  h5 { font-size: 13px; margin: 8px 0 4px; }
+  .summary { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; margin-bottom: 24px; }
+  .meta-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 8px; margin-bottom: 16px; }
+  .meta-item { padding: 6px 12px; background: #f1f5f9; border-radius: 4px; font-size: 13px; }
+  .fixture { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 12px; }
+  .fixture-header { padding: 12px 16px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 14px; }
+  .fixture-header:hover { background: #f8fafc; }
+  .fixture-id { font-weight: 700; font-family: monospace; min-width: 70px; }
+  .fixture-desc { flex: 1; color: #64748b; }
+  .fixture-stats { font-size: 12px; color: #94a3b8; white-space: nowrap; }
+  .fixture-body { padding: 0 16px 16px; }
+  .section { margin-top: 16px; padding-top: 12px; border-top: 1px solid #f1f5f9; }
+  .passage { background: #f8fafc; padding: 12px; border-radius: 6px; font-size: 13px; white-space: pre-wrap; max-height: 200px; overflow-y: auto; }
+  .checks { display: flex; flex-wrap: wrap; gap: 6px; }
+  .check-pass { color: #16a34a; font-size: 13px; padding: 4px 8px; background: #f0fdf4; border-radius: 4px; }
+  .check-fail { color: #dc2626; font-size: 13px; padding: 4px 8px; background: #fef2f2; border-radius: 4px; }
+  .dist-row { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 8px; }
+  .dist-box { font-size: 13px; }
+  .meta-row { font-size: 12px; color: #94a3b8; }
+  .items-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 4px; }
+  .items-table th { text-align: left; padding: 6px 8px; background: #f8fafc; border-bottom: 2px solid #e2e8f0; font-size: 12px; }
+  .items-table td { padding: 6px 8px; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+  .imp-group { margin-bottom: 12px; }
+  .parse-error { background: #fef2f2; color: #dc2626; padding: 6px 10px; border-radius: 4px; font-size: 12px; font-family: monospace; margin: 4px 0; white-space: pre-wrap; word-break: break-all; }
+  .error-count { color: #dc2626; font-weight: 600; }
+  .rubric-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .rubric-table th { text-align: left; padding: 6px 8px; background: #f8fafc; border-bottom: 2px solid #e2e8f0; }
+  .rubric-table td { padding: 6px 8px; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+  .rating-cell label { margin-right: 4px; font-size: 12px; }
+  .rubric-note { font-size: 12px; color: #94a3b8; margin-bottom: 8px; }
+  .score-display { font-size: 18px; font-weight: 700; margin-top: 12px; }
+  .notes-section { margin-top: 12px; }
+  .notes-section label { font-size: 13px; font-weight: 600; display: block; margin-bottom: 4px; }
+  .notes-section textarea { width: 100%; padding: 8px; border: 1px solid #e2e8f0; border-radius: 4px; font-size: 13px; font-family: inherit; }
+  .overview-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .overview-table th { text-align: left; padding: 8px; background: #f8fafc; border-bottom: 2px solid #e2e8f0; }
+  .overview-table td { padding: 8px; border-bottom: 1px solid #f1f5f9; }
+  .overview-table a { color: #2563eb; text-decoration: none; }
+  .overview-table a:hover { text-decoration: underline; }
+  @media print { details { open: true; } .fixture { break-inside: avoid; } }
+</style>
+</head>
+<body>
+<h1>Extraction v2 Report — report-20260414-234702</h1>
+<div class="summary">
+    <h2>Run Summary</h2>
+    <div class="meta-grid">
+      <div class="meta-item"><strong>Model:</strong> claude-haiku-4-5-20251001</div>
+      <div class="meta-item"><strong>Prompt:</strong> v12</div>
+      <div class="meta-item"><strong>Fixtures:</strong> 1</div>
+      <div class="meta-item"><strong>Timestamp:</strong> 2026-04-14T14:47:02.856Z</div>
+      <div class="meta-item"><strong>Total Items:</strong> 16</div>
+      <div class="meta-item"><strong>Parse Errors:</strong> 0</div>
+      <div class="meta-item"><strong>Structural Checks:</strong> 7/7 passed</div>
+      <div class="meta-item"><strong>Tokens:</strong> 480 in / 674 out</div>
+      <div class="meta-item"><strong>Total Cost:</strong> $0.0031</div>
+    </div>
+
+    <h3>Fixture Overview</h3>
+    <table class="overview-table"><thead><tr>
+      <th>ID</th><th>Category</th><th>Items</th><th>Parse Errors</th><th>Checks</th><th>Tokens (in/out)</th><th>Cost</th><th>Score</th>
+    </tr></thead><tbody><tr>
+      <td><a href="#fixture-test-01">test-01</a></td>
+      <td><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#6b7280">normal</span></td>
+      <td>16</td>
+      <td>0</td>
+      <td>7/7</td>
+      <td>480 / 674</td>
+      <td>$0.0031</td>
+      <td><span id="overview-score-test-01">—</span></td>
+    </tr></tbody></table></div>
+<h2>Fixture Results</h2>
+
+    <div class="fixture" id="fixture-test-01">
+      <details open>
+        <summary class="fixture-header">
+          <span class="fixture-id">test-01</span>
+          <span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#6b7280">normal</span>
+          <span class="fixture-desc">Elementary passage — Min-jun's daily school routine</span>
+          <span class="fixture-stats">16 items | 7/7 checks | $0.0031</span>
+        </summary>
+        <div class="fixture-body"><div class="section"><h4>Structural Checks</h4><div class="checks"><div class="check-pass"><span>✓</span> <strong>line_format</strong>: All lines parsed successfully (16 items)</div><div class="check-pass"><span>✓</span> <strong>valid_cefr</strong>: All CEFR levels valid</div><div class="check-pass"><span>✓</span> <strong>valid_importance</strong>: All importance values valid (1-4)</div><div class="check-pass"><span>✓</span> <strong>non_empty_term</strong>: All terms non-empty</div><div class="check-pass"><span>✓</span> <strong>non_empty_rationales</strong>: All rationales non-empty</div><div class="check-pass"><span>✓</span> <strong>no_duplicate_terms</strong>: No duplicate terms</div><div class="check-pass"><span>✓</span> <strong>has_output</strong>: 16 item(s) extracted</div></div></div><div class="section"><h4>Passage</h4><div class="passage">Min-jun is in the fourth grade. He likes school, but he doesn't feel well today because he has a math test. Every morning, he wakes up at seven o'clock. He brushes his teeth and has breakfast with his family. His mother is very kind and always asks, &quot;What kind of breakfast do you want?&quot; Today she makes him eggs and rice. After breakfast, he puts on his uniform and walks to school. School starts at eight thirty. His best friend Tom sits next to him. Tom runs like the wind and plays soccer well. They study English together, and Min-jun usually gets the right answer. After school, they play soccer in the playground. When Min-jun gets home, he does his homework before dinner.</div></div><div class="section"><h4>Distribution</h4>
+    <div class="dist-row">
+      <div class="dist-box"><strong>Importance:</strong>
+        <span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#dc2626">4</span> 5 &nbsp; <span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#ea580c">3</span> 9 &nbsp; <span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#2563eb">2</span> 2 &nbsp; <span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#6b7280">1</span> 0
+      </div>
+      <div class="dist-box"><strong>Level:</strong>
+        <span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#16a34a">A1</span> 12 &nbsp; <span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#16a34a">A2</span> 3 &nbsp; <span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#ca8a04">B1</span> 1
+      </div>
+    </div>
+    <div class="meta-row">Tokens: 480 in / 674 out | Latency: 9687ms | Cost: $0.0031</div>
+  </div><div class="section"><h4>Items by Importance</h4><div class="imp-group"><h5><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#dc2626">4</span> Importance 4 (5 items)</h5><table class="items-table"><thead><tr><th>#</th><th>Term</th><th>Level</th><th>Level Rationale</th><th>Importance Rationale</th></tr></thead><tbody><tr><td>1</td><td><strong>feel well</strong></td><td><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#16a34a">A2</span></td><td>&quot;Feel well&quot; is a common collocation expressing physical health status used in everyday contexts.</td><td>Essential for understanding Min-jun's emotional and physical state, which is central to the passage's opening.</td></tr><tr><td>2</td><td><strong>doesn't feel well</strong></td><td><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#16a34a">A2</span></td><td>Negative form of the basic health expression used to describe not being in good physical condition.</td><td>Critical for comprehension as it establishes the main reason for Min-jun's anxiety in the passage.</td></tr><tr><td>3</td><td><strong>wakes up</strong></td><td><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#16a34a">A1</span></td><td>Phrasal verb meaning to stop sleeping, one of the most fundamental daily routine verbs.</td><td>Essential basic vocabulary for describing daily routines that appears early in the passage.</td></tr><tr><td>4</td><td><strong>makes him eggs</strong></td><td><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#16a34a">A1</span></td><td>Collocation showing the action of preparing food for someone; &quot;make&quot; in the sense of prepare/cook.</td><td>Essential for understanding the mother's caring action and the breakfast scene.</td></tr><tr><td>5</td><td><strong>puts on</strong></td><td><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#16a34a">A1</span></td><td>Phrasal verb meaning to dress oneself or wear clothing.</td><td>Essential basic vocabulary for describing getting dressed, a key part of the morning routine.</td></tr></tbody></table></div><div class="imp-group"><h5><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#ea580c">3</span> Importance 3 (9 items)</h5><table class="items-table"><thead><tr><th>#</th><th>Term</th><th>Level</th><th>Level Rationale</th><th>Importance Rationale</th></tr></thead><tbody><tr><td>1</td><td><strong>brushes his teeth</strong></td><td><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#16a34a">A1</span></td><td>Common daily hygiene activity expressed as a collocation with &quot;brush&quot; and &quot;teeth&quot;.</td><td>Important for understanding daily routine sequences, though not central to the main narrative.</td></tr><tr><td>2</td><td><strong>has breakfast</strong></td><td><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#16a34a">A1</span></td><td>Collocation describing the act of eating the morning meal.</td><td>Helpful for understanding daily routine structure, though the specific meal is less critical than the overall context.</td></tr><tr><td>3</td><td><strong>asks</strong></td><td><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#16a34a">A1</span></td><td>Basic verb meaning to request information or pose a question.</td><td>Useful for understanding dialogue and interaction, though the specific question is straightforward.</td></tr><tr><td>4</td><td><strong>walks to school</strong></td><td><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#16a34a">A1</span></td><td>Collocation describing the action of going to school on foot.</td><td>Helpful for understanding the journey to school, though not critical to main events.</td></tr><tr><td>5</td><td><strong>plays soccer</strong></td><td><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#16a34a">A1</span></td><td>Collocation describing participation in the sport of soccer.</td><td>Useful for understanding activities and interests, though not essential to the main narrative.</td></tr><tr><td>6</td><td><strong>study together</strong></td><td><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#16a34a">A1</span></td><td>Collocation expressing collaborative learning between two people.</td><td>Helpful for showing the friendship and academic cooperation between Min-jun and Tom.</td></tr><tr><td>7</td><td><strong>gets the right answer</strong></td><td><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#16a34a">A2</span></td><td>Collocation meaning to answer correctly or succeed in solving a problem.</td><td>Useful for showing Min-jun's academic competence, though not critical to overall comprehension.</td></tr><tr><td>8</td><td><strong>gets home</strong></td><td><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#16a34a">A1</span></td><td>Phrasal verb or collocation meaning to arrive at one's residence.</td><td>Helpful for understanding the daily routine structure, though not essential to main events.</td></tr><tr><td>9</td><td><strong>does his homework</strong></td><td><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#16a34a">A1</span></td><td>Collocation describing the action of completing assigned schoolwork.</td><td>Useful for showing responsibility and routine, though not critical to the passage's main point.</td></tr></tbody></table></div><div class="imp-group"><h5><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#2563eb">2</span> Importance 2 (2 items)</h5><table class="items-table"><thead><tr><th>#</th><th>Term</th><th>Level</th><th>Level Rationale</th><th>Importance Rationale</th></tr></thead><tbody><tr><td>1</td><td><strong>runs like the wind</strong></td><td><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#ca8a04">B1</span></td><td>Idiom meaning to run very fast, using a simile to emphasize speed.</td><td>Supplementary descriptive phrase that characterizes Tom's athletic ability but doesn't affect plot comprehension.</td></tr><tr><td>2</td><td><strong>before dinner</strong></td><td><span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#16a34a">A1</span></td><td>Prepositional phrase indicating time sequence relative to the evening meal.</td><td>Supplementary temporal marker that shows routine order but doesn't affect main comprehension.</td></tr></tbody></table></div></div><div class="section"><h4>Manual Score — Rubric A</h4>
+    <p class="rubric-note">Rate each item 1-5. Score = sum(rating × weight) / 5. Max = 100.</p>
+    <table class="rubric-table"><thead><tr><th>Item</th><th>Weight</th><th>Description</th><th>Rating (1-5)</th></tr></thead><tbody><tr><td><strong>Completeness</strong></td><td>20</td><td>Caught all words, phrases, grammar patterns a student would want to learn?</td><td class="rating-cell"><label><input type="radio" name="test-01_Completeness" value="1" data-fixture="test-01" data-weight="20" onchange="calcScore('test-01')">1</label> <label><input type="radio" name="test-01_Completeness" value="2" data-fixture="test-01" data-weight="20" onchange="calcScore('test-01')">2</label> <label><input type="radio" name="test-01_Completeness" value="3" data-fixture="test-01" data-weight="20" onchange="calcScore('test-01')">3</label> <label><input type="radio" name="test-01_Completeness" value="4" data-fixture="test-01" data-weight="20" onchange="calcScore('test-01')">4</label> <label><input type="radio" name="test-01_Completeness" value="5" data-fixture="test-01" data-weight="20" onchange="calcScore('test-01')">5</label> </td></tr><tr><td><strong>Importance accuracy</strong></td><td>20</td><td>Do the 4/3/2/1 ratings feel right for passage comprehension?</td><td class="rating-cell"><label><input type="radio" name="test-01_Importance_accuracy" value="1" data-fixture="test-01" data-weight="20" onchange="calcScore('test-01')">1</label> <label><input type="radio" name="test-01_Importance_accuracy" value="2" data-fixture="test-01" data-weight="20" onchange="calcScore('test-01')">2</label> <label><input type="radio" name="test-01_Importance_accuracy" value="3" data-fixture="test-01" data-weight="20" onchange="calcScore('test-01')">3</label> <label><input type="radio" name="test-01_Importance_accuracy" value="4" data-fixture="test-01" data-weight="20" onchange="calcScore('test-01')">4</label> <label><input type="radio" name="test-01_Importance_accuracy" value="5" data-fixture="test-01" data-weight="20" onchange="calcScore('test-01')">5</label> </td></tr><tr><td><strong>Level accuracy</strong></td><td>15</td><td>CEFR ratings reasonable for each term's meaning in context?</td><td class="rating-cell"><label><input type="radio" name="test-01_Level_accuracy" value="1" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')">1</label> <label><input type="radio" name="test-01_Level_accuracy" value="2" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')">2</label> <label><input type="radio" name="test-01_Level_accuracy" value="3" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')">3</label> <label><input type="radio" name="test-01_Level_accuracy" value="4" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')">4</label> <label><input type="radio" name="test-01_Level_accuracy" value="5" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')">5</label> </td></tr><tr><td><strong>Phrase/pattern detection</strong></td><td>15</td><td>Caught phrasal verbs, idioms, collocations, grammar patterns — not just single words?</td><td class="rating-cell"><label><input type="radio" name="test-01_Phrase/pattern_detection" value="1" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')">1</label> <label><input type="radio" name="test-01_Phrase/pattern_detection" value="2" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')">2</label> <label><input type="radio" name="test-01_Phrase/pattern_detection" value="3" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')">3</label> <label><input type="radio" name="test-01_Phrase/pattern_detection" value="4" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')">4</label> <label><input type="radio" name="test-01_Phrase/pattern_detection" value="5" data-fixture="test-01" data-weight="15" onchange="calcScore('test-01')">5</label> </td></tr><tr><td><strong>Exclusions</strong></td><td>10</td><td>Properly skipped proper nouns, articles, function words, be-verbs?</td><td class="rating-cell"><label><input type="radio" name="test-01_Exclusions" value="1" data-fixture="test-01" data-weight="10" onchange="calcScore('test-01')">1</label> <label><input type="radio" name="test-01_Exclusions" value="2" data-fixture="test-01" data-weight="10" onchange="calcScore('test-01')">2</label> <label><input type="radio" name="test-01_Exclusions" value="3" data-fixture="test-01" data-weight="10" onchange="calcScore('test-01')">3</label> <label><input type="radio" name="test-01_Exclusions" value="4" data-fixture="test-01" data-weight="10" onchange="calcScore('test-01')">4</label> <label><input type="radio" name="test-01_Exclusions" value="5" data-fixture="test-01" data-weight="10" onchange="calcScore('test-01')">5</label> </td></tr><tr><td><strong>Level rationale quality</strong></td><td>10</td><td>Reasoning is specific and defensible, not generic filler?</td><td class="rating-cell"><label><input type="radio" name="test-01_Level_rationale_quality" value="1" data-fixture="test-01" data-weight="10" onchange="calcScore('test-01')">1</label> <label><input type="radio" name="test-01_Level_rationale_quality" value="2" data-fixture="test-01" data-weight="10" onchange="calcScore('test-01')">2</label> <label><input type="radio" name="test-01_Level_rationale_quality" value="3" data-fixture="test-01" data-weight="10" onchange="calcScore('test-01')">3</label> <label><input type="radio" name="test-01_Level_rationale_quality" value="4" data-fixture="test-01" data-weight="10" onchange="calcScore('test-01')">4</label> <label><input type="radio" name="test-01_Level_rationale_quality" value="5" data-fixture="test-01" data-weight="10" onchange="calcScore('test-01')">5</label> </td></tr><tr><td><strong>Importance rationale quality</strong></td><td>10</td><td>References actual passage content, not boilerplate?</td><td class="rating-cell"><label><input type="radio" name="test-01_Importance_rationale_quality" value="1" data-fixture="test-01" data-weight="10" onchange="calcScore('test-01')">1</label> <label><input type="radio" name="test-01_Importance_rationale_quality" value="2" data-fixture="test-01" data-weight="10" onchange="calcScore('test-01')">2</label> <label><input type="radio" name="test-01_Importance_rationale_quality" value="3" data-fixture="test-01" data-weight="10" onchange="calcScore('test-01')">3</label> <label><input type="radio" name="test-01_Importance_rationale_quality" value="4" data-fixture="test-01" data-weight="10" onchange="calcScore('test-01')">4</label> <label><input type="radio" name="test-01_Importance_rationale_quality" value="5" data-fixture="test-01" data-weight="10" onchange="calcScore('test-01')">5</label> </td></tr></tbody></table>
+    <div class="score-display">Score: <span id="score-test-01">—</span> / 100</div>
+    <div class="notes-section"><label>Notes:</label><textarea id="notes-test-01" rows="3" placeholder="Free-form comments..."></textarea></div>
+  </div></div></details></div>
+<script>
+function calcScore(fixtureId) {
+  const inputs = document.querySelectorAll('input[data-fixture="' + fixtureId + '"]:checked');
+  let weightedSum = 0;
+  let totalWeight = 0;
+  inputs.forEach(function(input) {
+    const rating = parseInt(input.value);
+    const weight = parseInt(input.dataset.weight);
+    weightedSum += rating * weight;
+    totalWeight += weight;
+  });
+  if (totalWeight === 0) return;
+  const score = Math.round(weightedSum / 5);
+  document.getElementById('score-' + fixtureId).textContent = score;
+  const overviewEl = document.getElementById('overview-score-' + fixtureId);
+  if (overviewEl) overviewEl.textContent = score;
+}
+</script>
+</body>
+</html>

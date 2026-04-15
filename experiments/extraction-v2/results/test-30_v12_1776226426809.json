@@ -1,0 +1,244 @@
+{
+  "fixtureId": "test-30",
+  "fixtureDescription": "Passage with deliberate spelling errors and typos throughout",
+  "category": "tricky",
+  "passage": "The goverment has anounced a new iniative to adress the growing conserns about enviromental polusion. Reserchers at the univercity have condcuted extensve studeis showing that pollutents in the atmosfere are contributing to globel warming at an alarming rate. Critcs argue that the propsed regulatons don't go far enuf, while suporters beleive they strke a reasnable balence.",
+  "items": [
+    {
+      "term": "government",
+      "level": "B1",
+      "levelRationale": "Government as a political institution requires intermediate vocabulary knowledge.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding the main subject and context of the passage."
+    },
+    {
+      "term": "initiative",
+      "level": "B2",
+      "levelRationale": "Initiative as a planned program or policy requires upper-intermediate vocabulary.",
+      "importance": 4,
+      "importanceRationale": "Critical to understanding what the government has announced."
+    },
+    {
+      "term": "address",
+      "level": "B1",
+      "levelRationale": "Address meaning to deal with or tackle a problem is intermediate vocabulary.",
+      "importance": 4,
+      "importanceRationale": "Essential for comprehension of the government's purpose."
+    },
+    {
+      "term": "concerns",
+      "level": "B1",
+      "levelRationale": "Concerns as worries or issues of importance is intermediate vocabulary.",
+      "importance": 4,
+      "importanceRationale": "Key to understanding what the initiative targets."
+    },
+    {
+      "term": "environmental",
+      "level": "B2",
+      "levelRationale": "Environmental as relating to nature and ecology requires upper-intermediate knowledge.",
+      "importance": 4,
+      "importanceRationale": "Essential descriptor of the type of pollution being discussed."
+    },
+    {
+      "term": "pollution",
+      "level": "B1",
+      "levelRationale": "Pollution as contamination of air, water, or land is intermediate vocabulary.",
+      "importance": 4,
+      "importanceRationale": "Central concept in the passage."
+    },
+    {
+      "term": "researchers",
+      "level": "B1",
+      "levelRationale": "Researchers as people who conduct scientific studies is intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding who conducted the studies."
+    },
+    {
+      "term": "university",
+      "level": "A2",
+      "levelRationale": "University as a higher education institution is elementary vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Helpful context for the source of the research."
+    },
+    {
+      "term": "conducted",
+      "level": "B1",
+      "levelRationale": "Conducted as past tense of carry out or perform is intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Necessary for understanding what researchers did."
+    },
+    {
+      "term": "extensive",
+      "level": "B2",
+      "levelRationale": "Extensive meaning large in amount or scope requires upper-intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding the scale of the studies."
+    },
+    {
+      "term": "studies",
+      "level": "A2",
+      "levelRationale": "Studies as research or investigations is elementary vocabulary.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding what was done."
+    },
+    {
+      "term": "pollutants",
+      "level": "B2",
+      "levelRationale": "Pollutants as harmful substances in the environment requires upper-intermediate vocabulary.",
+      "importance": 4,
+      "importanceRationale": "Critical for understanding what contributes to warming."
+    },
+    {
+      "term": "atmosphere",
+      "level": "B2",
+      "levelRationale": "Atmosphere as the layer of air around Earth requires upper-intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding where pollutants are located."
+    },
+    {
+      "term": "contributing",
+      "level": "B1",
+      "levelRationale": "Contributing as helping to cause something is intermediate vocabulary.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding the causal relationship."
+    },
+    {
+      "term": "global warming",
+      "level": "B2",
+      "levelRationale": "Global warming as worldwide temperature increase is upper-intermediate vocabulary.",
+      "importance": 4,
+      "importanceRationale": "Central environmental concept in the passage."
+    },
+    {
+      "term": "alarming",
+      "level": "B2",
+      "levelRationale": "Alarming meaning causing worry or concern requires upper-intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding the severity of the rate."
+    },
+    {
+      "term": "rate",
+      "level": "B1",
+      "levelRationale": "Rate as speed or pace of change is intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding how quickly warming occurs."
+    },
+    {
+      "term": "critics",
+      "level": "B1",
+      "levelRationale": "Critics as people who express disapproval is intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Necessary for understanding opposing viewpoints."
+    },
+    {
+      "term": "argue",
+      "level": "B1",
+      "levelRationale": "Argue as present reasons for a position is intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding what critics do."
+    },
+    {
+      "term": "proposed",
+      "level": "B2",
+      "levelRationale": "Proposed as suggested or put forward requires upper-intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding which regulations are being discussed."
+    },
+    {
+      "term": "regulations",
+      "level": "B2",
+      "levelRationale": "Regulations as official rules or requirements requires upper-intermediate vocabulary.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding what critics and supporters debate."
+    },
+    {
+      "term": "go far enough",
+      "level": "B1",
+      "levelRationale": "Go far enough as be sufficient or adequate is intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the critics' position."
+    },
+    {
+      "term": "supporters",
+      "level": "B1",
+      "levelRationale": "Supporters as people who back a cause is intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Necessary for understanding the other viewpoint."
+    },
+    {
+      "term": "believe",
+      "level": "A2",
+      "levelRationale": "Believe as accept as true is elementary vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding what supporters think."
+    },
+    {
+      "term": "strike a balance",
+      "level": "B2",
+      "levelRationale": "Strike a balance as find a middle ground requires upper-intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding the supporters' position."
+    },
+    {
+      "term": "reasonable",
+      "level": "B2",
+      "levelRationale": "Reasonable as fair or sensible requires upper-intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding how supporters view the regulations."
+    },
+    {
+      "term": "balance",
+      "level": "B1",
+      "levelRationale": "Balance as fair distribution or equilibrium is intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding the concept of compromise."
+    }
+  ],
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "line_format",
+      "passed": true,
+      "message": "All lines parsed successfully (27 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_rationales",
+      "passed": true,
+      "message": "All rationales non-empty"
+    },
+    {
+      "name": "no_duplicate_terms",
+      "passed": true,
+      "message": "No duplicate terms"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "27 item(s) extracted"
+    }
+  ],
+  "rawResponse": "government|B1|Government as a political institution requires intermediate vocabulary knowledge.|4|Essential for understanding the main subject and context of the passage.|initiative|B2|Initiative as a planned program or policy requires upper-intermediate vocabulary.|4|Critical to understanding what the government has announced.|address|B1|Address meaning to deal with or tackle a problem is intermediate vocabulary.|4|Essential for comprehension of the government's purpose.|concerns|B1|Concerns as worries or issues of importance is intermediate vocabulary.|4|Key to understanding what the initiative targets.|environmental|B2|Environmental as relating to nature and ecology requires upper-intermediate knowledge.|4|Essential descriptor of the type of pollution being discussed.|pollution|B1|Pollution as contamination of air, water, or land is intermediate vocabulary.|4|Central concept in the passage.|researchers|B1|Researchers as people who conduct scientific studies is intermediate vocabulary.|3|Important for understanding who conducted the studies.|university|A2|University as a higher education institution is elementary vocabulary.|3|Helpful context for the source of the research.|conducted|B1|Conducted as past tense of carry out or perform is intermediate vocabulary.|3|Necessary for understanding what researchers did.|extensive|B2|Extensive meaning large in amount or scope requires upper-intermediate vocabulary.|3|Helpful for understanding the scale of the studies.|studies|A2|Studies as research or investigations is elementary vocabulary.|4|Essential for understanding what was done.|pollutants|B2|Pollutants as harmful substances in the environment requires upper-intermediate vocabulary.|4|Critical for understanding what contributes to warming.|atmosphere|B2|Atmosphere as the layer of air around Earth requires upper-intermediate vocabulary.|3|Important for understanding where pollutants are located.|contributing|B1|Contributing as helping to cause something is intermediate vocabulary.|4|Essential for understanding the causal relationship.|global warming|B2|Global warming as worldwide temperature increase is upper-intermediate vocabulary.|4|Central environmental concept in the passage.|alarming|B2|Alarming meaning causing worry or concern requires upper-intermediate vocabulary.|3|Helpful for understanding the severity of the rate.|rate|B1|Rate as speed or pace of change is intermediate vocabulary.|3|Important for understanding how quickly warming occurs.|critics|B1|Critics as people who express disapproval is intermediate vocabulary.|3|Necessary for understanding opposing viewpoints.|argue|B1|Argue as present reasons for a position is intermediate vocabulary.|3|Important for understanding what critics do.|proposed|B2|Proposed as suggested or put forward requires upper-intermediate vocabulary.|3|Helpful for understanding which regulations are being discussed.|regulations|B2|Regulations as official rules or requirements requires upper-intermediate vocabulary.|4|Essential for understanding what critics and supporters debate.|go far enough|B1|Go far enough as be sufficient or adequate is intermediate vocabulary.|3|Important for understanding the critics' position.|supporters|B1|Supporters as people who back a cause is intermediate vocabulary.|3|Necessary for understanding the other viewpoint.|believe|A2|Believe as accept as true is elementary vocabulary.|3|Important for understanding what supporters think.|strike a balance|B2|Strike a balance as find a middle ground requires upper-intermediate vocabulary.|3|Helpful for understanding the supporters' position.|reasonable|B2|Reasonable as fair or sensible requires upper-intermediate vocabulary.|3|Important for understanding how supporters view the regulations.|balance|B1|Balance as fair distribution or equilibrium is intermediate vocabulary.|3|Helpful for understanding the concept of compromise.",
+  "tokenUsage": {
+    "inputTokens": 427,
+    "outputTokens": 773
+  },
+  "latencyMs": 8086,
+  "model": "claude-haiku-4-5-20251001",
+  "promptVersion": "v12",
+  "timestamp": "2026-04-15T04:13:38.723Z"
+}

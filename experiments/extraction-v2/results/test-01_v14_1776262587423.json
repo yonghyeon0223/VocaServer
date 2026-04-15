@@ -1,0 +1,444 @@
+{
+  "fixtureId": "test-01",
+  "fixtureDescription": "Elementary passage — Min-jun's daily school routine",
+  "category": "normal",
+  "passage": "Min-jun is in the fourth grade. He likes school, but he doesn't feel well today because he has a math test. Every morning, he wakes up at seven o'clock. He brushes his teeth and has breakfast with his family. His mother is very kind and always asks, \"What kind of breakfast do you want?\" Today she makes him eggs and rice. After breakfast, he puts on his uniform and walks to school. School starts at eight thirty. His best friend Tom sits next to him. Tom runs like the wind and plays soccer well. They study English together, and Min-jun usually gets the right answer. After school, they play soccer in the playground. When Min-jun gets home, he does his homework before dinner.",
+  "items": [
+    {
+      "type": "phrase",
+      "term": "doesn't feel well",
+      "definition": "is not feeling healthy; is sick",
+      "level": "A2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "has a math test",
+      "definition": "is scheduled to take an exam in mathematics",
+      "level": "A1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "wakes up",
+      "definition": "stops sleeping; gets out of bed",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "brushes his teeth",
+      "definition": "cleans one's teeth with a toothbrush",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "has breakfast",
+      "definition": "eats the first meal of the day",
+      "level": "A1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "What kind of",
+      "definition": "used to ask about the type or sort of something",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "makes him eggs",
+      "definition": "prepares eggs for him (double object construction)",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "puts on",
+      "definition": "places clothing onto one's body; dresses in",
+      "level": "A1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "walks to school",
+      "definition": "travels to school on foot",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "sits next to",
+      "definition": "is seated immediately beside someone",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "runs like the wind",
+      "definition": "runs extremely fast (idiomatic comparison)",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "plays soccer",
+      "definition": "participates in the sport of soccer",
+      "level": "A1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "study English",
+      "definition": "spend time learning the English language",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "gets the right answer",
+      "definition": "produces a correct response to a question",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "after school",
+      "definition": "in the time following the end of the school day",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "gets home",
+      "definition": "arrives at one's house",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "does his homework",
+      "definition": "completes assigned schoolwork at home",
+      "level": "A1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "before dinner",
+      "definition": "at a time earlier than the evening meal",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "grade",
+      "definition": "a year level in school",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "school",
+      "definition": "a place where children go to learn",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "math",
+      "definition": "the subject involving numbers and calculations",
+      "level": "A1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "test",
+      "definition": "an exam to check what a student knows",
+      "level": "A1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "morning",
+      "definition": "the early part of the day",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "wakes",
+      "definition": "stops sleeping and becomes conscious",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "brushes",
+      "definition": "cleans using a brush",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "teeth",
+      "definition": "the hard white structures in the mouth used for biting",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "family",
+      "definition": "a group of people related to each other",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "mother",
+      "definition": "a female parent",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "kind",
+      "definition": "friendly and caring toward others",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "eggs",
+      "definition": "oval food items laid by a bird, often eaten for breakfast",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "rice",
+      "definition": "a common grain food eaten as a staple",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "uniform",
+      "definition": "a set of matching clothes worn for school or work",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "walks",
+      "definition": "moves on foot at a normal pace",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "starts",
+      "definition": "begins",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "friend",
+      "definition": "a person you like and enjoy spending time with",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "sits",
+      "definition": "rests in a seated position",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "runs",
+      "definition": "moves on foot at a fast pace",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "wind",
+      "definition": "moving air",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "well",
+      "definition": "in a good or skillful way",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "study",
+      "definition": "to spend time learning about a subject",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "together",
+      "definition": "with each other at the same time",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "usually",
+      "definition": "most of the time; in most cases",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "answer",
+      "definition": "a response to a question or problem",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "playground",
+      "definition": "an outdoor area at school where children play",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "dinner",
+      "definition": "the main meal of the day, usually eaten in the evening",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "today",
+      "definition": "on this current day",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "right",
+      "definition": "correct or accurate",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "best",
+      "definition": "of the highest quality or most suitable",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "next",
+      "definition": "immediately beside or following",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "home",
+      "definition": "the place where someone lives",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "before",
+      "definition": "earlier than a particular time or event",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "every",
+      "definition": "each one of a group without exception",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "always",
+      "definition": "at all times; on every occasion",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "after",
+      "definition": "following in time or order",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "like",
+      "definition": "similar to; in the same way as",
+      "level": "A1",
+      "importance": 2
+    }
+  ],
+  "phraseCount": 18,
+  "vocabCount": 37,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (55 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "55 item(s) extracted"
+    }
+  ],
+  "rawResponse": "{\"v\":[[\"grade\",\"a year level in school\",\"A1\",3],[\"school\",\"a place where children go to learn\",\"A1\",3],[\"math\",\"the subject involving numbers and calculations\",\"A1\",4],[\"test\",\"an exam to check what a student knows\",\"A1\",4],[\"morning\",\"the early part of the day\",\"A1\",2],[\"wakes\",\"stops sleeping and becomes conscious\",\"A1\",3],[\"brushes\",\"cleans using a brush\",\"A1\",2],[\"teeth\",\"the hard white structures in the mouth used for biting\",\"A1\",2],[\"family\",\"a group of people related to each other\",\"A1\",2],[\"mother\",\"a female parent\",\"A1\",2],[\"kind\",\"friendly and caring toward others\",\"A1\",2],[\"eggs\",\"oval food items laid by a bird, often eaten for breakfast\",\"A1\",2],[\"rice\",\"a common grain food eaten as a staple\",\"A1\",2],[\"uniform\",\"a set of matching clothes worn for school or work\",\"A1\",3],[\"walks\",\"moves on foot at a normal pace\",\"A1\",2],[\"starts\",\"begins\",\"A1\",2],[\"friend\",\"a person you like and enjoy spending time with\",\"A1\",3],[\"sits\",\"rests in a seated position\",\"A1\",2],[\"runs\",\"moves on foot at a fast pace\",\"A1\",2],[\"wind\",\"moving air\",\"A1\",2],[\"well\",\"in a good or skillful way\",\"A1\",3],[\"study\",\"to spend time learning about a subject\",\"A1\",3],[\"together\",\"with each other at the same time\",\"A1\",2],[\"usually\",\"most of the time; in most cases\",\"A1\",2],[\"answer\",\"a response to a question or problem\",\"A1\",3],[\"playground\",\"an outdoor area at school where children play\",\"A1\",2],[\"dinner\",\"the main meal of the day, usually eaten in the evening\",\"A1\",2],[\"today\",\"on this current day\",\"A1\",3],[\"right\",\"correct or accurate\",\"A1\",3],[\"best\",\"of the highest quality or most suitable\",\"A1\",2],[\"next\",\"immediately beside or following\",\"A1\",2],[\"home\",\"the place where someone lives\",\"A1\",2],[\"before\",\"earlier than a particular time or event\",\"A1\",2],[\"every\",\"each one of a group without exception\",\"A1\",2],[\"always\",\"at all times; on every occasion\",\"A1\",2],[\"after\",\"following in time or order\",\"A1\",2],[\"like\",\"similar to; in the same way as\",\"A1\",2]],\"p\":[[\"doesn't feel well\",\"is not feeling healthy; is sick\",\"A2\",4],[\"has a math test\",\"is scheduled to take an exam in mathematics\",\"A1\",4],[\"wakes up\",\"stops sleeping; gets out of bed\",\"A1\",3],[\"brushes his teeth\",\"cleans one's teeth with a toothbrush\",\"A1\",3],[\"has breakfast\",\"eats the first meal of the day\",\"A1\",4],[\"What kind of\",\"used to ask about the type or sort of something\",\"A1\",3],[\"makes him eggs\",\"prepares eggs for him (double object construction)\",\"A1\",3],[\"puts on\",\"places clothing onto one's body; dresses in\",\"A1\",4],[\"walks to school\",\"travels to school on foot\",\"A1\",3],[\"sits next to\",\"is seated immediately beside someone\",\"A1\",3],[\"runs like the wind\",\"runs extremely fast (idiomatic comparison)\",\"A2\",3],[\"plays soccer\",\"participates in the sport of soccer\",\"A1\",4],[\"study English\",\"spend time learning the English language\",\"A1\",3],[\"gets the right answer\",\"produces a correct response to a question\",\"A1\",3],[\"after school\",\"in the time following the end of the school day\",\"A1\",3],[\"gets home\",\"arrives at one's house\",\"A1\",3],[\"does his homework\",\"completes assigned schoolwork at home\",\"A1\",4],[\"before dinner\",\"at a time earlier than the evening meal\",\"A1\",2]]}",
+  "tokenUsage": {
+    "inputTokens": 575,
+    "outputTokens": 1243,
+    "cacheRead": 4142,
+    "cacheCreation": 0
+  },
+  "latencyMs": 18113,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v14",
+  "timestamp": "2026-04-15T14:16:09.308Z"
+}

@@ -1,0 +1,372 @@
+{
+  "fixtureId": "test-04",
+  "fixtureDescription": "Middle school passage — plastic pollution and student activism",
+  "category": "normal",
+  "passage": "These days, many young people are becoming more aware of environmental problems. Plastic pollution, in particular, has become a serious issue that we cannot ignore. Every year, millions of tons of plastic waste end up in the ocean, where they harm marine life and damage ecosystems.\n\nSarah, a fifteen-year-old student from Busan, decided to take action after watching a documentary about sea turtles. \"I was shocked when I saw a turtle struggling because of a plastic straw,\" she said. \"I wanted to make a difference, even if it was small.\" She started a club at her school that encourages students to bring reusable water bottles instead of disposable ones. The school now runs the program in every classroom.\n\nThe club has grown rapidly. As a result, the school has reduced its plastic waste by nearly forty percent in just six months. Sarah's teacher, Ms. Kim, points out that small changes can lead to big results. \"When students learn to face environmental challenges and address them directly, they carry that mindset into adulthood,\" she explained.\n\nOf course, individual efforts alone cannot solve the problem. Governments and companies must also play a role. However, students like Sarah show us that change often begins with one person who refuses to look away.",
+  "items": [
+    {
+      "type": "phrase",
+      "term": "plastic pollution",
+      "definition": "the accumulation of plastic objects in the environment causing harm",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "serious issue",
+      "definition": "a problem that is important and requires attention",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "plastic waste",
+      "definition": "discarded plastic materials that are no longer useful",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "end up in",
+      "definition": "to eventually reach or arrive at a place or situation",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "marine life",
+      "definition": "animals and plants that live in the sea",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "take action",
+      "definition": "to do something in order to deal with a problem",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "make a difference",
+      "definition": "to have a positive effect or cause a change",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "reusable water bottles",
+      "definition": "bottles designed to be refilled and used many times instead of discarded",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "play a role",
+      "definition": "to be involved in or contribute to something",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "look away",
+      "definition": "to turn one's attention away from something unpleasant or difficult",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "take action",
+      "definition": "to do something in order to deal with a problem",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "lead to",
+      "definition": "to result in or cause something",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "points out",
+      "definition": "draws attention to a fact or piece of information",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "carry that mindset into adulthood",
+      "definition": "to maintain a way of thinking as one grows up and becomes an adult",
+      "level": "B2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "aware",
+      "definition": "knowing about or noticing something",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "environmental",
+      "definition": "relating to the natural world and the impact of human activity on it",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "pollution",
+      "definition": "the presence of harmful substances in the environment",
+      "level": "A2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "particular",
+      "definition": "used to single out one specific thing from others",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "serious",
+      "definition": "important and deserving careful attention",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "ignore",
+      "definition": "to pay no attention to something",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "millions",
+      "definition": "a very large number (of)",
+      "level": "A1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "tons",
+      "definition": "units of weight; here used to indicate a very large amount",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "waste",
+      "definition": "unwanted or unusable material that is thrown away",
+      "level": "A2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "ocean",
+      "definition": "a very large area of sea",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "harm",
+      "definition": "to cause damage or injury to something",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "marine",
+      "definition": "relating to the sea",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "ecosystems",
+      "definition": "communities of living things interacting with their environment",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "documentary",
+      "definition": "a film or TV programme giving factual information about a topic",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "struggling",
+      "definition": "making great efforts to deal with something difficult",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "straw",
+      "definition": "a thin tube used for drinking liquids",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "difference",
+      "definition": "a noticeable change or effect",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "encourages",
+      "definition": "gives support or confidence to someone to do something",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "reusable",
+      "definition": "able to be used again rather than thrown away",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "disposable",
+      "definition": "designed to be thrown away after a single use",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "rapidly",
+      "definition": "very quickly",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "reduced",
+      "definition": "made smaller in amount or degree",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "percent",
+      "definition": "a proportion expressed as a fraction of 100",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "challenges",
+      "definition": "difficult situations that require effort to overcome",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "address",
+      "definition": "to deal with or tackle a problem",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "directly",
+      "definition": "in a straightforward way, without detraction",
+      "level": "B1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "mindset",
+      "definition": "a fixed set of attitudes or ways of thinking",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "adulthood",
+      "definition": "the state or period of being an adult",
+      "level": "B1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "individual",
+      "definition": "relating to a single person rather than a group",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "efforts",
+      "definition": "serious attempts or hard work to achieve something",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "refuses",
+      "definition": "to say or show that one is not willing to do something",
+      "level": "A2",
+      "importance": 3
+    }
+  ],
+  "phraseCount": 14,
+  "vocabCount": 31,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (45 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": false,
+      "message": "1 duplicate(s): \"take action\""
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "45 item(s) extracted"
+    }
+  ],
+  "rawResponse": "{\"v\":[[\"aware\",\"knowing about or noticing something\",\"B1\",3],[\"environmental\",\"relating to the natural world and the impact of human activity on it\",\"B1\",4],[\"pollution\",\"the presence of harmful substances in the environment\",\"A2\",4],[\"particular\",\"used to single out one specific thing from others\",\"B1\",3],[\"serious\",\"important and deserving careful attention\",\"A2\",3],[\"ignore\",\"to pay no attention to something\",\"A2\",3],[\"millions\",\"a very large number (of)\",\"A1\",2],[\"tons\",\"units of weight; here used to indicate a very large amount\",\"A2\",2],[\"waste\",\"unwanted or unusable material that is thrown away\",\"A2\",4],[\"ocean\",\"a very large area of sea\",\"A1\",3],[\"harm\",\"to cause damage or injury to something\",\"A2\",3],[\"marine\",\"relating to the sea\",\"B1\",3],[\"ecosystems\",\"communities of living things interacting with their environment\",\"B2\",3],[\"documentary\",\"a film or TV programme giving factual information about a topic\",\"A2\",2],[\"struggling\",\"making great efforts to deal with something difficult\",\"B1\",3],[\"straw\",\"a thin tube used for drinking liquids\",\"A2\",3],[\"difference\",\"a noticeable change or effect\",\"A2\",3],[\"encourages\",\"gives support or confidence to someone to do something\",\"B1\",3],[\"reusable\",\"able to be used again rather than thrown away\",\"B1\",4],[\"disposable\",\"designed to be thrown away after a single use\",\"B1\",4],[\"rapidly\",\"very quickly\",\"B1\",3],[\"reduced\",\"made smaller in amount or degree\",\"B1\",3],[\"percent\",\"a proportion expressed as a fraction of 100\",\"A2\",2],[\"challenges\",\"difficult situations that require effort to overcome\",\"B1\",3],[\"address\",\"to deal with or tackle a problem\",\"B2\",3],[\"directly\",\"in a straightforward way, without detraction\",\"B1\",2],[\"mindset\",\"a fixed set of attitudes or ways of thinking\",\"B2\",3],[\"adulthood\",\"the state or period of being an adult\",\"B1\",2],[\"individual\",\"relating to a single person rather than a group\",\"B1\",3],[\"efforts\",\"serious attempts or hard work to achieve something\",\"B1\",3],[\"refuses\",\"to say or show that one is not willing to do something\",\"A2\",3]],\"p\":[[\"plastic pollution\",\"the accumulation of plastic objects in the environment causing harm\",\"B1\",4],[\"serious issue\",\"a problem that is important and requires attention\",\"A2\",3],[\"plastic waste\",\"discarded plastic materials that are no longer useful\",\"B1\",4],[\"end up in\",\"to eventually reach or arrive at a place or situation\",\"B1\",3],[\"marine life\",\"animals and plants that live in the sea\",\"B1\",4],[\"take action\",\"to do something in order to deal with a problem\",\"B1\",4],[\"make a difference\",\"to have a positive effect or cause a change\",\"B1\",4],[\"reusable water bottles\",\"bottles designed to be refilled and used many times instead of discarded\",\"B1\",3],[\"play a role\",\"to be involved in or contribute to something\",\"B1\",3],[\"look away\",\"to turn one's attention away from something unpleasant or difficult\",\"B1\",3],[\"take action\",\"to do something in order to deal with a problem\",\"B1\",4],[\"lead to\",\"to result in or cause something\",\"A2\",3],[\"points out\",\"draws attention to a fact or piece of information\",\"B1\",3],[\"carry that mindset into adulthood\",\"to maintain a way of thinking as one grows up and becomes an adult\",\"B2\",2]]}",
+  "tokenUsage": {
+    "inputTokens": 1835,
+    "outputTokens": 1015
+  },
+  "latencyMs": 16046,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v13",
+  "timestamp": "2026-04-15T12:41:46.623Z"
+}

@@ -1,0 +1,136 @@
+{
+  "fixtureId": "test-31",
+  "fixtureDescription": "SMS-style abbreviated text with slang and emoji",
+  "category": "tricky",
+  "passage": "hey u!! r u coming 2 the party 2nite?? gonna b SO much fun lol 😂 btw did u finish ur hw? cuz i totally 4got about it smh 🤦 tbh idk if i can even go bc my mom said i need 2 study 4 the test tmrw ugh 😩 but w/e ill figure it out lmk if ur going ok?? ttyl 💕",
+  "items": [
+    {
+      "type": "phrase",
+      "term": "gonna be",
+      "definition": "going to be — informal contraction expressing a future prediction",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "figure it out",
+      "definition": "to find a solution to a problem or decide what to do",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "lmk",
+      "definition": "let me know — informal abbreviation asking someone to inform you",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "party",
+      "definition": "a social event where people gather to have fun",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "fun",
+      "definition": "enjoyable and entertaining",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "finish",
+      "definition": "to complete something",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "totally",
+      "definition": "completely; used for emphasis in informal speech",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "forgot",
+      "definition": "failed to remember something",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "study",
+      "definition": "to spend time learning about a subject",
+      "level": "A1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "test",
+      "definition": "an exam that measures knowledge or ability",
+      "level": "A1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "figure",
+      "definition": "to find a solution or decide what to do",
+      "level": "A2",
+      "importance": 2
+    }
+  ],
+  "phraseCount": 3,
+  "vocabCount": 8,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (11 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "11 item(s) extracted"
+    }
+  ],
+  "rawResponse": "{\"v\":[[\"party\",\"a social event where people gather to have fun\",\"A1\",3],[\"fun\",\"enjoyable and entertaining\",\"A1\",3],[\"finish\",\"to complete something\",\"A1\",3],[\"totally\",\"completely; used for emphasis in informal speech\",\"A2\",2],[\"forgot\",\"failed to remember something\",\"A1\",3],[\"study\",\"to spend time learning about a subject\",\"A1\",4],[\"test\",\"an exam that measures knowledge or ability\",\"A1\",4],[\"figure\",\"to find a solution or decide what to do\",\"A2\",2]],\"p\":[[\"gonna be\",\"going to be — informal contraction expressing a future prediction\",\"A2\",3],[\"figure it out\",\"to find a solution to a problem or decide what to do\",\"A2\",3],[\"lmk\",\"let me know — informal abbreviation asking someone to inform you\",\"A2\",2]]}",
+  "tokenUsage": {
+    "inputTokens": 527,
+    "outputTokens": 273,
+    "cacheRead": 4142,
+    "cacheCreation": 0
+  },
+  "latencyMs": 5905,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v14",
+  "timestamp": "2026-04-15T14:38:36.563Z"
+}

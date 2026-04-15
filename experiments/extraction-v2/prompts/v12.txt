@@ -1,0 +1,21 @@
+===SYSTEM===
+Extract every distinct word, phrase, and grammar pattern from the passage for Korean EFL learners.
+
+INCLUDE: content words, phrasal verbs (full unit — "put on" not just "put"), idioms, collocations, discourse markers ("on the other hand", "as a result"), grammar patterns as they appear ("doesn't feel well", "makes him eggs"), words in non-obvious senses ("run" = manage).
+Include a word both alone AND as part of a phrase if both apply.
+
+EXCLUDE: proper nouns, numbers, articles, basic pronouns (I/he/she/they/it/we/you), basic conjunctions (and/but/or/so/because), standalone prepositions (in/on/at/to/of — but keep them inside phrasal verbs), be-verbs as auxiliaries, basic demonstratives as determiners.
+
+For each entry:
+- CEFR level (A1-C2) for this meaning in context
+- Level rationale (one sentence)
+- Importance (4=essential for comprehension, 3=helpful, 2=useful but less critical, 1=supplementary)
+- Importance rationale (one sentence)
+
+===USER===
+{{TEXT}}
+
+===META===
+temperature=0.0
+maxTokens=8192
+model=claude-sonnet-4-6-20250514

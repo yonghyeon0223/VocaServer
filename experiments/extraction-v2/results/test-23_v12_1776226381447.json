@@ -1,0 +1,106 @@
+{
+  "fixtureId": "test-23",
+  "fixtureDescription": "Mixed Korean-English Konglish text with English loanwords",
+  "category": "non-english",
+  "passage": "오늘 English class에서 presentation을 했는데 정말 nervous했어요. Teacher가 feedback을 주셨는데, pronunciation은 좋지만 vocabulary가 부족하다고 하셨어요. 그래서 오늘부터 매일 reading practice를 하려고 해요. 특히 academic words를 많이 외워야 할 것 같아요. Study group 친구들이랑 같이 하면 더 재미있을 것 같아요.",
+  "items": [
+    {
+      "term": "presentation",
+      "level": "B1",
+      "levelRationale": "A formal talk or display of information to an audience, commonly used in academic and professional contexts.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding the main activity and context of the passage."
+    },
+    {
+      "term": "nervous",
+      "level": "A2",
+      "levelRationale": "Feeling anxious or worried about something.",
+      "importance": 4,
+      "importanceRationale": "Critical to understanding the speaker's emotional state during the presentation."
+    },
+    {
+      "term": "feedback",
+      "level": "B1",
+      "levelRationale": "Comments or information given about performance or work to help improvement.",
+      "importance": 4,
+      "importanceRationale": "Central to the passage as it drives the speaker's decision to study more."
+    },
+    {
+      "term": "pronunciation",
+      "level": "B1",
+      "levelRationale": "The way words are spoken or articulated in a language.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the teacher's evaluation and the speaker's strengths."
+    },
+    {
+      "term": "vocabulary",
+      "level": "B1",
+      "levelRationale": "The set of words known or used by a person in a language.",
+      "importance": 4,
+      "importanceRationale": "Essential as it identifies the area needing improvement and motivates the study plan."
+    },
+    {
+      "term": "academic words",
+      "level": "B2",
+      "levelRationale": "Specialized vocabulary used in scholarly and educational contexts.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding what specific type of vocabulary the speaker plans to learn."
+    },
+    {
+      "term": "reading practice",
+      "level": "B1",
+      "levelRationale": "Repeated exercises in reading to improve comprehension and skills.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the speaker's chosen study method."
+    },
+    {
+      "term": "Study group",
+      "level": "B1",
+      "levelRationale": "A group of students who meet together to learn and study collaboratively.",
+      "importance": 3,
+      "importanceRationale": "Relevant to understanding the speaker's plan to make studying more enjoyable."
+    }
+  ],
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "line_format",
+      "passed": true,
+      "message": "All lines parsed successfully (8 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_rationales",
+      "passed": true,
+      "message": "All rationales non-empty"
+    },
+    {
+      "name": "no_duplicate_terms",
+      "passed": true,
+      "message": "No duplicate terms"
+    }
+  ],
+  "rawResponse": "presentation|B1|A formal talk or display of information to an audience, commonly used in academic and professional contexts.|4|Essential for understanding the main activity and context of the passage.\nnervous|A2|Feeling anxious or worried about something.|4|Critical to understanding the speaker's emotional state during the presentation.\nfeedback|B1|Comments or information given about performance or work to help improvement.|4|Central to the passage as it drives the speaker's decision to study more.\npronunciation|B1|The way words are spoken or articulated in a language.|3|Important for understanding the teacher's evaluation and the speaker's strengths.\nvocabulary|B1|The set of words known or used by a person in a language.|4|Essential as it identifies the area needing improvement and motivates the study plan.\nacademic words|B2|Specialized vocabulary used in scholarly and educational contexts.|3|Helpful for understanding what specific type of vocabulary the speaker plans to learn.\nreading practice|B1|Repeated exercises in reading to improve comprehension and skills.|3|Important for understanding the speaker's chosen study method.\nStudy group|B1|A group of students who meet together to learn and study collaboratively.|3|Relevant to understanding the speaker's plan to make studying more enjoyable.",
+  "tokenUsage": {
+    "inputTokens": 461,
+    "outputTokens": 280
+  },
+  "latencyMs": 4096,
+  "model": "claude-haiku-4-5-20251001",
+  "promptVersion": "v12",
+  "timestamp": "2026-04-15T04:12:57.351Z"
+}

@@ -1,0 +1,56 @@
+{
+  "fixtureId": "test-31",
+  "fixtureDescription": "SMS-style abbreviated text with slang and emoji",
+  "category": "tricky",
+  "passage": "hey u!! r u coming 2 the party 2nite?? gonna b SO much fun lol 😂 btw did u finish ur hw? cuz i totally 4got about it smh 🤦 tbh idk if i can even go bc my mom said i need 2 study 4 the test tmrw ugh 😩 but w/e ill figure it out lmk if ur going ok?? ttyl 💕",
+  "items": [],
+  "parseErrors": [
+    "party|A1|Basic noun for a social gathering, fundamental vocabulary for everyday situations.|4|Essential for understanding the core invitation and social context of the message.|finish|A1|Common verb meaning to complete, fundamental vocabulary for basic communication.|4|Essential for understanding the question about homework completion.|homework|A1|Basic compound noun for schoolwork assigned by teachers, fundamental vocabulary for student life.|4|Essential for understanding the context of the conversation about academic responsibilities.|study|A1|Basic verb meaning to learn or prepare for exams, fundamental vocabulary for academic contexts.|4|Essential for understanding the reason given for potentially not attending.|test|A1|Basic noun for an academic assessment, fundamental vocabulary for school situations.|4|Essential for understanding the time constraint and academic pressure mentioned.|figure out|A2|Phrasal verb meaning to solve or determine, commonly used in informal contexts.|3|Helpful for understanding the speaker's intention to resolve the attendance situation.|lmk|A2|Informal abbreviation for \"let me know,\" common in text messaging and casual communication.|3|Helpful for understanding the request for confirmation about attendance.|ttyl|A2|Informal abbreviation for \"talk to you later,\" standard text messaging sign-off.|2|Useful for understanding casual closing conventions but not critical to main message meaning.|"
+  ],
+  "structuralChecks": [
+    {
+      "name": "line_format",
+      "passed": false,
+      "message": "1 line(s) failed to parse: \"party|A1|Basic noun for a social gathering, fundamental voca...\""
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_rationales",
+      "passed": true,
+      "message": "All rationales non-empty"
+    },
+    {
+      "name": "no_duplicate_terms",
+      "passed": true,
+      "message": "No duplicate terms"
+    },
+    {
+      "name": "has_output",
+      "passed": false,
+      "message": "No items extracted from non-empty input"
+    }
+  ],
+  "rawResponse": "party|A1|Basic noun for a social gathering, fundamental vocabulary for everyday situations.|4|Essential for understanding the core invitation and social context of the message.|finish|A1|Common verb meaning to complete, fundamental vocabulary for basic communication.|4|Essential for understanding the question about homework completion.|homework|A1|Basic compound noun for schoolwork assigned by teachers, fundamental vocabulary for student life.|4|Essential for understanding the context of the conversation about academic responsibilities.|study|A1|Basic verb meaning to learn or prepare for exams, fundamental vocabulary for academic contexts.|4|Essential for understanding the reason given for potentially not attending.|test|A1|Basic noun for an academic assessment, fundamental vocabulary for school situations.|4|Essential for understanding the time constraint and academic pressure mentioned.|figure out|A2|Phrasal verb meaning to solve or determine, commonly used in informal contexts.|3|Helpful for understanding the speaker's intention to resolve the attendance situation.|lmk|A2|Informal abbreviation for \"let me know,\" common in text messaging and casual communication.|3|Helpful for understanding the request for confirmation about attendance.|ttyl|A2|Informal abbreviation for \"talk to you later,\" standard text messaging sign-off.|2|Useful for understanding casual closing conventions but not critical to main message meaning.|",
+  "tokenUsage": {
+    "inputTokens": 432,
+    "outputTokens": 282
+  },
+  "latencyMs": 3976,
+  "model": "claude-haiku-4-5-20251001",
+  "promptVersion": "v12",
+  "timestamp": "2026-04-15T04:13:46.827Z"
+}

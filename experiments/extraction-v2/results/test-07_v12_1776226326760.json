@@ -1,0 +1,629 @@
+{
+  "fixtureId": "test-07",
+  "fixtureDescription": "Mock exam passage — the paradox of choice",
+  "category": "normal",
+  "passage": "It is commonly held that freedom of choice is inherently desirable — that the more options we have, the happier and more fulfilled we become. This assumption underpins much of modern consumer culture, which bombards us with an ever-expanding array of goods, services, and lifestyle possibilities. Yet a growing body of research suggests that this intuition may be fundamentally flawed, and it is worth entertaining the opposite view.\n\nThe psychologist Barry Schwartz, in his seminal work on what he calls \"the paradox of choice,\" argues that excessive options do not liberate us; rather, they paralyze us. When confronted with too many alternatives, individuals often experience heightened anxiety, prolonged deliberation, and, paradoxically, diminished satisfaction with whatever they ultimately select. This counterintuitive claim, Schwartz contends, draws on several cognitive and emotional factors that operate below the threshold of conscious awareness.\n\nFirst, an abundance of choices raises the opportunity cost of any given decision. Every option not taken represents a path foregone — a potential source of regret. As alternatives proliferate, so too does the weight of what we have relinquished. Second, expansive choice sets encourage unrealistic expectations. When the field of possibilities seems boundless, we are inclined to believe that a perfect option must exist, and we feel compelled to find it. Third, decision fatigue sets in. The mental effort required to evaluate dozens of alternatives depletes our cognitive resources, leaving us exhausted and, ironically, more prone to impulsive or regrettable choices.\n\nTo mitigate these effects, Schwartz advocates a strategy of deliberate constraint. By voluntarily narrowing the scope of our decisions — whether through personal rules, trusted recommendations, or simply settling for what is \"good enough\" rather than exhaustively pursuing the optimal — we can reclaim some of the psychological peace that unrestricted choice has inadvertently stripped away. These claims bear serious consideration. The implications extend beyond individual well-being, inviting us to reconsider whether the relentless pursuit of more is genuinely conducive to flourishing, or whether it quietly undermines it.",
+  "items": [
+    {
+      "term": "freedom of choice",
+      "level": "B2",
+      "levelRationale": "This phrase represents a fundamental concept requiring intermediate understanding of abstract noun phrases and their cultural significance.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding the passage's central argument about choice and satisfaction."
+    },
+    {
+      "term": "inherently",
+      "level": "B2",
+      "levelRationale": "The adverb modifies adjectives to indicate an intrinsic quality, requiring understanding of abstract modification.",
+      "importance": 3,
+      "importanceRationale": "Helps clarify that desirability is presented as an assumed inherent property."
+    },
+    {
+      "term": "desirable",
+      "level": "B1",
+      "levelRationale": "Common adjective meaning worthy of being wanted, foundational for evaluating the passage's premise.",
+      "importance": 4,
+      "importanceRationale": "Critical for understanding what the passage claims about choice."
+    },
+    {
+      "term": "options",
+      "level": "A2",
+      "levelRationale": "Basic noun for alternatives or choices, fundamental vocabulary.",
+      "importance": 4,
+      "importanceRationale": "Core concept repeated throughout the passage."
+    },
+    {
+      "term": "fulfilled",
+      "level": "B1",
+      "levelRationale": "Adjective meaning satisfied and content, essential for understanding emotional outcomes discussed.",
+      "importance": 3,
+      "importanceRationale": "Important for grasping the promised benefits of choice."
+    },
+    {
+      "term": "assumption",
+      "level": "B2",
+      "levelRationale": "Noun meaning a belief accepted without proof, requires intermediate understanding of epistemology.",
+      "importance": 3,
+      "importanceRationale": "Key to understanding the passage's critical stance toward conventional wisdom."
+    },
+    {
+      "term": "underpins",
+      "level": "B2",
+      "levelRationale": "Verb meaning to form the basis or foundation of something, requires intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding how consumer culture relates to beliefs about choice."
+    },
+    {
+      "term": "consumer culture",
+      "level": "B2",
+      "levelRationale": "Collocation referring to society organized around purchasing and consumption, requires cultural awareness.",
+      "importance": 3,
+      "importanceRationale": "Helps contextualize the modern context of the choice paradox."
+    },
+    {
+      "term": "bombards",
+      "level": "B2",
+      "levelRationale": "Verb meaning to attack or overwhelm with large quantities, requires understanding of metaphorical language.",
+      "importance": 2,
+      "importanceRationale": "Vivid but not essential; conveys intensity of marketing exposure."
+    },
+    {
+      "term": "ever-expanding",
+      "level": "B2",
+      "levelRationale": "Adjective phrase indicating continuous growth, requires understanding of present participles as modifiers.",
+      "importance": 2,
+      "importanceRationale": "Emphasizes the scale of available options but is somewhat supplementary."
+    },
+    {
+      "term": "array",
+      "level": "B2",
+      "levelRationale": "Noun meaning a collection or range of items, requires intermediate vocabulary.",
+      "importance": 2,
+      "importanceRationale": "Useful for understanding variety but could be replaced with simpler terms."
+    },
+    {
+      "term": "goods",
+      "level": "A2",
+      "levelRationale": "Noun meaning products or merchandise, fundamental vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Essential for understanding what consumer culture offers."
+    },
+    {
+      "term": "services",
+      "level": "A2",
+      "levelRationale": "Noun meaning work done for others, fundamental vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Essential for understanding what consumer culture offers."
+    },
+    {
+      "term": "lifestyle possibilities",
+      "level": "B2",
+      "levelRationale": "Collocation referring to potential ways of living, requires understanding of abstract noun phrases.",
+      "importance": 2,
+      "importanceRationale": "Contextualizes choice beyond material goods."
+    },
+    {
+      "term": "intuition",
+      "level": "B2",
+      "levelRationale": "Noun meaning instinctive understanding without conscious reasoning, requires intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the passage's critique of assumed beliefs."
+    },
+    {
+      "term": "fundamentally flawed",
+      "level": "B2",
+      "levelRationale": "Collocation meaning deeply or essentially defective, requires understanding of adverb-adjective combinations.",
+      "importance": 3,
+      "importanceRationale": "Central to the passage's argument that conventional wisdom is wrong."
+    },
+    {
+      "term": "entertaining",
+      "level": "B2",
+      "levelRationale": "Verb meaning to consider or think about (an idea), requires understanding of non-obvious word sense.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the passage's invitation to reconsider assumptions."
+    },
+    {
+      "term": "opposite view",
+      "level": "B2",
+      "levelRationale": "Collocation referring to a contrasting perspective, requires understanding of abstract noun phrases.",
+      "importance": 2,
+      "importanceRationale": "Helps structure the passage's argumentative approach."
+    },
+    {
+      "term": "psychologist",
+      "level": "B1",
+      "levelRationale": "Noun meaning a specialist in psychology, foundational professional vocabulary.",
+      "importance": 2,
+      "importanceRationale": "Identifies Barry Schwartz's expertise but is supplementary to his argument."
+    },
+    {
+      "term": "seminal",
+      "level": "B2",
+      "levelRationale": "Adjective meaning highly influential or original, requires intermediate academic vocabulary.",
+      "importance": 2,
+      "importanceRationale": "Describes the importance of Schwartz's work but is somewhat supplementary."
+    },
+    {
+      "term": "paradox of choice",
+      "level": "B2",
+      "levelRationale": "Collocation/concept referring to the phenomenon that more options can reduce satisfaction, requires understanding of abstract concepts.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding the passage's central claim."
+    },
+    {
+      "term": "excessive",
+      "level": "B1",
+      "levelRationale": "Adjective meaning more than necessary or desirable, foundational vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the problem Schwartz identifies."
+    },
+    {
+      "term": "liberate",
+      "level": "B2",
+      "levelRationale": "Verb meaning to free from restriction, requires understanding of abstract action verbs.",
+      "importance": 2,
+      "importanceRationale": "Contrasts with the passage's claim but is somewhat supplementary."
+    },
+    {
+      "term": "paralyze",
+      "level": "B2",
+      "levelRationale": "Verb meaning to make unable to move or act, requires understanding of metaphorical language.",
+      "importance": 3,
+      "importanceRationale": "Key metaphor for understanding how choice affects decision-making."
+    },
+    {
+      "term": "confronted with",
+      "level": "B2",
+      "levelRationale": "Phrasal verb meaning faced with or presented with, requires understanding of verb-preposition combinations.",
+      "importance": 2,
+      "importanceRationale": "Describes the situation of facing many alternatives."
+    },
+    {
+      "term": "alternatives",
+      "level": "B1",
+      "levelRationale": "Noun meaning other options or choices, foundational vocabulary.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding the passage's discussion of choice."
+    },
+    {
+      "term": "heightened anxiety",
+      "level": "B2",
+      "levelRationale": "Collocation referring to increased worry or nervousness, requires understanding of adjective-noun combinations.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding negative emotional effects of choice."
+    },
+    {
+      "term": "prolonged deliberation",
+      "level": "B2",
+      "levelRationale": "Collocation referring to extended careful consideration, requires understanding of adjective-noun combinations.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding cognitive effects of choice."
+    },
+    {
+      "term": "diminished satisfaction",
+      "level": "B2",
+      "levelRationale": "Collocation referring to reduced contentment, requires understanding of adjective-noun combinations.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the paradoxical outcome of choice."
+    },
+    {
+      "term": "ultimately select",
+      "level": "B2",
+      "levelRationale": "Collocation referring to finally choosing, requires understanding of adverb-verb combinations.",
+      "importance": 2,
+      "importanceRationale": "Describes the final outcome of decision-making."
+    },
+    {
+      "term": "counterintuitive",
+      "level": "B2",
+      "levelRationale": "Adjective meaning contrary to what intuition suggests, requires understanding of complex word formation.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding that Schwartz's claim contradicts common sense."
+    },
+    {
+      "term": "contends",
+      "level": "B2",
+      "levelRationale": "Verb meaning to argue or assert, requires understanding of formal academic vocabulary.",
+      "importance": 2,
+      "importanceRationale": "Indicates Schwartz's argumentative stance but is somewhat supplementary."
+    },
+    {
+      "term": "cognitive",
+      "level": "B2",
+      "levelRationale": "Adjective relating to mental processes, requires intermediate academic vocabulary.",
+      "importance": 2,
+      "importanceRationale": "Describes the type of factors involved but is somewhat supplementary."
+    },
+    {
+      "term": "emotional factors",
+      "level": "B2",
+      "levelRationale": "Collocation referring to feelings and their influences, requires understanding of abstract noun phrases.",
+      "importance": 2,
+      "importanceRationale": "Describes the nature of factors affecting choice but is somewhat supplementary."
+    },
+    {
+      "term": "threshold of conscious awareness",
+      "level": "B2",
+      "levelRationale": "Collocation referring to the boundary between conscious and unconscious mental processes, requires understanding of abstract concepts.",
+      "importance": 2,
+      "importanceRationale": "Describes where these factors operate but is somewhat supplementary."
+    },
+    {
+      "term": "abundance of choices",
+      "level": "B2",
+      "levelRationale": "Collocation referring to a large quantity of options, requires understanding of abstract noun phrases.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the condition that creates problems."
+    },
+    {
+      "term": "opportunity cost",
+      "level": "B2",
+      "levelRationale": "Collocation/economic concept referring to the value of foregone alternatives, requires understanding of abstract economic concepts.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the first mechanism Schwartz identifies."
+    },
+    {
+      "term": "given decision",
+      "level": "B2",
+      "levelRationale": "Collocation referring to a specific choice being considered, requires understanding of adjective-noun combinations.",
+      "importance": 2,
+      "importanceRationale": "Describes the scope of opportunity cost but is somewhat supplementary."
+    },
+    {
+      "term": "path foregone",
+      "level": "B2",
+      "levelRationale": "Collocation referring to an alternative not chosen, requires understanding of abstract noun phrases and past participles.",
+      "importance": 2,
+      "importanceRationale": "Poetic description of opportunity cost but is somewhat supplementary."
+    },
+    {
+      "term": "potential source of regret",
+      "level": "B2",
+      "levelRationale": "Collocation referring to something that might cause remorse, requires understanding of abstract noun phrases.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding emotional consequences of choice."
+    },
+    {
+      "term": "alternatives proliferate",
+      "level": "B2",
+      "levelRationale": "Collocation referring to options increasing in number, requires understanding of verb-noun combinations.",
+      "importance": 2,
+      "importanceRationale": "Describes the growth of choices but is somewhat supplementary."
+    },
+    {
+      "term": "weight of what we have relinquished",
+      "level": "B2",
+      "levelRationale": "Collocation referring to the burden of what was given up, requires understanding of abstract noun phrases and past participles.",
+      "importance": 2,
+      "importanceRationale": "Poetic description of opportunity cost but is somewhat supplementary."
+    },
+    {
+      "term": "expansive choice sets",
+      "level": "B2",
+      "levelRationale": "Collocation referring to large collections of options, requires understanding of adjective-noun combinations.",
+      "importance": 2,
+      "importanceRationale": "Describes the scope of available choices but is somewhat supplementary."
+    },
+    {
+      "term": "unrealistic expectations",
+      "level": "B2",
+      "levelRationale": "Collocation referring to hopes that are unlikely to be fulfilled, requires understanding of adjective-noun combinations.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the second mechanism Schwartz identifies."
+    },
+    {
+      "term": "field of possibilities",
+      "level": "B2",
+      "levelRationale": "Collocation referring to the range of potential outcomes, requires understanding of abstract noun phrases.",
+      "importance": 2,
+      "importanceRationale": "Describes the scope of options but is somewhat supplementary."
+    },
+    {
+      "term": "boundless",
+      "level": "B2",
+      "levelRationale": "Adjective meaning without limits, requires intermediate vocabulary.",
+      "importance": 2,
+      "importanceRationale": "Emphasizes the perceived scope of options but is somewhat supplementary."
+    },
+    {
+      "term": "inclined to believe",
+      "level": "B2",
+      "levelRationale": "Collocation referring to being disposed toward a belief, requires understanding of verb-adjective combinations.",
+      "importance": 2,
+      "importanceRationale": "Describes the psychological tendency but is somewhat supplementary."
+    },
+    {
+      "term": "perfect option",
+      "level": "B2",
+      "levelRationale": "Collocation referring to an ideal choice, requires understanding of abstract noun phrases.",
+      "importance": 2,
+      "importanceRationale": "Describes the unrealistic expectation but is somewhat supplementary."
+    },
+    {
+      "term": "compelled to find",
+      "level": "B2",
+      "levelRationale": "Collocation referring to being forced or driven to search, requires understanding of verb-infinitive combinations.",
+      "importance": 2,
+      "importanceRationale": "Describes the psychological drive but is somewhat supplementary."
+    },
+    {
+      "term": "decision fatigue",
+      "level": "B2",
+      "levelRationale": "Collocation referring to mental exhaustion from making choices, requires understanding of abstract noun phrases.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the third mechanism Schwartz identifies."
+    },
+    {
+      "term": "mental effort",
+      "level": "B2",
+      "levelRationale": "Collocation referring to cognitive work, requires understanding of abstract noun phrases.",
+      "importance": 2,
+      "importanceRationale": "Describes the source of fatigue but is somewhat supplementary."
+    },
+    {
+      "term": "evaluate",
+      "level": "B2",
+      "levelRationale": "Verb meaning to assess or judge the value of something, requires intermediate vocabulary.",
+      "importance": 2,
+      "importanceRationale": "Describes the cognitive process but is somewhat supplementary."
+    },
+    {
+      "term": "dozens of alternatives",
+      "level": "B2",
+      "levelRationale": "Collocation referring to many options (approximately 12 or more), requires understanding of quantifiers and noun phrases.",
+      "importance": 2,
+      "importanceRationale": "Emphasizes the quantity of choices but is somewhat supplementary."
+    },
+    {
+      "term": "depletes",
+      "level": "B2",
+      "levelRationale": "Verb meaning to reduce or exhaust, requires intermediate vocabulary.",
+      "importance": 2,
+      "importanceRationale": "Describes the effect on cognitive resources but is somewhat supplementary."
+    },
+    {
+      "term": "cognitive resources",
+      "level": "B2",
+      "levelRationale": "Collocation referring to mental capacity, requires understanding of abstract noun phrases.",
+      "importance": 2,
+      "importanceRationale": "Describes what is exhausted but is somewhat supplementary."
+    },
+    {
+      "term": "exhausted",
+      "level": "B1",
+      "levelRationale": "Adjective meaning very tired, foundational vocabulary.",
+      "importance": 2,
+      "importanceRationale": "Describes the emotional state but is somewhat supplementary."
+    },
+    {
+      "term": "ironically",
+      "level": "B2",
+      "levelRationale": "Adverb meaning in a way that is contrary to what is expected, requires understanding of discourse markers.",
+      "importance": 2,
+      "importanceRationale": "Emphasizes the paradoxical nature but is somewhat supplementary."
+    },
+    {
+      "term": "impulsive",
+      "level": "B2",
+      "levelRationale": "Adjective meaning acting without careful thought, requires intermediate vocabulary.",
+      "importance": 2,
+      "importanceRationale": "Describes the type of choices made but is somewhat supplementary."
+    },
+    {
+      "term": "regrettable choices",
+      "level": "B2",
+      "levelRationale": "Collocation referring to decisions one wishes had been made differently, requires understanding of adjective-noun combinations.",
+      "importance": 2,
+      "importanceRationale": "Describes the outcome but is somewhat supplementary."
+    },
+    {
+      "term": "mitigate",
+      "level": "B2",
+      "levelRationale": "Verb meaning to make less severe or serious, requires intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding Schwartz's proposed solution."
+    },
+    {
+      "term": "deliberate constraint",
+      "level": "B2",
+      "levelRationale": "Collocation referring to intentional limitation, requires understanding of adjective-noun combinations.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding Schwartz's strategy."
+    },
+    {
+      "term": "voluntarily narrowing",
+      "level": "B2",
+      "levelRationale": "Collocation referring to intentionally reducing the scope, requires understanding of adverb-verb combinations.",
+      "importance": 2,
+      "importanceRationale": "Describes the action but is somewhat supplementary."
+    },
+    {
+      "term": "scope of our decisions",
+      "level": "B2",
+      "levelRationale": "Collocation referring to the range of choices being made, requires understanding of abstract noun phrases.",
+      "importance": 2,
+      "importanceRationale": "Describes what is being limited but is somewhat supplementary."
+    },
+    {
+      "term": "personal rules",
+      "level": "B2",
+      "levelRationale": "Collocation referring to self-imposed guidelines, requires understanding of adjective-noun combinations.",
+      "importance": 2,
+      "importanceRationale": "Describes one method of constraint but is somewhat supplementary."
+    },
+    {
+      "term": "trusted recommendations",
+      "level": "B2",
+      "levelRationale": "Collocation referring to suggestions from reliable sources, requires understanding of adjective-noun combinations.",
+      "importance": 2,
+      "importanceRationale": "Describes one method of constraint but is somewhat supplementary."
+    },
+    {
+      "term": "settling for",
+      "level": "B2",
+      "levelRationale": "Phrasal verb meaning to accept something less than ideal, requires understanding of verb-preposition combinations.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the strategy of accepting \"good enough\"."
+    },
+    {
+      "term": "good enough",
+      "level": "B1",
+      "levelRationale": "Collocation referring to adequate or satisfactory quality, foundational vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the alternative to exhaustive optimization."
+    },
+    {
+      "term": "exhaustively pursuing",
+      "level": "B2",
+      "levelRationale": "Collocation referring to thoroughly and completely seeking, requires understanding of adverb-verb combinations.",
+      "importance": 2,
+      "importanceRationale": "Describes the behavior being discouraged but is somewhat supplementary."
+    },
+    {
+      "term": "optimal",
+      "level": "B2",
+      "levelRationale": "Adjective meaning best or most favorable, requires intermediate vocabulary.",
+      "importance": 2,
+      "importanceRationale": "Describes the goal being abandoned but is somewhat supplementary."
+    },
+    {
+      "term": "reclaim",
+      "level": "B2",
+      "levelRationale": "Verb meaning to recover or regain, requires intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the benefit of constraint."
+    },
+    {
+      "term": "psychological peace",
+      "level": "B2",
+      "levelRationale": "Collocation referring to mental tranquility, requires understanding of abstract noun phrases.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the desired outcome."
+    },
+    {
+      "term": "unrestricted choice",
+      "level": "B2",
+      "levelRationale": "Collocation referring to unlimited options, requires understanding of adjective-noun combinations.",
+      "importance": 2,
+      "importanceRationale": "Describes what has caused the problem but is somewhat supplementary."
+    },
+    {
+      "term": "inadvertently",
+      "level": "B2",
+      "levelRationale": "Adverb meaning unintentionally or accidentally, requires understanding of discourse markers.",
+      "importance": 2,
+      "importanceRationale": "Emphasizes that the harm was unintended but is somewhat supplementary."
+    },
+    {
+      "term": "stripped away",
+      "level": "B2",
+      "levelRationale": "Phrasal verb meaning removed or taken away, requires understanding of verb-preposition combinations.",
+      "importance": 2,
+      "importanceRationale": "Describes the loss of peace but is somewhat supplementary."
+    },
+    {
+      "term": "bear serious consideration",
+      "level": "B2",
+      "levelRationale": "Collocation referring to being worthy of careful thought, requires understanding of verb-noun combinations.",
+      "importance": 2,
+      "importanceRationale": "Describes the importance of the claims but is somewhat supplementary."
+    },
+    {
+      "term": "implications",
+      "level": "B2",
+      "levelRationale": "Noun meaning consequences or suggested meanings, requires intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the broader significance of the argument."
+    },
+    {
+      "term": "extend beyond",
+      "level": "B2",
+      "levelRationale": "Phrasal verb meaning to go further than or apply to more than, requires understanding of verb-preposition combinations.",
+      "importance": 2,
+      "importanceRationale": "Describes the scope of implications but is somewhat supplementary."
+    },
+    {
+      "term": "individual well-being",
+      "level": "B2",
+      "levelRationale": "Collocation referring to personal health and happiness, requires understanding of abstract noun phrases.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the first domain of implications."
+    },
+    {
+      "term": "relentless pursuit",
+      "level": "B2",
+      "levelRationale": "Collocation referring to continuous and determined seeking, requires understanding of adjective-noun combinations.",
+      "importance": 2,
+      "importanceRationale": "Describes the modern approach but is somewhat supplementary."
+    },
+    {
+      "term": "conducive to",
+      "level": "B2",
+      "levelRationale": "Phrasal verb/collocation meaning favorable or helpful for, requires understanding of adjective-preposition combinations.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the question about flourishing."
+    },
+    {
+      "term": "flourishing",
+      "level": "B2",
+      "levelRationale": "Verb/noun meaning thriving or prospering, requires intermediate vocabulary.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the ultimate goal being questioned."
+    },
+    {
+      "term": "quietly undermines",
+      "level": "B2",
+      "levelRationale": "Collocation referring to subtly weakening or damaging, requires understanding of adverb-verb combinations.",
+      "importance": 2,
+      "importanceRationale": "Describes the potential harm but is somewhat supplementary."
+    }
+  ],
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "line_format",
+      "passed": true,
+      "message": "All lines parsed successfully (82 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_rationales",
+      "passed": true,
+      "message": "All rationales non-empty"
+    },
+    {
+      "name": "no_duplicate_terms",
+      "passed": true,
+      "message": "No duplicate terms"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "82 item(s) extracted"
+    }
+  ],
+  "rawResponse": "freedom of choice|B2|This phrase represents a fundamental concept requiring intermediate understanding of abstract noun phrases and their cultural significance.|4|Essential for understanding the passage's central argument about choice and satisfaction.|\ninherently|B2|The adverb modifies adjectives to indicate an intrinsic quality, requiring understanding of abstract modification.|3|Helps clarify that desirability is presented as an assumed inherent property.|\ndesirable|B1|Common adjective meaning worthy of being wanted, foundational for evaluating the passage's premise.|4|Critical for understanding what the passage claims about choice.|\noptions|A2|Basic noun for alternatives or choices, fundamental vocabulary.|4|Core concept repeated throughout the passage.|\nfulfilled|B1|Adjective meaning satisfied and content, essential for understanding emotional outcomes discussed.|3|Important for grasping the promised benefits of choice.|\nassumption|B2|Noun meaning a belief accepted without proof, requires intermediate understanding of epistemology.|3|Key to understanding the passage's critical stance toward conventional wisdom.|\nunderpins|B2|Verb meaning to form the basis or foundation of something, requires intermediate vocabulary.|3|Important for understanding how consumer culture relates to beliefs about choice.|\nconsumer culture|B2|Collocation referring to society organized around purchasing and consumption, requires cultural awareness.|3|Helps contextualize the modern context of the choice paradox.|\nbombards|B2|Verb meaning to attack or overwhelm with large quantities, requires understanding of metaphorical language.|2|Vivid but not essential; conveys intensity of marketing exposure.|\never-expanding|B2|Adjective phrase indicating continuous growth, requires understanding of present participles as modifiers.|2|Emphasizes the scale of available options but is somewhat supplementary.|\narray|B2|Noun meaning a collection or range of items, requires intermediate vocabulary.|2|Useful for understanding variety but could be replaced with simpler terms.|\ngoods|A2|Noun meaning products or merchandise, fundamental vocabulary.|3|Essential for understanding what consumer culture offers.|\nservices|A2|Noun meaning work done for others, fundamental vocabulary.|3|Essential for understanding what consumer culture offers.|\nlifestyle possibilities|B2|Collocation referring to potential ways of living, requires understanding of abstract noun phrases.|2|Contextualizes choice beyond material goods.|\nintuition|B2|Noun meaning instinctive understanding without conscious reasoning, requires intermediate vocabulary.|3|Important for understanding the passage's critique of assumed beliefs.|\nfundamentally flawed|B2|Collocation meaning deeply or essentially defective, requires understanding of adverb-adjective combinations.|3|Central to the passage's argument that conventional wisdom is wrong.|\nentertaining|B2|Verb meaning to consider or think about (an idea), requires understanding of non-obvious word sense.|3|Important for understanding the passage's invitation to reconsider assumptions.|\nopposite view|B2|Collocation referring to a contrasting perspective, requires understanding of abstract noun phrases.|2|Helps structure the passage's argumentative approach.|\npsychologist|B1|Noun meaning a specialist in psychology, foundational professional vocabulary.|2|Identifies Barry Schwartz's expertise but is supplementary to his argument.|\nseminal|B2|Adjective meaning highly influential or original, requires intermediate academic vocabulary.|2|Describes the importance of Schwartz's work but is somewhat supplementary.|\nparadox of choice|B2|Collocation/concept referring to the phenomenon that more options can reduce satisfaction, requires understanding of abstract concepts.|4|Essential for understanding the passage's central claim.|\nexcessive|B1|Adjective meaning more than necessary or desirable, foundational vocabulary.|3|Important for understanding the problem Schwartz identifies.|\nliberate|B2|Verb meaning to free from restriction, requires understanding of abstract action verbs.|2|Contrasts with the passage's claim but is somewhat supplementary.|\nparalyze|B2|Verb meaning to make unable to move or act, requires understanding of metaphorical language.|3|Key metaphor for understanding how choice affects decision-making.|\nconfronted with|B2|Phrasal verb meaning faced with or presented with, requires understanding of verb-preposition combinations.|2|Describes the situation of facing many alternatives.|\nalternatives|B1|Noun meaning other options or choices, foundational vocabulary.|4|Essential for understanding the passage's discussion of choice.|\nheightened anxiety|B2|Collocation referring to increased worry or nervousness, requires understanding of adjective-noun combinations.|3|Important for understanding negative emotional effects of choice.|\nprolonged deliberation|B2|Collocation referring to extended careful consideration, requires understanding of adjective-noun combinations.|3|Important for understanding cognitive effects of choice.|\ndiminished satisfaction|B2|Collocation referring to reduced contentment, requires understanding of adjective-noun combinations.|3|Important for understanding the paradoxical outcome of choice.|\nultimately select|B2|Collocation referring to finally choosing, requires understanding of adverb-verb combinations.|2|Describes the final outcome of decision-making.|\ncounterintuitive|B2|Adjective meaning contrary to what intuition suggests, requires understanding of complex word formation.|3|Important for understanding that Schwartz's claim contradicts common sense.|\ncontends|B2|Verb meaning to argue or assert, requires understanding of formal academic vocabulary.|2|Indicates Schwartz's argumentative stance but is somewhat supplementary.|\ncognitive|B2|Adjective relating to mental processes, requires intermediate academic vocabulary.|2|Describes the type of factors involved but is somewhat supplementary.|\nemotional factors|B2|Collocation referring to feelings and their influences, requires understanding of abstract noun phrases.|2|Describes the nature of factors affecting choice but is somewhat supplementary.|\nthreshold of conscious awareness|B2|Collocation referring to the boundary between conscious and unconscious mental processes, requires understanding of abstract concepts.|2|Describes where these factors operate but is somewhat supplementary.|\nabundance of choices|B2|Collocation referring to a large quantity of options, requires understanding of abstract noun phrases.|3|Important for understanding the condition that creates problems.|\nopportunity cost|B2|Collocation/economic concept referring to the value of foregone alternatives, requires understanding of abstract economic concepts.|3|Important for understanding the first mechanism Schwartz identifies.|\ngiven decision|B2|Collocation referring to a specific choice being considered, requires understanding of adjective-noun combinations.|2|Describes the scope of opportunity cost but is somewhat supplementary.|\npath foregone|B2|Collocation referring to an alternative not chosen, requires understanding of abstract noun phrases and past participles.|2|Poetic description of opportunity cost but is somewhat supplementary.|\npotential source of regret|B2|Collocation referring to something that might cause remorse, requires understanding of abstract noun phrases.|3|Important for understanding emotional consequences of choice.|\nalternatives proliferate|B2|Collocation referring to options increasing in number, requires understanding of verb-noun combinations.|2|Describes the growth of choices but is somewhat supplementary.|\nweight of what we have relinquished|B2|Collocation referring to the burden of what was given up, requires understanding of abstract noun phrases and past participles.|2|Poetic description of opportunity cost but is somewhat supplementary.|\nexpansive choice sets|B2|Collocation referring to large collections of options, requires understanding of adjective-noun combinations.|2|Describes the scope of available choices but is somewhat supplementary.|\nunrealistic expectations|B2|Collocation referring to hopes that are unlikely to be fulfilled, requires understanding of adjective-noun combinations.|3|Important for understanding the second mechanism Schwartz identifies.|\nfield of possibilities|B2|Collocation referring to the range of potential outcomes, requires understanding of abstract noun phrases.|2|Describes the scope of options but is somewhat supplementary.|\nboundless|B2|Adjective meaning without limits, requires intermediate vocabulary.|2|Emphasizes the perceived scope of options but is somewhat supplementary.|\ninclined to believe|B2|Collocation referring to being disposed toward a belief, requires understanding of verb-adjective combinations.|2|Describes the psychological tendency but is somewhat supplementary.|\nperfect option|B2|Collocation referring to an ideal choice, requires understanding of abstract noun phrases.|2|Describes the unrealistic expectation but is somewhat supplementary.|\ncompelled to find|B2|Collocation referring to being forced or driven to search, requires understanding of verb-infinitive combinations.|2|Describes the psychological drive but is somewhat supplementary.|\ndecision fatigue|B2|Collocation referring to mental exhaustion from making choices, requires understanding of abstract noun phrases.|3|Important for understanding the third mechanism Schwartz identifies.|\nmental effort|B2|Collocation referring to cognitive work, requires understanding of abstract noun phrases.|2|Describes the source of fatigue but is somewhat supplementary.|\nevaluate|B2|Verb meaning to assess or judge the value of something, requires intermediate vocabulary.|2|Describes the cognitive process but is somewhat supplementary.|\ndozens of alternatives|B2|Collocation referring to many options (approximately 12 or more), requires understanding of quantifiers and noun phrases.|2|Emphasizes the quantity of choices but is somewhat supplementary.|\ndepletes|B2|Verb meaning to reduce or exhaust, requires intermediate vocabulary.|2|Describes the effect on cognitive resources but is somewhat supplementary.|\ncognitive resources|B2|Collocation referring to mental capacity, requires understanding of abstract noun phrases.|2|Describes what is exhausted but is somewhat supplementary.|\nexhausted|B1|Adjective meaning very tired, foundational vocabulary.|2|Describes the emotional state but is somewhat supplementary.|\nironically|B2|Adverb meaning in a way that is contrary to what is expected, requires understanding of discourse markers.|2|Emphasizes the paradoxical nature but is somewhat supplementary.|\nimpulsive|B2|Adjective meaning acting without careful thought, requires intermediate vocabulary.|2|Describes the type of choices made but is somewhat supplementary.|\nregrettable choices|B2|Collocation referring to decisions one wishes had been made differently, requires understanding of adjective-noun combinations.|2|Describes the outcome but is somewhat supplementary.|\nmitigate|B2|Verb meaning to make less severe or serious, requires intermediate vocabulary.|3|Important for understanding Schwartz's proposed solution.|\ndeliberate constraint|B2|Collocation referring to intentional limitation, requires understanding of adjective-noun combinations.|3|Important for understanding Schwartz's strategy.|\nvoluntarily narrowing|B2|Collocation referring to intentionally reducing the scope, requires understanding of adverb-verb combinations.|2|Describes the action but is somewhat supplementary.|\nscope of our decisions|B2|Collocation referring to the range of choices being made, requires understanding of abstract noun phrases.|2|Describes what is being limited but is somewhat supplementary.|\npersonal rules|B2|Collocation referring to self-imposed guidelines, requires understanding of adjective-noun combinations.|2|Describes one method of constraint but is somewhat supplementary.|\ntrusted recommendations|B2|Collocation referring to suggestions from reliable sources, requires understanding of adjective-noun combinations.|2|Describes one method of constraint but is somewhat supplementary.|\nsettling for|B2|Phrasal verb meaning to accept something less than ideal, requires understanding of verb-preposition combinations.|3|Important for understanding the strategy of accepting \"good enough\".|\ngood enough|B1|Collocation referring to adequate or satisfactory quality, foundational vocabulary.|3|Important for understanding the alternative to exhaustive optimization.|\nexhaustively pursuing|B2|Collocation referring to thoroughly and completely seeking, requires understanding of adverb-verb combinations.|2|Describes the behavior being discouraged but is somewhat supplementary.|\noptimal|B2|Adjective meaning best or most favorable, requires intermediate vocabulary.|2|Describes the goal being abandoned but is somewhat supplementary.|\nreclaim|B2|Verb meaning to recover or regain, requires intermediate vocabulary.|3|Important for understanding the benefit of constraint.|\npsychological peace|B2|Collocation referring to mental tranquility, requires understanding of abstract noun phrases.|3|Important for understanding the desired outcome.|\nunrestricted choice|B2|Collocation referring to unlimited options, requires understanding of adjective-noun combinations.|2|Describes what has caused the problem but is somewhat supplementary.|\ninadvertently|B2|Adverb meaning unintentionally or accidentally, requires understanding of discourse markers.|2|Emphasizes that the harm was unintended but is somewhat supplementary.|\nstripped away|B2|Phrasal verb meaning removed or taken away, requires understanding of verb-preposition combinations.|2|Describes the loss of peace but is somewhat supplementary.|\nbear serious consideration|B2|Collocation referring to being worthy of careful thought, requires understanding of verb-noun combinations.|2|Describes the importance of the claims but is somewhat supplementary.|\nimplications|B2|Noun meaning consequences or suggested meanings, requires intermediate vocabulary.|3|Important for understanding the broader significance of the argument.|\nextend beyond|B2|Phrasal verb meaning to go further than or apply to more than, requires understanding of verb-preposition combinations.|2|Describes the scope of implications but is somewhat supplementary.|\nindividual well-being|B2|Collocation referring to personal health and happiness, requires understanding of abstract noun phrases.|3|Important for understanding the first domain of implications.|\nrelentless pursuit|B2|Collocation referring to continuous and determined seeking, requires understanding of adjective-noun combinations.|2|Describes the modern approach but is somewhat supplementary.|\nconducive to|B2|Phrasal verb/collocation meaning favorable or helpful for, requires understanding of adjective-preposition combinations.|3|Important for understanding the question about flourishing.|\nflourishing|B2|Verb/noun meaning thriving or prospering, requires intermediate vocabulary.|3|Important for understanding the ultimate goal being questioned.|\nquietly undermines|B2|Collocation referring to subtly weakening or damaging, requires understanding of adverb-verb combinations.|2|Describes the potential harm but is somewhat supplementary.|",
+  "tokenUsage": {
+    "inputTokens": 781,
+    "outputTokens": 3176
+  },
+  "latencyMs": 25021,
+  "model": "claude-haiku-4-5-20251001",
+  "promptVersion": "v12",
+  "timestamp": "2026-04-15T04:11:41.739Z"
+}

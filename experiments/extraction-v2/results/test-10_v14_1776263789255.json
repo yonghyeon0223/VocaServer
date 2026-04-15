@@ -1,0 +1,150 @@
+{
+  "fixtureId": "test-10",
+  "fixtureDescription": "Bare comma-separated word list with no sentence context",
+  "category": "edge",
+  "passage": "happy, environment, consequence, struggle, breathe, sustainable, atmosphere, determine, reluctant, furthermore, magnificent, peculiar",
+  "items": [
+    {
+      "type": "vocabulary",
+      "term": "happy",
+      "definition": "feeling pleasure or contentment",
+      "level": "A1",
+      "importance": 0
+    },
+    {
+      "type": "vocabulary",
+      "term": "environment",
+      "definition": "the natural world around us, including air, water, and land",
+      "level": "A2",
+      "importance": 0
+    },
+    {
+      "type": "vocabulary",
+      "term": "consequence",
+      "definition": "a result or effect of an action or situation",
+      "level": "B1",
+      "importance": 0
+    },
+    {
+      "type": "vocabulary",
+      "term": "struggle",
+      "definition": "to try hard to do something difficult",
+      "level": "B1",
+      "importance": 0
+    },
+    {
+      "type": "vocabulary",
+      "term": "breathe",
+      "definition": "to take air into the lungs and let it out",
+      "level": "A2",
+      "importance": 0
+    },
+    {
+      "type": "vocabulary",
+      "term": "sustainable",
+      "definition": "able to continue without damaging the environment or using up resources",
+      "level": "B2",
+      "importance": 0
+    },
+    {
+      "type": "vocabulary",
+      "term": "atmosphere",
+      "definition": "the layer of gases surrounding the Earth",
+      "level": "B1",
+      "importance": 0
+    },
+    {
+      "type": "vocabulary",
+      "term": "atmosphere",
+      "definition": "the general feeling or mood of a place or situation",
+      "level": "B2",
+      "importance": 0
+    },
+    {
+      "type": "vocabulary",
+      "term": "determine",
+      "definition": "to find out or decide something with certainty",
+      "level": "B2",
+      "importance": 0
+    },
+    {
+      "type": "vocabulary",
+      "term": "reluctant",
+      "definition": "unwilling to do something; not eager",
+      "level": "B2",
+      "importance": 0
+    },
+    {
+      "type": "vocabulary",
+      "term": "furthermore",
+      "definition": "in addition to what has already been said; used to add more information",
+      "level": "B2",
+      "importance": 0
+    },
+    {
+      "type": "vocabulary",
+      "term": "magnificent",
+      "definition": "extremely beautiful or impressive",
+      "level": "B2",
+      "importance": 0
+    },
+    {
+      "type": "vocabulary",
+      "term": "peculiar",
+      "definition": "strange or unusual, often in an unsettling way",
+      "level": "B2",
+      "importance": 0
+    }
+  ],
+  "phraseCount": 0,
+  "vocabCount": 13,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (13 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "13 item(s) extracted"
+    }
+  ],
+  "rawResponse": "{\"v\":[[\"happy\",\"feeling pleasure or contentment\",\"A1\",0],[\"environment\",\"the natural world around us, including air, water, and land\",\"A2\",0],[\"consequence\",\"a result or effect of an action or situation\",\"B1\",0],[\"struggle\",\"to try hard to do something difficult\",\"B1\",0],[\"breathe\",\"to take air into the lungs and let it out\",\"A2\",0],[\"sustainable\",\"able to continue without damaging the environment or using up resources\",\"B2\",0],[\"atmosphere\",\"the layer of gases surrounding the Earth\",\"B1\",0],[\"atmosphere\",\"the general feeling or mood of a place or situation\",\"B2\",0],[\"determine\",\"to find out or decide something with certainty\",\"B2\",0],[\"reluctant\",\"unwilling to do something; not eager\",\"B2\",0],[\"furthermore\",\"in addition to what has already been said; used to add more information\",\"B2\",0],[\"magnificent\",\"extremely beautiful or impressive\",\"B2\",0],[\"peculiar\",\"strange or unusual, often in an unsettling way\",\"B2\",0]],\"p\":[]}",
+  "tokenUsage": {
+    "inputTokens": 446,
+    "outputTokens": 357,
+    "cacheRead": 4142,
+    "cacheCreation": 0
+  },
+  "latencyMs": 7027,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v14",
+  "timestamp": "2026-04-15T14:36:22.228Z"
+}

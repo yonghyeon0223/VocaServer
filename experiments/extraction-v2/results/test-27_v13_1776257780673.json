@@ -1,0 +1,148 @@
+{
+  "fixtureId": "test-27",
+  "fixtureDescription": "Emoji-heavy social media post about a shopping day",
+  "category": "tricky",
+  "passage": "OMG 😱😱 just had the BEST day ever!! 🎉🎊 Went shopping with my bestie 👯‍♀️ and found the cutest shoes 👟✨ at the mall 🏬 Then we grabbed lunch 🍕🍔 at this amazing new restaurant 🍽️ The food was absolutely incredible 🤤💯 Can't wait to go back next weekend!! 😍🙌 #blessed #bestdayever #foodie 🥰",
+  "items": [
+    {
+      "type": "phrase",
+      "term": "best day ever",
+      "definition": "an expression meaning the most enjoyable day one has experienced",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "grabbed lunch",
+      "definition": "ate lunch quickly or casually",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "can't wait",
+      "definition": "used to express excitement or eagerness about something upcoming",
+      "level": "A2",
+      "importance": 4
+    },
+    {
+      "type": "phrase",
+      "term": "go back",
+      "definition": "to return to a place one has visited before",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "bestie",
+      "definition": "a best friend; a very close friend",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "cutest",
+      "definition": "most attractive or charming in an endearing way",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "mall",
+      "definition": "a large enclosed shopping centre",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "incredible",
+      "definition": "extremely good; amazing",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "absolutely",
+      "definition": "completely; used to add emphasis",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "restaurant",
+      "definition": "a place where meals are prepared and served to customers",
+      "level": "A1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "blessed",
+      "definition": "fortunate; feeling grateful and happy",
+      "level": "B1",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "foodie",
+      "definition": "a person who has a strong interest in food and eating",
+      "level": "B2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "amazing",
+      "definition": "causing great surprise or wonder; wonderful",
+      "level": "A2",
+      "importance": 3
+    }
+  ],
+  "phraseCount": 4,
+  "vocabCount": 9,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (13 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "13 item(s) extracted"
+    }
+  ],
+  "rawResponse": "{\"v\":[[\"bestie\",\"a best friend; a very close friend\",\"A2\",2],[\"cutest\",\"most attractive or charming in an endearing way\",\"A2\",2],[\"mall\",\"a large enclosed shopping centre\",\"A1\",3],[\"incredible\",\"extremely good; amazing\",\"B1\",3],[\"absolutely\",\"completely; used to add emphasis\",\"B1\",3],[\"restaurant\",\"a place where meals are prepared and served to customers\",\"A1\",3],[\"blessed\",\"fortunate; feeling grateful and happy\",\"B1\",2],[\"foodie\",\"a person who has a strong interest in food and eating\",\"B2\",2],[\"amazing\",\"causing great surprise or wonder; wonderful\",\"A2\",3]],\"p\":[[\"best day ever\",\"an expression meaning the most enjoyable day one has experienced\",\"A2\",3],[\"grabbed lunch\",\"ate lunch quickly or casually\",\"B1\",3],[\"can't wait\",\"used to express excitement or eagerness about something upcoming\",\"A2\",4],[\"go back\",\"to return to a place one has visited before\",\"A1\",3]]}",
+  "tokenUsage": {
+    "inputTokens": 1508,
+    "outputTokens": 319
+  },
+  "latencyMs": 7197,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v13",
+  "timestamp": "2026-04-15T12:56:13.476Z"
+}

@@ -1,0 +1,223 @@
+{
+  "fixtureId": "test-11",
+  "fixtureDescription": "Polysemy-dense business passage — every key word has a non-default sense",
+  "category": "edge",
+  "passage": "The company runs a tight ship. Last quarter, they faced a major setback when their flagship product failed to meet expectations. The board addressed the crisis head-on, holding an emergency meeting to weigh the options. Several executives entertained the idea of a merger, but the CEO struck down the proposal. She argued that the firm should bear the costs alone rather than give up its independence. In the end, the team drew on their experience to craft a new strategy, and the company bounced back stronger than before.",
+  "items": [
+    {
+      "term": "runs",
+      "level": "B2",
+      "levelRationale": "\"Run\" meaning \"manage or operate\" is used in business contexts beyond basic movement.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding the company's operational status and the idiom \"runs a tight ship.\""
+    },
+    {
+      "term": "tight ship",
+      "level": "C1",
+      "levelRationale": "This idiom means strict, efficient management and requires cultural/idiomatic knowledge beyond literal meaning.",
+      "importance": 4,
+      "importanceRationale": "Critical for comprehension as it characterizes the company's management style and sets context for the passage."
+    },
+    {
+      "term": "quarter",
+      "level": "B2",
+      "levelRationale": "\"Quarter\" as a business term (three-month period) requires domain-specific vocabulary knowledge.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding business context, though the meaning can be inferred from \"last quarter.\""
+    },
+    {
+      "term": "faced",
+      "level": "B1",
+      "levelRationale": "\"Face\" meaning \"encounter or deal with a problem\" is a common phrasal sense in business writing.",
+      "importance": 3,
+      "importanceRationale": "Useful for understanding how the company encountered the setback."
+    },
+    {
+      "term": "major setback",
+      "level": "B2",
+      "levelRationale": "\"Setback\" is a common business term for significant problems or failures; \"major\" intensifies it.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding the central conflict and challenge in the passage."
+    },
+    {
+      "term": "flagship product",
+      "level": "B2",
+      "levelRationale": "\"Flagship\" as a business term means the most important or representative product; requires domain knowledge.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding what product failed and its significance to the company."
+    },
+    {
+      "term": "failed to meet expectations",
+      "level": "B2",
+      "levelRationale": "This collocation describes unmet goals; \"meet expectations\" is a standard business phrase.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding the nature of the product's failure."
+    },
+    {
+      "term": "addressed",
+      "level": "B2",
+      "levelRationale": "\"Address\" meaning \"deal with or tackle a problem\" is a formal business usage.",
+      "importance": 3,
+      "importanceRationale": "Useful for understanding how the board responded to the crisis."
+    },
+    {
+      "term": "head-on",
+      "level": "B2",
+      "levelRationale": "\"Head-on\" means directly and confrontationally; often used in business contexts for direct problem-solving.",
+      "importance": 3,
+      "importanceRationale": "Helpful for emphasizing the board's direct approach to the crisis."
+    },
+    {
+      "term": "emergency meeting",
+      "level": "B1",
+      "levelRationale": "\"Emergency meeting\" is a standard collocation for urgent gatherings.",
+      "importance": 3,
+      "importanceRationale": "Useful for understanding the urgency of the board's response."
+    },
+    {
+      "term": "weigh the options",
+      "level": "B2",
+      "levelRationale": "\"Weigh\" meaning \"consider carefully\" is a common business collocation for evaluating choices.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding the deliberative process the board undertook."
+    },
+    {
+      "term": "entertained the idea",
+      "level": "B2",
+      "levelRationale": "\"Entertain an idea\" means \"consider or think about a proposal\"; a formal collocation.",
+      "importance": 3,
+      "importanceRationale": "Useful for understanding that executives considered but didn't commit to the merger."
+    },
+    {
+      "term": "merger",
+      "level": "B2",
+      "levelRationale": "\"Merger\" is a business term for combining two companies; requires domain knowledge.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding one proposed solution to the crisis."
+    },
+    {
+      "term": "struck down",
+      "level": "B2",
+      "levelRationale": "\"Strike down\" means \"reject or dismiss a proposal\"; a formal business usage.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding the CEO's decisive rejection of the merger idea."
+    },
+    {
+      "term": "proposal",
+      "level": "B1",
+      "levelRationale": "\"Proposal\" means a suggested plan or idea; common in business contexts.",
+      "importance": 3,
+      "importanceRationale": "Useful for understanding what was rejected."
+    },
+    {
+      "term": "argued",
+      "level": "B1",
+      "levelRationale": "\"Argue\" meaning \"present reasons or make a case\" is a standard usage in formal contexts.",
+      "importance": 2,
+      "importanceRationale": "Useful for understanding the CEO's communication, though context makes meaning clear."
+    },
+    {
+      "term": "bear the costs",
+      "level": "B2",
+      "levelRationale": "\"Bear costs\" is a collocation meaning \"accept financial responsibility\"; formal business language.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding the CEO's position on financial responsibility."
+    },
+    {
+      "term": "give up",
+      "level": "B1",
+      "levelRationale": "\"Give up\" is a phrasal verb meaning \"surrender or relinquish\"; common in various contexts.",
+      "importance": 3,
+      "importanceRationale": "Useful for understanding what the CEO wanted to avoid (losing independence)."
+    },
+    {
+      "term": "independence",
+      "level": "B2",
+      "levelRationale": "\"Independence\" in business means autonomy and self-governance; requires understanding of business concepts.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding the company's core value being protected."
+    },
+    {
+      "term": "drew on",
+      "level": "B2",
+      "levelRationale": "\"Draw on\" is a phrasal verb meaning \"use or utilize existing resources or knowledge.\"",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding how the company used past experience to solve the problem."
+    },
+    {
+      "term": "craft",
+      "level": "B2",
+      "levelRationale": "\"Craft\" meaning \"create or develop carefully\" is used in business for strategy development.",
+      "importance": 3,
+      "importanceRationale": "Useful for understanding the deliberate creation of the new strategy."
+    },
+    {
+      "term": "strategy",
+      "level": "B1",
+      "levelRationale": "\"Strategy\" means a plan of action; common in business and general contexts.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding the company's response to the crisis."
+    },
+    {
+      "term": "bounced back",
+      "level": "B2",
+      "levelRationale": "\"Bounce back\" is a phrasal verb meaning \"recover from difficulty\"; common in business and general usage.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding the positive resolution and the company's resilience."
+    },
+    {
+      "term": "stronger than before",
+      "level": "B1",
+      "levelRationale": "This comparative phrase emphasizes improvement; \"stronger\" used metaphorically for organizational capability.",
+      "importance": 3,
+      "importanceRationale": "Helpful for understanding the degree of recovery and positive outcome."
+    }
+  ],
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "line_format",
+      "passed": true,
+      "message": "All lines parsed successfully (24 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_rationales",
+      "passed": true,
+      "message": "All rationales non-empty"
+    },
+    {
+      "name": "no_duplicate_terms",
+      "passed": true,
+      "message": "No duplicate terms"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "24 item(s) extracted"
+    }
+  ],
+  "rawResponse": "runs|B2|\"Run\" meaning \"manage or operate\" is used in business contexts beyond basic movement.|4|Essential for understanding the company's operational status and the idiom \"runs a tight ship.\"|\ntight ship|C1|This idiom means strict, efficient management and requires cultural/idiomatic knowledge beyond literal meaning.|4|Critical for comprehension as it characterizes the company's management style and sets context for the passage.|\nquarter|B2|\"Quarter\" as a business term (three-month period) requires domain-specific vocabulary knowledge.|3|Helpful for understanding business context, though the meaning can be inferred from \"last quarter.\"|\nfaced|B1|\"Face\" meaning \"encounter or deal with a problem\" is a common phrasal sense in business writing.|3|Useful for understanding how the company encountered the setback.|\nmajor setback|B2|\"Setback\" is a common business term for significant problems or failures; \"major\" intensifies it.|4|Essential for understanding the central conflict and challenge in the passage.|\nflagship product|B2|\"Flagship\" as a business term means the most important or representative product; requires domain knowledge.|3|Helpful for understanding what product failed and its significance to the company.|\nfailed to meet expectations|B2|This collocation describes unmet goals; \"meet expectations\" is a standard business phrase.|4|Essential for understanding the nature of the product's failure.|\naddressed|B2|\"Address\" meaning \"deal with or tackle a problem\" is a formal business usage.|3|Useful for understanding how the board responded to the crisis.|\nhead-on|B2|\"Head-on\" means directly and confrontationally; often used in business contexts for direct problem-solving.|3|Helpful for emphasizing the board's direct approach to the crisis.|\nemergency meeting|B1|\"Emergency meeting\" is a standard collocation for urgent gatherings.|3|Useful for understanding the urgency of the board's response.|\nweigh the options|B2|\"Weigh\" meaning \"consider carefully\" is a common business collocation for evaluating choices.|3|Helpful for understanding the deliberative process the board undertook.|\nentertained the idea|B2|\"Entertain an idea\" means \"consider or think about a proposal\"; a formal collocation.|3|Useful for understanding that executives considered but didn't commit to the merger.|\nmerger|B2|\"Merger\" is a business term for combining two companies; requires domain knowledge.|4|Essential for understanding one proposed solution to the crisis.|\nstruck down|B2|\"Strike down\" means \"reject or dismiss a proposal\"; a formal business usage.|3|Helpful for understanding the CEO's decisive rejection of the merger idea.|\nproposal|B1|\"Proposal\" means a suggested plan or idea; common in business contexts.|3|Useful for understanding what was rejected.|\nargued|B1|\"Argue\" meaning \"present reasons or make a case\" is a standard usage in formal contexts.|2|Useful for understanding the CEO's communication, though context makes meaning clear.|\nbear the costs|B2|\"Bear costs\" is a collocation meaning \"accept financial responsibility\"; formal business language.|3|Helpful for understanding the CEO's position on financial responsibility.|\ngive up|B1|\"Give up\" is a phrasal verb meaning \"surrender or relinquish\"; common in various contexts.|3|Useful for understanding what the CEO wanted to avoid (losing independence).|\nindependence|B2|\"Independence\" in business means autonomy and self-governance; requires understanding of business concepts.|3|Helpful for understanding the company's core value being protected.|\ndrew on|B2|\"Draw on\" is a phrasal verb meaning \"use or utilize existing resources or knowledge.\"|3|Helpful for understanding how the company used past experience to solve the problem.|\ncraft|B2|\"Craft\" meaning \"create or develop carefully\" is used in business for strategy development.|3|Useful for understanding the deliberate creation of the new strategy.|\nstrategy|B1|\"Strategy\" means a plan of action; common in business and general contexts.|4|Essential for understanding the company's response to the crisis.|\nbounced back|B2|\"Bounce back\" is a phrasal verb meaning \"recover from difficulty\"; common in business and general usage.|4|Essential for understanding the positive resolution and the company's resilience.|\nstronger than before|B1|This comparative phrase emphasizes improvement; \"stronger\" used metaphorically for organizational capability.|3|Helpful for understanding the degree of recovery and positive outcome.|",
+  "tokenUsage": {
+    "inputTokens": 430,
+    "outputTokens": 1009
+  },
+  "latencyMs": 10432,
+  "model": "claude-haiku-4-5-20251001",
+  "promptVersion": "v12",
+  "timestamp": "2026-04-15T04:12:11.487Z"
+}

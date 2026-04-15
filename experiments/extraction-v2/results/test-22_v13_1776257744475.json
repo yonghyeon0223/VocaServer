@@ -1,0 +1,51 @@
+{
+  "fixtureId": "test-22",
+  "fixtureDescription": "Full Chinese paragraph about an afternoon at the library",
+  "category": "non-english",
+  "passage": "今天下午我去了图书馆学习。图书馆里很安静，有很多学生在认真地看书。我找到了一本关于历史的书，读了两个小时。回家的路上，我在咖啡店买了一杯咖啡。晚上我打算继续看那本书。",
+  "items": [],
+  "phraseCount": 0,
+  "vocabCount": 0,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (0 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    }
+  ],
+  "rawResponse": "{\"v\":[],\"p\":[]}",
+  "tokenUsage": {
+    "inputTokens": 1474,
+    "outputTokens": 50
+  },
+  "latencyMs": 2061,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v13",
+  "timestamp": "2026-04-15T12:55:42.414Z"
+}

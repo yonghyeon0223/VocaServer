@@ -1,0 +1,111 @@
+{
+  "fixtureId": "test-14",
+  "fixtureDescription": "Very short two-sentence passage — minimum viable input",
+  "category": "edge",
+  "passage": "The cat sat on the mat. It was a sunny day, and the children played in the park.",
+  "items": [
+    {
+      "term": "cat",
+      "level": "A1",
+      "levelRationale": "Basic animal vocabulary taught in beginner courses.",
+      "importance": 4,
+      "importanceRationale": "Essential for understanding the main subject of the passage."
+    },
+    {
+      "term": "sat",
+      "level": "A1",
+      "levelRationale": "Simple past tense of basic verb \"sit\" used in elementary instruction.",
+      "importance": 4,
+      "importanceRationale": "Core verb form necessary for comprehension of the main action."
+    },
+    {
+      "term": "mat",
+      "level": "A1",
+      "levelRationale": "Common household object vocabulary at beginner level.",
+      "importance": 2,
+      "importanceRationale": "Useful for context but not critical to overall passage meaning."
+    },
+    {
+      "term": "sunny",
+      "level": "A1",
+      "levelRationale": "Basic adjective describing weather taught at beginner level.",
+      "importance": 3,
+      "importanceRationale": "Helps establish the scene and mood of the passage."
+    },
+    {
+      "term": "day",
+      "level": "A1",
+      "levelRationale": "Fundamental time-related vocabulary in beginner courses.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding the temporal context."
+    },
+    {
+      "term": "children",
+      "level": "A1",
+      "levelRationale": "Basic noun for young people taught at elementary level.",
+      "importance": 4,
+      "importanceRationale": "Essential for identifying who performed the action in the second sentence."
+    },
+    {
+      "term": "played",
+      "level": "A1",
+      "levelRationale": "Simple past tense of common verb \"play\" in beginner curriculum.",
+      "importance": 4,
+      "importanceRationale": "Core action verb necessary for understanding what children did."
+    },
+    {
+      "term": "park",
+      "level": "A1",
+      "levelRationale": "Common location vocabulary taught at beginner level.",
+      "importance": 3,
+      "importanceRationale": "Important for understanding where the action took place."
+    }
+  ],
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "line_format",
+      "passed": true,
+      "message": "All lines parsed successfully (8 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_rationales",
+      "passed": true,
+      "message": "All rationales non-empty"
+    },
+    {
+      "name": "no_duplicate_terms",
+      "passed": true,
+      "message": "No duplicate terms"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "8 item(s) extracted"
+    }
+  ],
+  "rawResponse": "cat|A1|Basic animal vocabulary taught in beginner courses.|4|Essential for understanding the main subject of the passage.\nsat|A1|Simple past tense of basic verb \"sit\" used in elementary instruction.|4|Core verb form necessary for comprehension of the main action.\nmat|A1|Common household object vocabulary at beginner level.|2|Useful for context but not critical to overall passage meaning.\nsunny|A1|Basic adjective describing weather taught at beginner level.|3|Helps establish the scene and mood of the passage.\nday|A1|Fundamental time-related vocabulary in beginner courses.|3|Important for understanding the temporal context.\nchildren|A1|Basic noun for young people taught at elementary level.|4|Essential for identifying who performed the action in the second sentence.\nplayed|A1|Simple past tense of common verb \"play\" in beginner curriculum.|4|Core action verb necessary for understanding what children did.\npark|A1|Common location vocabulary taught at beginner level.|3|Important for understanding where the action took place.",
+  "tokenUsage": {
+    "inputTokens": 346,
+    "outputTokens": 238
+  },
+  "latencyMs": 3561,
+  "model": "claude-haiku-4-5-20251001",
+  "promptVersion": "v12",
+  "timestamp": "2026-04-15T04:12:34.365Z"
+}

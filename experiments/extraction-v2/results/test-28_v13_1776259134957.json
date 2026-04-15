@@ -1,0 +1,136 @@
+{
+  "fixtureId": "test-28",
+  "fixtureDescription": "Forum post with embedded URLs and email addresses",
+  "category": "tricky",
+  "passage": "Hi everyone! I've been struggling with my English pronunciation lately. I found some helpful resources at https://www.englishpractice.com/pronunciation-guide and also this YouTube channel: https://youtube.com/@speakfluently. If you want to join our study group, send an email to studygroup2026@gmail.com or visit our Discord server at https://discord.gg/englishlearners. The weekly sessions have really helped me improve my confidence. Let me know if you have any recommendations!",
+  "items": [
+    {
+      "type": "phrase",
+      "term": "study group",
+      "definition": "a group of people who meet regularly to learn or study together",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "phrase",
+      "term": "let me know",
+      "definition": "used to ask someone to inform you about something",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "pronunciation",
+      "definition": "the way in which a word or language is spoken",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "struggling",
+      "definition": "having difficulty doing something",
+      "level": "B1",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "resources",
+      "definition": "materials or tools that help with learning or a task",
+      "level": "B2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "confidence",
+      "definition": "a feeling of self-assurance and belief in one's abilities",
+      "level": "B2",
+      "importance": 4
+    },
+    {
+      "type": "vocabulary",
+      "term": "weekly",
+      "definition": "happening once a week",
+      "level": "A2",
+      "importance": 2
+    },
+    {
+      "type": "vocabulary",
+      "term": "sessions",
+      "definition": "periods of time devoted to a particular activity",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "recommendations",
+      "definition": "suggestions that something is good or suitable",
+      "level": "B1",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "improve",
+      "definition": "to make or become better",
+      "level": "A2",
+      "importance": 3
+    },
+    {
+      "type": "vocabulary",
+      "term": "helpful",
+      "definition": "giving or ready to give help; useful",
+      "level": "A2",
+      "importance": 2
+    }
+  ],
+  "phraseCount": 2,
+  "vocabCount": 9,
+  "parseErrors": [],
+  "structuralChecks": [
+    {
+      "name": "json_parse",
+      "passed": true,
+      "message": "All entries parsed (11 items)"
+    },
+    {
+      "name": "valid_cefr",
+      "passed": true,
+      "message": "All CEFR levels valid"
+    },
+    {
+      "name": "valid_importance",
+      "passed": true,
+      "message": "All importance values valid (1-4)"
+    },
+    {
+      "name": "non_empty_term",
+      "passed": true,
+      "message": "All terms non-empty"
+    },
+    {
+      "name": "non_empty_definition",
+      "passed": true,
+      "message": "All definitions non-empty"
+    },
+    {
+      "name": "no_duplicate_entries",
+      "passed": true,
+      "message": "No duplicate (term, definition) pairs"
+    },
+    {
+      "name": "has_output",
+      "passed": true,
+      "message": "11 item(s) extracted"
+    }
+  ],
+  "rawResponse": "{\"v\":[[\"pronunciation\",\"the way in which a word or language is spoken\",\"B1\",4],[\"struggling\",\"having difficulty doing something\",\"B1\",4],[\"resources\",\"materials or tools that help with learning or a task\",\"B2\",3],[\"confidence\",\"a feeling of self-assurance and belief in one's abilities\",\"B2\",4],[\"weekly\",\"happening once a week\",\"A2\",2],[\"sessions\",\"periods of time devoted to a particular activity\",\"B1\",3],[\"recommendations\",\"suggestions that something is good or suitable\",\"B1\",3],[\"improve\",\"to make or become better\",\"A2\",3],[\"helpful\",\"giving or ready to give help; useful\",\"A2\",2]],\"p\":[[\"study group\",\"a group of people who meet regularly to learn or study together\",\"A2\",3],[\"let me know\",\"used to ask someone to inform you about something\",\"A2\",3]]}",
+  "tokenUsage": {
+    "inputTokens": 1494,
+    "outputTokens": 275,
+    "cacheRead": 0,
+    "cacheCreation": 0
+  },
+  "latencyMs": 6030,
+  "model": "claude-sonnet-4-6",
+  "promptVersion": "v13",
+  "timestamp": "2026-04-15T13:18:48.927Z"
+}
