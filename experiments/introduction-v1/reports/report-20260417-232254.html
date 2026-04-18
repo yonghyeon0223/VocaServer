@@ -1,0 +1,1841 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Introduction v1 — report-20260417-232254</title>
+<style>
+:root {
+  --bg: #f8fafc; --card: #fff; --border: #e2e8f0; --border-light: #f1f5f9;
+  --text: #1e293b; --text-muted: #64748b; --text-faint: #94a3b8;
+  --accent: #6366f1; --accent-light: #eef2ff; --accent-border: #c7d2fe;
+  --correct: #16a34a; --correct-bg: #f0fdf4; --correct-border: #bbf7d0;
+  --incorrect: #dc2626; --incorrect-bg: #fef2f2; --incorrect-border: #fecaca;
+  --scene-bg: #fffbeb; --scene-border: #fde68a;
+  --question-bg: #f0f9ff; --question-border: #bae6fd;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Pretendard', 'Inter', -apple-system, sans-serif; line-height: 1.6; padding: 24px; max-width: 1000px; margin: 0 auto; background: var(--bg); color: var(--text); font-size: 14px; }
+h1 { font-size: 22px; font-weight: 700; margin-bottom: 20px; }
+
+/* Summary */
+.summary { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+.summary-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 12px; }
+.sg-item { text-align: center; padding: 10px; background: var(--bg); border-radius: 8px; }
+.sg-value { font-size: 20px; font-weight: 700; }
+.sg-label { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.5px; }
+.summary-meta { font-size: 12px; color: var(--text-faint); text-align: center; margin-bottom: 16px; }
+
+/* Overview table */
+.overview-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.overview-table th { text-align: left; padding: 8px 6px; font-size: 11px; text-transform: uppercase; color: var(--text-faint); border-bottom: 2px solid var(--border); }
+.overview-table td { padding: 6px; border-bottom: 1px solid var(--border-light); }
+.overview-table a { color: var(--accent); text-decoration: none; font-weight: 600; }
+.overview-table a:hover { text-decoration: underline; }
+.tok-cell { font-size: 11px; color: var(--text-faint); }
+.all-pass { color: var(--correct); font-weight: 600; }
+.has-fail { color: var(--incorrect); font-weight: 600; }
+
+/* Badges */
+.level-badge, .level-badge-sm { display: inline-block; padding: 1px 8px; border-radius: 8px; font-size: 12px; font-weight: 700; }
+.level-badge-sm { font-size: 10px; padding: 1px 6px; }
+.imp-badge { font-size: 11px; color: var(--text-muted); }
+.type-badge { font-size: 11px; padding: 1px 6px; border-radius: 4px; background: #f1f5f9; color: var(--text-muted); }
+
+/* Term card */
+.term-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
+.term-header { padding: 12px 16px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; flex-wrap: wrap; }
+.term-header:hover { background: #fafbfc; }
+.term-word { font-weight: 700; font-size: 15px; min-width: 120px; }
+.term-def { flex: 1; color: var(--text-muted); font-size: 12px; min-width: 200px; }
+.term-stats { display: flex; gap: 10px; font-size: 11px; color: var(--text-faint); }
+.stat-turns { color: var(--accent); font-weight: 600; }
+.term-body { padding: 0 16px 16px; }
+
+/* Checks */
+.checks-bar { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px; }
+.ck-pass, .ck-fail { font-size: 11px; padding: 2px 8px; border-radius: 4px; }
+.ck-pass { color: var(--correct); background: var(--correct-bg); }
+.ck-fail { color: var(--incorrect); background: var(--incorrect-bg); }
+
+/* Reasoning */
+.reasoning-block { margin-bottom: 16px; }
+.reasoning-block summary { font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; }
+.reasoning-content { margin-top: 8px; padding: 12px; background: var(--bg); border-radius: 8px; }
+.r-field { margin-bottom: 6px; font-size: 13px; line-height: 1.6; }
+.r-field code { background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+
+/* Turn sections */
+.turn-section { margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border-light); }
+.turn-title { font-size: 14px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.turn-type { font-size: 12px; font-weight: 500; color: var(--accent); background: var(--accent-light); padding: 2px 8px; border-radius: 4px; }
+.scene-text { background: var(--scene-bg); border-left: 3px solid var(--scene-border); padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 10px; font-size: 14px; line-height: 1.8; white-space: pre-wrap; }
+.question-text { background: var(--question-bg); border-left: 3px solid var(--question-border); padding: 10px 16px; border-radius: 0 8px 8px 0; margin-bottom: 12px; font-size: 14px; font-weight: 600; }
+
+/* Option buttons */
+.options-container { display: flex; flex-direction: column; gap: 6px; }
+.option-btn { display: flex; align-items: flex-start; gap: 10px; width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--card); cursor: pointer; text-align: left; font-size: 14px; line-height: 1.6; transition: all 0.15s; font-family: inherit; }
+.option-btn:hover { border-color: var(--accent); background: var(--accent-light); }
+.option-btn.selected { border-color: var(--accent); background: var(--accent-light); box-shadow: 0 0 0 2px var(--accent-border); }
+.option-btn.revealed-correct { border-color: var(--correct); background: var(--correct-bg); }
+.option-btn.revealed-incorrect { border-color: var(--incorrect); background: var(--incorrect-bg); }
+.option-num { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: var(--bg); font-size: 12px; font-weight: 700; color: var(--text-muted); flex-shrink: 0; }
+.option-text { flex: 1; }
+
+/* Response boxes */
+.response-box { margin: 4px 0 8px 34px; padding: 12px 16px; border-radius: 8px; font-size: 13px; line-height: 1.8; animation: fadeIn 0.2s; white-space: pre-wrap; }
+.response-box:not(.correct-option):not(.incorrect-option) {
+  background: #f8f8ff; border: 1px solid var(--accent-border);
+}
+.correct-option { background: var(--correct-bg); border: 1px solid var(--correct-border); }
+.incorrect-option { background: var(--incorrect-bg); border: 1px solid var(--incorrect-border); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Stats */
+.stats-bar { display: flex; flex-wrap: wrap; gap: 16px; font-size: 11px; color: var(--text-faint); margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-light); }
+
+/* Parse errors */
+.parse-errors { margin-top: 8px; }
+.parse-error { background: var(--incorrect-bg); color: var(--incorrect); padding: 4px 8px; border-radius: 4px; font-size: 11px; font-family: monospace; margin: 2px 0; }
+.error-box { background: var(--incorrect-bg); padding: 12px; border-radius: 8px; margin: 8px 0; }
+.error-box pre { font-size: 11px; white-space: pre-wrap; word-break: break-all; }
+
+/* Feedback */
+.feedback-section { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border-light); }
+.feedback-label { font-size: 12px; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 4px; }
+.feedback-textarea { width: 100%; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; font-family: inherit; resize: vertical; line-height: 1.6; }
+.feedback-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-border); }
+.save-btn { margin-top: 6px; padding: 6px 16px; border: 1px solid var(--accent); border-radius: 6px; background: var(--accent-light); color: var(--accent); font-weight: 600; font-size: 12px; cursor: pointer; font-family: inherit; }
+.save-btn:hover { background: var(--accent); color: white; }
+.save-btn.unsaved { border-color: var(--incorrect); color: var(--incorrect); background: var(--incorrect-bg); }
+.save-status { font-size: 11px; color: var(--text-faint); margin-left: 8px; }
+
+.section-title { font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; }
+
+@media (max-width: 768px) {
+  .summary-grid { grid-template-columns: repeat(3, 1fr); }
+  body { padding: 12px; }
+}
+</style>
+</head>
+<body>
+<h1>Word Introduction — report-20260417-232254</h1>
+<div class="summary">
+    <div class="summary-grid">
+      <div class="sg-item"><div class="sg-value">15</div><div class="sg-label">Terms</div></div>
+      <div class="sg-item"><div class="sg-value">112/113</div><div class="sg-label">Checks</div></div>
+      <div class="sg-item"><div class="sg-value">3.4</div><div class="sg-label">Avg Turns</div></div>
+      <div class="sg-item"><div class="sg-value">35221ms</div><div class="sg-label">Avg Latency</div></div>
+      <div class="sg-item"><div class="sg-value">$0.601</div><div class="sg-label">Total Cost</div></div>
+      <div class="sg-item"><div class="sg-value">30.8k</div><div class="sg-label">Output Tokens</div></div>
+    </div>
+    <div class="summary-meta">claude-sonnet-4-6 · v1 · 2026-04-17T14:22:54.556Z</div>
+
+    <table class="overview-table"><thead><tr>
+      <th>Term</th><th>Level</th><th>Imp</th><th>Type</th><th>Turns</th><th>Checks</th><th>Tokens in/out</th><th>Latency</th><th>Cost</th>
+    </tr></thead><tbody><tr>
+      <td><a href="#card-term-54">shoulder</a></td>
+      <td><span class="level-badge-sm" style="background:#dcfce7">A1</span></td>
+      <td>3</td>
+      <td>V</td>
+      <td>2</td>
+      <td class="all-pass">8/8</td>
+      <td class="tok-cell">439/1219</td>
+      <td>21443ms</td>
+      <td>$0.0898</td>
+    </tr><tr>
+      <td><a href="#card-term-55">look forward to</a></td>
+      <td><span class="level-badge-sm" style="background:#bbf7d0">A2</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>3</td>
+      <td class="all-pass">8/8</td>
+      <td class="tok-cell">443/1531</td>
+      <td>26973ms</td>
+      <td>$0.0278</td>
+    </tr><tr>
+      <td><a href="#card-term-56">breathe</a></td>
+      <td><span class="level-badge-sm" style="background:#bbf7d0">A2</span></td>
+      <td>3</td>
+      <td>V</td>
+      <td>2</td>
+      <td class="all-pass">8/8</td>
+      <td class="tok-cell">442/1277</td>
+      <td>23903ms</td>
+      <td>$0.0240</td>
+    </tr><tr>
+      <td><a href="#card-term-57">keep in mind</a></td>
+      <td><span class="level-badge-sm" style="background:#fef9c3">B1</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>3</td>
+      <td class="all-pass">8/8</td>
+      <td class="tok-cell">438/1764</td>
+      <td>30369ms</td>
+      <td>$0.0313</td>
+    </tr><tr>
+      <td><a href="#card-term-58">genuine</a></td>
+      <td><span class="level-badge-sm" style="background:#fef9c3">B1</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>3</td>
+      <td class="all-pass">8/8</td>
+      <td class="tok-cell">443/2104</td>
+      <td>37990ms</td>
+      <td>$0.0364</td>
+    </tr><tr>
+      <td><a href="#card-term-59">take for granted</a></td>
+      <td><span class="level-badge-sm" style="background:#fde68a">B2</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>4</td>
+      <td class="all-pass">8/8</td>
+      <td class="tok-cell">442/2261</td>
+      <td>40576ms</td>
+      <td>$0.0388</td>
+    </tr><tr>
+      <td><a href="#card-term-60">subtle</a></td>
+      <td><span class="level-badge-sm" style="background:#fde68a">B2</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>3</td>
+      <td class="all-pass">8/8</td>
+      <td class="tok-cell">442/1757</td>
+      <td>32548ms</td>
+      <td>$0.0312</td>
+    </tr><tr>
+      <td><a href="#card-term-61">implications</a></td>
+      <td><span class="level-badge-sm" style="background:#fde68a">B2</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">440/1931</td>
+      <td>34132ms</td>
+      <td>$0.0338</td>
+    </tr><tr>
+      <td><a href="#card-term-62">turn a blind eye</a></td>
+      <td><span class="level-badge-sm" style="background:#fde68a">B2</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>4</td>
+      <td class="all-pass">8/8</td>
+      <td class="tok-cell">441/1994</td>
+      <td>32298ms</td>
+      <td>$0.0347</td>
+    </tr><tr>
+      <td><a href="#card-term-63">undermine</a></td>
+      <td><span class="level-badge-sm" style="background:#fecaca">C1</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>4</td>
+      <td class="all-pass">8/8</td>
+      <td class="tok-cell">439/2237</td>
+      <td>40682ms</td>
+      <td>$0.0384</td>
+    </tr><tr>
+      <td><a href="#card-term-64">in light of</a></td>
+      <td><span class="level-badge-sm" style="background:#fecaca">C1</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>3</td>
+      <td class="all-pass">8/8</td>
+      <td class="tok-cell">438/2089</td>
+      <td>37601ms</td>
+      <td>$0.0362</td>
+    </tr><tr>
+      <td><a href="#card-term-65">paradoxically</a></td>
+      <td><span class="level-badge-sm" style="background:#fecaca">C1</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>4</td>
+      <td class="all-pass">8/8</td>
+      <td class="tok-cell">445/2337</td>
+      <td>37444ms</td>
+      <td>$0.0399</td>
+    </tr><tr>
+      <td><a href="#card-term-66">complacency</a></td>
+      <td><span class="level-badge-sm" style="background:#fca5a5">C2</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>4</td>
+      <td class="all-pass">8/8</td>
+      <td class="tok-cell">447/2568</td>
+      <td>45019ms</td>
+      <td>$0.0434</td>
+    </tr><tr>
+      <td><a href="#card-term-67">consolidate</a></td>
+      <td><span class="level-badge-sm" style="background:#fca5a5">C2</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>4</td>
+      <td class="all-pass">8/8</td>
+      <td class="tok-cell">442/2856</td>
+      <td>43294ms</td>
+      <td>$0.0477</td>
+    </tr><tr>
+      <td><a href="#card-term-68">predisposition</a></td>
+      <td><span class="level-badge-sm" style="background:#fca5a5">C2</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>4</td>
+      <td class="all-pass">8/8</td>
+      <td class="tok-cell">446/2867</td>
+      <td>44042ms</td>
+      <td>$0.0479</td>
+    </tr></tbody></table></div>
+
+    <div class="term-card" id="card-term-54">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">shoulder</span>
+          <span class="level-badge" style="background:#dcfce7">A1</span>
+          <span class="imp-badge">imp 3</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">the joint connecting the arm to the body</span>
+          <span class="term-stats">
+            <span class="stat-turns">2t</span>
+            <span class="stat-checks all-pass">8/8</span>
+            <span class="stat-cost">$0.0898</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="2 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CX, SC">✓ explore_types_valid</span><span class="ck-pass" title="Summary: Shoulder는 팔이 몸통에 연결되는 관절 부위, 즉 &#39;어깨&#39;를 가리키는 단어야. 가방을...">✓ has_summary</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">지하철에서 민준이가 무거운 백팩을 메고 서 있었어. 한 정거장쯤 지났을까, 갑자기 옆에 서 있던 아주머니가 민준이 쪽을 보면서 뭔가 불편한 표정을 짓는 거야. 알고 보니 민준이 백팩이 아주머니 팔 위쪽을 계속 건드리고 있었던 거지.</div>
+      <div class="question-text">아주머니가 불편해한 그 부위, 어디였을까?</div>
+      <div class="options-container" data-term="term-54" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-54', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">팔이랑 몸통이 이어지는 부분</span>
+      </button>
+      <div class="response-box" id="resp-term-54-intro-0" style="display:none">
+        <div class="response-text">맞아, 바로 그 부분이거든. 영어로는 shoulder라고 해. 팔이 몸에 붙어 있는 그 관절 부위를 가리키는 단어야.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-54', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">등 한가운데 부분</span>
+      </button>
+      <div class="response-box" id="resp-term-54-intro-1" style="display:none">
+        <div class="response-text">아주머니가 불편해한 건 등 한가운데가 아니라, 팔이 몸통에 연결되는 부분이었어. 그 부위를 영어로 shoulder라고 해.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">다음 중 shoulder가 가장 자연스럽게 쓰이는 상황은?</div>
+        <div class="options-container" data-term="term-54" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-54', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">무릎을 다쳐서 걷기 힘들다고 말할 때</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-54-explore-0-0" style="display:none">
+          <div class="response-text">그 상황은 무릎 부위 얘기라서 shoulder랑은 거리가 있어. Shoulder는 팔이 몸에 연결되는 그 관절 부위를 가리키거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-54', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">가방 끈이 자꾸 흘러내리는 부위를 가리킬 때</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-54-explore-0-1" style="display:none">
+          <div class="response-text">맞아! 가방 끈이 걸쳐지는 그 부위가 바로 shoulder야. 팔이 몸통에 이어지는 관절 부분이라서, 가방을 멜 때 자연스럽게 shoulder 위에 올라가는 거지.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-54', 0, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">손목이 아파서 타이핑을 못 하겠다고 할 때</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-54-explore-0-2" style="display:none">
+          <div class="response-text">그 상황은 손목 부위 얘기라서 shoulder랑은 맞지 않아. Shoulder는 팔이 몸에 연결되는 그 관절 부위를 가리키거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">SC — 문장 완성</span></h4>
+        <div class="question-text">빈칸에 shoulder가 들어가기에 **어색한** 문장은?</div>
+        <div class="options-container" data-term="term-54" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-54', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">My shoulder hurts after swimming.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-54-explore-1-0" style="display:none">
+          <div class="response-text">그건 어색하지 않아. 수영하고 나서 팔이 몸에 붙은 관절 부위가 아프다는 말이니까 shoulder가 딱 맞는 자리야.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-54', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">I hurt my shoulder when I fell on my knee.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-54-explore-1-1" style="display:none">
+          <div class="response-text">잘 찾았어! 무릎으로 넘어졌다고 했는데 shoulder가 아프다는 건 앞뒤가 안 맞지. Shoulder는 팔이 몸통에 연결되는 관절 부위니까, 무릎 부상이랑은 연결이 안 돼.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-54', 1, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">She tapped me on the shoulder to get my attention.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-54-explore-1-2" style="display:none">
+          <div class="response-text">그건 어색하지 않아. 누군가의 어깨를 톡 두드려서 주의를 끈다는 표현인데, shoulder가 자연스럽게 쓰인 문장이야.</div>
+        </div></div></div><div class="turn-section">
+      <h4 class="turn-title">종료</h4>
+      <div class="scene-text">Shoulder는 팔이 몸통에 연결되는 관절 부위, 즉 &#39;어깨&#39;를 가리키는 단어야. 가방을 메거나, 누군가를 톡 두드리거나, 수영 후에 아픈 그 부위가 바로 shoulder거든.</div>
+    </div><div class="stats-bar">
+    <span>Tokens: 439 in / 1219 out</span>
+    <span>Latency: 21443ms</span>
+    <span>Cost: $0.0898</span>
+    <span>Source: final-test</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-54">Feedback</label>
+    <textarea id="fb-term-54" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-54')"></textarea>
+    <button class="save-btn" id="save-term-54" onclick="saveFeedback('term-54')">Save</button>
+    <span class="save-status" id="status-term-54"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-55">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">look forward to</span>
+          <span class="level-badge" style="background:#bbf7d0">A2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">to feel excited about something that is going to happen</span>
+          <span class="term-stats">
+            <span class="stat-turns">3t</span>
+            <span class="stat-checks all-pass">8/8</span>
+            <span class="stat-cost">$0.0278</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="3 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CX, SC, CP">✓ explore_types_valid</span><span class="ck-pass" title="Summary: look forward to는 앞으로 일어날 일이 기다려지고 설렐 때 쓰는 표현이야. 뒤에...">✓ has_summary</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">민준이는 다음 주에 오랜 친구들이랑 제주도 여행을 가기로 했어. 캘린더에 날짜도 표시해 두고, 짐 목록도 벌써 만들어 놨거든. 여행 날짜가 다가올수록 잠도 잘 못 잘 정도야.</div>
+      <div class="question-text">민준이 지금 어떤 상태인 것 같아?</div>
+      <div class="options-container" data-term="term-55" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-55', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">설레고 기대되는 상태</span>
+      </button>
+      <div class="response-box" id="resp-term-55-intro-0" style="display:none">
+        <div class="response-text">맞아, 민준이는 여행이 너무 기다려지는 거지. 영어로는 이럴 때 &#39;I look forward to the trip&#39;이라고 해. look forward to는 앞으로 일어날 일이 기대되고 설렐 때 쓰는 표현이거든.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-55', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">걱정되고 불안한 상태</span>
+      </button>
+      <div class="response-box" id="resp-term-55-intro-1" style="display:none">
+        <div class="response-text">민준이가 짐 목록까지 미리 만들어 뒀다는 건 사실 기대감 때문이었어. 영어로는 이런 설레는 마음을 &#39;look forward to&#39;로 표현하는데, &#39;I look forward to the trip&#39;처럼 쓰거든. 앞으로 일어날 일이 기다려지고 좋을 때 쓰는 표현이야.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">look forward to는 어떤 상황에서 쓰는 표현일까?</div>
+        <div class="options-container" data-term="term-55" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-55', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">곧 있을 일이 기다려지고 설레는 상황</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-55-explore-0-0" style="display:none">
+          <div class="response-text">맞아! look forward to는 앞으로 일어날 일을 생각하면 기분이 좋고 설레는 그 감정을 표현할 때 쓰거든. 아직 일어나지 않은 일이어야 한다는 게 포인트야.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-55', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">이미 겪은 일이 좋았다고 느끼는 상황</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-55-explore-0-1" style="display:none">
+          <div class="response-text">그건 아니야. look forward to는 이미 지나간 일에 대한 감정이 아니라, 앞으로 일어날 일에 대한 기대감을 표현하는 거거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">SC — 문장 완성</span></h4>
+        <div class="question-text">look forward to 다음에 오는 형태로 자연스러운 건 어느 쪽일까?</div>
+        <div class="options-container" data-term="term-55" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-55', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">look forward to meet you</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-55-explore-1-0" style="display:none">
+          <div class="response-text">아쉽게도 이건 어색해. look forward to 뒤에는 동사 원형이 아니라 -ing 형태가 와야 하거든. to가 &#39;~하는 것&#39;을 받는 전치사로 쓰이는 거라서 그래.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-55', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">look forward to meeting you</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-55-explore-1-1" style="display:none">
+          <div class="response-text">맞아! look forward to 뒤에는 -ing 형태가 와야 해. 여기서 to는 &#39;~하기 위해&#39;의 to부정사가 아니라 전치사거든. 그래서 동사를 쓰려면 meeting처럼 -ing로 바꿔줘야 하는 거야.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">다음 두 표현의 차이로 가장 가까운 건 어느 쪽일까?
+
+① I look forward to the concert.
+② I&#39;m excited about the concert.</div>
+        <div class="options-container" data-term="term-55" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-55', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">뜻이 완전히 달라서 바꿔 쓸 수 없어</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-55-explore-2-0" style="display:none">
+          <div class="response-text">사실 두 표현은 꽤 비슷한 감정을 담고 있어. 완전히 다른 뜻은 아니거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-55', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">①은 격식체, ②는 구어체에 가까워</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-55-explore-2-1" style="display:none">
+          <div class="response-text">방향은 맞아! 그런데 조금 더 정확히 말하면, 뉘앙스 차이가 있는 거지 완전히 다른 상황에서만 쓰이는 건 아니야.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-55', 2, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">비슷한 뜻이지만, look forward to가 좀 더 격식 있는 느낌이야</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-55-explore-2-2" style="display:none">
+          <div class="response-text">맞아! 두 표현 모두 앞으로 있을 일에 대한 기대감을 나타내는데, look forward to는 이메일이나 공식적인 자리에서도 자주 보이는 반면, excited about은 일상 대화에서 더 편하게 쓰이는 편이야.</div>
+        </div></div></div><div class="turn-section">
+      <h4 class="turn-title">종료</h4>
+      <div class="scene-text">look forward to는 앞으로 일어날 일이 기다려지고 설렐 때 쓰는 표현이야. 뒤에는 항상 명사나 -ing 형태가 오거든 — to가 전치사라서 그래. 일상 대화는 물론 격식 있는 자리에서도 두루 쓰이는 표현이라 알아두면 진짜 유용해.</div>
+    </div><div class="stats-bar">
+    <span>Tokens: 443 in / 1531 out</span>
+    <span>Latency: 26973ms</span>
+    <span>Cost: $0.0278</span>
+    <span>Source: final-test</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-55">Feedback</label>
+    <textarea id="fb-term-55" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-55')"></textarea>
+    <button class="save-btn" id="save-term-55" onclick="saveFeedback('term-55')">Save</button>
+    <span class="save-status" id="status-term-55"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-56">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">breathe</span>
+          <span class="level-badge" style="background:#bbf7d0">A2</span>
+          <span class="imp-badge">imp 3</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">to take air into and out of the lungs</span>
+          <span class="term-stats">
+            <span class="stat-turns">2t</span>
+            <span class="stat-checks all-pass">8/8</span>
+            <span class="stat-cost">$0.0240</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="2 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CX, SC">✓ explore_types_valid</span><span class="ck-pass" title="Summary: breathe는 공기를 폐 안으로 들이마시고 다시 내쉬는, 숨 쉬는 동작 자체를 가리키는 ...">✓ has_summary</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">지하철역 계단을 한달음에 뛰어 올라온 민준이, 개찰구 앞에서 멈춰 서서 가슴에 손을 얹었어. 심장이 쿵쾅거리고, 입이 떡 벌어진 채로 한동안 그 자리에 서 있었거든.</div>
+      <div class="question-text">민준이 지금 어떤 상태인 것 같아?</div>
+      <div class="options-container" data-term="term-56" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-56', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">숨이 차서 몸이 따라가질 않는 상태</span>
+      </button>
+      <div class="response-box" id="resp-term-56-intro-0" style="display:none">
+        <div class="response-text">맞아, 계단을 전력으로 뛰고 나면 몸이 딱 그렇게 되잖아. 이럴 때 영어로 &quot;I can&#39;t breathe&quot;라고 하거든. breathe는 숨을 쉬다, 즉 공기를 들이마시고 내쉬는 동작을 말해.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-56', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">놀라거나 무서운 걸 봐서 굳어버린 상태</span>
+      </button>
+      <div class="response-box" id="resp-term-56-intro-1" style="display:none">
+        <div class="response-text">그럴 수도 있겠다 싶지? 근데 계단을 뛰어 올라온 직후라는 게 포인트야. 몸이 산소를 더 달라고 아우성치는 상황인 거지. 이럴 때 &quot;I need to breathe&quot;라고 해 — breathe는 숨을 쉬다, 공기를 들이마시고 내쉬는 동작이거든.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">breathe가 가장 자연스럽게 쓰이는 상황은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-56" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-56', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">밥을 먹다가 갑자기 배가 너무 불러서 힘들 때</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-56-explore-0-0" style="display:none">
+          <div class="response-text">그 상황에서는 breathe보다 어울리는 표현이 따로 있어. breathe는 공기가 폐 안팎으로 드나드는 동작에 쓰이는 말이거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-56', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">수영장에서 물속에 오래 있다가 수면 위로 올라왔을 때</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-56-explore-0-1" style="display:none">
+          <div class="response-text">맞아! 물속에서는 공기를 들이마실 수가 없으니까, 수면 위로 올라와서 숨을 쉬는 그 순간이 breathe의 전형적인 장면이야.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-56', 0, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">오래 걸어서 다리가 너무 아플 때</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-56-explore-0-2" style="display:none">
+          <div class="response-text">다리가 아픈 건 breathe랑 직접 연결되지 않아. breathe는 다리가 아닌, 공기가 폐로 들어오고 나가는 동작을 말하는 거거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">SC — 문장 완성</span></h4>
+        <div class="question-text">빈칸에 breathe가 들어가기에 **가장 자연스러운** 문장은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-56" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-56', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">연기가 너무 심해서 제대로 breathe할 수가 없었어.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-56-explore-1-0" style="display:none">
+          <div class="response-text">맞아. 연기가 가득 찬 공간에서는 공기를 제대로 들이마실 수가 없으니까, breathe가 딱 맞는 자리야.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-56', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">발표가 너무 긴장돼서 breathe하는 게 힘들었어.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-56-explore-1-1" style="display:none">
+          <div class="response-text">발표 긴장감을 표현할 때 breathe를 쓰면 어색해. 긴장하면 숨이 막히는 느낌이 들기도 하지만, 그 감각은 breathe가 아닌 다른 표현으로 나타내는 게 자연스러워.</div>
+        </div></div></div><div class="turn-section">
+      <h4 class="turn-title">종료</h4>
+      <div class="scene-text">breathe는 공기를 폐 안으로 들이마시고 다시 내쉬는, 숨 쉬는 동작 자체를 가리키는 단어야. 연기, 물속, 격한 운동처럼 공기를 제대로 들이마시기 어려운 상황에서 특히 자주 등장하는 거지.</div>
+    </div><div class="stats-bar">
+    <span>Tokens: 442 in / 1277 out</span>
+    <span>Latency: 23903ms</span>
+    <span>Cost: $0.0240</span>
+    <span>Source: final-test</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-56">Feedback</label>
+    <textarea id="fb-term-56" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-56')"></textarea>
+    <button class="save-btn" id="save-term-56" onclick="saveFeedback('term-56')">Save</button>
+    <span class="save-status" id="status-term-56"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-57">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">keep in mind</span>
+          <span class="level-badge" style="background:#fef9c3">B1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">to remember and consider something</span>
+          <span class="term-stats">
+            <span class="stat-turns">3t</span>
+            <span class="stat-checks all-pass">8/8</span>
+            <span class="stat-cost">$0.0313</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="3 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CX, CP, MU">✓ explore_types_valid</span><span class="ck-pass" title="Summary: Keep in mind는 단순히 &#39;기억해&#39;가 아니라, 어떤 사실을 머릿속에 담아두고 행동할...">✓ has_summary</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">민준이는 해외여행을 앞두고 친구 소연이한테 조언을 구했어. 소연이는 여행 경험이 많거든. 소연이가 이것저것 알려주다가 마지막에 한마디를 덧붙였어. &quot;환율이 매일 바뀌니까, 출발 전날 꼭 확인해봐.&quot;</div>
+      <div class="question-text">소연이가 이 말을 한 이유가 뭐라고 생각해?</div>
+      <div class="options-container" data-term="term-57" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-57', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">민준이가 환율을 아예 모를 것 같아서</span>
+      </button>
+      <div class="response-box" id="resp-term-57-intro-0" style="display:none">
+        <div class="response-text">민준이가 환율을 모른다기보다는, 알고 있어도 막상 여행 준비하다 보면 잊어버리기 쉽잖아. 그래서 소연이가 &quot;잊지 말고 챙겨&quot;라는 뜻으로 한 말인 거지. 영어로는 이럴 때 keep in mind라고 해 — 머릿속에 담아두고 행동할 때 고려하라는 뜻이거든.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-57', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">민준이가 나중에 잊을 수도 있으니까</span>
+      </button>
+      <div class="response-box" id="resp-term-57-intro-1" style="display:none">
+        <div class="response-text">맞아, 알고 있어도 바쁘게 준비하다 보면 놓치기 쉬우니까 소연이가 일부러 짚어준 거지. 영어로는 이럴 때 keep in mind라고 해 — 머릿속에 담아두고 행동할 때 고려하라는 뜻이거든.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">다음 중 keep in mind가 가장 자연스럽게 어울리는 상황은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-57" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-57', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">친구한테 오늘 점심 뭐 먹었는지 물어볼 때</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-57-explore-0-0" style="display:none">
+          <div class="response-text">그건 그냥 궁금해서 묻는 거잖아. keep in mind는 상대가 뭔가를 기억하고 행동에 반영해야 할 때 쓰는 표현이야. 지금 막 떠올리는 것과는 결이 달라.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-57', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">발표 준비하는 후배한테 &quot;청중이 전문가가 아니라는 걸 keep in mind해&quot;라고 할 때</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-57-explore-0-1" style="display:none">
+          <div class="response-text">딱 맞아. 발표하는 내내 그 사실을 머릿속에 담아두고 말하는 방식을 조절해야 하잖아. keep in mind는 이렇게 어떤 사실을 염두에 두고 행동할 때 쓰는 표현이거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">keep in mind랑 remember, 둘 다 &#39;기억&#39;과 관련이 있는데 느낌이 달라. 아래 문장에서 어느 쪽이 더 자연스러울까?
+
+&quot;예산이 빠듯하다는 걸 ___ 해서 쇼핑 목록을 짜봐.&quot;</div>
+        <div class="options-container" data-term="term-57" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-57', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">keep in mind</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-57-explore-1-0" style="display:none">
+          <div class="response-text">맞아. 예산이 빠듯하다는 사실을 머릿속에 담아두고 쇼핑 목록을 짜야 하잖아 — 그 사실이 행동 전체에 영향을 미치는 거지. keep in mind는 이렇게 &#39;고려하면서 행동하라&#39;는 뉘앙스가 강해.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-57', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">remember</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-57-explore-1-1" style="display:none">
+          <div class="response-text">remember는 &#39;잊었던 걸 다시 떠올리다&#39;에 가까워. 물론 틀린 건 아닌데, 이 문장에서는 단순히 떠올리는 게 아니라 그 사실을 염두에 두고 목록을 짜야 한다는 뜻이잖아. 그 &#39;고려하면서 행동하라&#39;는 느낌은 keep in mind가 더 잘 담아내거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">MU — 오용 판별</span></h4>
+        <div class="question-text">다음 중 keep in mind가 **어색하게** 쓰인 문장은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-57" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-57', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">&quot;마감이 금요일이라는 걸 keep in mind하고 일정을 짜.&quot;</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-57-explore-2-0" style="display:none">
+          <div class="response-text">잘 찾았어! 아, 잠깐 — 이건 어색한 쪽이 아니야. 마감일을 염두에 두고 일정을 짜라는 말이니까 완전히 자연스러운 쓰임이거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-57', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">&quot;어제 뭐 먹었는지 keep in mind해봐.&quot;</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-57-explore-2-1" style="display:none">
+          <div class="response-text">잘 찾았어. 어제 먹은 걸 &#39;기억해내려고 노력하는&#39; 상황이잖아 — 이건 recall이나 remember가 어울리는 자리야. keep in mind는 이미 알고 있는 사실을 행동할 때 계속 고려하라는 뜻이라, 과거 기억을 끄집어내는 상황엔 어색해.</div>
+        </div></div></div><div class="turn-section">
+      <h4 class="turn-title">종료</h4>
+      <div class="scene-text">Keep in mind는 단순히 &#39;기억해&#39;가 아니라, 어떤 사실을 머릿속에 담아두고 행동할 때 계속 고려하라는 뜻이거든. 그래서 remember처럼 잊었던 걸 떠올리는 상황보다는, 알고 있는 사실이 앞으로의 행동에 영향을 미쳐야 할 때 딱 맞는 표현이야.</div>
+    </div><div class="stats-bar">
+    <span>Tokens: 438 in / 1764 out</span>
+    <span>Latency: 30369ms</span>
+    <span>Cost: $0.0313</span>
+    <span>Source: final-test</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-57">Feedback</label>
+    <textarea id="fb-term-57" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-57')"></textarea>
+    <button class="save-btn" id="save-term-57" onclick="saveFeedback('term-57')">Save</button>
+    <span class="save-status" id="status-term-57"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-58">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">genuine</span>
+          <span class="level-badge" style="background:#fef9c3">B1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">truly what it is said to be; authentic and sincere</span>
+          <span class="term-stats">
+            <span class="stat-turns">3t</span>
+            <span class="stat-checks all-pass">8/8</span>
+            <span class="stat-cost">$0.0364</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="3 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CX, CP, SC">✓ explore_types_valid</span><span class="ck-pass" title="Summary: genuine은 &#39;진짜인&#39;, &#39;진품인&#39;이라는 뜻인데, 단순히 &#39;존재한다&#39;는 게 아니라 &#39;주...">✓ has_summary</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">민준이가 오랫동안 갖고 싶었던 빈티지 가죽 지갑을 중고 거래 앱에서 발견했어. 판매자는 &#39;정품 이탈리아제&#39;라고 올려놨는데, 막상 직거래로 만나서 실물을 보니까 뭔가 느낌이 달랐거든. 스티칭도 좀 엉성하고, 가죽 냄새도 영 아닌 것 같고. 민준이는 그 자리에서 한참을 들여다봤어.</div>
+      <div class="question-text">민준이가 지갑을 그렇게 꼼꼼히 살펴본 이유가 뭘까?</div>
+      <div class="options-container" data-term="term-58" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-58', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">디자인이 마음에 드는지 확인하려고</span>
+      </button>
+      <div class="response-box" id="resp-term-58-intro-0" style="display:none">
+        <div class="response-text">결국 민준이는 지갑을 돌려주고 자리를 떴어. 나중에 친구한테 이렇게 말했대. &quot;아무리 봐도 genuine이 아닌 것 같아서.&quot; genuine은 &#39;진짜인&#39;, &#39;진품인&#39;이라는 뜻이거든. 겉으로는 그럴듯해 보여도 실제로 그것이 맞는지를 따질 때 쓰는 단어야.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-58', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">판매자 말대로 진짜인지 확인하려고</span>
+      </button>
+      <div class="response-box" id="resp-term-58-intro-1" style="display:none">
+        <div class="response-text">민준이는 결국 그 지갑을 사지 않았어. 친구한테 나중에 이렇게 털어놨거든. &quot;아무리 봐도 genuine leather가 아닌 것 같더라고.&quot; genuine은 &#39;진짜인&#39;, &#39;진품인&#39;이라는 뜻이야. 누군가 주장하는 것이 실제로도 그러한지를 따질 때 자연스럽게 나오는 단어거든.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">genuine이 가장 자연스럽게 어울리는 상황은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-58" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-58', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">새로 산 물건이 마음에 쏙 들어서 만족감을 표현할 때</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-58-explore-0-0" style="display:none">
+          <div class="response-text">그건 genuine이 어울리는 자리가 아니야. 만족감이나 기분을 표현하는 건 genuine의 역할이 아니거든. genuine은 감정이 아니라 &#39;이게 진짜 그것인가&#39;를 따지는 자리에서 쓰여.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-58', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">겉으로 보이는 것과 실제가 같은지 따져야 할 때</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-58-explore-0-1" style="display:none">
+          <div class="response-text">맞아. genuine은 &#39;주장된 것&#39;과 &#39;실제&#39;가 일치하는지를 따질 때 쓰이는 단어야. 진품 여부, 진심 여부처럼 겉과 속이 같은지가 핵심인 상황에서 자연스럽게 나와.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-58', 0, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">오래되고 낡은 물건의 연식을 설명할 때</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-58-explore-0-2" style="display:none">
+          <div class="response-text">그건 genuine이 담당하는 영역이 아니야. 물건이 얼마나 오래됐는지는 genuine과 관계없어. genuine은 &#39;오래됨&#39;이 아니라 &#39;진짜임&#39;을 따지는 단어거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">genuine과 real은 둘 다 &#39;진짜&#39;라는 느낌을 주는데, 쓰임이 조금 달라. 아래 두 문장을 비교해 봐. 어느 쪽이 genuine의 감각에 더 가까워?
+
+① 이 가방, genuine leather야.
+② 이 가방, real leather야.</div>
+        <div class="options-container" data-term="term-58" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-58', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">①이 genuine의 감각에 더 가까워</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-58-explore-1-0" style="display:none">
+          <div class="response-text">맞아. genuine leather라고 하면 &#39;가짜가 아닌 진품 가죽&#39;이라는 걸 강조하는 거야. genuine에는 &#39;누군가 진짜라고 주장하는 것이 실제로도 그러한가&#39;라는 검증의 뉘앙스가 담겨 있거든. real은 그냥 &#39;실제로 존재하는&#39;에 가깝고, genuine은 &#39;주장된 것과 실제가 일치하는&#39;에 더 가까워.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-58', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">②가 genuine의 감각에 더 가까워</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-58-explore-1-1" style="display:none">
+          <div class="response-text">real leather도 자연스러운 표현이긴 한데, genuine의 감각을 더 잘 보여주는 건 ①이야. genuine에는 &#39;가짜일 수도 있다는 의심&#39;을 전제로 &#39;진짜임을 확인한다&#39;는 뉘앙스가 있거든. real은 그냥 &#39;실제로 있는&#39;에 가깝고, genuine은 &#39;주장된 것이 실제로도 그러한&#39;에 더 가까워.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">SC — 문장 완성</span></h4>
+        <div class="question-text">genuine은 사물뿐 아니라 사람의 감정이나 태도에도 쓰여. 다음 중 genuine이 **어색하지 않게** 쓰인 문장은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-58" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-58', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">그 사람은 genuine 실수를 해서 결과가 안 좋았어.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-58-explore-2-0" style="display:none">
+          <div class="response-text">그 자리에서 genuine은 좀 어색해. genuine은 실수의 결과나 정도를 설명하는 단어가 아니거든. &#39;실수가 진짜였다&#39;는 게 핵심이 아닌 상황에서는 genuine이 자연스럽게 끼어들기 어려워.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-58', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">그 사람 사과가 genuine하다는 게 느껴졌어.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-58-explore-2-1" style="display:none">
+          <div class="response-text">맞아. 사과가 genuine하다는 건 &#39;진심에서 우러난 사과&#39;라는 뜻이야. genuine은 이렇게 감정이나 태도가 겉으로만 그런 게 아니라 속에서도 진짜일 때 쓸 수 있어. 사물의 진품 여부뿐 아니라 사람의 진심 여부에도 자연스럽게 쓰이는 단어거든.</div>
+        </div></div></div><div class="turn-section">
+      <h4 class="turn-title">종료</h4>
+      <div class="scene-text">genuine은 &#39;진짜인&#39;, &#39;진품인&#39;이라는 뜻인데, 단순히 &#39;존재한다&#39;는 게 아니라 &#39;주장된 것과 실제가 일치한다&#39;는 걸 따질 때 쓰이는 단어야. 가죽 지갑이 진품인지, 사과가 진심인지처럼 사물과 감정 모두에 쓸 수 있거든. 겉과 속이 같은지를 검증하는 자리에서 genuine이 자연스럽게 나와.</div>
+    </div><div class="stats-bar">
+    <span>Tokens: 443 in / 2104 out</span>
+    <span>Latency: 37990ms</span>
+    <span>Cost: $0.0364</span>
+    <span>Source: final-test</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-58">Feedback</label>
+    <textarea id="fb-term-58" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-58')"></textarea>
+    <button class="save-btn" id="save-term-58" onclick="saveFeedback('term-58')">Save</button>
+    <span class="save-status" id="status-term-58"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-59">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">take for granted</span>
+          <span class="level-badge" style="background:#fde68a">B2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">to fail to appreciate something because it seems normal</span>
+          <span class="term-stats">
+            <span class="stat-turns">4t</span>
+            <span class="stat-checks all-pass">8/8</span>
+            <span class="stat-cost">$0.0388</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="4 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CX, CP, MU, AR">✓ explore_types_valid</span><span class="ck-pass" title="Summary: take for granted는 늘 곁에 있어서 당연하다고 여기다 보니 정작 그 소중함을 ...">✓ has_summary</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">지수는 매일 아침 엄마가 차려주는 밥을 먹고 학교에 갔어. 반찬이 좀 별로인 날엔 투덜거리기도 했고, 바쁠 땐 거의 말도 없이 먹고 나가버리기도 했지. 그러다 엄마가 일주일 출장을 가게 됐어. 첫날 아침, 지수는 텅 빈 식탁 앞에 멍하니 앉아서 그제야 뭔가를 느꼈거든.</div>
+      <div class="question-text">지수가 그 순간 깨달은 게 뭘까?</div>
+      <div class="options-container" data-term="term-59" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-59', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">엄마 밥이 얼마나 소중한 건지 한 번도 제대로 생각해본 적이 없었다는 것</span>
+      </button>
+      <div class="response-box" id="resp-term-59-intro-0" style="display:none">
+        <div class="response-text">맞아, 매일 있던 게 사라지고 나서야 비로소 보이는 거잖아. 영어로는 이걸 take for granted한다고 해 — 늘 있으니까 당연하게 여기고, 고마운 줄 몰랐던 거지.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-59', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">엄마가 없으면 자기가 얼마나 아무것도 못 하는지</span>
+      </button>
+      <div class="response-box" id="resp-term-59-intro-1" style="display:none">
+        <div class="response-text">그 무력감도 있었겠지. 근데 그것보다 더 근본적인 게 있어 — 매일 차려져 있으니까 그냥 당연한 거라고 생각했던 거잖아. 영어로는 그걸 take for granted한다고 해. 있을 때는 눈에 안 보이다가, 없어지고 나서야 얼마나 소중했는지 느끼는 거지.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">take for granted라는 표현이 가장 자연스럽게 어울리는 상황은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-59" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-59', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">친구가 갑자기 비싼 선물을 줘서 어떻게 반응해야 할지 모르는 상황</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-59-explore-0-0" style="display:none">
+          <div class="response-text">그건 예상치 못한 일에 당황하는 상황이잖아. take for granted는 그런 놀라움이나 당혹감이랑은 거리가 있어 — 오히려 너무 익숙해서 아무 감각도 없는 상태에 쓰는 표현이거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-59', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">오랫동안 건강하게 살다가 처음 크게 아프고 나서 건강의 소중함을 느끼는 상황</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-59-explore-0-1" style="display:none">
+          <div class="response-text">바로 이거야. 건강할 때는 그게 당연한 거라고 생각하고 살잖아 — 그게 take for granted하는 거야. 없어지거나 흔들리고 나서야 비로소 그 가치가 보이는 것들에 쓰는 표현이거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-59', 0, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">오랫동안 갖고 싶었던 걸 드디어 손에 넣고 기뻐하는 상황</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-59-explore-0-2" style="display:none">
+          <div class="response-text">그건 오히려 반대야. 간절히 원하던 걸 얻은 상황이잖아. take for granted는 이미 가지고 있는 것의 가치를 느끼지 못하는 상태에 쓰는 표현이야.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">take for granted와 overlook, 이 두 표현은 어떻게 달라?</div>
+        <div class="options-container" data-term="term-59" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-59', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">take for granted는 늘 있어서 당연하다고 여기는 것이고, overlook은 실수나 부주의로 그냥 지나치는 것이야</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-59-explore-1-0" style="display:none">
+          <div class="response-text">정확해. take for granted는 &#39;익숙함&#39;에서 오는 무감각이야 — 나쁜 의도가 없어도, 그냥 늘 있으니까 소중한 줄 모르는 거지. overlook은 그런 익숙함과 상관없이 그냥 놓쳐버리는 거고. 그래서 둘은 비슷해 보여도 결이 달라.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-59', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">take for granted는 의도적으로 무시하는 것이고, overlook은 무의식적으로 지나치는 것이야</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-59-explore-1-1" style="display:none">
+          <div class="response-text">take for granted에 &#39;의도적 무시&#39;라는 뜻은 없어. 오히려 반대야 — 나쁜 마음이 없어도, 그냥 너무 익숙해서 고마운 줄 모르는 상태거든. 의도적으로 뭔가를 외면하는 것과는 달라.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">MU — 오용 판별</span></h4>
+        <div class="question-text">take for granted가 **어색하게** 쓰인 문장을 골라봐.</div>
+        <div class="options-container" data-term="term-59" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-59', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">We often take clean water for granted until there&#39;s a shortage.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-59-explore-2-0" style="display:none">
+          <div class="response-text">그건 자연스러운 문장이야. 깨끗한 물이 늘 있으니까 당연하게 여기다가, 부족해지고 나서야 소중함을 깨닫는 상황 — take for granted가 딱 맞는 자리야.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-59', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">She took for granted that she had never seen such a beautiful view before.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-59-explore-2-1" style="display:none">
+          <div class="response-text">잘 찾았어. 이 문장은 어색해. take for granted는 &#39;익숙해서 당연하게 여기는 것&#39;인데, 처음 보는 풍경에는 그 익숙함 자체가 없잖아. 처음 접하는 것에는 쓸 수 없는 표현이야.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 4 <span class="turn-type">AR — 행동·결과 예측</span></h4>
+        <div class="question-text">누군가 &quot;I&#39;ve been taking my friends for granted&quot;라고 말했어. 이 사람이 이어서 할 말로 자연스러운 건 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-59" data-turn="explore-3"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-59', 3, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">&quot;I need to show them how much they mean to me.&quot;</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-59-explore-3-0" style="display:none">
+          <div class="response-text">맞아. take for granted했다는 건 그동안 소중함을 느끼지 못했다는 반성이잖아 — 그러니까 자연스럽게 &#39;이제는 고마움을 표현해야겠다&#39;는 다짐으로 이어지는 거야.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-59', 3, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">&quot;I&#39;m glad I finally got to spend time with them.&quot;</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-59-explore-3-1" style="display:none">
+          <div class="response-text">그건 좀 어색해. take for granted는 반성이나 깨달음의 맥락에서 나오는 말인데, 단순히 시간을 보내서 기쁘다는 말은 그 흐름과 잘 안 맞아. 이 표현 뒤에는 보통 &#39;앞으로 달라지겠다&#39;는 방향의 말이 따라오거든.</div>
+        </div></div></div><div class="turn-section">
+      <h4 class="turn-title">종료</h4>
+      <div class="scene-text">take for granted는 늘 곁에 있어서 당연하다고 여기다 보니 정작 그 소중함을 느끼지 못하는 상태를 말해. 나쁜 의도가 있는 게 아니라, 그냥 너무 익숙해서 감각이 무뎌진 거야. 그래서 이 표현은 보통 &#39;없어지고 나서야 알았다&#39;는 반성이나 깨달음의 맥락에서 자주 나오거든.</div>
+    </div><div class="stats-bar">
+    <span>Tokens: 442 in / 2261 out</span>
+    <span>Latency: 40576ms</span>
+    <span>Cost: $0.0388</span>
+    <span>Source: final-test</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-59">Feedback</label>
+    <textarea id="fb-term-59" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-59')"></textarea>
+    <button class="save-btn" id="save-term-59" onclick="saveFeedback('term-59')">Save</button>
+    <span class="save-status" id="status-term-59"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-60">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">subtle</span>
+          <span class="level-badge" style="background:#fde68a">B2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">so slight or delicate as to be difficult to notice</span>
+          <span class="term-stats">
+            <span class="stat-turns">3t</span>
+            <span class="stat-checks all-pass">8/8</span>
+            <span class="stat-cost">$0.0312</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="3 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CX, CP, MU">✓ explore_types_valid</span><span class="ck-pass" title="Summary: subtle은 존재하긴 하는데 딱 집어 말하기 어려울 만큼 작고 섬세한 것에 쓰는 단어야....">✓ has_summary</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">지수는 친한 친구 민준이랑 카페에서 오랜만에 만났어. 근데 뭔가 이상한 거야. 민준이가 평소랑 다르게 말수가 좀 줄었고, 웃을 때도 입꼬리만 살짝 올라가는 정도였거든. 지수는 &#39;어, 뭔가 달라졌나?&#39; 싶었는데, 딱히 뭐가 달라진 건지 콕 집어 말하기가 어려운 거야. 표정이 굳은 것도 아니고, 말을 안 하는 것도 아니고, 그냥… 뭔가 미묘하게 달라진 느낌.</div>
+      <div class="question-text">지수가 느낀 이 변화, 어떻게 보면 될까?</div>
+      <div class="options-container" data-term="term-60" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-60', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">누가 봐도 확 티 나는 변화야</span>
+      </button>
+      <div class="response-box" id="resp-term-60-intro-0" style="display:none">
+        <div class="response-text">근데 사실 지수도 처음엔 그냥 지나칠 뻔했거든. 나중에 집에 가면서 곱씹다가 &#39;아, 뭔가 달랐었지&#39; 싶었던 거야. 이런 변화를 영어로 subtle하다고 해. 너무 작거나 섬세해서 딱 알아채기 어려운 것들 — 그게 subtle이야.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-60', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">워낙 작은 변화라 알아채기 힘든 거야</span>
+      </button>
+      <div class="response-box" id="resp-term-60-intro-1" style="display:none">
+        <div class="response-text">맞아, 지수도 뭔가 달라진 것 같긴 한데 뭐가 달라진 건지 설명하기가 어려웠던 거잖아. 이런 걸 영어로 subtle하다고 해. 너무 작거나 섬세해서 딱 알아채기 어려운 것들 — 그게 subtle이야.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">다음 중 subtle이라는 단어가 가장 자연스럽게 어울리는 상황은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-60" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-60', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">친구가 갑자기 소리를 지르며 화를 냈다</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-60-explore-0-0" style="display:none">
+          <div class="response-text">그건 누가 봐도 바로 알 수 있는 반응이잖아 — subtle이랑은 거리가 멀어. subtle은 딱 보고 바로 알아채기 어려운 것에 쓰는 말이거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-60', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">향수를 뿌렸는데 가까이 가야 겨우 느껴질 정도야</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-60-explore-0-1" style="display:none">
+          <div class="response-text">바로 이거야. 가까이 가야 겨우 느껴질 정도라면, 존재하긴 하는데 쉽게 알아채기 어려운 거잖아. 그게 딱 subtle한 거야.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-60', 0, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">발표 자료에 오타가 너무 많아서 다 보일 정도였다</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-60-explore-0-2" style="display:none">
+          <div class="response-text">그건 한눈에 확 들어오는 문제잖아 — subtle이랑은 반대 방향이야. subtle은 주의 깊게 보지 않으면 그냥 지나치게 되는 것에 쓰는 말이거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">subtle과 obvious, 이 두 단어는 어떤 관계야?</div>
+        <div class="options-container" data-term="term-60" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-60', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">서로 반대야 — obvious는 누가 봐도 바로 알 수 있는 거고, subtle은 알아채기 어려운 거야</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-60-explore-1-0" style="display:none">
+          <div class="response-text">정확해. obvious는 감추려 해도 다 보이는 것, subtle은 보려고 해도 잘 안 보이는 것 — 정반대 방향이야.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-60', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">비슷한 말이야 — 둘 다 뭔가 특별한 느낌을 표현해</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-60-explore-1-1" style="display:none">
+          <div class="response-text">그건 아니야. subtle과 obvious는 방향이 완전히 달라. obvious는 누구나 바로 알아챌 수 있는 것에 쓰고, subtle은 주의 깊게 보지 않으면 그냥 지나치는 것에 써.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">MU — 오용 판별</span></h4>
+        <div class="question-text">다음 중 subtle이 **어색하게** 쓰인 문장은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-60" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-60', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">그 배우의 연기는 subtle해서, 대사 없이 눈빛만으로 감정을 전달했어</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-60-explore-2-0" style="display:none">
+          <div class="response-text">그건 어색하지 않아. 눈빛만으로 감정을 전달하는 건 섬세하고 잘 드러나지 않는 방식이니까, subtle이 딱 맞아.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-60', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">지진이 너무 subtle해서 건물이 다 무너졌어</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-60-explore-2-1" style="display:none">
+          <div class="response-text">잘 찾았어! 건물이 다 무너질 정도의 지진은 누구나 바로 알아챌 수밖에 없잖아 — 그건 subtle이랑 정반대야. subtle은 알아채기 어려울 만큼 작거나 섬세한 것에 쓰는 말이거든.</div>
+        </div></div></div><div class="turn-section">
+      <h4 class="turn-title">종료</h4>
+      <div class="scene-text">subtle은 존재하긴 하는데 딱 집어 말하기 어려울 만큼 작고 섬세한 것에 쓰는 단어야. 확 티 나는 obvious와는 정반대 방향이고, 주의 깊게 보지 않으면 그냥 지나치게 되는 변화나 차이, 느낌에 자연스럽게 붙어.</div>
+    </div><div class="stats-bar">
+    <span>Tokens: 442 in / 1757 out</span>
+    <span>Latency: 32548ms</span>
+    <span>Cost: $0.0312</span>
+    <span>Source: final-test</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-60">Feedback</label>
+    <textarea id="fb-term-60" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-60')"></textarea>
+    <button class="save-btn" id="save-term-60" onclick="saveFeedback('term-60')">Save</button>
+    <span class="save-status" id="status-term-60"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-61">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">implications</span>
+          <span class="level-badge" style="background:#fde68a">B2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">possible effects or results of an action or decision</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0338</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Failed to parse">✗ json_parse</span></div><div class="error-box">Parse failed. Raw response:<pre>{&quot;i&quot;:&quot;{\n  \&quot;s\&quot;: \&quot;민준이는 회사에서 팀장한테 이런 말을 들었어. \&quot;이번 분기 예산을 30% 줄이기로 했어요.\&quot; 딱 그 한 마디였거든. 민준이는 그 자리에서 아무 말도 못 하고 회의실을 나왔는데, 머릿속이 갑자기 복잡해지기 시작했어. 인원 감축은 없는 건지, 자기 프로젝트는 계속 진행되는 건지, 야근이 더 늘어나는 건 아닌지…\&quot;,\n  \&quot;q\&quot;: \&quot;민준이가 회의실 나오자마자 이것저것 생각하기 시작한 이유가 뭘 것 같아?\&quot;,\n  \&quot;o\&quot;: [\n    [\n      \&quot;팀장 말 한 마디가 앞으로 벌어질 일들을 떠올리게 만들어서\&quot;,\n      \&quot;맞아, 민준이는 \&quot;예산 30% 삭감\&quot;이라는 결정이 자기 일상에 어떻게 튕겨올지를 머릿속으로 쭉 그려보고 있었던 거거든. 이렇게 어떤 결정이나 행동이 불러올 수 있는 결과들, 영어로는 implications라고 해. \&quot;그 결정의 implications를 생각해봐야 해\&quot;처럼 쓰는 말이야.\&quot;\n    ],\n    [\n      \&quot;팀장이 설명을 너무 짧게 해서 정보가 부족했기 때문에\&quot;,\n      \&quot;정보가 부족했던 것도 사실이긴 한데, 민준이가 진짜 고민한 건 그 너머에 있었어. \&quot;예산이 줄면 내 프로젝트는? 인원은? 야근은?\&quot; — 결정 하나가 앞으로 어떤 일들을 불러올지를 머릿속으로 쭉 펼쳐보고 있었던 거지. 이렇게 어떤 결정이나 행동이 가져올 수 있는 결과들을 implications라고 해.\&quot;\n    ]\n  ]\n}&quot;,&quot;e&quot;:&quot;[\n  {\n    \&quot;t\&quot;: \&quot;CX\&quot;,\n    \&quot;q\&quot;: \&quot;implications라는 단어가 가장 자연스럽게 어울리는 상황은 어느 쪽이야?\&quot;,\n    \&quot;a\&quot;: 1,\n    \&quot;o\&quot;: [\n      [\n        \&quot;친구한테 \&quot;나 오늘 점심 뭐 먹었는지 알아?\&quot;라고 말할 때\&quot;,\n        \&quot;그건 implications가 끼어들 자리가 없어. implications는 어떤 결정이나 행동이 앞으로 어떤 결과를 불러올지를 따질 때 나오는 말이거든. 점심 메뉴 얘기엔 그런 무게가 없잖아.\&quot;\n      ],\n      [\n        \&quot;정부가 최저임금을 올리기로 했을 때, 그게 소상공인한테 어떤 영향을 미칠지 분석할 때\&quot;,\n        \&quot;딱 이런 상황이야. 결정 하나가 여러 방향으로 어떤 결과를 낳을지 따져보는 것 — 그게 바로 implications를 쓰는 자리거든. 정책, 사업 결정, 계약처럼 파급력이 있는 선택 앞에서 자주 등장하는 표현이야.\&quot;\n      ]\n    ]\n  },\n  {\n    \&quot;t\&quot;: \&quot;CP\&quot;,\n    \&quot;q\&quot;: \&quot;implications와 results, 이 두 단어는 어떻게 달라?\&quot;,\n    \&quot;a\&quot;: 0,\n    \&quot;o\&quot;: [\n      [\n        \&quot;results는 이미 일어난 결과고, implications는 아직 일어나지 않은 잠재적 결과야\&quot;,\n        \&quot;바로 그거야. results는 \&quot;해봤더니 이렇게 됐다\&quot;는 확인된 결과인데, implications는 \&quot;이렇게 되면 어떤 일이 생길 수 있지?\&quot;라는 아직 펼쳐지지 않은 가능성들이거든. 그래서 implications는 결정을 내리기 전이나 직후에 많이 쓰여.\&quot;\n      ],\n      [\n        \&quot;results는 좋은 결과, implications는 나쁜 결과를 가리켜\&quot;,\n        \&quot;그건 아니야. implications가 부정적인 뉘앙스로 쓰일 때가 많긴 한데, 그게 본질적인 차이는 아니거든. 핵심 차이는 &#39;이미 일어났느냐, 아직 일어나지 않았느냐&#39;에 있어.\&quot;\n      ]\n    ]\n  },\n  {\n    \&quot;t\&quot;: \&quot;MU\&quot;,\n    \&quot;q\&quot;: \&quot;다음 중 implications를 **어색하게** 쓴 문장은 어느 쪽이야?\&quot;,\n    \&quot;a\&quot;: 1,\n    \&quot;o\&quot;: [\n      [\n        \&quot;We need to think about t</pre></div><div class="stats-bar">
+    <span>Tokens: 440 in / 1931 out</span>
+    <span>Latency: 34132ms</span>
+    <span>Cost: $0.0338</span>
+    <span>Source: final-test</span>
+  </div><div class="parse-errors"><h4>Parse Errors</h4><div class="parse-error">Missing or invalid intro block (i)</div></div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-61">Feedback</label>
+    <textarea id="fb-term-61" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-61')"></textarea>
+    <button class="save-btn" id="save-term-61" onclick="saveFeedback('term-61')">Save</button>
+    <span class="save-status" id="status-term-61"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-62">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">turn a blind eye</span>
+          <span class="level-badge" style="background:#fde68a">B2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">to deliberately ignore something wrong or illegal</span>
+          <span class="term-stats">
+            <span class="stat-turns">4t</span>
+            <span class="stat-checks all-pass">8/8</span>
+            <span class="stat-cost">$0.0347</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="4 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CX, CP, AR, MU">✓ explore_types_valid</span><span class="ck-pass" title="Summary: turn a blind eye는 뭔가 잘못되거나 문제가 있다는 걸 알면서도 일부러 못 본 ...">✓ has_summary</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">편의점 야간 알바를 하는 재현이는 단골손님이 유통기한 지난 삼각김밥을 슬쩍 집어 가는 걸 봤어. 사장님은 자리를 비운 상태고, 그 손님은 매일 밤 들르는 아저씨거든. 재현이는 잠깐 멈칫하다가 그냥 다른 쪽을 바라봤어.</div>
+      <div class="question-text">재현이가 그 순간 한 선택을 어떻게 보면 좋을까?</div>
+      <div class="options-container" data-term="term-62" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-62', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">못 본 척 넘어간 거지</span>
+      </button>
+      <div class="response-box" id="resp-term-62-intro-0" style="display:none">
+        <div class="response-text">맞아, 재현이는 알면서도 모른 척한 거잖아. 이런 상황에서 영어로는 turn a blind eye라고 해. 눈앞에서 벌어지는 일을 알면서도 일부러 못 본 척 넘기는 거야.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-62', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">진짜로 못 봤을 수도 있지</span>
+      </button>
+      <div class="response-box" id="resp-term-62-intro-1" style="display:none">
+        <div class="response-text">그렇게 볼 수도 있긴 한데, 재현이는 분명히 봤거든. 알면서도 그냥 넘긴 거잖아. 이렇게 알면서 일부러 못 본 척하는 걸 영어로 turn a blind eye라고 해.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">다음 중 turn a blind eye가 자연스럽게 어울리는 상황은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-62" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-62', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">친구가 거짓말을 했는데 나는 그 사실을 정말 몰랐어.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-62-explore-0-0" style="display:none">
+          <div class="response-text">그건 진짜로 몰랐던 거잖아. turn a blind eye는 모르는 게 아니라, 알면서도 일부러 눈을 돌리는 거거든. 모르는 상황에는 안 어울려.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-62', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">팀장이 직원들이 조금씩 늦게 출근하는 걸 알면서도 아무 말 안 하고 있어.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-62-explore-0-1" style="display:none">
+          <div class="response-text">바로 이런 상황이야. 팀장은 분명히 알고 있는데, 문제 삼지 않고 그냥 넘기고 있잖아. 알면서 못 본 척하는 게 turn a blind eye의 핵심이거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">turn a blind eye와 overlook, 이 두 표현의 차이로 가장 가까운 건 뭐야?</div>
+        <div class="options-container" data-term="term-62" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-62', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">turn a blind eye는 의도적으로 무시하는 거고, overlook은 실수로 놓치는 경우도 포함해.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-62-explore-1-0" style="display:none">
+          <div class="response-text">맞아. overlook은 그냥 지나쳤거나 미처 못 챙긴 경우에도 쓸 수 있어. 반면 turn a blind eye는 알고 있다는 게 전제거든. 의도적으로 눈을 돌리는 뉘앙스가 훨씬 강해.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-62', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">turn a blind eye는 개인 사이에서만 쓰고, overlook은 공식적인 상황에서만 써.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-62-explore-1-1" style="display:none">
+          <div class="response-text">그렇지 않아. 두 표현 모두 개인적인 상황이나 공식적인 상황에서 두루 쓰일 수 있어. 이 둘의 진짜 차이는 사용 장소가 아니라 의도성에 있거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">AR — 행동·결과 예측</span></h4>
+        <div class="question-text">누군가 &quot;The manager turned a blind eye&quot;라고 말했어. 이 뒤에 이어질 말로 더 자연스러운 건 뭐야?</div>
+        <div class="options-container" data-term="term-62" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-62', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">그래서 매니저가 직접 나서서 문제를 해결했어.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-62-explore-2-0" style="display:none">
+          <div class="response-text">그건 turn a blind eye랑 반대되는 흐름이야. 이 표현은 문제를 알면서도 개입하지 않는 거거든. 직접 나서서 해결하는 건 이 표현이 담고 있는 태도가 아니야.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-62', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">직원들이 규정을 어기고 있었는데, 매니저는 그냥 모른 척했어.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-62-explore-2-1" style="display:none">
+          <div class="response-text">바로 이 흐름이 자연스러워. turn a blind eye는 뭔가 잘못되고 있다는 걸 알면서도 못 본 척 넘기는 거잖아. 그래서 뒤에는 자연스럽게 &#39;문제가 있었는데 개입하지 않았다&#39;는 내용이 따라와.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 4 <span class="turn-type">MU — 오용 판별</span></h4>
+        <div class="question-text">turn a blind eye가 **어색하게** 쓰인 문장은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-62" data-turn="explore-3"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-62', 3, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">부모님은 아이가 가끔 규칙을 어겨도 turn a blind eye하곤 했어.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-62-explore-3-0" style="display:none">
+          <div class="response-text">그건 어색하지 않아. 잘못된 걸 알면서도 일부러 넘기는 상황이니까 turn a blind eye가 딱 맞아.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-62', 3, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">시험 문제가 너무 어려워서 나는 turn a blind eye하고 다음 문제로 넘어갔어.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-62-explore-3-1" style="display:none">
+          <div class="response-text">잘 찾았어. 시험 문제를 건너뛰는 건 어떤 잘못이나 문제를 알면서 못 본 척하는 게 아니잖아. turn a blind eye는 뭔가 옳지 않은 일을 의도적으로 무시할 때 쓰는 표현이거든. 단순히 어려운 걸 피하는 상황에는 안 어울려.</div>
+        </div></div></div><div class="turn-section">
+      <h4 class="turn-title">종료</h4>
+      <div class="scene-text">turn a blind eye는 뭔가 잘못되거나 문제가 있다는 걸 알면서도 일부러 못 본 척 넘기는 거야. 진짜로 몰랐거나 실수로 지나친 게 아니라, 알고도 눈을 돌리는 의도성이 핵심이거든. 그래서 단순히 어렵거나 불편한 걸 피하는 상황이 아니라, 옳지 않은 일을 묵인할 때 쓰는 표현이야.</div>
+    </div><div class="stats-bar">
+    <span>Tokens: 441 in / 1994 out</span>
+    <span>Latency: 32298ms</span>
+    <span>Cost: $0.0347</span>
+    <span>Source: final-test</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-62">Feedback</label>
+    <textarea id="fb-term-62" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-62')"></textarea>
+    <button class="save-btn" id="save-term-62" onclick="saveFeedback('term-62')">Save</button>
+    <span class="save-status" id="status-term-62"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-63">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">undermine</span>
+          <span class="level-badge" style="background:#fecaca">C1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">to gradually weaken or damage something</span>
+          <span class="term-stats">
+            <span class="stat-turns">4t</span>
+            <span class="stat-checks all-pass">8/8</span>
+            <span class="stat-cost">$0.0384</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="4 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CX, CP, SC, MU">✓ explore_types_valid</span><span class="ck-pass" title="Summary: undermine은 한 번에 무너뜨리는 게 아니라, 눈에 잘 안 띄게 조금씩 약하게 만드는...">✓ has_summary</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">민준이는 팀장이 된 지 얼마 안 됐는데, 회의 때마다 팀원 중 한 명인 재호가 묘한 행동을 해. 민준이가 뭔가 제안하면 재호는 대놓고 반대하진 않거든. 그냥 &#39;뭐, 해볼 순 있죠&#39;라고 하면서 슬쩍 다른 팀원들한테 &#39;저번에도 저렇게 했다가 어떻게 됐는지 알죠?&#39; 같은 말을 흘리는 거야. 한 번도 아니고 매번. 민준이가 뭔가 결정을 내릴 때마다 팀원들이 조금씩 민준이를 덜 믿게 되는 것 같아.</div>
+      <div class="question-text">재호가 민준이한테 하는 짓, 어떻게 보여?</div>
+      <div class="options-container" data-term="term-63" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-63', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">민준이 자리를 빼앗으려는 거 아닐까</span>
+      </button>
+      <div class="response-box" id="resp-term-63-intro-0" style="display:none">
+        <div class="response-text">맞아, 결국 민준이 팀장 자리가 흔들리는 거잖아. 근데 재호가 무서운 건 직접 싸우는 게 아니라는 거야. 대놓고 뭔가를 하는 게 아니라, 조금씩 조금씩 민준이에 대한 신뢰를 갉아먹고 있는 거거든. 이런 걸 영어로 undermine이라고 해. 한 방에 무너뜨리는 게 아니라, 서서히 약하게 만드는 거야.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-63', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">팀 분위기를 망치려는 거 아닐까</span>
+      </button>
+      <div class="response-box" id="resp-term-63-intro-1" style="display:none">
+        <div class="response-text">팀 분위기도 분명 영향을 받겠지. 근데 재호의 행동이 가장 직접적으로 겨냥하는 건 민준이 자체야 — 민준이의 판단력, 민준이에 대한 팀원들의 믿음. 이렇게 눈에 안 띄게 조금씩 누군가를 약하게 만드는 걸 영어로 undermine이라고 해. 한 번에 쓰러뜨리는 게 아니라, 서서히 갉아내는 거지.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">undermine은 어떤 상황에서 가장 자연스럽게 쓰일까?</div>
+        <div class="options-container" data-term="term-63" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-63', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">동생이 형 몰래 용돈을 다 써버렸을 때</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-63-explore-0-0" style="display:none">
+          <div class="response-text">그건 undermine이랑은 거리가 있어. 용돈을 써버린 건 한 번의 행동이고, 누군가를 서서히 약하게 만드는 것과는 다르거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-63', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">오랜 칭찬 한마디 없이 매번 작은 흠만 잡아서 부하직원이 점점 자신감을 잃어갈 때</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-63-explore-0-1" style="display:none">
+          <div class="response-text">바로 이거야. undermine은 이렇게 한 번의 큰 타격이 아니라, 반복적이고 점진적인 과정을 통해 무언가가 서서히 약해지는 상황에 딱 맞는 단어거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-63', 0, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">친구가 갑자기 약속을 취소해서 계획이 다 틀어졌을 때</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-63-explore-0-2" style="display:none">
+          <div class="response-text">그건 갑작스러운 한 번의 사건이잖아. undermine은 그런 즉각적인 상황보다는, 시간을 두고 조금씩 진행되는 과정에 어울리는 단어야.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">undermine과 destroy, 이 두 단어의 차이가 뭘까?</div>
+        <div class="options-container" data-term="term-63" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-63', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">undermine은 서서히 약하게 만드는 과정이고, destroy는 완전히 없애버리는 결과야</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-63-explore-1-0" style="display:none">
+          <div class="response-text">맞아. undermine의 핵심은 &#39;서서히&#39;와 &#39;점진적으로&#39;야. 아직 완전히 무너진 건 아니지만 계속 약해지고 있는 상태 — 그게 undermine이 담고 있는 감각이거든. destroy는 이미 끝난 결과에 가깝고.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-63', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">undermine은 의도적인 행동이고, destroy는 우연히 일어나는 일이야</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-63-explore-1-1" style="display:none">
+          <div class="response-text">꼭 그렇진 않아. destroy도 의도적으로 쓸 수 있고, undermine도 의도 없이 일어날 수 있어. 이 두 단어의 진짜 차이는 의도가 아니라 방식과 속도에 있거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">SC — 문장 완성</span></h4>
+        <div class="question-text">undermine이 가장 자연스럽게 들어가는 문장은 어느 쪽일까?</div>
+        <div class="options-container" data-term="term-63" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-63', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">계속되는 내부 갈등이 팀 전체의 결속력을 undermine하고 있어</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-63-explore-2-0" style="display:none">
+          <div class="response-text">딱 맞아. 내부 갈등이 반복되면서 팀의 결속력이 조금씩 약해지는 과정 — undermine이 이 흐름을 정확하게 담아내거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-63', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">그 한마디가 우리 우정을 undermine했어</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-63-explore-2-1" style="display:none">
+          <div class="response-text">어색하진 않지만, &#39;한마디&#39;처럼 단발성 사건과 함께 쓰면 undermine의 감각이 좀 어긋나. undermine은 한 번의 충격보다는 반복적이고 누적되는 과정에 더 잘 어울리거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 4 <span class="turn-type">MU — 오용 판별</span></h4>
+        <div class="question-text">undermine이 **어색하게** 쓰인 문장은 어느 쪽일까?</div>
+        <div class="options-container" data-term="term-63" data-turn="explore-3"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-63', 3, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">잦은 수면 부족이 면역력을 undermine할 수 있어</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-63-explore-3-0" style="display:none">
+          <div class="response-text">그건 어색하지 않아. 수면 부족이 쌓이면서 면역력이 서서히 약해지는 과정, undermine이 딱 맞는 자리야.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-63', 3, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">그 지진이 건물 전체를 순식간에 undermine했어</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-63-explore-3-1" style="display:none">
+          <div class="response-text">잘 찾았어. 지진은 순식간에 일어나는 사건이잖아. undermine은 서서히, 점진적으로 약해지는 과정에 쓰는 단어인데, &#39;순식간에&#39;와 함께 쓰면 이 감각이 충돌해서 어색해지거든.</div>
+        </div></div></div><div class="turn-section">
+      <h4 class="turn-title">종료</h4>
+      <div class="scene-text">undermine은 한 번에 무너뜨리는 게 아니라, 눈에 잘 안 띄게 조금씩 약하게 만드는 과정을 담은 단어야. 신뢰, 자신감, 권위, 건강처럼 서서히 갉아먹힐 수 있는 것들과 잘 어울리거든. &#39;순식간에&#39;나 &#39;단번에&#39; 같은 말과는 어울리지 않아 — 그게 undermine만의 감각이야.</div>
+    </div><div class="stats-bar">
+    <span>Tokens: 439 in / 2237 out</span>
+    <span>Latency: 40682ms</span>
+    <span>Cost: $0.0384</span>
+    <span>Source: final-test</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-63">Feedback</label>
+    <textarea id="fb-term-63" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-63')"></textarea>
+    <button class="save-btn" id="save-term-63" onclick="saveFeedback('term-63')">Save</button>
+    <span class="save-status" id="status-term-63"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-64">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">in light of</span>
+          <span class="level-badge" style="background:#fecaca">C1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">considering; taking into account</span>
+          <span class="term-stats">
+            <span class="stat-turns">3t</span>
+            <span class="stat-checks all-pass">8/8</span>
+            <span class="stat-cost">$0.0362</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="3 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CX, CP, MU">✓ explore_types_valid</span><span class="ck-pass" title="Summary: In light of는 어떤 사실이나 상황을 판단의 근거로 삼을 때 쓰는 표현이야—&#39;~을 ...">✓ has_summary</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">민준이는 6개월째 준비한 해외 학회 발표가 다음 달로 잡혀 있었어. 그런데 갑자기 아버지가 입원하셨거든. 팀장은 민준이를 불러서 이렇게 말했어. &quot;In light of the current situation, we&#39;ll have someone else cover the presentation.&quot; 민준이는 고맙기도 하고 아쉽기도 한 표정으로 고개를 끄덕였지.</div>
+      <div class="question-text">팀장이 이 말을 꺼낸 이유가 뭐라고 생각해?</div>
+      <div class="options-container" data-term="term-64" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-64', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">아버지 입원이라는 상황을 고려해서 배려 차원에서 한 말인 것 같아</span>
+      </button>
+      <div class="response-box" id="resp-term-64-intro-0" style="display:none">
+        <div class="response-text">맞아, 팀장은 지금 벌어진 일—아버지 입원—을 근거로 삼아서 결정을 내린 거야. 이렇게 어떤 사실이나 상황을 판단의 근거로 삼을 때 쓰는 표현이 바로 in light of거든. &#39;~을 감안하면&#39;, &#39;~을 고려하면&#39; 정도로 옮길 수 있어.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-64', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">발표 준비가 부족해 보여서 교체하려는 거 아닐까</span>
+      </button>
+      <div class="response-box" id="resp-term-64-intro-1" style="display:none">
+        <div class="response-text">그렇게 읽히기도 하지. 근데 팀장이 in light of the current situation이라고 했잖아—&#39;지금 상황&#39;을 이유로 댄 거거든. 민준이 실력 문제가 아니라, 아버지 입원이라는 현재 상황을 근거로 삼아 결정을 내린 거야. 이렇게 특정 사실을 판단의 발판으로 삼을 때 쓰는 표현이 in light of야.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">in light of는 어떤 자리에서 가장 자연스럽게 쓰일까?</div>
+        <div class="options-container" data-term="term-64" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-64', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">친구한테 &quot;야, in light of 네가 늦었으니까 밥은 네가 사&quot;라고 할 때</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-64-explore-0-0" style="display:none">
+          <div class="response-text">그 자리에서는 좀 어색해. in light of는 격식 있는 판단이나 결정을 내릴 때 쓰는 표현이라, 친구끼리 가볍게 주고받는 말에는 잘 안 어울려.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-64', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">회의에서 &quot;In light of the survey results, we need to revise the plan&quot;이라고 할 때</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-64-explore-0-1" style="display:none">
+          <div class="response-text">딱 맞는 자리야. in light of는 어떤 사실이나 정보를 근거로 삼아 판단·결정을 내릴 때 쓰는 표현이거든. 보고서, 회의, 공식 발표처럼 격식 있는 맥락에서 특히 자주 등장해.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-64', 0, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">일기에 &quot;in light of 오늘 날씨가 좋아서 기분이 좋았다&quot;라고 쓸 때</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-64-explore-0-2" style="display:none">
+          <div class="response-text">그 자리에서는 어색해. in light of는 단순한 감정 서술이 아니라, 어떤 사실을 근거로 삼아 판단이나 결정을 이끌어낼 때 쓰는 표현이라 이런 문장에는 잘 맞지 않아.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">in light of와 because of, 둘 다 앞에 오는 내용을 이유로 삼는다는 점은 비슷해. 그런데 둘 사이에는 차이가 있어. 어느 쪽이 더 정확하게 설명한 걸까?</div>
+        <div class="options-container" data-term="term-64" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-64', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">in light of는 어떤 사실을 &#39;고려의 근거&#39;로 삼아 판단을 이끌어내고, because of는 직접적인 원인·이유를 가리켜</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-64-explore-1-0" style="display:none">
+          <div class="response-text">바로 그거야. because of는 &quot;비가 와서 취소됐어&quot;처럼 원인과 결과가 직접 연결될 때 쓰고, in light of는 &quot;새로운 데이터를 감안해서 방향을 바꿨어&quot;처럼 어떤 정보나 상황을 판단의 발판으로 삼을 때 써. 그래서 in light of 뒤에는 주로 데이터, 사실, 상황처럼 &#39;검토할 만한 내용&#39;이 따라와.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-64', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">in light of는 긍정적인 이유에, because of는 부정적인 이유에 써</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-64-explore-1-1" style="display:none">
+          <div class="response-text">긍정·부정으로 나뉘는 건 아니야. in light of는 긍정적 상황에도, 부정적 상황에도 쓸 수 있어. 둘의 차이는 감정 색깔이 아니라, &#39;직접 원인&#39;이냐 &#39;판단의 근거&#39;냐에 있거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">MU — 오용 판별</span></h4>
+        <div class="question-text">다음 중 in light of가 **어색하게** 쓰인 문장은 어느 쪽일까?</div>
+        <div class="options-container" data-term="term-64" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-64', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">In light of the new evidence, the court decided to reopen the case.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-64-explore-2-0" style="display:none">
+          <div class="response-text">이 문장은 자연스러워. 새로운 증거라는 사실을 근거로 삼아 법원이 판단을 내리는 상황이니까, in light of가 딱 맞는 자리야.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-64', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">In light of I was tired, I went to bed early.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-64-explore-2-1" style="display:none">
+          <div class="response-text">잘 찾았어! in light of 뒤에는 명사나 명사구가 와야 해. &quot;I was tired&quot;처럼 주어+동사로 이루어진 절은 바로 붙일 수 없거든. 이럴 땐 &quot;In light of my fatigue&quot;처럼 명사구로 바꾸거나, because나 since 같은 접속사를 쓰는 게 맞아.</div>
+        </div></div></div><div class="turn-section">
+      <h4 class="turn-title">종료</h4>
+      <div class="scene-text">In light of는 어떤 사실이나 상황을 판단의 근거로 삼을 때 쓰는 표현이야—&#39;~을 감안하면&#39;, &#39;~을 고려하면&#39;이라는 뜻이거든. 단순히 원인을 가리키는 because of와 달리, 검토할 만한 정보나 상황을 발판 삼아 결론을 이끌어낼 때 어울려. 보고서, 회의, 공식 발표처럼 격식 있는 맥락에서 특히 자주 등장하고, 뒤에는 반드시 명사나 명사구가 따라와야 해.</div>
+    </div><div class="stats-bar">
+    <span>Tokens: 438 in / 2089 out</span>
+    <span>Latency: 37601ms</span>
+    <span>Cost: $0.0362</span>
+    <span>Source: final-test</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-64">Feedback</label>
+    <textarea id="fb-term-64" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-64')"></textarea>
+    <button class="save-btn" id="save-term-64" onclick="saveFeedback('term-64')">Save</button>
+    <span class="save-status" id="status-term-64"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-65">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">paradoxically</span>
+          <span class="level-badge" style="background:#fecaca">C1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">in a way that seems contradictory but may be true</span>
+          <span class="term-stats">
+            <span class="stat-turns">4t</span>
+            <span class="stat-checks all-pass">8/8</span>
+            <span class="stat-cost">$0.0399</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="4 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CX, CP, AR, MU">✓ explore_types_valid</span><span class="ck-pass" title="Summary: paradoxically는 &#39;논리적으로 모순처럼 보이는데 실제로 그렇다&#39;는 걸 짚을 때 쓰...">✓ has_summary</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">민준이는 요즘 잠을 줄이고 공부 시간을 늘렸어. 하루에 네 시간씩 자면서 책상 앞에 앉아 있는 시간을 최대한 확보한 거지. 근데 한 달쯤 지나고 보니까, 오히려 시험 성적이 전보다 더 떨어진 거야.</div>
+      <div class="question-text">이 상황을 어떻게 받아들이는 게 자연스러울 것 같아?</div>
+      <div class="options-container" data-term="term-65" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-65', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">뭔가 이상하긴 한데, 그럴 수도 있겠다 싶어</span>
+      </button>
+      <div class="response-box" id="resp-term-65-intro-0" style="display:none">
+        <div class="response-text">맞아, 딱 그 느낌이거든. 말이 안 되는 것 같은데 실제로 일어난 일이잖아. 영어로는 이런 상황을 paradoxically라고 표현해 — 겉으로는 모순처럼 보이지만 사실일 수 있는 방식으로, 라는 뜻이야.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-65', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">그냥 민준이가 공부를 제대로 못 한 거 아닐까</span>
+      </button>
+      <div class="response-box" id="resp-term-65-intro-1" style="display:none">
+        <div class="response-text">그렇게 볼 수도 있지. 근데 민준이 입장에서는 분명히 더 열심히 했거든. 더 오래 앉아 있었는데 결과가 나빠진 거니까, 이건 단순한 노력 부족이라기보다 뭔가 역설적인 상황인 거야. 영어로는 이걸 paradoxically라고 해 — 모순처럼 보이지만 실제로 일어나는 일을 가리키는 표현이지.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">paradoxically는 어떤 흐름의 문장에서 가장 자연스럽게 쓰일까?</div>
+        <div class="options-container" data-term="term-65" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-65', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">예상했던 결과가 그대로 나왔을 때</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-65-explore-0-0" style="display:none">
+          <div class="response-text">그건 paradoxically가 필요 없는 상황이야. 예상대로 흘러간 거라면 모순이 없으니까, 이 표현이 끼어들 자리가 없거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-65', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">어떤 행동이나 상황이 상식과 반대되는 결과를 낳았을 때</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-65-explore-0-1" style="display:none">
+          <div class="response-text">바로 그거야. paradoxically는 &#39;이렇게 하면 당연히 이렇게 되겠지&#39;라는 예상을 뒤집는 결과 앞에 붙는 표현이거든. 모순처럼 보이는데 실제로 그렇게 됐다는 걸 짚어줄 때 쓰는 거야.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">paradoxically와 ironically는 둘 다 &#39;예상과 다른 결과&#39;를 말할 때 쓰이는 것 같은데, 차이가 있어. 다음 중 paradoxically에만 해당하는 설명은 뭘까?</div>
+        <div class="options-container" data-term="term-65" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-65', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">논리적으로 모순처럼 보이는 구조 자체를 짚을 때 쓴다</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-65-explore-1-0" style="display:none">
+          <div class="response-text">맞아. paradoxically는 &#39;A를 했는데 A의 반대 결과가 나왔다&#39;는 식의 논리적 모순 구조에 초점이 있어. 단순히 결과가 얄궂거나 타이밍이 묘한 게 아니라, 원인과 결과 사이의 관계 자체가 뒤집혀 있을 때 쓰는 거거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-65', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">기대와 반대되는 결과가 묘하게 들어맞을 때 쓴다</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-65-explore-1-1" style="display:none">
+          <div class="response-text">그건 ironically에 더 가까운 설명이야. ironically는 상황의 얄궂음이나 타이밍의 묘함에 방점이 찍히거든. paradoxically는 그보다 더 구조적인 모순, 즉 원인과 결과의 관계 자체가 뒤집혀 있다는 걸 가리킬 때 쓰여.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">AR — 행동·결과 예측</span></h4>
+        <div class="question-text">누군가 말을 시작하면서 paradoxically라고 꺼냈어. 이어질 내용으로 가장 자연스러운 건 뭘까?</div>
+        <div class="options-container" data-term="term-65" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-65', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">예상했던 대로 결과가 나왔다는 설명</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-65-explore-2-0" style="display:none">
+          <div class="response-text">그건 paradoxically를 꺼낼 이유가 없는 상황이야. 이 표현은 &#39;예상대로&#39;가 아니라 &#39;예상을 뒤집는&#39; 내용을 예고하거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-65', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">상식과 반대되는 결과가 실제로 일어났다는 설명</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-65-explore-2-1" style="display:none">
+          <div class="response-text">맞아. paradoxically는 일종의 예고 신호야 — &#39;지금부터 모순처럼 들리겠지만 사실이야&#39;라는 걸 미리 알려주는 거거든. 그래서 이 표현 뒤에는 항상 논리적으로 뒤집힌 결과가 따라와.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-65', 2, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">앞서 한 말을 정정하거나 보완하는 설명</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-65-explore-2-2" style="display:none">
+          <div class="response-text">그건 paradoxically의 역할이 아니야. 이 표현은 앞말을 고치는 게 아니라, 모순처럼 보이는 새로운 사실을 꺼낼 때 쓰는 거거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 4 <span class="turn-type">MU — 오용 판별</span></h4>
+        <div class="question-text">다음 중 paradoxically가 **어색하게** 쓰인 문장은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-65" data-turn="explore-3"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-65', 3, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">Paradoxically, the more he tried to forget her, the more vivid her memory became.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-65-explore-3-0" style="display:none">
+          <div class="response-text">이건 자연스러워. &#39;잊으려 할수록 더 선명해진다&#39;는 건 전형적인 역설 구조거든 — 원인과 결과가 논리적으로 뒤집혀 있잖아.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-65', 3, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">Paradoxically, she studied hard and got a good grade.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-65-explore-3-1" style="display:none">
+          <div class="response-text">잘 찾았어. 열심히 공부해서 좋은 성적을 받은 건 완전히 예상 가능한 결과잖아. 모순도 없고 뒤집힌 것도 없으니까, paradoxically가 끼어들 자리가 없는 거야.</div>
+        </div></div></div><div class="turn-section">
+      <h4 class="turn-title">종료</h4>
+      <div class="scene-text">paradoxically는 &#39;논리적으로 모순처럼 보이는데 실제로 그렇다&#39;는 걸 짚을 때 쓰는 표현이야. 원인과 결과의 관계 자체가 뒤집혀 있을 때 — 잠을 줄였더니 오히려 성과가 떨어졌다든가, 잊으려 할수록 더 선명해진다든가 — 그 앞에 붙여서 &#39;이상하게 들리겠지만 사실이야&#39;라는 신호를 보내는 거거든. 단순히 결과가 얄궂다는 ironically와는 달리, 구조적인 역설을 가리킨다는 게 이 표현의 핵심이야.</div>
+    </div><div class="stats-bar">
+    <span>Tokens: 445 in / 2337 out</span>
+    <span>Latency: 37444ms</span>
+    <span>Cost: $0.0399</span>
+    <span>Source: final-test</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-65">Feedback</label>
+    <textarea id="fb-term-65" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-65')"></textarea>
+    <button class="save-btn" id="save-term-65" onclick="saveFeedback('term-65')">Save</button>
+    <span class="save-status" id="status-term-65"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-66">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">complacency</span>
+          <span class="level-badge" style="background:#fca5a5">C2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">a feeling of smug satisfaction with oneself, ignoring potential dangers</span>
+          <span class="term-stats">
+            <span class="stat-turns">4t</span>
+            <span class="stat-checks all-pass">8/8</span>
+            <span class="stat-cost">$0.0434</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="4 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CX, CP, AR, MU">✓ explore_types_valid</span><span class="ck-pass" title="Summary: Complacency는 &#39;나는 이미 충분히 잘하고 있어&#39;라는 흐뭇한 자기만족이 위험 신호를...">✓ has_summary</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">민준이는 작년에 대기업 입사에 성공했어. 처음엔 누구보다 열심히 했는데, 6개월쯤 지나니까 분위기가 달라졌거든. 매일 야근하던 것도 줄었고, 공부하던 것도 손에서 놓았어. &#39;이 정도면 충분하지 않나?&#39; 하는 생각이 든 거야. 팀장은 민준이를 보면서 한숨을 쉬었고, 동기들은 조용히 민준이를 앞질러 가고 있었어.</div>
+      <div class="question-text">팀장이 민준이를 걱정하는 이유가 뭐라고 생각해?</div>
+      <div class="options-container" data-term="term-66" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-66', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">지금 잘하고 있다고 느끼니까 더 나아지려는 노력을 안 하는 거지</span>
+      </button>
+      <div class="response-box" id="resp-term-66-intro-0" style="display:none">
+        <div class="response-text">맞아, 그게 핵심이야. 민준이는 지금 상태에 스스로 만족해버린 거거든. 위험 신호가 주변에 있는데도 &#39;나는 괜찮아&#39;라고 느끼는 그 상태, 영어로 complacency라고 해. 자기 자신에 대한 흐뭇한 만족감인데, 문제는 그 만족감이 눈을 가린다는 거야.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-66', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">원래 하던 일이 너무 익숙해져서 지루함을 느끼는 거지</span>
+      </button>
+      <div class="response-box" id="resp-term-66-intro-1" style="display:none">
+        <div class="response-text">지루함도 있을 수 있지만, 팀장이 걱정하는 건 그게 아니야. 민준이가 &#39;나는 이미 충분히 잘하고 있어&#39;라고 느끼면서 더 나아지려는 의지를 잃어버린 거거든. 그 흐뭇한 자기만족 상태, 영어로 complacency라고 해. 지루함이랑은 결이 달라 — 위험이 다가오는데도 &#39;나는 괜찮아&#39;라고 느끼는 게 문제인 거지.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">complacency가 가장 자연스럽게 어울리는 상황은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-66" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-66', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">처음 도전하는 일이 너무 어려워서 포기하고 싶은 마음이 드는 상황</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-66-explore-0-0" style="display:none">
+          <div class="response-text">그건 complacency랑 반대에 가까워. complacency는 어려움 앞에서 무너지는 게 아니라, 이미 잘하고 있다는 느낌 때문에 긴장을 풀어버리는 상태거든. 도전 앞의 두려움과는 전혀 다른 자리에 있는 단어야.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-66', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">오랫동안 1등을 유지해온 팀이 &#39;우리가 제일 잘하니까 굳이 바꿀 필요 없지&#39;라고 느끼는 상황</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-66-explore-0-1" style="display:none">
+          <div class="response-text">바로 이 자리야. complacency는 잘 되고 있다는 느낌이 쌓였을 때 찾아오거든. &#39;우리는 이미 충분해&#39;라는 흐뭇한 자기만족이 위험 신호를 가려버리는 그 순간 — 그게 complacency가 사는 자리야.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">complacency와 contentment, 둘 다 &#39;만족&#39;과 관련이 있어. 어떤 점에서 달라?</div>
+        <div class="options-container" data-term="term-66" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-66', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">complacency는 위험을 외면하는 자기만족이고, contentment는 현재를 평온하게 받아들이는 만족이야</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-66-explore-1-0" style="display:none">
+          <div class="response-text">정확해. contentment는 지금 이 순간을 있는 그대로 받아들이는 건강한 만족감이야. 반면 complacency는 &#39;나는 충분히 잘하고 있어&#39;라는 흐뭇함이 눈을 가려서, 실제로 뭔가 잘못되고 있어도 알아채지 못하게 만드는 거거든. 같은 &#39;만족&#39;이어도 complacency에는 그 위험한 맹점이 있어.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-66', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">complacency는 일시적인 만족이고, contentment는 오래 지속되는 만족이야</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-66-explore-1-1" style="display:none">
+          <div class="response-text">지속 시간의 차이가 아니야. complacency는 얼마나 오래 지속되느냐가 아니라, 그 만족감이 위험 신호를 가린다는 데 문제가 있어. 자기가 잘하고 있다는 흐뭇함 때문에 경계를 풀어버리는 것 — 그게 contentment와 구별되는 핵심이거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">AR — 행동·결과 예측</span></h4>
+        <div class="question-text">누군가 &#39;We need to guard against complacency&#39;라고 말했어. 이 말 다음에 이어질 내용으로 자연스러운 건 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-66" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-66', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">지금까지 잘해왔으니 앞으로도 자신감을 갖고 밀어붙이자는 격려</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-66-explore-2-0" style="display:none">
+          <div class="response-text">그건 complacency를 경계하자는 말과 반대 방향이야. &#39;guard against&#39;는 뭔가를 막아야 한다는 뜻이거든. complacency를 경계하자고 했다면, 그 다음엔 &#39;지금 잘 되고 있어도 긴장을 놓으면 안 된다&#39;는 방향의 말이 와야 자연스러워.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-66', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">지금 성과가 좋더라도 방심하면 금방 뒤처질 수 있다는 경고</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-66-explore-2-1" style="display:none">
+          <div class="response-text">맞아. &#39;guard against complacency&#39;는 &#39;자기만족에 빠지지 않도록 경계하자&#39;는 말이거든. 잘 되고 있을 때일수록 그 흐뭇한 만족감이 위험 신호를 가릴 수 있으니까, 계속 긴장을 유지해야 한다는 경고가 자연스럽게 따라오는 거야.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 4 <span class="turn-type">MU — 오용 판별</span></h4>
+        <div class="question-text">complacency가 **어색하게** 쓰인 문장은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-66" data-turn="explore-3"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-66', 3, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">She felt complacency after finishing a difficult puzzle.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-66-explore-3-0" style="display:none">
+          <div class="response-text">잘 찾았어. 어퍼즐을 다 풀었을 때의 뿌듯함은 complacency가 아니야. complacency에는 &#39;위험이나 문제를 외면한 채 흐뭇해한다&#39;는 감각이 있어야 하거든. 단순히 뭔가를 해냈을 때의 성취감이나 기쁨을 가리키는 단어가 아니야.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-66', 3, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">The team&#39;s complacency after years of success left them unprepared for the crisis.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-66-explore-3-1" style="display:none">
+          <div class="response-text">그건 어색하지 않아. 오랜 성공 뒤에 찾아온 자기만족이 위기 대응을 방해했다는 내용이거든. complacency가 가장 자연스럽게 쓰이는 전형적인 자리야 — 잘 되고 있다는 흐뭇함이 눈을 가리는 바로 그 상황.</div>
+        </div></div></div><div class="turn-section">
+      <h4 class="turn-title">종료</h4>
+      <div class="scene-text">Complacency는 &#39;나는 이미 충분히 잘하고 있어&#39;라는 흐뭇한 자기만족이 위험 신호를 가려버리는 상태야. 단순히 현재에 평온한 contentment와 달리, complacency에는 그 만족감 때문에 경계를 풀어버린다는 위험한 맹점이 있거든. 그래서 성공이 오래 이어질수록, &#39;guard against complacency&#39;라는 말이 더 자주 나오는 거야.</div>
+    </div><div class="stats-bar">
+    <span>Tokens: 447 in / 2568 out</span>
+    <span>Latency: 45019ms</span>
+    <span>Cost: $0.0434</span>
+    <span>Source: final-test</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-66">Feedback</label>
+    <textarea id="fb-term-66" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-66')"></textarea>
+    <button class="save-btn" id="save-term-66" onclick="saveFeedback('term-66')">Save</button>
+    <span class="save-status" id="status-term-66"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-67">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">consolidate</span>
+          <span class="level-badge" style="background:#fca5a5">C2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">to combine several things into a single more effective whole</span>
+          <span class="term-stats">
+            <span class="stat-turns">4t</span>
+            <span class="stat-checks all-pass">8/8</span>
+            <span class="stat-cost">$0.0477</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="4 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CX, CP, SC, WD">✓ explore_types_valid</span><span class="ck-pass" title="Summary: consolidate는 여러 곳에 흩어진 것들을 하나의 효율적인 전체로 합칠 때 쓰는 표현...">✓ has_summary</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">민준이는 팀장이 된 지 석 달째야. 팀원들이 각자 다른 방식으로 업무를 처리하다 보니 보고서 형식도 제각각이고, 회의 자료도 여기저기 흩어져 있고, 업무 진행 상황을 파악하려면 사람마다 따로따로 물어봐야 하는 거지. 그래서 민준이는 이걸 어떻게든 하나로 묶어서 정리하기로 마음먹었어.</div>
+      <div class="question-text">민준이가 이 상황에서 원하는 게 뭔 것 같아?</div>
+      <div class="options-container" data-term="term-67" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-67', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">흩어진 것들을 하나의 체계로 합쳐서 더 잘 굴러가게 만드는 것</span>
+      </button>
+      <div class="response-box" id="resp-term-67-intro-0" style="display:none">
+        <div class="response-text">맞아, 민준이는 결국 팀 전체가 같은 방식으로 움직이도록 보고 체계도 하나로 합치고, 회의 자료도 한 곳에 모으고, 진행 상황도 한눈에 볼 수 있게 정리했거든. 이렇게 여러 개로 흩어진 걸 하나의 효율적인 덩어리로 합치는 걸 consolidate라고 해. 뭔가를 &#39;통합하다&#39;, &#39;합치다&#39;는 느낌인 거지.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-67', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">각 팀원이 자기 방식을 유지하면서 더 열심히 하게 만드는 것</span>
+      </button>
+      <div class="response-box" id="resp-term-67-intro-1" style="display:none">
+        <div class="response-text">그렇게 생각할 수도 있는데, 민준이가 진짜 원했던 건 각자의 방식을 살리는 게 아니었어. 결국 민준이는 흩어진 보고 체계, 자료, 진행 현황을 전부 하나로 묶어버렸거든. 이렇게 여러 개로 나뉜 걸 하나의 효율적인 덩어리로 합치는 걸 consolidate라고 해. &#39;통합하다&#39;는 느낌인 거지.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">consolidate가 가장 자연스럽게 쓰이는 상황은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-67" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-67', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">어떤 일을 꾸준히 반복해서 실력을 높이는 과정</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-67-explore-0-0" style="display:none">
+          <div class="response-text">그건 consolidate가 쓰이는 자리가 아니야. 반복 연습으로 실력을 키우는 건 &#39;향상&#39;이나 &#39;숙달&#39;의 영역이거든. consolidate는 실력을 높이는 게 아니라, 여러 개로 나뉜 것들을 하나로 합쳐서 더 효율적인 전체를 만드는 상황에서 쓰여.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-67', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">여러 곳에 분산된 것들을 하나로 묶어 효율을 높이는 과정</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-67-explore-0-1" style="display:none">
+          <div class="response-text">맞아. consolidate는 딱 이 자리에서 쓰이는 표현이거든. 여러 개가 따로따로 존재하던 게 하나의 효율적인 덩어리로 합쳐질 때 — 그게 조직이든, 데이터든, 업무 체계든 — 그 순간에 consolidate가 나오는 거야.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-67', 0, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">복잡한 문제를 작은 단위로 쪼개서 하나씩 해결하는 과정</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-67-explore-0-2" style="display:none">
+          <div class="response-text">그건 오히려 consolidate의 반대 방향이야. 쪼개고 나누는 건 consolidate가 아니거든. consolidate는 분산된 것들을 하나로 합치는 방향으로 움직일 때 쓰이는 표현이야.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">consolidate와 merge, 둘 다 &#39;합치다&#39;는 느낌인데 차이가 있어. 다음 중 consolidate가 더 자연스러운 문장은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-67" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-67', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">두 회사가 합병한 게 아니라, 흩어진 세 팀의 업무 방식을 하나로 consolidate한 거야.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-67-explore-1-0" style="display:none">
+          <div class="response-text">맞아. consolidate는 여러 개로 분산된 것들을 하나의 효율적인 전체로 통합할 때 쓰여. 꼭 두 개가 하나가 되는 &#39;합병&#39;이 아니라, 여러 조각들이 하나의 체계 안으로 모이는 느낌이거든. merge는 주로 두 개의 독립된 개체가 하나로 합쳐지는 — 특히 회사나 조직의 합병처럼 경계가 사라지는 — 상황에 어울려. 그래서 이 문장에서는 consolidate가 더 자연스러운 거야.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-67', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">두 팀이 따로 운영되다가 결국 하나의 팀으로 consolidate됐어.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-67-explore-1-1" style="display:none">
+          <div class="response-text">그 문장에서는 사실 merge가 더 자연스러워. 두 개의 독립된 팀이 경계를 없애고 하나가 되는 건 merge의 영역이거든. consolidate는 여러 조각들이 하나의 효율적인 체계 안으로 모이는 느낌이지, 두 개체가 경계를 허물고 합쳐지는 느낌은 아니야.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">SC — 문장 완성</span></h4>
+        <div class="question-text">다음 중 consolidate가 **어색하게** 쓰인 문장은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-67" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-67', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">정부는 여러 부처에 흩어진 데이터 시스템을 하나로 consolidate하기로 했어.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-67-explore-2-0" style="display:none">
+          <div class="response-text">맞아, 이건 자연스러워. 여러 곳에 분산된 시스템들을 하나의 효율적인 전체로 합치는 상황이니까 consolidate가 딱 맞는 거지.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-67', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">그 선수는 매일 훈련을 consolidate해서 결국 대표팀에 뽑혔어.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-67-explore-2-1" style="display:none">
+          <div class="response-text">잘 찾았어. 이 문장이 어색한 거야. 훈련을 &#39;쌓거나 반복하는&#39; 건 consolidate의 자리가 아니거든. consolidate는 분산된 여러 개를 하나의 효율적인 전체로 합칠 때 쓰이는 표현이지, 무언가를 꾸준히 쌓아가는 과정을 묘사하는 데는 어울리지 않아.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 4 <span class="turn-type">WD — 구성 요소 분해</span></h4>
+        <div class="question-text">consolidate는 라틴어 어근 solidus에서 왔어. solidus는 &#39;단단한&#39;, &#39;견고한&#39;이라는 뜻이거든. solid(단단한), solidify(굳히다)도 같은 뿌리야. 그럼 consolidate는 왜 이 어근으로 &#39;여러 개를 합치다&#39;는 뜻을 표현하게 됐을까?</div>
+        <div class="options-container" data-term="term-67" data-turn="explore-3"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-67', 3, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">흩어진 것들을 합쳐서 하나의 단단한 덩어리로 만든다는 이미지에서 온 거야.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-67-explore-3-0" style="display:none">
+          <div class="response-text">바로 그거야. con-은 &#39;함께&#39;라는 뜻의 접두사거든. 그러니까 consolidate는 글자 그대로 &#39;함께 단단하게 만들다&#39;인 거야. 여러 조각이 따로 있으면 약하고 불안정하지만, 하나로 합쳐지면 견고해지잖아. 그 이미지가 그대로 담긴 거지. 그래서 consolidate는 단순히 합치는 게 아니라, 합쳐서 더 강하고 효율적인 전체가 된다는 뉘앙스를 품고 있어.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-67', 3, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">단단한 것들끼리만 합칠 수 있다는 조건을 나타내기 위해 이 어근을 쓴 거야.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-67-explore-3-1" style="display:none">
+          <div class="response-text">그건 아니야. consolidate가 합치는 대상에 &#39;단단함&#39;이라는 조건을 요구하는 건 아니거든. solidus 어근이 여기서 하는 역할은 합쳐진 결과가 견고해진다는 이미지를 담는 거야. 합치는 대상의 성질이 아니라, 합쳐진 뒤의 상태를 표현하는 거지.</div>
+        </div></div></div><div class="turn-section">
+      <h4 class="turn-title">종료</h4>
+      <div class="scene-text">consolidate는 여러 곳에 흩어진 것들을 하나의 효율적인 전체로 합칠 때 쓰는 표현이야. 단순히 두 개를 붙이는 merge와 달리, 여러 조각들이 하나의 체계 안으로 모여 더 견고해지는 느낌이 있거든. 조직, 데이터, 업무 체계처럼 &#39;분산 → 통합&#39;의 흐름이 있는 곳이라면 어디서든 자연스럽게 나오는 표현이야.</div>
+    </div><div class="stats-bar">
+    <span>Tokens: 442 in / 2856 out</span>
+    <span>Latency: 43294ms</span>
+    <span>Cost: $0.0477</span>
+    <span>Source: final-test</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-67">Feedback</label>
+    <textarea id="fb-term-67" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-67')"></textarea>
+    <button class="save-btn" id="save-term-67" onclick="saveFeedback('term-67')">Save</button>
+    <span class="save-status" id="status-term-67"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-68">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">predisposition</span>
+          <span class="level-badge" style="background:#fca5a5">C2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">a tendency to be affected by something, especially a disease or attitude</span>
+          <span class="term-stats">
+            <span class="stat-turns">4t</span>
+            <span class="stat-checks all-pass">8/8</span>
+            <span class="stat-cost">$0.0479</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="4 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CP, CX, WD, MU">✓ explore_types_valid</span><span class="ck-pass" title="Summary: Predisposition은 단순히 \&quot;자주 그러는 경향\&quot;이 아니라, 태어날 때부터 혹은...">✓ has_summary</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">민준이는 어릴 때부터 감기를 달고 살았어. 형이나 누나는 멀쩡한데 민준이만 계절이 바뀔 때마다 꼭 앓아눕는 거야. 엄마가 민준이를 데리고 병원에 갔더니 의사 선생님이 가족력 얘기를 꺼내면서 뭔가를 설명해 줬거든.</div>
+      <div class="question-text">의사 선생님이 민준이 엄마한테 뭐라고 했을 것 같아?</div>
+      <div class="options-container" data-term="term-68" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-68', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">민준이가 원래 체질적으로 그쪽으로 약하게 타고난 것 같다고 했을 것 같아.</span>
+      </button>
+      <div class="response-box" id="resp-term-68-intro-0" style="display:none">
+        <div class="response-text">맞아, 의사 선생님은 &quot;어머니, 민준이는 호흡기 쪽에 predisposition이 있는 것 같아요&quot;라고 했거든. 타고난 취약성, 그러니까 어떤 질병이나 상태에 걸리기 쉬운 성향을 predisposition이라고 해. 민준이가 게을러서도, 관리를 못 해서도 아니라 — 애초에 그쪽으로 기울어진 채로 태어난 거지.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-68', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">민준이가 평소에 관리를 안 해서 그런 거라고 했을 것 같아.</span>
+      </button>
+      <div class="response-box" id="resp-term-68-intro-1" style="display:none">
+        <div class="response-text">의사 선생님은 생활 습관 얘기가 아니라 타고난 성향 얘기를 꺼냈어. &quot;어머니, 민준이는 호흡기 쪽에 predisposition이 있는 것 같아요&quot;라고 했거든. 노력이나 관리의 문제가 아니라, 애초에 그쪽으로 기울어진 채로 태어난 성향 — 그게 predisposition이야.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">predisposition과 비슷해 보이는 단어로 tendency가 있어. 그런데 의사가 &quot;민준이는 호흡기 질환에 tendency가 있어요&quot;라고 하지 않고 predisposition을 쓴 데는 이유가 있거든. 두 단어의 차이로 가장 가까운 건 뭘까?</div>
+        <div class="options-container" data-term="term-68" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-68', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">tendency는 후천적으로 형성된 습관에, predisposition은 반복된 행동 패턴에 쓰여.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-68-explore-0-0" style="display:none">
+          <div class="response-text">tendency도 습관적 패턴을 가리킬 수 있지만, 그게 두 단어의 핵심 차이는 아니야. predisposition이 tendency보다 더 구체적으로 가리키는 게 따로 있거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-68', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">tendency는 행동이나 상황의 일반적 경향에, predisposition은 타고난 소인(素因)에 더 가깝게 쓰여.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-68-explore-0-1" style="display:none">
+          <div class="response-text">바로 그거야. tendency는 &quot;그 사람은 늦게 자는 경향이 있어&quot;처럼 행동이나 상황의 패턴을 가리킬 때 폭넓게 쓰이는 반면, predisposition은 태어날 때부터 혹은 깊이 내재된 취약성이나 성향을 가리킬 때 써. 그래서 의학적 맥락이나 심리적 소인을 얘기할 때 predisposition이 훨씬 자연스럽게 등장하는 거지.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-68', 0, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">tendency는 긍정적 맥락에, predisposition은 부정적 맥락에만 쓰여.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-68-explore-0-2" style="display:none">
+          <div class="response-text">predisposition이 질병 맥락에서 자주 등장하긴 하지만, 부정적 맥락에만 쓰이는 건 아니야. 그리고 tendency도 부정적 맥락에 얼마든지 쓰일 수 있어. 그게 두 단어의 핵심 차이는 아닌 거지.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">predisposition이 가장 자연스럽게 어울리는 맥락은 어느 쪽일까?</div>
+        <div class="options-container" data-term="term-68" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-68', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">유전자 검사 결과, 특정 암에 대한 predisposition이 발견됐다는 보고서</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-68-explore-1-0" style="display:none">
+          <div class="response-text">맞아. predisposition은 유전적·생물학적 소인이나 심리적으로 깊이 내재된 성향을 가리킬 때 가장 자연스럽게 쓰여. 의학 보고서, 심리 분석, 유전 상담 같은 맥락이 predisposition의 전형적인 자리야.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-68', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">요즘 그 카페에 자주 가는 predisposition이 생긴 것 같아</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-68-explore-1-1" style="display:none">
+          <div class="response-text">predisposition은 &quot;요즘 자주 가게 됐어&quot; 같은 가벼운 습관 변화에는 너무 무거운 단어야. 이 단어는 훨씬 깊이 내재된 — 유전적이거나 심리적으로 뿌리 깊은 — 성향을 가리킬 때 쓰거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">WD — 구성 요소 분해</span></h4>
+        <div class="question-text">predisposition은 세 조각으로 나눌 수 있어: pre- + dispose + -tion. dispose는 &quot;배치하다, 향하게 하다&quot;는 뜻이고, pre-는 &quot;미리, 앞서&quot;라는 뜻이야. 이 조각들을 합쳐서 predisposition이라는 단어를 만든 이유로 가장 가까운 건 뭘까?</div>
+        <div class="options-container" data-term="term-68" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-68', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">어떤 일이 일어나기 전에 미리 준비해 두는 행위를 가리키려고</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-68-explore-2-0" style="display:none">
+          <div class="response-text">pre-가 &quot;미리&quot;라는 뜻이긴 하지만, predisposition은 의도적인 준비 행위를 가리키지 않아. 이 단어의 핵심은 의지나 행동이 아니라 다른 데 있거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-68', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">어떤 결과를 미리 예측하거나 결정해 두는 과정을 가리키려고</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-68-explore-2-1" style="display:none">
+          <div class="response-text">predisposition이 미래와 관련된 느낌을 주긴 하지만, 예측이나 결정의 과정을 가리키는 건 아니야. dispose의 &quot;향하게 하다&quot;라는 뜻이 이 단어에서 어떻게 살아있는지를 다시 생각해 봐.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-68', 2, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">태어날 때부터 혹은 경험이 쌓이기 전부터 이미 특정 방향으로 기울어져 있는 상태를 가리키려고</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-68-explore-2-2" style="display:none">
+          <div class="response-text">바로 그거야. pre-는 &quot;앞서, 미리&quot;, dispose는 &quot;향하게 하다&quot;니까 — predisposition은 말 그대로 &quot;미리 특정 방향으로 향하게 된 상태&quot;야. 어떤 자극이나 경험이 오기도 전에 이미 그쪽으로 기울어진 채로 세팅되어 있다는 뜻이지. 그래서 유전적 소인이나 깊이 내재된 심리적 성향을 가리킬 때 이 단어가 딱 맞아 떨어지는 거야.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 4 <span class="turn-type">MU — 오용 판별</span></h4>
+        <div class="question-text">predisposition이 **어색하게** 쓰인 문장은 어느 쪽일까?</div>
+        <div class="options-container" data-term="term-68" data-turn="explore-3"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-68', 3, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">그는 불안 장애에 대한 유전적 predisposition을 갖고 있다는 진단을 받았어.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-68-explore-3-0" style="display:none">
+          <div class="response-text">그건 어색하지 않아. 유전적 소인, 심리적 취약성 — predisposition이 가장 자연스럽게 쓰이는 전형적인 자리야.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-68', 3, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">나는 매운 음식을 좋아하는 predisposition이 있어서 오늘도 불닭을 시켰어.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-68-explore-3-1" style="display:none">
+          <div class="response-text">잘 찾았어. predisposition은 &quot;매운 음식을 좋아하게 된&quot; 것처럼 가볍게 형성된 기호나 취향에는 너무 무거운 단어야. 이 단어는 유전적이거나 심리적으로 깊이 내재된 성향을 가리킬 때 쓰이거든. 단순한 음식 취향에 쓰면 어색해.</div>
+        </div></div></div><div class="turn-section">
+      <h4 class="turn-title">종료</h4>
+      <div class="scene-text">Predisposition은 단순히 \&quot;자주 그러는 경향\&quot;이 아니라, 태어날 때부터 혹은 아주 깊이 내재된 채로 특정 질병이나 성향 쪽으로 기울어져 있는 소인(素因)을 가리키는 거야. 그래서 tendency보다 훨씬 무겁고, 의학적·심리적 맥락에서 특히 자주 등장하는 단어지. 가벼운 습관이나 취향에는 쓰지 않아 — 뿌리 깊은 취약성이나 성향을 얘기할 때 꺼내는 단어거든.</div>
+    </div><div class="stats-bar">
+    <span>Tokens: 446 in / 2867 out</span>
+    <span>Latency: 44042ms</span>
+    <span>Cost: $0.0479</span>
+    <span>Source: final-test</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-68">Feedback</label>
+    <textarea id="fb-term-68" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-68')"></textarea>
+    <button class="save-btn" id="save-term-68" onclick="saveFeedback('term-68')">Save</button>
+    <span class="save-status" id="status-term-68"></span>
+  </div></div></details></div>
+
+<script>
+const FEEDBACK_PORT = 3456;
+
+function selectOption(btn, termId, turn, idx) {
+  // Toggle: if already selected, deselect
+  const respId = 'resp-' + termId + '-' + turn + '-' + idx;
+  const respEl = document.getElementById(respId);
+  if (btn.classList.contains('selected')) {
+    btn.classList.remove('selected');
+    respEl.style.display = 'none';
+    return;
+  }
+  // For intro: allow multiple selections to compare
+  // Just toggle this one
+  btn.classList.toggle('selected');
+  respEl.style.display = respEl.style.display === 'none' ? 'block' : 'none';
+}
+
+function selectExplore(btn, termId, turnIdx, optIdx) {
+  const respId = 'resp-' + termId + '-explore-' + turnIdx + '-' + optIdx;
+  const respEl = document.getElementById(respId);
+  const isCorrect = btn.dataset.correct === 'true';
+
+  if (btn.classList.contains('revealed-correct') || btn.classList.contains('revealed-incorrect')) {
+    // Toggle off
+    btn.classList.remove('revealed-correct', 'revealed-incorrect', 'selected');
+    respEl.style.display = 'none';
+    return;
+  }
+
+  // Reveal this option
+  btn.classList.add(isCorrect ? 'revealed-correct' : 'revealed-incorrect');
+  btn.classList.add('selected');
+  respEl.style.display = 'block';
+}
+
+function markUnsaved(termId) {
+  var btn = document.getElementById('save-' + termId);
+  btn.classList.add('unsaved');
+  document.getElementById('status-' + termId).textContent = 'unsaved';
+}
+
+async function saveFeedback(termId) {
+  var textarea = document.getElementById('fb-' + termId);
+  var feedback = textarea.value;
+  var statusEl = document.getElementById('status-' + termId);
+  var btn = document.getElementById('save-' + termId);
+
+  try {
+    var resp = await fetch('http://localhost:' + FEEDBACK_PORT + '/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ termId: termId, feedback: feedback }),
+    });
+    if (resp.ok) {
+      statusEl.textContent = 'saved ✓';
+      btn.classList.remove('unsaved');
+    } else {
+      statusEl.textContent = 'save failed: ' + resp.status;
+    }
+  } catch (e) {
+    statusEl.textContent = 'server unreachable — is feedback-server running?';
+  }
+}
+
+// Save all on Ctrl+S
+document.addEventListener('keydown', function(e) {
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+    e.preventDefault();
+    document.querySelectorAll('.save-btn.unsaved').forEach(function(btn) {
+      var termId = btn.id.replace('save-', '');
+      saveFeedback(termId);
+    });
+  }
+});
+</script>
+</body>
+</html>

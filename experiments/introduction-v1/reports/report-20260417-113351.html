@@ -1,0 +1,2038 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Introduction v1 — report-20260417-113351</title>
+<style>
+:root {
+  --bg: #f8fafc; --card: #fff; --border: #e2e8f0; --border-light: #f1f5f9;
+  --text: #1e293b; --text-muted: #64748b; --text-faint: #94a3b8;
+  --accent: #6366f1; --accent-light: #eef2ff; --accent-border: #c7d2fe;
+  --correct: #16a34a; --correct-bg: #f0fdf4; --correct-border: #bbf7d0;
+  --incorrect: #dc2626; --incorrect-bg: #fef2f2; --incorrect-border: #fecaca;
+  --scene-bg: #fffbeb; --scene-border: #fde68a;
+  --question-bg: #f0f9ff; --question-border: #bae6fd;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Pretendard', 'Inter', -apple-system, sans-serif; line-height: 1.6; padding: 24px; max-width: 1000px; margin: 0 auto; background: var(--bg); color: var(--text); font-size: 14px; }
+h1 { font-size: 22px; font-weight: 700; margin-bottom: 20px; }
+
+/* Summary */
+.summary { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+.summary-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 12px; }
+.sg-item { text-align: center; padding: 10px; background: var(--bg); border-radius: 8px; }
+.sg-value { font-size: 20px; font-weight: 700; }
+.sg-label { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.5px; }
+.summary-meta { font-size: 12px; color: var(--text-faint); text-align: center; margin-bottom: 16px; }
+
+/* Overview table */
+.overview-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.overview-table th { text-align: left; padding: 8px 6px; font-size: 11px; text-transform: uppercase; color: var(--text-faint); border-bottom: 2px solid var(--border); }
+.overview-table td { padding: 6px; border-bottom: 1px solid var(--border-light); }
+.overview-table a { color: var(--accent); text-decoration: none; font-weight: 600; }
+.overview-table a:hover { text-decoration: underline; }
+.tok-cell { font-size: 11px; color: var(--text-faint); }
+.all-pass { color: var(--correct); font-weight: 600; }
+.has-fail { color: var(--incorrect); font-weight: 600; }
+
+/* Badges */
+.level-badge, .level-badge-sm { display: inline-block; padding: 1px 8px; border-radius: 8px; font-size: 12px; font-weight: 700; }
+.level-badge-sm { font-size: 10px; padding: 1px 6px; }
+.imp-badge { font-size: 11px; color: var(--text-muted); }
+.type-badge { font-size: 11px; padding: 1px 6px; border-radius: 4px; background: #f1f5f9; color: var(--text-muted); }
+
+/* Term card */
+.term-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
+.term-header { padding: 12px 16px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; flex-wrap: wrap; }
+.term-header:hover { background: #fafbfc; }
+.term-word { font-weight: 700; font-size: 15px; min-width: 120px; }
+.term-def { flex: 1; color: var(--text-muted); font-size: 12px; min-width: 200px; }
+.term-stats { display: flex; gap: 10px; font-size: 11px; color: var(--text-faint); }
+.stat-turns { color: var(--accent); font-weight: 600; }
+.term-body { padding: 0 16px 16px; }
+
+/* Checks */
+.checks-bar { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px; }
+.ck-pass, .ck-fail { font-size: 11px; padding: 2px 8px; border-radius: 4px; }
+.ck-pass { color: var(--correct); background: var(--correct-bg); }
+.ck-fail { color: var(--incorrect); background: var(--incorrect-bg); }
+
+/* Reasoning */
+.reasoning-block { margin-bottom: 16px; }
+.reasoning-block summary { font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; }
+.reasoning-content { margin-top: 8px; padding: 12px; background: var(--bg); border-radius: 8px; }
+.r-field { margin-bottom: 6px; font-size: 13px; line-height: 1.6; }
+.r-field code { background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+
+/* Turn sections */
+.turn-section { margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border-light); }
+.turn-title { font-size: 14px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.turn-type { font-size: 12px; font-weight: 500; color: var(--accent); background: var(--accent-light); padding: 2px 8px; border-radius: 4px; }
+.scene-text { background: var(--scene-bg); border-left: 3px solid var(--scene-border); padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 10px; font-size: 14px; line-height: 1.8; white-space: pre-wrap; }
+.question-text { background: var(--question-bg); border-left: 3px solid var(--question-border); padding: 10px 16px; border-radius: 0 8px 8px 0; margin-bottom: 12px; font-size: 14px; font-weight: 600; }
+
+/* Option buttons */
+.options-container { display: flex; flex-direction: column; gap: 6px; }
+.option-btn { display: flex; align-items: flex-start; gap: 10px; width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--card); cursor: pointer; text-align: left; font-size: 14px; line-height: 1.6; transition: all 0.15s; font-family: inherit; }
+.option-btn:hover { border-color: var(--accent); background: var(--accent-light); }
+.option-btn.selected { border-color: var(--accent); background: var(--accent-light); box-shadow: 0 0 0 2px var(--accent-border); }
+.option-btn.revealed-correct { border-color: var(--correct); background: var(--correct-bg); }
+.option-btn.revealed-incorrect { border-color: var(--incorrect); background: var(--incorrect-bg); }
+.option-num { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: var(--bg); font-size: 12px; font-weight: 700; color: var(--text-muted); flex-shrink: 0; }
+.option-text { flex: 1; }
+
+/* Response boxes */
+.response-box { margin: 4px 0 8px 34px; padding: 12px 16px; border-radius: 8px; font-size: 13px; line-height: 1.8; animation: fadeIn 0.2s; white-space: pre-wrap; }
+.response-box:not(.correct-option):not(.incorrect-option) {
+  background: #f8f8ff; border: 1px solid var(--accent-border);
+}
+.correct-option { background: var(--correct-bg); border: 1px solid var(--correct-border); }
+.incorrect-option { background: var(--incorrect-bg); border: 1px solid var(--incorrect-border); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Stats */
+.stats-bar { display: flex; flex-wrap: wrap; gap: 16px; font-size: 11px; color: var(--text-faint); margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-light); }
+
+/* Parse errors */
+.parse-errors { margin-top: 8px; }
+.parse-error { background: var(--incorrect-bg); color: var(--incorrect); padding: 4px 8px; border-radius: 4px; font-size: 11px; font-family: monospace; margin: 2px 0; }
+.error-box { background: var(--incorrect-bg); padding: 12px; border-radius: 8px; margin: 8px 0; }
+.error-box pre { font-size: 11px; white-space: pre-wrap; word-break: break-all; }
+
+/* Feedback */
+.feedback-section { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border-light); }
+.feedback-label { font-size: 12px; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 4px; }
+.feedback-textarea { width: 100%; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; font-family: inherit; resize: vertical; line-height: 1.6; }
+.feedback-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-border); }
+.save-btn { margin-top: 6px; padding: 6px 16px; border: 1px solid var(--accent); border-radius: 6px; background: var(--accent-light); color: var(--accent); font-weight: 600; font-size: 12px; cursor: pointer; font-family: inherit; }
+.save-btn:hover { background: var(--accent); color: white; }
+.save-btn.unsaved { border-color: var(--incorrect); color: var(--incorrect); background: var(--incorrect-bg); }
+.save-status { font-size: 11px; color: var(--text-faint); margin-left: 8px; }
+
+.section-title { font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; }
+
+@media (max-width: 768px) {
+  .summary-grid { grid-template-columns: repeat(3, 1fr); }
+  body { padding: 12px; }
+}
+</style>
+</head>
+<body>
+<h1>Word Introduction — report-20260417-113351</h1>
+<div class="summary">
+    <div class="summary-grid">
+      <div class="sg-item"><div class="sg-value">48</div><div class="sg-label">Terms</div></div>
+      <div class="sg-item"><div class="sg-value">0/48</div><div class="sg-label">Checks</div></div>
+      <div class="sg-item"><div class="sg-value">0</div><div class="sg-label">Avg Turns</div></div>
+      <div class="sg-item"><div class="sg-value">0ms</div><div class="sg-label">Avg Latency</div></div>
+      <div class="sg-item"><div class="sg-value">$0.000</div><div class="sg-label">Total Cost</div></div>
+      <div class="sg-item"><div class="sg-value">0.0k</div><div class="sg-label">Output Tokens</div></div>
+    </div>
+    <div class="summary-meta">claude-sonnet-4-6 · v1 · 2026-04-17T02:33:51.550Z</div>
+
+    <table class="overview-table"><thead><tr>
+      <th>Term</th><th>Level</th><th>Imp</th><th>Type</th><th>Turns</th><th>Checks</th><th>Tokens</th><th>Latency</th><th>Cost</th>
+    </tr></thead><tbody><tr>
+      <td><a href="#card-term-01">wakes up</a></td>
+      <td><span class="level-badge-sm" style="background:#dcfce7">A1</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-02">puts on</a></td>
+      <td><span class="level-badge-sm" style="background:#dcfce7">A1</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-03">delicious</a></td>
+      <td><span class="level-badge-sm" style="background:#dcfce7">A1</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-04">happy</a></td>
+      <td><span class="level-badge-sm" style="background:#dcfce7">A1</span></td>
+      <td>0</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-05">playground</a></td>
+      <td><span class="level-badge-sm" style="background:#dcfce7">A1</span></td>
+      <td>3</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-06">cat</a></td>
+      <td><span class="level-badge-sm" style="background:#dcfce7">A1</span></td>
+      <td>3</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-07">forgot</a></td>
+      <td><span class="level-badge-sm" style="background:#dcfce7">A1</span></td>
+      <td>3</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-08">go back</a></td>
+      <td><span class="level-badge-sm" style="background:#dcfce7">A1</span></td>
+      <td>3</td>
+      <td>P</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-09">visited</a></td>
+      <td><span class="level-badge-sm" style="background:#dcfce7">A1</span></td>
+      <td>3</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-10">doesn&#39;t feel well</a></td>
+      <td><span class="level-badge-sm" style="background:#bbf7d0">A2</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-11">give up</a></td>
+      <td><span class="level-badge-sm" style="background:#bbf7d0">A2</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-12">learning to code</a></td>
+      <td><span class="level-badge-sm" style="background:#bbf7d0">A2</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-13">data</a></td>
+      <td><span class="level-badge-sm" style="background:#bbf7d0">A2</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-14">pronunciation</a></td>
+      <td><span class="level-badge-sm" style="background:#bbf7d0">A2</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-15">instead of</a></td>
+      <td><span class="level-badge-sm" style="background:#bbf7d0">A2</span></td>
+      <td>3</td>
+      <td>P</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-16">freedom</a></td>
+      <td><span class="level-badge-sm" style="background:#bbf7d0">A2</span></td>
+      <td>3</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-17">castle</a></td>
+      <td><span class="level-badge-sm" style="background:#bbf7d0">A2</span></td>
+      <td>2</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-18">turtle</a></td>
+      <td><span class="level-badge-sm" style="background:#bbf7d0">A2</span></td>
+      <td>2</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-19">feedback</a></td>
+      <td><span class="level-badge-sm" style="background:#fef9c3">B1</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-20">end up in</a></td>
+      <td><span class="level-badge-sm" style="background:#fef9c3">B1</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-21">pollution</a></td>
+      <td><span class="level-badge-sm" style="background:#fef9c3">B1</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-22">anxiety</a></td>
+      <td><span class="level-badge-sm" style="background:#fef9c3">B1</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-23">climate change</a></td>
+      <td><span class="level-badge-sm" style="background:#fef9c3">B1</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-24">consequence</a></td>
+      <td><span class="level-badge-sm" style="background:#fef9c3">B1</span></td>
+      <td>0</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-25">pointed out</a></td>
+      <td><span class="level-badge-sm" style="background:#fef9c3">B1</span></td>
+      <td>3</td>
+      <td>P</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-26">runs like the wind</a></td>
+      <td><span class="level-badge-sm" style="background:#fef9c3">B1</span></td>
+      <td>3</td>
+      <td>P</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-27">gradually</a></td>
+      <td><span class="level-badge-sm" style="background:#fef9c3">B1</span></td>
+      <td>3</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-28">bounced back</a></td>
+      <td><span class="level-badge-sm" style="background:#fde68a">B2</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-29">cutting corners</a></td>
+      <td><span class="level-badge-sm" style="background:#fde68a">B2</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-30">go back to square one</a></td>
+      <td><span class="level-badge-sm" style="background:#fde68a">B2</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-31">merger</a></td>
+      <td><span class="level-badge-sm" style="background:#fde68a">B2</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-32">opportunity cost</a></td>
+      <td><span class="level-badge-sm" style="background:#fde68a">B2</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-33">paralyze</a></td>
+      <td><span class="level-badge-sm" style="background:#fde68a">B2</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-34">fatigue</a></td>
+      <td><span class="level-badge-sm" style="background:#fde68a">B2</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-35">strike a balance</a></td>
+      <td><span class="level-badge-sm" style="background:#fde68a">B2</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-36">renewable energy sources</a></td>
+      <td><span class="level-badge-sm" style="background:#fde68a">B2</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-37">counterintuitive</a></td>
+      <td><span class="level-badge-sm" style="background:#fecaca">C1</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-38">cognitive</a></td>
+      <td><span class="level-badge-sm" style="background:#fecaca">C1</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-39">paradox of choice</a></td>
+      <td><span class="level-badge-sm" style="background:#fecaca">C1</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-40">decision fatigue</a></td>
+      <td><span class="level-badge-sm" style="background:#fecaca">C1</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-41">paradox</a></td>
+      <td><span class="level-badge-sm" style="background:#fecaca">C1</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-42">runs a tight ship</a></td>
+      <td><span class="level-badge-sm" style="background:#fecaca">C1</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-43">mitigate</a></td>
+      <td><span class="level-badge-sm" style="background:#fecaca">C1</span></td>
+      <td>3</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-44">abundance</a></td>
+      <td><span class="level-badge-sm" style="background:#fecaca">C1</span></td>
+      <td>3</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-45">far-reaching</a></td>
+      <td><span class="level-badge-sm" style="background:#fecaca">C1</span></td>
+      <td>3</td>
+      <td>P</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-46">relinquished</a></td>
+      <td><span class="level-badge-sm" style="background:#fca5a5">C2</span></td>
+      <td>3</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-47">seminal</a></td>
+      <td><span class="level-badge-sm" style="background:#fca5a5">C2</span></td>
+      <td>2</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-48">polysemous</a></td>
+      <td><span class="level-badge-sm" style="background:#fca5a5">C2</span></td>
+      <td>1</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr></tbody></table></div>
+
+    <div class="term-card" id="card-term-01">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">wakes up</span>
+          <span class="level-badge" style="background:#dcfce7">A1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">stops sleeping; gets out of bed</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-01</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-01">Feedback</label>
+    <textarea id="fb-term-01" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-01')"></textarea>
+    <button class="save-btn" id="save-term-01" onclick="saveFeedback('term-01')">Save</button>
+    <span class="save-status" id="status-term-01"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-02">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">puts on</span>
+          <span class="level-badge" style="background:#dcfce7">A1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">places clothing onto one&#39;s body; dresses in</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-01</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-02">Feedback</label>
+    <textarea id="fb-term-02" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-02')"></textarea>
+    <button class="save-btn" id="save-term-02" onclick="saveFeedback('term-02')">Save</button>
+    <span class="save-status" id="status-term-02"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-03">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">delicious</span>
+          <span class="level-badge" style="background:#dcfce7">A1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">having a very pleasant taste</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-24</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-03">Feedback</label>
+    <textarea id="fb-term-03" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-03')"></textarea>
+    <button class="save-btn" id="save-term-03" onclick="saveFeedback('term-03')">Save</button>
+    <span class="save-status" id="status-term-03"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-04">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">happy</span>
+          <span class="level-badge" style="background:#dcfce7">A1</span>
+          <span class="imp-badge">imp 0</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">feeling pleasure or contentment</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-10</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-04">Feedback</label>
+    <textarea id="fb-term-04" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-04')"></textarea>
+    <button class="save-btn" id="save-term-04" onclick="saveFeedback('term-04')">Save</button>
+    <span class="save-status" id="status-term-04"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-05">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">playground</span>
+          <span class="level-badge" style="background:#dcfce7">A1</span>
+          <span class="imp-badge">imp 3</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">an outdoor area at school where children play</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-01</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-05">Feedback</label>
+    <textarea id="fb-term-05" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-05')"></textarea>
+    <button class="save-btn" id="save-term-05" onclick="saveFeedback('term-05')">Save</button>
+    <span class="save-status" id="status-term-05"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-06">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">cat</span>
+          <span class="level-badge" style="background:#dcfce7">A1</span>
+          <span class="imp-badge">imp 3</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">a small furry animal often kept as a pet</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-14</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-06">Feedback</label>
+    <textarea id="fb-term-06" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-06')"></textarea>
+    <button class="save-btn" id="save-term-06" onclick="saveFeedback('term-06')">Save</button>
+    <span class="save-status" id="status-term-06"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-07">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">forgot</span>
+          <span class="level-badge" style="background:#dcfce7">A1</span>
+          <span class="imp-badge">imp 3</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">failed to remember something</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-31</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-07">Feedback</label>
+    <textarea id="fb-term-07" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-07')"></textarea>
+    <button class="save-btn" id="save-term-07" onclick="saveFeedback('term-07')">Save</button>
+    <span class="save-status" id="status-term-07"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-08">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">go back</span>
+          <span class="level-badge" style="background:#dcfce7">A1</span>
+          <span class="imp-badge">imp 3</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">to return to a place</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-27</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-08">Feedback</label>
+    <textarea id="fb-term-08" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-08')"></textarea>
+    <button class="save-btn" id="save-term-08" onclick="saveFeedback('term-08')">Save</button>
+    <span class="save-status" id="status-term-08"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-09">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">visited</span>
+          <span class="level-badge" style="background:#dcfce7">A1</span>
+          <span class="imp-badge">imp 3</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">went to see a place as a tourist or guest</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-13</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-09">Feedback</label>
+    <textarea id="fb-term-09" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-09')"></textarea>
+    <button class="save-btn" id="save-term-09" onclick="saveFeedback('term-09')">Save</button>
+    <span class="save-status" id="status-term-09"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-10">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">doesn&#39;t feel well</span>
+          <span class="level-badge" style="background:#bbf7d0">A2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">is not in good health; feels sick</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-01</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-10">Feedback</label>
+    <textarea id="fb-term-10" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-10')"></textarea>
+    <button class="save-btn" id="save-term-10" onclick="saveFeedback('term-10')">Save</button>
+    <span class="save-status" id="status-term-10"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-11">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">give up</span>
+          <span class="level-badge" style="background:#bbf7d0">A2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">to stop doing something or to surrender something</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-11</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-11">Feedback</label>
+    <textarea id="fb-term-11" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-11')"></textarea>
+    <button class="save-btn" id="save-term-11" onclick="saveFeedback('term-11')">Save</button>
+    <span class="save-status" id="status-term-11"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-12">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">learning to code</span>
+          <span class="level-badge" style="background:#bbf7d0">A2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">the process of studying how to write computer programs</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-25</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-12">Feedback</label>
+    <textarea id="fb-term-12" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-12')"></textarea>
+    <button class="save-btn" id="save-term-12" onclick="saveFeedback('term-12')">Save</button>
+    <span class="save-status" id="status-term-12"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-13">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">data</span>
+          <span class="level-badge" style="background:#bbf7d0">A2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">facts and information, especially when stored digitally</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-26</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-13">Feedback</label>
+    <textarea id="fb-term-13" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-13')"></textarea>
+    <button class="save-btn" id="save-term-13" onclick="saveFeedback('term-13')">Save</button>
+    <span class="save-status" id="status-term-13"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-14">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">pronunciation</span>
+          <span class="level-badge" style="background:#bbf7d0">A2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">the way sounds are made when speaking a word</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-28</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-14">Feedback</label>
+    <textarea id="fb-term-14" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-14')"></textarea>
+    <button class="save-btn" id="save-term-14" onclick="saveFeedback('term-14')">Save</button>
+    <span class="save-status" id="status-term-14"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-15">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">instead of</span>
+          <span class="level-badge" style="background:#bbf7d0">A2</span>
+          <span class="imp-badge">imp 3</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">in place of something else; as a substitute</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-04</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-15">Feedback</label>
+    <textarea id="fb-term-15" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-15')"></textarea>
+    <button class="save-btn" id="save-term-15" onclick="saveFeedback('term-15')">Save</button>
+    <span class="save-status" id="status-term-15"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-16">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">freedom</span>
+          <span class="level-badge" style="background:#bbf7d0">A2</span>
+          <span class="imp-badge">imp 3</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">the state of being able to choose and act without restriction</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-07</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-16">Feedback</label>
+    <textarea id="fb-term-16" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-16')"></textarea>
+    <button class="save-btn" id="save-term-16" onclick="saveFeedback('term-16')">Save</button>
+    <span class="save-status" id="status-term-16"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-17">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">castle</span>
+          <span class="level-badge" style="background:#bbf7d0">A2</span>
+          <span class="imp-badge">imp 2</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">a large, old stone building that was built to defend against attack</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-13</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-17">Feedback</label>
+    <textarea id="fb-term-17" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-17')"></textarea>
+    <button class="save-btn" id="save-term-17" onclick="saveFeedback('term-17')">Save</button>
+    <span class="save-status" id="status-term-17"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-18">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">turtle</span>
+          <span class="level-badge" style="background:#bbf7d0">A2</span>
+          <span class="imp-badge">imp 2</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">a reptile with a hard shell that lives in the sea</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-04</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-18">Feedback</label>
+    <textarea id="fb-term-18" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-18')"></textarea>
+    <button class="save-btn" id="save-term-18" onclick="saveFeedback('term-18')">Save</button>
+    <span class="save-status" id="status-term-18"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-19">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">feedback</span>
+          <span class="level-badge" style="background:#fef9c3">B1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">comments or advice about how well someone has done something</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-23</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-19">Feedback</label>
+    <textarea id="fb-term-19" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-19')"></textarea>
+    <button class="save-btn" id="save-term-19" onclick="saveFeedback('term-19')">Save</button>
+    <span class="save-status" id="status-term-19"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-20">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">end up in</span>
+          <span class="level-badge" style="background:#fef9c3">B1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">to finally arrive at or reach a place or situation, often unintentionally</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-04</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-20">Feedback</label>
+    <textarea id="fb-term-20" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-20')"></textarea>
+    <button class="save-btn" id="save-term-20" onclick="saveFeedback('term-20')">Save</button>
+    <span class="save-status" id="status-term-20"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-21">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">pollution</span>
+          <span class="level-badge" style="background:#fef9c3">B1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">harmful substances that damage the natural environment</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-04</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-21">Feedback</label>
+    <textarea id="fb-term-21" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-21')"></textarea>
+    <button class="save-btn" id="save-term-21" onclick="saveFeedback('term-21')">Save</button>
+    <span class="save-status" id="status-term-21"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-22">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">anxiety</span>
+          <span class="level-badge" style="background:#fef9c3">B1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">a feeling of worry and nervousness, especially about the future</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-07</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-22">Feedback</label>
+    <textarea id="fb-term-22" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-22')"></textarea>
+    <button class="save-btn" id="save-term-22" onclick="saveFeedback('term-22')">Save</button>
+    <span class="save-status" id="status-term-22"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-23">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">climate change</span>
+          <span class="level-badge" style="background:#fef9c3">B1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">long-term shifts in global temperatures and weather patterns, often caused by human activity</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-35</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-23">Feedback</label>
+    <textarea id="fb-term-23" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-23')"></textarea>
+    <button class="save-btn" id="save-term-23" onclick="saveFeedback('term-23')">Save</button>
+    <span class="save-status" id="status-term-23"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-24">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">consequence</span>
+          <span class="level-badge" style="background:#fef9c3">B1</span>
+          <span class="imp-badge">imp 0</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">a result or effect of an action or situation</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-10</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-24">Feedback</label>
+    <textarea id="fb-term-24" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-24')"></textarea>
+    <button class="save-btn" id="save-term-24" onclick="saveFeedback('term-24')">Save</button>
+    <span class="save-status" id="status-term-24"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-25">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">pointed out</span>
+          <span class="level-badge" style="background:#fef9c3">B1</span>
+          <span class="imp-badge">imp 3</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">drew attention to a fact or problem</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-12</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-25">Feedback</label>
+    <textarea id="fb-term-25" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-25')"></textarea>
+    <button class="save-btn" id="save-term-25" onclick="saveFeedback('term-25')">Save</button>
+    <span class="save-status" id="status-term-25"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-26">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">runs like the wind</span>
+          <span class="level-badge" style="background:#fef9c3">B1</span>
+          <span class="imp-badge">imp 3</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">runs extremely fast -- idiomatic comparison</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-01</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-26">Feedback</label>
+    <textarea id="fb-term-26" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-26')"></textarea>
+    <button class="save-btn" id="save-term-26" onclick="saveFeedback('term-26')">Save</button>
+    <span class="save-status" id="status-term-26"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-27">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">gradually</span>
+          <span class="level-badge" style="background:#fef9c3">B1</span>
+          <span class="imp-badge">imp 3</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">slowly and steadily over time</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-25</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-27">Feedback</label>
+    <textarea id="fb-term-27" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-27')"></textarea>
+    <button class="save-btn" id="save-term-27" onclick="saveFeedback('term-27')">Save</button>
+    <span class="save-status" id="status-term-27"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-28">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">bounced back</span>
+          <span class="level-badge" style="background:#fde68a">B2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">recovered quickly after a difficulty or failure</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-11</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-28">Feedback</label>
+    <textarea id="fb-term-28" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-28')"></textarea>
+    <button class="save-btn" id="save-term-28" onclick="saveFeedback('term-28')">Save</button>
+    <span class="save-status" id="status-term-28"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-29">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">cutting corners</span>
+          <span class="level-badge" style="background:#fde68a">B2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">doing something in a quick, careless way to save time or money</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-12</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-29">Feedback</label>
+    <textarea id="fb-term-29" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-29')"></textarea>
+    <button class="save-btn" id="save-term-29" onclick="saveFeedback('term-29')">Save</button>
+    <span class="save-status" id="status-term-29"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-30">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">go back to square one</span>
+          <span class="level-badge" style="background:#fde68a">B2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">return to the very beginning because a plan has failed</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-12</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-30">Feedback</label>
+    <textarea id="fb-term-30" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-30')"></textarea>
+    <button class="save-btn" id="save-term-30" onclick="saveFeedback('term-30')">Save</button>
+    <span class="save-status" id="status-term-30"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-31">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">merger</span>
+          <span class="level-badge" style="background:#fde68a">B2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">the combining of two companies into one</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-11</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-31">Feedback</label>
+    <textarea id="fb-term-31" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-31')"></textarea>
+    <button class="save-btn" id="save-term-31" onclick="saveFeedback('term-31')">Save</button>
+    <span class="save-status" id="status-term-31"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-32">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">opportunity cost</span>
+          <span class="level-badge" style="background:#fde68a">B2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">the value of the best alternative you give up when making a choice</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-07</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-32">Feedback</label>
+    <textarea id="fb-term-32" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-32')"></textarea>
+    <button class="save-btn" id="save-term-32" onclick="saveFeedback('term-32')">Save</button>
+    <span class="save-status" id="status-term-32"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-33">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">paralyze</span>
+          <span class="level-badge" style="background:#fde68a">B2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">to make someone unable to act or decide</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-07</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-33">Feedback</label>
+    <textarea id="fb-term-33" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-33')"></textarea>
+    <button class="save-btn" id="save-term-33" onclick="saveFeedback('term-33')">Save</button>
+    <span class="save-status" id="status-term-33"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-34">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">fatigue</span>
+          <span class="level-badge" style="background:#fde68a">B2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">extreme tiredness, especially from mental or physical effort</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-07</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-34">Feedback</label>
+    <textarea id="fb-term-34" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-34')"></textarea>
+    <button class="save-btn" id="save-term-34" onclick="saveFeedback('term-34')">Save</button>
+    <span class="save-status" id="status-term-34"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-35">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">strike a balance</span>
+          <span class="level-badge" style="background:#fde68a">B2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">to find an acceptable middle point between two opposing things</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-26</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-35">Feedback</label>
+    <textarea id="fb-term-35" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-35')"></textarea>
+    <button class="save-btn" id="save-term-35" onclick="saveFeedback('term-35')">Save</button>
+    <span class="save-status" id="status-term-35"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-36">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">renewable energy sources</span>
+          <span class="level-badge" style="background:#fde68a">B2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">energy from natural sources that are constantly replenished, such as wind or solar</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-35</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-36">Feedback</label>
+    <textarea id="fb-term-36" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-36')"></textarea>
+    <button class="save-btn" id="save-term-36" onclick="saveFeedback('term-36')">Save</button>
+    <span class="save-status" id="status-term-36"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-37">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">counterintuitive</span>
+          <span class="level-badge" style="background:#fecaca">C1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">opposite to what you would naturally expect or believe</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-07</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-37">Feedback</label>
+    <textarea id="fb-term-37" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-37')"></textarea>
+    <button class="save-btn" id="save-term-37" onclick="saveFeedback('term-37')">Save</button>
+    <span class="save-status" id="status-term-37"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-38">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">cognitive</span>
+          <span class="level-badge" style="background:#fecaca">C1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">relating to the mental processes of thinking and understanding</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-07</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-38">Feedback</label>
+    <textarea id="fb-term-38" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-38')"></textarea>
+    <button class="save-btn" id="save-term-38" onclick="saveFeedback('term-38')">Save</button>
+    <span class="save-status" id="status-term-38"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-39">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">paradox of choice</span>
+          <span class="level-badge" style="background:#fecaca">C1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">the idea that having too many options leads to less happiness</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-07</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-39">Feedback</label>
+    <textarea id="fb-term-39" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-39')"></textarea>
+    <button class="save-btn" id="save-term-39" onclick="saveFeedback('term-39')">Save</button>
+    <span class="save-status" id="status-term-39"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-40">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">decision fatigue</span>
+          <span class="level-badge" style="background:#fecaca">C1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">the mental exhaustion caused by making too many decisions</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-07</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-40">Feedback</label>
+    <textarea id="fb-term-40" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-40')"></textarea>
+    <button class="save-btn" id="save-term-40" onclick="saveFeedback('term-40')">Save</button>
+    <span class="save-status" id="status-term-40"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-41">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">paradox</span>
+          <span class="level-badge" style="background:#fecaca">C1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">a situation or statement that seems contradictory but may be true</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-07</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-41">Feedback</label>
+    <textarea id="fb-term-41" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-41')"></textarea>
+    <button class="save-btn" id="save-term-41" onclick="saveFeedback('term-41')">Save</button>
+    <span class="save-status" id="status-term-41"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-42">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">runs a tight ship</span>
+          <span class="level-badge" style="background:#fecaca">C1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">manages an organization in a strict and efficient way</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-11</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-42">Feedback</label>
+    <textarea id="fb-term-42" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-42')"></textarea>
+    <button class="save-btn" id="save-term-42" onclick="saveFeedback('term-42')">Save</button>
+    <span class="save-status" id="status-term-42"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-43">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">mitigate</span>
+          <span class="level-badge" style="background:#fecaca">C1</span>
+          <span class="imp-badge">imp 3</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">to make something less severe, harmful, or serious</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-07</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-43">Feedback</label>
+    <textarea id="fb-term-43" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-43')"></textarea>
+    <button class="save-btn" id="save-term-43" onclick="saveFeedback('term-43')">Save</button>
+    <span class="save-status" id="status-term-43"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-44">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">abundance</span>
+          <span class="level-badge" style="background:#fecaca">C1</span>
+          <span class="imp-badge">imp 3</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">a very large quantity of something; more than enough</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-07</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-44">Feedback</label>
+    <textarea id="fb-term-44" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-44')"></textarea>
+    <button class="save-btn" id="save-term-44" onclick="saveFeedback('term-44')">Save</button>
+    <span class="save-status" id="status-term-44"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-45">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">far-reaching</span>
+          <span class="level-badge" style="background:#fecaca">C1</span>
+          <span class="imp-badge">imp 3</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">having effects that spread widely and influence many areas</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-29</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-45">Feedback</label>
+    <textarea id="fb-term-45" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-45')"></textarea>
+    <button class="save-btn" id="save-term-45" onclick="saveFeedback('term-45')">Save</button>
+    <span class="save-status" id="status-term-45"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-46">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">relinquished</span>
+          <span class="level-badge" style="background:#fca5a5">C2</span>
+          <span class="imp-badge">imp 3</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">given up or let go of something</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-07</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-46">Feedback</label>
+    <textarea id="fb-term-46" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-46')"></textarea>
+    <button class="save-btn" id="save-term-46" onclick="saveFeedback('term-46')">Save</button>
+    <span class="save-status" id="status-term-46"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-47">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">seminal</span>
+          <span class="level-badge" style="background:#fca5a5">C2</span>
+          <span class="imp-badge">imp 2</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">strongly influencing later developments; highly original and important</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-07</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-47">Feedback</label>
+    <textarea id="fb-term-47" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-47')"></textarea>
+    <button class="save-btn" id="save-term-47" onclick="saveFeedback('term-47')">Save</button>
+    <span class="save-status" id="status-term-47"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-48">
+      <details>
+        <summary class="term-header">
+          <span class="term-word">polysemous</span>
+          <span class="level-badge" style="background:#fca5a5">C2</span>
+          <span class="imp-badge">imp 1</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">having multiple distinct meanings</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-36</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-48">Feedback</label>
+    <textarea id="fb-term-48" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-48')"></textarea>
+    <button class="save-btn" id="save-term-48" onclick="saveFeedback('term-48')">Save</button>
+    <span class="save-status" id="status-term-48"></span>
+  </div></div></details></div>
+
+<script>
+const FEEDBACK_PORT = 3456;
+
+function selectOption(btn, termId, turn, idx) {
+  // Toggle: if already selected, deselect
+  const respId = 'resp-' + termId + '-' + turn + '-' + idx;
+  const respEl = document.getElementById(respId);
+  if (btn.classList.contains('selected')) {
+    btn.classList.remove('selected');
+    respEl.style.display = 'none';
+    return;
+  }
+  // For intro: allow multiple selections to compare
+  // Just toggle this one
+  btn.classList.toggle('selected');
+  respEl.style.display = respEl.style.display === 'none' ? 'block' : 'none';
+}
+
+function selectExplore(btn, termId, turnIdx, optIdx) {
+  const respId = 'resp-' + termId + '-explore-' + turnIdx + '-' + optIdx;
+  const respEl = document.getElementById(respId);
+  const isCorrect = btn.dataset.correct === 'true';
+
+  if (btn.classList.contains('revealed-correct') || btn.classList.contains('revealed-incorrect')) {
+    // Toggle off
+    btn.classList.remove('revealed-correct', 'revealed-incorrect', 'selected');
+    respEl.style.display = 'none';
+    return;
+  }
+
+  // Reveal this option
+  btn.classList.add(isCorrect ? 'revealed-correct' : 'revealed-incorrect');
+  btn.classList.add('selected');
+  respEl.style.display = 'block';
+}
+
+function markUnsaved(termId) {
+  var btn = document.getElementById('save-' + termId);
+  btn.classList.add('unsaved');
+  document.getElementById('status-' + termId).textContent = 'unsaved';
+}
+
+async function saveFeedback(termId) {
+  var textarea = document.getElementById('fb-' + termId);
+  var feedback = textarea.value;
+  var statusEl = document.getElementById('status-' + termId);
+  var btn = document.getElementById('save-' + termId);
+
+  try {
+    var resp = await fetch('http://localhost:' + FEEDBACK_PORT + '/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ termId: termId, feedback: feedback }),
+    });
+    if (resp.ok) {
+      statusEl.textContent = 'saved ✓';
+      btn.classList.remove('unsaved');
+    } else {
+      statusEl.textContent = 'save failed: ' + resp.status;
+    }
+  } catch (e) {
+    statusEl.textContent = 'server unreachable — is feedback-server running?';
+  }
+}
+
+// Save all on Ctrl+S
+document.addEventListener('keydown', function(e) {
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+    e.preventDefault();
+    document.querySelectorAll('.save-btn.unsaved').forEach(function(btn) {
+      var termId = btn.id.replace('save-', '');
+      saveFeedback(termId);
+    });
+  }
+});
+</script>
+</body>
+</html>

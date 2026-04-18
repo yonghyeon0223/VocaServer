@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Introduction v1 — report-20260417-131857</title>
+<style>
+:root {
+  --bg: #f8fafc; --card: #fff; --border: #e2e8f0; --border-light: #f1f5f9;
+  --text: #1e293b; --text-muted: #64748b; --text-faint: #94a3b8;
+  --accent: #6366f1; --accent-light: #eef2ff; --accent-border: #c7d2fe;
+  --correct: #16a34a; --correct-bg: #f0fdf4; --correct-border: #bbf7d0;
+  --incorrect: #dc2626; --incorrect-bg: #fef2f2; --incorrect-border: #fecaca;
+  --scene-bg: #fffbeb; --scene-border: #fde68a;
+  --question-bg: #f0f9ff; --question-border: #bae6fd;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Pretendard', 'Inter', -apple-system, sans-serif; line-height: 1.6; padding: 24px; max-width: 1000px; margin: 0 auto; background: var(--bg); color: var(--text); font-size: 14px; }
+h1 { font-size: 22px; font-weight: 700; margin-bottom: 20px; }
+
+/* Summary */
+.summary { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+.summary-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 12px; }
+.sg-item { text-align: center; padding: 10px; background: var(--bg); border-radius: 8px; }
+.sg-value { font-size: 20px; font-weight: 700; }
+.sg-label { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.5px; }
+.summary-meta { font-size: 12px; color: var(--text-faint); text-align: center; margin-bottom: 16px; }
+
+/* Overview table */
+.overview-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.overview-table th { text-align: left; padding: 8px 6px; font-size: 11px; text-transform: uppercase; color: var(--text-faint); border-bottom: 2px solid var(--border); }
+.overview-table td { padding: 6px; border-bottom: 1px solid var(--border-light); }
+.overview-table a { color: var(--accent); text-decoration: none; font-weight: 600; }
+.overview-table a:hover { text-decoration: underline; }
+.tok-cell { font-size: 11px; color: var(--text-faint); }
+.all-pass { color: var(--correct); font-weight: 600; }
+.has-fail { color: var(--incorrect); font-weight: 600; }
+
+/* Badges */
+.level-badge, .level-badge-sm { display: inline-block; padding: 1px 8px; border-radius: 8px; font-size: 12px; font-weight: 700; }
+.level-badge-sm { font-size: 10px; padding: 1px 6px; }
+.imp-badge { font-size: 11px; color: var(--text-muted); }
+.type-badge { font-size: 11px; padding: 1px 6px; border-radius: 4px; background: #f1f5f9; color: var(--text-muted); }
+
+/* Term card */
+.term-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
+.term-header { padding: 12px 16px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; flex-wrap: wrap; }
+.term-header:hover { background: #fafbfc; }
+.term-word { font-weight: 700; font-size: 15px; min-width: 120px; }
+.term-def { flex: 1; color: var(--text-muted); font-size: 12px; min-width: 200px; }
+.term-stats { display: flex; gap: 10px; font-size: 11px; color: var(--text-faint); }
+.stat-turns { color: var(--accent); font-weight: 600; }
+.term-body { padding: 0 16px 16px; }
+
+/* Checks */
+.checks-bar { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px; }
+.ck-pass, .ck-fail { font-size: 11px; padding: 2px 8px; border-radius: 4px; }
+.ck-pass { color: var(--correct); background: var(--correct-bg); }
+.ck-fail { color: var(--incorrect); background: var(--incorrect-bg); }
+
+/* Reasoning */
+.reasoning-block { margin-bottom: 16px; }
+.reasoning-block summary { font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; }
+.reasoning-content { margin-top: 8px; padding: 12px; background: var(--bg); border-radius: 8px; }
+.r-field { margin-bottom: 6px; font-size: 13px; line-height: 1.6; }
+.r-field code { background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+
+/* Turn sections */
+.turn-section { margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border-light); }
+.turn-title { font-size: 14px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.turn-type { font-size: 12px; font-weight: 500; color: var(--accent); background: var(--accent-light); padding: 2px 8px; border-radius: 4px; }
+.scene-text { background: var(--scene-bg); border-left: 3px solid var(--scene-border); padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 10px; font-size: 14px; line-height: 1.8; white-space: pre-wrap; }
+.question-text { background: var(--question-bg); border-left: 3px solid var(--question-border); padding: 10px 16px; border-radius: 0 8px 8px 0; margin-bottom: 12px; font-size: 14px; font-weight: 600; }
+
+/* Option buttons */
+.options-container { display: flex; flex-direction: column; gap: 6px; }
+.option-btn { display: flex; align-items: flex-start; gap: 10px; width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--card); cursor: pointer; text-align: left; font-size: 14px; line-height: 1.6; transition: all 0.15s; font-family: inherit; }
+.option-btn:hover { border-color: var(--accent); background: var(--accent-light); }
+.option-btn.selected { border-color: var(--accent); background: var(--accent-light); box-shadow: 0 0 0 2px var(--accent-border); }
+.option-btn.revealed-correct { border-color: var(--correct); background: var(--correct-bg); }
+.option-btn.revealed-incorrect { border-color: var(--incorrect); background: var(--incorrect-bg); }
+.option-num { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: var(--bg); font-size: 12px; font-weight: 700; color: var(--text-muted); flex-shrink: 0; }
+.option-text { flex: 1; }
+
+/* Response boxes */
+.response-box { margin: 4px 0 8px 34px; padding: 12px 16px; border-radius: 8px; font-size: 13px; line-height: 1.8; animation: fadeIn 0.2s; white-space: pre-wrap; }
+.response-box:not(.correct-option):not(.incorrect-option) {
+  background: #f8f8ff; border: 1px solid var(--accent-border);
+}
+.correct-option { background: var(--correct-bg); border: 1px solid var(--correct-border); }
+.incorrect-option { background: var(--incorrect-bg); border: 1px solid var(--incorrect-border); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Stats */
+.stats-bar { display: flex; flex-wrap: wrap; gap: 16px; font-size: 11px; color: var(--text-faint); margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-light); }
+
+/* Parse errors */
+.parse-errors { margin-top: 8px; }
+.parse-error { background: var(--incorrect-bg); color: var(--incorrect); padding: 4px 8px; border-radius: 4px; font-size: 11px; font-family: monospace; margin: 2px 0; }
+.error-box { background: var(--incorrect-bg); padding: 12px; border-radius: 8px; margin: 8px 0; }
+.error-box pre { font-size: 11px; white-space: pre-wrap; word-break: break-all; }
+
+/* Feedback */
+.feedback-section { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border-light); }
+.feedback-label { font-size: 12px; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 4px; }
+.feedback-textarea { width: 100%; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; font-family: inherit; resize: vertical; line-height: 1.6; }
+.feedback-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-border); }
+.save-btn { margin-top: 6px; padding: 6px 16px; border: 1px solid var(--accent); border-radius: 6px; background: var(--accent-light); color: var(--accent); font-weight: 600; font-size: 12px; cursor: pointer; font-family: inherit; }
+.save-btn:hover { background: var(--accent); color: white; }
+.save-btn.unsaved { border-color: var(--incorrect); color: var(--incorrect); background: var(--incorrect-bg); }
+.save-status { font-size: 11px; color: var(--text-faint); margin-left: 8px; }
+
+.section-title { font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; }
+
+@media (max-width: 768px) {
+  .summary-grid { grid-template-columns: repeat(3, 1fr); }
+  body { padding: 12px; }
+}
+</style>
+</head>
+<body>
+<h1>Word Introduction — report-20260417-131857</h1>
+<div class="summary">
+    <div class="summary-grid">
+      <div class="sg-item"><div class="sg-value">5</div><div class="sg-label">Terms</div></div>
+      <div class="sg-item"><div class="sg-value">0/5</div><div class="sg-label">Checks</div></div>
+      <div class="sg-item"><div class="sg-value">0</div><div class="sg-label">Avg Turns</div></div>
+      <div class="sg-item"><div class="sg-value">0ms</div><div class="sg-label">Avg Latency</div></div>
+      <div class="sg-item"><div class="sg-value">$0.000</div><div class="sg-label">Total Cost</div></div>
+      <div class="sg-item"><div class="sg-value">0.0k</div><div class="sg-label">Output Tokens</div></div>
+    </div>
+    <div class="summary-meta">claude-sonnet-4-6 · v1 · 2026-04-17T04:18:57.776Z</div>
+
+    <table class="overview-table"><thead><tr>
+      <th>Term</th><th>Level</th><th>Imp</th><th>Type</th><th>Turns</th><th>Checks</th><th>Tokens</th><th>Latency</th><th>Cost</th>
+    </tr></thead><tbody><tr>
+      <td><a href="#card-term-06">cat</a></td>
+      <td><span class="level-badge-sm" style="background:#dcfce7">A1</span></td>
+      <td>3</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-11">give up</a></td>
+      <td><span class="level-badge-sm" style="background:#bbf7d0">A2</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-20">end up in</a></td>
+      <td><span class="level-badge-sm" style="background:#fef9c3">B1</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-28">bounced back</a></td>
+      <td><span class="level-badge-sm" style="background:#fde68a">B2</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr><tr>
+      <td><a href="#card-term-37">counterintuitive</a></td>
+      <td><span class="level-badge-sm" style="background:#fecaca">C1</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">0</td>
+      <td>0ms</td>
+      <td>$0.0000</td>
+    </tr></tbody></table></div>
+
+    <div class="term-card" id="card-term-06">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">cat</span>
+          <span class="level-badge" style="background:#dcfce7">A1</span>
+          <span class="imp-badge">imp 3</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">a small furry animal often kept as a pet</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-14</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-06">Feedback</label>
+    <textarea id="fb-term-06" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-06')"></textarea>
+    <button class="save-btn" id="save-term-06" onclick="saveFeedback('term-06')">Save</button>
+    <span class="save-status" id="status-term-06"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-11">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">give up</span>
+          <span class="level-badge" style="background:#bbf7d0">A2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">to stop doing something or to surrender something</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-11</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-11">Feedback</label>
+    <textarea id="fb-term-11" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-11')"></textarea>
+    <button class="save-btn" id="save-term-11" onclick="saveFeedback('term-11')">Save</button>
+    <span class="save-status" id="status-term-11"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-20">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">end up in</span>
+          <span class="level-badge" style="background:#fef9c3">B1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">to finally arrive at or reach a place or situation, often unintentionally</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-04</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-20">Feedback</label>
+    <textarea id="fb-term-20" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-20')"></textarea>
+    <button class="save-btn" id="save-term-20" onclick="saveFeedback('term-20')">Save</button>
+    <span class="save-status" id="status-term-20"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-28">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">bounced back</span>
+          <span class="level-badge" style="background:#fde68a">B2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">recovered quickly after a difficulty or failure</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-11</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-28">Feedback</label>
+    <textarea id="fb-term-28" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-28')"></textarea>
+    <button class="save-btn" id="save-term-28" onclick="saveFeedback('term-28')">Save</button>
+    <span class="save-status" id="status-term-28"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-37">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">counterintuitive</span>
+          <span class="level-badge" style="background:#fecaca">C1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">opposite to what you would naturally expect or believe</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0000</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted">✗ api_call</span></div><div class="error-box">Parse failed. Raw response:<pre>ERROR: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the &quot;X-Api-Key&quot; or &quot;Authorization&quot; headers to be explicitly omitted</pre></div><div class="stats-bar">
+    <span>Tokens: 0 in / 0 out</span>
+    <span>Latency: 0ms</span>
+    <span>Cost: $0.0000</span>
+    <span>Source: test-07</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-37">Feedback</label>
+    <textarea id="fb-term-37" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-37')"></textarea>
+    <button class="save-btn" id="save-term-37" onclick="saveFeedback('term-37')">Save</button>
+    <span class="save-status" id="status-term-37"></span>
+  </div></div></details></div>
+
+<script>
+const FEEDBACK_PORT = 3456;
+
+function selectOption(btn, termId, turn, idx) {
+  // Toggle: if already selected, deselect
+  const respId = 'resp-' + termId + '-' + turn + '-' + idx;
+  const respEl = document.getElementById(respId);
+  if (btn.classList.contains('selected')) {
+    btn.classList.remove('selected');
+    respEl.style.display = 'none';
+    return;
+  }
+  // For intro: allow multiple selections to compare
+  // Just toggle this one
+  btn.classList.toggle('selected');
+  respEl.style.display = respEl.style.display === 'none' ? 'block' : 'none';
+}
+
+function selectExplore(btn, termId, turnIdx, optIdx) {
+  const respId = 'resp-' + termId + '-explore-' + turnIdx + '-' + optIdx;
+  const respEl = document.getElementById(respId);
+  const isCorrect = btn.dataset.correct === 'true';
+
+  if (btn.classList.contains('revealed-correct') || btn.classList.contains('revealed-incorrect')) {
+    // Toggle off
+    btn.classList.remove('revealed-correct', 'revealed-incorrect', 'selected');
+    respEl.style.display = 'none';
+    return;
+  }
+
+  // Reveal this option
+  btn.classList.add(isCorrect ? 'revealed-correct' : 'revealed-incorrect');
+  btn.classList.add('selected');
+  respEl.style.display = 'block';
+}
+
+function markUnsaved(termId) {
+  var btn = document.getElementById('save-' + termId);
+  btn.classList.add('unsaved');
+  document.getElementById('status-' + termId).textContent = 'unsaved';
+}
+
+async function saveFeedback(termId) {
+  var textarea = document.getElementById('fb-' + termId);
+  var feedback = textarea.value;
+  var statusEl = document.getElementById('status-' + termId);
+  var btn = document.getElementById('save-' + termId);
+
+  try {
+    var resp = await fetch('http://localhost:' + FEEDBACK_PORT + '/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ termId: termId, feedback: feedback }),
+    });
+    if (resp.ok) {
+      statusEl.textContent = 'saved ✓';
+      btn.classList.remove('unsaved');
+    } else {
+      statusEl.textContent = 'save failed: ' + resp.status;
+    }
+  } catch (e) {
+    statusEl.textContent = 'server unreachable — is feedback-server running?';
+  }
+}
+
+// Save all on Ctrl+S
+document.addEventListener('keydown', function(e) {
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+    e.preventDefault();
+    document.querySelectorAll('.save-btn.unsaved').forEach(function(btn) {
+      var termId = btn.id.replace('save-', '');
+      saveFeedback(termId);
+    });
+  }
+});
+</script>
+</body>
+</html>

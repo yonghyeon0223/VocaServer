@@ -12,6 +12,5 @@ experiments/.env.experiments
 experiments/extraction/results/
 experiments/extraction/reports/
 
-# Introduction experiment artifacts (generated per-run)
+# Introduction experiment results (raw JSON, large)
 experiments/introduction-v1/results/
-experiments/introduction-v1/reports/

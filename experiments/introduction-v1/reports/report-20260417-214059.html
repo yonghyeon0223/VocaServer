@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Introduction v1 — report-20260417-214059</title>
+<style>
+:root {
+  --bg: #f8fafc; --card: #fff; --border: #e2e8f0; --border-light: #f1f5f9;
+  --text: #1e293b; --text-muted: #64748b; --text-faint: #94a3b8;
+  --accent: #6366f1; --accent-light: #eef2ff; --accent-border: #c7d2fe;
+  --correct: #16a34a; --correct-bg: #f0fdf4; --correct-border: #bbf7d0;
+  --incorrect: #dc2626; --incorrect-bg: #fef2f2; --incorrect-border: #fecaca;
+  --scene-bg: #fffbeb; --scene-border: #fde68a;
+  --question-bg: #f0f9ff; --question-border: #bae6fd;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Pretendard', 'Inter', -apple-system, sans-serif; line-height: 1.6; padding: 24px; max-width: 1000px; margin: 0 auto; background: var(--bg); color: var(--text); font-size: 14px; }
+h1 { font-size: 22px; font-weight: 700; margin-bottom: 20px; }
+
+/* Summary */
+.summary { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+.summary-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 12px; }
+.sg-item { text-align: center; padding: 10px; background: var(--bg); border-radius: 8px; }
+.sg-value { font-size: 20px; font-weight: 700; }
+.sg-label { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.5px; }
+.summary-meta { font-size: 12px; color: var(--text-faint); text-align: center; margin-bottom: 16px; }
+
+/* Overview table */
+.overview-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.overview-table th { text-align: left; padding: 8px 6px; font-size: 11px; text-transform: uppercase; color: var(--text-faint); border-bottom: 2px solid var(--border); }
+.overview-table td { padding: 6px; border-bottom: 1px solid var(--border-light); }
+.overview-table a { color: var(--accent); text-decoration: none; font-weight: 600; }
+.overview-table a:hover { text-decoration: underline; }
+.tok-cell { font-size: 11px; color: var(--text-faint); }
+.all-pass { color: var(--correct); font-weight: 600; }
+.has-fail { color: var(--incorrect); font-weight: 600; }
+
+/* Badges */
+.level-badge, .level-badge-sm { display: inline-block; padding: 1px 8px; border-radius: 8px; font-size: 12px; font-weight: 700; }
+.level-badge-sm { font-size: 10px; padding: 1px 6px; }
+.imp-badge { font-size: 11px; color: var(--text-muted); }
+.type-badge { font-size: 11px; padding: 1px 6px; border-radius: 4px; background: #f1f5f9; color: var(--text-muted); }
+
+/* Term card */
+.term-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
+.term-header { padding: 12px 16px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; flex-wrap: wrap; }
+.term-header:hover { background: #fafbfc; }
+.term-word { font-weight: 700; font-size: 15px; min-width: 120px; }
+.term-def { flex: 1; color: var(--text-muted); font-size: 12px; min-width: 200px; }
+.term-stats { display: flex; gap: 10px; font-size: 11px; color: var(--text-faint); }
+.stat-turns { color: var(--accent); font-weight: 600; }
+.term-body { padding: 0 16px 16px; }
+
+/* Checks */
+.checks-bar { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px; }
+.ck-pass, .ck-fail { font-size: 11px; padding: 2px 8px; border-radius: 4px; }
+.ck-pass { color: var(--correct); background: var(--correct-bg); }
+.ck-fail { color: var(--incorrect); background: var(--incorrect-bg); }
+
+/* Reasoning */
+.reasoning-block { margin-bottom: 16px; }
+.reasoning-block summary { font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; }
+.reasoning-content { margin-top: 8px; padding: 12px; background: var(--bg); border-radius: 8px; }
+.r-field { margin-bottom: 6px; font-size: 13px; line-height: 1.6; }
+.r-field code { background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+
+/* Turn sections */
+.turn-section { margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border-light); }
+.turn-title { font-size: 14px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.turn-type { font-size: 12px; font-weight: 500; color: var(--accent); background: var(--accent-light); padding: 2px 8px; border-radius: 4px; }
+.scene-text { background: var(--scene-bg); border-left: 3px solid var(--scene-border); padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 10px; font-size: 14px; line-height: 1.8; white-space: pre-wrap; }
+.question-text { background: var(--question-bg); border-left: 3px solid var(--question-border); padding: 10px 16px; border-radius: 0 8px 8px 0; margin-bottom: 12px; font-size: 14px; font-weight: 600; }
+
+/* Option buttons */
+.options-container { display: flex; flex-direction: column; gap: 6px; }
+.option-btn { display: flex; align-items: flex-start; gap: 10px; width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--card); cursor: pointer; text-align: left; font-size: 14px; line-height: 1.6; transition: all 0.15s; font-family: inherit; }
+.option-btn:hover { border-color: var(--accent); background: var(--accent-light); }
+.option-btn.selected { border-color: var(--accent); background: var(--accent-light); box-shadow: 0 0 0 2px var(--accent-border); }
+.option-btn.revealed-correct { border-color: var(--correct); background: var(--correct-bg); }
+.option-btn.revealed-incorrect { border-color: var(--incorrect); background: var(--incorrect-bg); }
+.option-num { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: var(--bg); font-size: 12px; font-weight: 700; color: var(--text-muted); flex-shrink: 0; }
+.option-text { flex: 1; }
+
+/* Response boxes */
+.response-box { margin: 4px 0 8px 34px; padding: 12px 16px; border-radius: 8px; font-size: 13px; line-height: 1.8; animation: fadeIn 0.2s; white-space: pre-wrap; }
+.response-box:not(.correct-option):not(.incorrect-option) {
+  background: #f8f8ff; border: 1px solid var(--accent-border);
+}
+.correct-option { background: var(--correct-bg); border: 1px solid var(--correct-border); }
+.incorrect-option { background: var(--incorrect-bg); border: 1px solid var(--incorrect-border); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Stats */
+.stats-bar { display: flex; flex-wrap: wrap; gap: 16px; font-size: 11px; color: var(--text-faint); margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-light); }
+
+/* Parse errors */
+.parse-errors { margin-top: 8px; }
+.parse-error { background: var(--incorrect-bg); color: var(--incorrect); padding: 4px 8px; border-radius: 4px; font-size: 11px; font-family: monospace; margin: 2px 0; }
+.error-box { background: var(--incorrect-bg); padding: 12px; border-radius: 8px; margin: 8px 0; }
+.error-box pre { font-size: 11px; white-space: pre-wrap; word-break: break-all; }
+
+/* Feedback */
+.feedback-section { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border-light); }
+.feedback-label { font-size: 12px; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 4px; }
+.feedback-textarea { width: 100%; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; font-family: inherit; resize: vertical; line-height: 1.6; }
+.feedback-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-border); }
+.save-btn { margin-top: 6px; padding: 6px 16px; border: 1px solid var(--accent); border-radius: 6px; background: var(--accent-light); color: var(--accent); font-weight: 600; font-size: 12px; cursor: pointer; font-family: inherit; }
+.save-btn:hover { background: var(--accent); color: white; }
+.save-btn.unsaved { border-color: var(--incorrect); color: var(--incorrect); background: var(--incorrect-bg); }
+.save-status { font-size: 11px; color: var(--text-faint); margin-left: 8px; }
+
+.section-title { font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; }
+
+@media (max-width: 768px) {
+  .summary-grid { grid-template-columns: repeat(3, 1fr); }
+  body { padding: 12px; }
+}
+</style>
+</head>
+<body>
+<h1>Word Introduction — report-20260417-214059</h1>
+<div class="summary">
+    <div class="summary-grid">
+      <div class="sg-item"><div class="sg-value">5</div><div class="sg-label">Terms</div></div>
+      <div class="sg-item"><div class="sg-value">35/35</div><div class="sg-label">Checks</div></div>
+      <div class="sg-item"><div class="sg-value">3.8</div><div class="sg-label">Avg Turns</div></div>
+      <div class="sg-item"><div class="sg-value">35052ms</div><div class="sg-label">Avg Latency</div></div>
+      <div class="sg-item"><div class="sg-value">$0.243</div><div class="sg-label">Total Cost</div></div>
+      <div class="sg-item"><div class="sg-value">10.4k</div><div class="sg-label">Output Tokens</div></div>
+    </div>
+    <div class="summary-meta">claude-sonnet-4-6 · v1 · 2026-04-17T12:40:59.618Z</div>
+
+    <table class="overview-table"><thead><tr>
+      <th>Term</th><th>Level</th><th>Imp</th><th>Type</th><th>Turns</th><th>Checks</th><th>Tokens in/out</th><th>Latency</th><th>Cost</th>
+    </tr></thead><tbody><tr>
+      <td><a href="#card-term-26">runs like the wind</a></td>
+      <td><span class="level-badge-sm" style="background:#fef9c3">B1</span></td>
+      <td>3</td>
+      <td>P</td>
+      <td>3</td>
+      <td class="all-pass">7/7</td>
+      <td class="tok-cell">442/1747</td>
+      <td>31470ms</td>
+      <td>$0.0947</td>
+    </tr><tr>
+      <td><a href="#card-term-29">cutting corners</a></td>
+      <td><span class="level-badge-sm" style="background:#fde68a">B2</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>4</td>
+      <td class="all-pass">7/7</td>
+      <td class="tok-cell">446/2237</td>
+      <td>37711ms</td>
+      <td>$0.0383</td>
+    </tr><tr>
+      <td><a href="#card-term-32">opportunity cost</a></td>
+      <td><span class="level-badge-sm" style="background:#fde68a">B2</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>4</td>
+      <td class="all-pass">7/7</td>
+      <td class="tok-cell">445/2099</td>
+      <td>32662ms</td>
+      <td>$0.0362</td>
+    </tr><tr>
+      <td><a href="#card-term-42">runs a tight ship</a></td>
+      <td><span class="level-badge-sm" style="background:#fecaca">C1</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>4</td>
+      <td class="all-pass">7/7</td>
+      <td class="tok-cell">443/2143</td>
+      <td>38860ms</td>
+      <td>$0.0368</td>
+    </tr><tr>
+      <td><a href="#card-term-45">far-reaching</a></td>
+      <td><span class="level-badge-sm" style="background:#fecaca">C1</span></td>
+      <td>3</td>
+      <td>P</td>
+      <td>4</td>
+      <td class="all-pass">7/7</td>
+      <td class="tok-cell">442/2174</td>
+      <td>34555ms</td>
+      <td>$0.0373</td>
+    </tr></tbody></table></div>
+
+    <div class="term-card" id="card-term-26">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">runs like the wind</span>
+          <span class="level-badge" style="background:#fef9c3">B1</span>
+          <span class="imp-badge">imp 3</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">runs extremely fast -- idiomatic comparison</span>
+          <span class="term-stats">
+            <span class="stat-turns">3t</span>
+            <span class="stat-checks all-pass">7/7</span>
+            <span class="stat-cost">$0.0947</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="3 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CX, WD, CP">✓ explore_types_valid</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">민준이는 초등학교 운동회 날, 반 대표로 100미터 달리기에 나갔어. 출발 신호가 울리자마자 다른 애들을 훌쩍 따돌리고 결승선을 제일 먼저 통과했거든. 옆에서 보던 민준이 엄마가 눈이 휘둥그레져서 옆 학부모한테 뭔가를 속삭였어.</div>
+      <div class="question-text">민준이 엄마가 뭐라고 했을 것 같아?</div>
+      <div class="options-container" data-term="term-26" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-26', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">&quot;우리 애가 저렇게 잘 달리는 줄 몰랐네요.&quot;</span>
+      </button>
+      <div class="response-box" id="resp-term-26-intro-0" style="display:none">
+        <div class="response-text">그렇지, 엄마도 깜짝 놀란 거잖아. 근데 옆 학부모가 피식 웃으면서 이렇게 받았거든. &quot;어머, 애가 runs like the wind네요!&quot; 바람처럼 달린다는 뜻이야 — 엄청 빠르게 달릴 때 쓰는 표현이거든.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-26', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">&quot;우리 애 오늘 컨디션이 좋은가 봐요.&quot;</span>
+      </button>
+      <div class="response-box" id="resp-term-26-intro-1" style="display:none">
+        <div class="response-text">뭐, 그렇게 생각할 수도 있지. 근데 옆 학부모는 그냥 컨디션 문제가 아니라고 봤나봐. &quot;아이고, 저 애 runs like the wind네요!&quot; 하고 감탄했거든. 바람처럼 달린다는 뜻이야 — 엄청 빠르게 달릴 때 쓰는 표현이거든.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">runs like the wind, 어떤 상황에서 가장 자연스럽게 쓰일까?</div>
+        <div class="options-container" data-term="term-26" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-26', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">친구가 마라톤을 완주했다고 할 때</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-26-explore-0-0" style="display:none">
+          <div class="response-text">마라톤 완주는 대단한 일이지만, 그건 속도보다는 끈기의 이야기잖아. runs like the wind는 얼마나 빠른지를 표현하는 말이라서 이 상황엔 잘 안 어울려.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-26', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">친구가 운동을 꾸준히 한다고 할 때</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-26-explore-0-1" style="display:none">
+          <div class="response-text">꾸준히 운동한다는 건 습관이나 노력에 관한 이야기지, 속도에 관한 이야기가 아니잖아. runs like the wind는 달리는 속도가 엄청나게 빠를 때 쓰는 표현이야.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-26', 0, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">친구가 운동장을 가로질러 순식간에 사라졌다고 할 때</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-26-explore-0-2" style="display:none">
+          <div class="response-text">맞아, 바로 그런 장면이야. 눈 깜짝할 사이에 저 멀리 가버렸을 때 — 그 빠름을 바람에 빗대서 she runs like the wind라고 하는 거거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">WD — 구성 요소 분해</span></h4>
+        <div class="question-text">이 표현에서 wind를 쓴 이유가 뭘까? 그냥 fast라고 하면 되는데 굳이 바람을 끌어온 이유 말이야.</div>
+        <div class="options-container" data-term="term-26" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-26', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">바람은 방향이 없어서, 어디로 튈지 모른다는 느낌을 주려고</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-26-explore-1-0" style="display:none">
+          <div class="response-text">바람의 방향 얘기는 이 표현이 담으려는 감각이 아니야. runs like the wind는 예측 불가능함이 아니라 순수한 속도를 말하는 표현이거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-26', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">바람은 눈에 안 보이는데도 느껴질 만큼 빠르게 지나가니까</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-26-explore-1-1" style="display:none">
+          <div class="response-text">바로 그거야. 바람은 잡을 수도, 막을 수도 없이 그냥 휙 지나가잖아. 그 이미지를 달리기에 붙인 거야 — 눈으로 쫓기도 전에 이미 지나가버리는 속도감. 그래서 runs like the wind는 단순히 &#39;빠르다&#39;보다 훨씬 생생하게 들리는 거지.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">runs like the wind랑 runs fast, 이 둘은 어떻게 달라?</div>
+        <div class="options-container" data-term="term-26" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-26', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">runs like the wind는 속도를 감각적으로 표현하고, runs fast는 사실을 건조하게 전달해</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-26-explore-2-0" style="display:none">
+          <div class="response-text">맞아. runs fast는 그냥 정보야 — 빠르다는 사실. 근데 runs like the wind는 바람이라는 이미지를 통해 그 빠름을 눈앞에 그려지게 만들잖아. 같은 내용인데 듣는 사람이 받는 느낌이 완전히 달라지는 거지.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-26', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">runs like the wind는 아주 빠를 때만 쓰고, runs fast는 조금 빠를 때 써</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-26-explore-2-1" style="display:none">
+          <div class="response-text">속도의 정도 차이로 구분하는 건 아니야. runs fast도 얼마든지 엄청 빠른 상황에 쓸 수 있거든. 이 둘의 차이는 속도의 크기가 아니라 표현 방식에 있어.</div>
+        </div></div></div><div class="stats-bar">
+    <span>Tokens: 442 in / 1747 out</span>
+    <span>Latency: 31470ms</span>
+    <span>Cost: $0.0947</span>
+    <span>Source: test-01</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-26">Feedback</label>
+    <textarea id="fb-term-26" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-26')"></textarea>
+    <button class="save-btn" id="save-term-26" onclick="saveFeedback('term-26')">Save</button>
+    <span class="save-status" id="status-term-26"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-29">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">cutting corners</span>
+          <span class="level-badge" style="background:#fde68a">B2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">doing something in a quick, careless way to save time or money</span>
+          <span class="term-stats">
+            <span class="stat-turns">4t</span>
+            <span class="stat-checks all-pass">7/7</span>
+            <span class="stat-cost">$0.0383</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="4 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CX, CP, WD, MU">✓ explore_types_valid</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">민준이네 회사에서 새 사무실 인테리어 공사를 맡겼거든. 근데 공사 업체가 원래 쓰기로 한 자재 대신 더 싼 걸 쓰고, 마감 처리도 대충 넘어간 게 여기저기서 보이는 거야. 공사 기간도 예정보다 훨씬 짧게 끝났고. 민준이는 결과물을 보자마자 뭔가 이상하다는 걸 바로 느꼈어.</div>
+      <div class="question-text">민준이 입장에서 이 상황을 어떻게 받아들였을까?</div>
+      <div class="options-container" data-term="term-29" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-29', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">업체가 시간이랑 비용을 아끼려고 제대로 안 한 거라고 봤다</span>
+      </button>
+      <div class="response-box" id="resp-term-29-intro-0" style="display:none">
+        <div class="response-text">민준이는 결국 업체 담당자한테 따졌고, 담당자도 딱히 반박을 못 했어. 이런 걸 영어로 cutting corners라고 하거든. 해야 할 걸 제대로 안 하고 대충 넘어가는 거 있잖아, 그게 바로 이 표현이야.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-29', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">업체가 나름 최선을 다했는데 실력이 부족했던 거라고 봤다</span>
+      </button>
+      <div class="response-box" id="resp-term-29-intro-1" style="display:none">
+        <div class="response-text">그럴 수도 있겠지만, 민준이는 생각이 달랐어. 자재도 바꾸고 마감도 건너뛴 걸 보니, 실력 문제가 아니라 의도적으로 아낀 거라는 게 느껴졌거든. 이런 걸 영어로 cutting corners라고 해. 시간이나 돈을 아끼려고 해야 할 걸 슬쩍 건너뛰는 거, 그게 이 표현이야.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">다음 중 cutting corners라는 표현이 가장 자연스럽게 어울리는 상황은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-29" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-29', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">요리사가 새로운 레시피를 개발하려고 재료를 이것저것 바꿔가며 실험하고 있다</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-29-explore-0-0" style="display:none">
+          <div class="response-text">그건 cutting corners가 아니야. 뭔가를 아끼거나 건너뛰는 게 아니라, 오히려 더 공을 들이는 상황이잖아. Cutting corners는 해야 할 걸 슬쩍 빼먹거나 줄이는 쪽에 쓰는 표현이거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-29', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">식당 주인이 위생 점검 항목 일부를 그냥 넘기고 영업을 계속하고 있다</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-29-explore-0-1" style="display:none">
+          <div class="response-text">맞아. 지켜야 할 걸 알면서도 시간이나 수고를 아끼려고 슬쩍 건너뛰는 거잖아. 그게 딱 cutting corners야.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-29', 0, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">직원이 업무 방식을 바꿔서 같은 결과를 더 빠르게 내고 있다</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-29-explore-0-2" style="display:none">
+          <div class="response-text">그건 cutting corners가 아니야. 결과의 질을 유지하면서 효율을 높인 거잖아. Cutting corners는 질이나 기준을 희생하면서 아끼는 쪽에 쓰는 표현이야.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">cutting corners랑 헷갈릴 수 있는 표현이 있어. 다음 두 문장을 보고, cutting corners가 쓰인 쪽을 골라봐.
+
+① 팀장이 보고서 검토 단계를 건너뛰고 바로 제출하라고 했어.
+② 팀장이 보고서 양식을 더 간단하게 바꿔서 작성 시간을 줄였어.</div>
+        <div class="options-container" data-term="term-29" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-29', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">①번</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-29-explore-1-0" style="display:none">
+          <div class="response-text">맞아. ①은 있어야 할 단계를 그냥 빼버린 거잖아. 기준을 지키지 않고 넘어간 거니까 cutting corners야. ②는 방식 자체를 바꾼 거라서, 기준을 희생한 게 아니거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-29', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">②번</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-29-explore-1-1" style="display:none">
+          <div class="response-text">②는 cutting corners가 아니야. 절차를 건너뛴 게 아니라 방식 자체를 개선한 거잖아. Cutting corners는 지켜야 할 기준이나 단계를 슬쩍 빼먹는 쪽에 쓰는 표현이야.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">WD — 구성 요소 분해</span></h4>
+        <div class="question-text">&#39;cutting corners&#39;를 구성하는 두 조각을 보면, cut은 &#39;자르다·줄이다&#39;, corner는 &#39;모서리·코너&#39;야. 이 두 조각을 합쳐서 왜 &#39;대충 넘어가다&#39;라는 뜻을 만들었을까?</div>
+        <div class="options-container" data-term="term-29" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-29', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">모서리처럼 날카로운 부분, 즉 까다롭고 어려운 부분을 잘라내듯 제거한다는 뜻에서 나온 거야</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-29-explore-2-0" style="display:none">
+          <div class="response-text">그럴듯하게 들리지만, 이 표현의 실제 유래는 조금 달라. &#39;어려운 부분을 제거한다&#39;는 추상적인 이미지보다는 훨씬 구체적인 장면에서 나왔거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-29', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">길을 걸을 때 코너를 돌지 않고 대각선으로 가로질러 지름길을 택하는 장면에서 나온 거야</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-29-explore-2-1" style="display:none">
+          <div class="response-text">맞아. 원래 길이라면 코너를 따라 돌아가야 하는데, 그걸 잘라서 지름길로 가는 거잖아. 거기서 &#39;해야 할 과정을 건너뛰고 빠르게 가려 한다&#39;는 뜻이 나온 거야. 그래서 cutting corners는 절차나 기준을 슬쩍 생략하고 넘어가는 걸 가리키는 표현이 된 거지.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 4 <span class="turn-type">MU — 오용 판별</span></h4>
+        <div class="question-text">다음 두 문장 중 cutting corners가 어색하게 쓰인 쪽은 어느 거야?
+
+① The contractor was cutting corners by skipping the safety inspections.
+② She was cutting corners to master the piano by practicing every single day.</div>
+        <div class="options-container" data-term="term-29" data-turn="explore-3"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-29', 3, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">①번</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-29-explore-3-0" style="display:none">
+          <div class="response-text">①은 어색하지 않아. 안전 점검을 건너뛰면서 비용이나 시간을 아끼는 거잖아, 딱 cutting corners야.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-29', 3, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">②번</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-29-explore-3-1" style="display:none">
+          <div class="response-text">맞아. ②가 어색해. 매일 연습하는 건 뭔가를 아끼거나 건너뛰는 게 아니라 오히려 공을 들이는 거잖아. Cutting corners는 기준이나 과정을 희생하면서 아끼는 상황에 쓰는 표현이라, 노력을 쏟아붓는 장면엔 안 어울려.</div>
+        </div></div></div><div class="stats-bar">
+    <span>Tokens: 446 in / 2237 out</span>
+    <span>Latency: 37711ms</span>
+    <span>Cost: $0.0383</span>
+    <span>Source: test-12</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-29">Feedback</label>
+    <textarea id="fb-term-29" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-29')"></textarea>
+    <button class="save-btn" id="save-term-29" onclick="saveFeedback('term-29')">Save</button>
+    <span class="save-status" id="status-term-29"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-32">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">opportunity cost</span>
+          <span class="level-badge" style="background:#fde68a">B2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">the value of the best alternative you give up when making a choice</span>
+          <span class="term-stats">
+            <span class="stat-turns">4t</span>
+            <span class="stat-checks all-pass">7/7</span>
+            <span class="stat-cost">$0.0362</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="4 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CX, CP, AR, MU">✓ explore_types_valid</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">지수는 이번 주말에 오랫동안 기다려온 콘서트 티켓을 갖고 있어. 그런데 갑자기 회사에서 연락이 왔거든 — 이번 주말에 나오면 특별 수당을 꽤 두둑하게 준다는 거야. 둘 다 할 수는 없는 상황이라 지수는 결국 콘서트를 포기하고 출근하기로 했어.</div>
+      <div class="question-text">지수가 출근을 선택했을 때, 지수한테 진짜 중요한 게 뭐라고 생각해?</div>
+      <div class="options-container" data-term="term-32" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-32', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">수당을 얼마나 받았는지</span>
+      </button>
+      <div class="response-box" id="resp-term-32-intro-0" style="display:none">
+        <div class="response-text">맞아, 수당이 얼마인지는 당연히 중요하지. 근데 경제학에서는 지수가 &#39;선택하지 않은 것&#39;, 그러니까 포기한 콘서트의 가치에 더 주목하거든. 그게 바로 opportunity cost야 — 어떤 선택을 할 때 포기하게 되는 최선의 대안이 갖는 가치인 거지.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-32', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">포기한 콘서트가 얼마나 아쉬운지</span>
+      </button>
+      <div class="response-box" id="resp-term-32-intro-1" style="display:none">
+        <div class="response-text">바로 그거야. 지수가 출근을 &#39;선택&#39;한 순간, 콘서트는 지수가 포기한 최선의 대안이 되는 거잖아. 그 아쉬움의 무게 — 그게 opportunity cost야. 어떤 선택을 할 때 함께 사라지는 최선의 대안이 갖는 가치인 거지.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">다음 중 opportunity cost가 생기는 상황은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-32" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-32', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">민준이 편의점에서 음료수를 하나 사는데, 재고가 그것밖에 없어서 다른 선택지가 없었어.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-32-explore-0-0" style="display:none">
+          <div class="response-text">그 상황엔 opportunity cost가 없어. 포기할 대안 자체가 없었으니까. opportunity cost는 선택지가 여럿 있을 때, 그중 하나를 고르면서 나머지를 포기하는 순간에 생기는 거거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-32', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">서연이 대학원 진학과 취업 사이에서 고민하다가 결국 취업을 선택했어.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-32-explore-0-1" style="display:none">
+          <div class="response-text">맞아. 서연이 취업을 선택한 순간, 대학원 진학이라는 대안이 사라지잖아. 그 포기한 대안의 가치가 바로 opportunity cost인 거야. 선택이 있는 곳에 항상 따라오는 개념이거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">친구가 이런 말을 했어: &quot;나 이번에 여행 가려고 했는데 돈이 없어서 못 갔어. 그게 내 opportunity cost야.&quot; 이 말이 맞는 설명일까?</div>
+        <div class="options-container" data-term="term-32" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-32', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">맞아. 여행을 못 간 게 아쉬우니까 opportunity cost가 맞지.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-32-explore-1-0" style="display:none">
+          <div class="response-text">아쉬움이랑 opportunity cost는 다른 거야. opportunity cost는 내가 실제로 선택을 했을 때, 그 선택 때문에 포기하게 된 대안의 가치거든. 돈이 없어서 처음부터 선택지에 없었던 여행은 opportunity cost가 아니야.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-32', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">틀려. 여행은 선택지 자체가 아니었으니까.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-32-explore-1-1" style="display:none">
+          <div class="response-text">정확해. opportunity cost는 &#39;할 수 있었는데 안 한 것&#39;이 아니라, &#39;실제로 선택 가능한 대안들 중에서 포기한 최선의 것&#39;이야. 돈이 없어서 처음부터 불가능했던 여행은 대안이 아니었던 거지.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">AR — 행동·결과 예측</span></h4>
+        <div class="question-text">누군가 이렇게 말했어: &quot;그 일을 맡기로 했을 때의 opportunity cost를 생각해봐야 해.&quot; 이 말 다음에 이어질 내용으로 자연스러운 건 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-32" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-32', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">그 일을 하면서 포기하게 되는 다른 기회들이 뭔지 따져봐야 한다는 거지.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-32-explore-2-0" style="display:none">
+          <div class="response-text">맞아. opportunity cost를 &#39;생각해봐야 한다&#39;는 건, 그 선택으로 인해 사라지는 대안들을 직접 들여다보자는 뜻이거든. 선택의 진짜 비용은 돈만이 아니라 포기한 것들에도 있으니까.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-32', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">그 일을 맡았을 때 얼마나 잘 해낼 수 있는지 자신감을 점검해봐야 한다는 거지.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-32-explore-2-1" style="display:none">
+          <div class="response-text">그건 opportunity cost랑은 다른 방향이야. opportunity cost는 내가 얼마나 잘할 수 있는지가 아니라, 그 선택을 함으로써 무엇을 포기하게 되는지에 관한 개념이거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 4 <span class="turn-type">MU — 오용 판별</span></h4>
+        <div class="question-text">다음 중 opportunity cost를 어색하게 쓴 문장을 골라봐.</div>
+        <div class="options-container" data-term="term-32" data-turn="explore-3"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-32', 3, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">휴학을 선택한 것의 opportunity cost는 그 기간에 쌓을 수 있었던 경력이야.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-32-explore-3-0" style="display:none">
+          <div class="response-text">그건 어색하지 않아. 휴학이라는 선택 때문에 포기하게 된 최선의 대안 — 경력을 쌓는 것 — 의 가치를 가리키고 있으니까, opportunity cost를 제대로 쓴 거야.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-32', 3, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">어제 비가 와서 소풍을 못 간 건 정말 아쉬운 opportunity cost였어.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-32-explore-3-1" style="display:none">
+          <div class="response-text">이건 어색한 표현이야. 비 때문에 소풍이 불가능했던 건 내가 다른 것을 &#39;선택&#39;해서 포기한 게 아니잖아. opportunity cost는 내가 실제로 선택을 내렸을 때 생기는 거지, 외부 상황 때문에 어쩔 수 없이 못 하게 된 경우엔 쓰지 않아.</div>
+        </div></div></div><div class="stats-bar">
+    <span>Tokens: 445 in / 2099 out</span>
+    <span>Latency: 32662ms</span>
+    <span>Cost: $0.0362</span>
+    <span>Source: test-07</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-32">Feedback</label>
+    <textarea id="fb-term-32" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-32')"></textarea>
+    <button class="save-btn" id="save-term-32" onclick="saveFeedback('term-32')">Save</button>
+    <span class="save-status" id="status-term-32"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-42">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">runs a tight ship</span>
+          <span class="level-badge" style="background:#fecaca">C1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">manages an organization in a strict and efficient way</span>
+          <span class="term-stats">
+            <span class="stat-turns">4t</span>
+            <span class="stat-checks all-pass">7/7</span>
+            <span class="stat-cost">$0.0368</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="4 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CX, CP, MU, WD">✓ explore_types_valid</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">민준이 새로 들어간 회사 얘기를 하는데, 팀장이 보고서 양식부터 회의 시작 시간까지 하나하나 다 정해놨대. 지각은 당연히 없고, 업무 절차도 매뉴얼대로만 해야 하고, 팀원들도 다들 군소리 없이 딱딱 맞춰서 움직인다는 거야. 민준이 처음엔 좀 숨막힌다고 했는데, 일이 엄청 빠르게 돌아가긴 한다고.</div>
+      <div class="question-text">민준이 그 팀장을 어떻게 보는 것 같아?</div>
+      <div class="options-container" data-term="term-42" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-42', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">너무 꼼꼼해서 같이 일하기 피곤한 사람</span>
+      </button>
+      <div class="response-box" id="resp-term-42-intro-0" style="display:none">
+        <div class="response-text">그렇게 볼 수도 있지. 근데 민준이 말 들어보면 단순히 까다로운 게 아니라, 팀 전체가 흐트러짐 없이 돌아가게 만드는 사람인 거거든. 영어로는 runs a tight ship이라고 해 — 배를 딱 조여서 운항한다는 느낌인데, 엄격하면서도 효율적으로 조직을 이끄는 사람한테 쓰는 표현이야.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-42', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">엄격하긴 한데 그 덕에 팀이 잘 굴러가는 사람</span>
+      </button>
+      <div class="response-box" id="resp-term-42-intro-1" style="display:none">
+        <div class="response-text">맞아, 딱 그거야. 숨막힐 것 같으면서도 일은 빠릿빠릿하게 돌아간다는 게 포인트잖아. 영어로는 runs a tight ship이라고 하거든 — 엄격하고 효율적으로 조직을 이끄는 사람한테 쓰는 표현이야.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">runs a tight ship은 어떤 상황에서 가장 자연스럽게 쓰일까?</div>
+        <div class="options-container" data-term="term-42" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-42', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">친구가 자기 방을 항상 깔끔하게 정리정돈한다고 할 때</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-42-explore-0-0" style="display:none">
+          <div class="response-text">그건 개인 습관 얘기라서 runs a tight ship이랑은 거리가 있어. 이 표현은 혼자 잘 챙기는 것보다 더 넓은 범위에 쓰여.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-42', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">새로 부임한 교장이 학교 규정을 빈틈없이 적용하고 교직원들도 일사불란하게 움직인다고 할 때</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-42-explore-0-1" style="display:none">
+          <div class="response-text">맞아. runs a tight ship은 조직이나 집단을 이끄는 사람이 엄격하고 효율적으로 운영할 때 쓰는 표현이거든. 혼자 잘하는 게 아니라, 사람들을 이끌면서 전체가 딱 맞아 돌아가게 만드는 상황인 거지.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-42', 0, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">선배가 후배한테 일 처리를 꼼꼼하게 하라고 잔소리할 때</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-42-explore-0-2" style="display:none">
+          <div class="response-text">그건 조언이나 잔소리 상황이라서 runs a tight ship이랑은 안 맞아. 이 표현은 잔소리하는 사람이 아니라, 실제로 조직 전체를 그렇게 굴러가게 만드는 사람한테 쓰여.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">다음 두 표현 중 runs a tight ship에 더 가까운 건 뭘까?</div>
+        <div class="options-container" data-term="term-42" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-42', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">is a perfectionist</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-42-explore-1-0" style="display:none">
+          <div class="response-text">is a perfectionist는 본인이 완벽을 추구하는 성향에 초점이 맞춰져 있어. runs a tight ship은 그 사람 개인의 성격보다는, 조직 전체를 엄격하고 효율적으로 운영하는 방식에 대한 표현이거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-42', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">is a strict and efficient manager</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-42-explore-1-1" style="display:none">
+          <div class="response-text">맞아. runs a tight ship의 핵심은 조직을 이끄는 방식 — 엄격하면서도 효율적으로 굴러가게 만드는 것이거든. is a strict and efficient manager가 그 의미를 가장 직접적으로 담고 있어.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">MU — 오용 판별</span></h4>
+        <div class="question-text">runs a tight ship이 어색하게 쓰인 문장을 골라봐.</div>
+        <div class="options-container" data-term="term-42" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-42', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">우리 강아지는 runs a tight ship이라서 밥 시간이 되면 어김없이 짖어.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-42-explore-2-0" style="display:none">
+          <div class="response-text">그건 어색해. runs a tight ship은 조직이나 집단을 이끄는 사람에 대한 표현이라, 동물한테는 쓰지 않아. 이 표현이 살아있으려면 사람들을 통솔하고 운영하는 주체가 있어야 하거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-42', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">그 감독은 runs a tight ship으로 유명해서 훈련 중에 잡담하는 선수가 없어.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-42-explore-2-1" style="display:none">
+          <div class="response-text">그건 자연스러워. 팀을 엄격하고 효율적으로 이끄는 감독한테 runs a tight ship은 딱 맞는 표현이야.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 4 <span class="turn-type">WD — 구성 요소 분해</span></h4>
+        <div class="question-text">tight ship에서 ship은 왜 &#39;배&#39;일까? 이 표현이 배를 끌어온 이유로 가장 그럴듯한 건 뭘까?</div>
+        <div class="options-container" data-term="term-42" data-turn="explore-3"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-42', 3, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">배는 고장나면 위험하니까, 꼼꼼하게 점검하는 사람의 신중함을 강조하려고</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-42-explore-3-0" style="display:none">
+          <div class="response-text">안전 점검이라는 방향으로 생각한 거구나. 근데 tight ship의 핵심은 신중함보다는 조직 전체가 딱 맞아 돌아가는 운영 방식에 있어.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-42', 3, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">배는 선장 한 명이 선원 전체를 지휘하며 정해진 규율대로 움직여야 하는 조직이라서</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-42-explore-3-1" style="display:none">
+          <div class="response-text">바로 그거야. 배는 선장의 명령 아래 모든 선원이 각자 역할을 빈틈없이 수행해야 하는 조직의 전형이거든. tight는 &#39;느슨함 없이 조여진&#39; 상태를 뜻하고, 그 두 개가 합쳐져서 &#39;엄격하고 효율적으로 운영되는 조직&#39;이라는 의미가 된 거야. 그래서 runs a tight ship은 배 위에서 시작된 표현이지만, 지금은 회사·학교·팀 어디든 조직을 이끄는 사람한테 쓸 수 있어.</div>
+        </div></div></div><div class="stats-bar">
+    <span>Tokens: 443 in / 2143 out</span>
+    <span>Latency: 38860ms</span>
+    <span>Cost: $0.0368</span>
+    <span>Source: test-11</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-42">Feedback</label>
+    <textarea id="fb-term-42" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-42')"></textarea>
+    <button class="save-btn" id="save-term-42" onclick="saveFeedback('term-42')">Save</button>
+    <span class="save-status" id="status-term-42"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-45">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">far-reaching</span>
+          <span class="level-badge" style="background:#fecaca">C1</span>
+          <span class="imp-badge">imp 3</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">having effects that spread widely and influence many areas</span>
+          <span class="term-stats">
+            <span class="stat-turns">4t</span>
+            <span class="stat-checks all-pass">7/7</span>
+            <span class="stat-cost">$0.0373</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="4 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CX, CP, CL, MU">✓ explore_types_valid</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">지난주에 정부가 발표한 교육 정책 개편안 얘기 들었어? 유치원부터 대학교까지 교육과정 전체를 바꾸는 건데, 교사 채용 방식도 달라지고, 대입 제도도 손보고, 심지어 사교육 규제까지 한꺼번에 묶여 있거든. 뉴스마다 난리가 났고, 학부모들도 직장인들도 다들 한마디씩 하고 있어.</div>
+      <div class="question-text">이 정책 개편안, 어떻게 느껴져?</div>
+      <div class="options-container" data-term="term-45" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-45', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">영향받는 사람이 너무 많아서 어디서부터 생각해야 할지 모르겠어</span>
+      </button>
+      <div class="response-box" id="resp-term-45-intro-0" style="display:none">
+        <div class="response-text">맞아, 그게 핵심이거든. 나중에 전문가들이 이 개편안을 두고 &quot;far-reaching한 정책&quot;이라고 평가했어. 한 군데만 건드리는 게 아니라 여러 영역에 걸쳐 넓게 영향을 미친다는 뜻이야.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-45', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">교육 문제니까 학생이랑 교사한테만 해당되는 거 아닌가?</span>
+      </button>
+      <div class="response-box" id="resp-term-45-intro-1" style="display:none">
+        <div class="response-text">그렇게 생각할 수도 있는데, 뚜껑을 열어보니까 그게 아니었어. 전문가들이 이 개편안을 &quot;far-reaching한 정책&quot;이라고 부른 이유가 거기 있거든. 영향이 한 집단에 머물지 않고 사회 전반으로 퍼져나가는 거잖아.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">far-reaching이라는 표현이 가장 자연스럽게 어울리는 상황은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-45" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-45', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">동네 카페가 새 메뉴를 내놨는데 단골손님들 반응이 엄청 좋은 상황</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-45-explore-0-0" style="display:none">
+          <div class="response-text">그건 반응이 뜨겁긴 해도 영향이 미치는 범위가 좁잖아. far-reaching은 그 영향이 여러 영역에 걸쳐 넓게 퍼질 때 쓰는 표현이거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-45', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">한 나라의 금리 인상 결정이 환율, 부동산, 소비, 고용까지 연쇄적으로 흔드는 상황</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-45-explore-0-1" style="display:none">
+          <div class="response-text">맞아. 영향이 한 곳에 머물지 않고 여러 영역으로 넓게 번져나가는 이 상황이 far-reaching의 전형적인 자리야.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-45', 0, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">회사 내부 회의에서 팀장이 보고서 양식을 바꾸기로 결정한 상황</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-45-explore-0-2" style="display:none">
+          <div class="response-text">그 결정은 팀 안에서 끝나는 일이잖아. far-reaching은 영향의 범위가 훨씬 넓고 여러 영역을 가로지를 때 쓰는 표현이야.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">far-reaching과 significant, 둘 다 어떤 일이 중요하다는 느낌을 줄 수 있어. 그런데 이 둘은 강조하는 게 달라. 어떤 차이가 있을까?</div>
+        <div class="options-container" data-term="term-45" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-45', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">far-reaching은 영향이 퍼지는 범위에 초점이 있고, significant는 그 일 자체의 무게감에 초점이 있어</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-45-explore-1-0" style="display:none">
+          <div class="response-text">바로 그거야. far-reaching은 &quot;얼마나 넓게 미치느냐&quot;를 말하는 거고, significant는 &quot;얼마나 중요하고 큰 일이냐&quot;를 말하는 거거든. 그래서 significant한 결정이 꼭 far-reaching하지는 않을 수 있어.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-45', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">far-reaching은 긍정적인 변화에만 쓰고, significant는 긍정·부정 모두에 쓸 수 있어</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-45-explore-1-1" style="display:none">
+          <div class="response-text">그렇지 않아. far-reaching은 긍정적이든 부정적이든 영향의 범위가 넓을 때 쓰는 표현이야. 가치 판단이 아니라 영향이 퍼지는 범위를 가리키는 거거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">CL — 콜로케이션</span></h4>
+        <div class="question-text">far-reaching은 특정 명사들과 자주 짝을 이뤄. 다음 중 far-reaching과 가장 자연스럽게 어울리는 명사는 뭐야?</div>
+        <div class="options-container" data-term="term-45" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-45', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">far-reaching smile</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-45-explore-2-0" style="display:none">
+          <div class="response-text">그건 어색한 조합이야. far-reaching은 감정이나 표정 같은 개인적인 것에는 잘 붙지 않아. 영향이 여러 영역으로 퍼져나가는 대상에 쓰는 표현이거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-45', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">far-reaching weather</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-45-explore-2-1" style="display:none">
+          <div class="response-text">날씨는 넓은 지역에 걸칠 수 있지만, far-reaching은 보통 날씨 같은 자연 현상보다는 결정, 정책, 변화처럼 사람이 만들어내는 것의 파급 효과를 말할 때 쓰는 표현이야.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-45', 2, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">far-reaching consequences</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-45-explore-2-2" style="display:none">
+          <div class="response-text">맞아. far-reaching consequences, far-reaching implications, far-reaching reforms처럼 어떤 결정이나 변화가 낳는 결과·영향·파장을 나타내는 명사들과 자연스럽게 짝을 이뤄.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 4 <span class="turn-type">MU — 오용 판별</span></h4>
+        <div class="question-text">다음 중 far-reaching이 어색하게 쓰인 문장은 어느 거야?</div>
+        <div class="options-container" data-term="term-45" data-turn="explore-3"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-45', 3, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">그 협정은 far-reaching한 영향을 남겼어.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-45-explore-3-0" style="display:none">
+          <div class="response-text">그건 어색하지 않아. 협정 하나가 여러 영역에 걸쳐 넓은 영향을 남긴다는 건 far-reaching의 전형적인 쓰임이거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-45', 3, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">그 배우의 연기는 far-reaching했어.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-45-explore-3-1" style="display:none">
+          <div class="response-text">바로 이게 어색한 쪽이야. 연기의 질이나 감동은 far-reaching으로 표현하지 않아. far-reaching은 영향이나 결과가 여러 영역으로 넓게 퍼져나가는 상황에 쓰는 표현이거든. 개인의 기술이나 능력을 평가하는 자리에는 맞지 않아.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-45', 3, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">이번 법 개정은 far-reaching한 변화를 가져올 거야.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-45-explore-3-2" style="display:none">
+          <div class="response-text">그건 어색하지 않아. 법 개정이 여러 영역에 걸쳐 넓은 변화를 일으킨다는 건 far-reaching이 딱 맞는 자리야.</div>
+        </div></div></div><div class="stats-bar">
+    <span>Tokens: 442 in / 2174 out</span>
+    <span>Latency: 34555ms</span>
+    <span>Cost: $0.0373</span>
+    <span>Source: test-29</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-45">Feedback</label>
+    <textarea id="fb-term-45" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-45')"></textarea>
+    <button class="save-btn" id="save-term-45" onclick="saveFeedback('term-45')">Save</button>
+    <span class="save-status" id="status-term-45"></span>
+  </div></div></details></div>
+
+<script>
+const FEEDBACK_PORT = 3456;
+
+function selectOption(btn, termId, turn, idx) {
+  // Toggle: if already selected, deselect
+  const respId = 'resp-' + termId + '-' + turn + '-' + idx;
+  const respEl = document.getElementById(respId);
+  if (btn.classList.contains('selected')) {
+    btn.classList.remove('selected');
+    respEl.style.display = 'none';
+    return;
+  }
+  // For intro: allow multiple selections to compare
+  // Just toggle this one
+  btn.classList.toggle('selected');
+  respEl.style.display = respEl.style.display === 'none' ? 'block' : 'none';
+}
+
+function selectExplore(btn, termId, turnIdx, optIdx) {
+  const respId = 'resp-' + termId + '-explore-' + turnIdx + '-' + optIdx;
+  const respEl = document.getElementById(respId);
+  const isCorrect = btn.dataset.correct === 'true';
+
+  if (btn.classList.contains('revealed-correct') || btn.classList.contains('revealed-incorrect')) {
+    // Toggle off
+    btn.classList.remove('revealed-correct', 'revealed-incorrect', 'selected');
+    respEl.style.display = 'none';
+    return;
+  }
+
+  // Reveal this option
+  btn.classList.add(isCorrect ? 'revealed-correct' : 'revealed-incorrect');
+  btn.classList.add('selected');
+  respEl.style.display = 'block';
+}
+
+function markUnsaved(termId) {
+  var btn = document.getElementById('save-' + termId);
+  btn.classList.add('unsaved');
+  document.getElementById('status-' + termId).textContent = 'unsaved';
+}
+
+async function saveFeedback(termId) {
+  var textarea = document.getElementById('fb-' + termId);
+  var feedback = textarea.value;
+  var statusEl = document.getElementById('status-' + termId);
+  var btn = document.getElementById('save-' + termId);
+
+  try {
+    var resp = await fetch('http://localhost:' + FEEDBACK_PORT + '/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ termId: termId, feedback: feedback }),
+    });
+    if (resp.ok) {
+      statusEl.textContent = 'saved ✓';
+      btn.classList.remove('unsaved');
+    } else {
+      statusEl.textContent = 'save failed: ' + resp.status;
+    }
+  } catch (e) {
+    statusEl.textContent = 'server unreachable — is feedback-server running?';
+  }
+}
+
+// Save all on Ctrl+S
+document.addEventListener('keydown', function(e) {
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+    e.preventDefault();
+    document.querySelectorAll('.save-btn.unsaved').forEach(function(btn) {
+      var termId = btn.id.replace('save-', '');
+      saveFeedback(termId);
+    });
+  }
+});
+</script>
+</body>
+</html>

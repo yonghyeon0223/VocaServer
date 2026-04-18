@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Introduction v1 — report-20260418-154806</title>
+<style>
+:root {
+  --bg: #f8fafc; --card: #fff; --border: #e2e8f0; --border-light: #f1f5f9;
+  --text: #1e293b; --text-muted: #64748b; --text-faint: #94a3b8;
+  --accent: #6366f1; --accent-light: #eef2ff; --accent-border: #c7d2fe;
+  --correct: #16a34a; --correct-bg: #f0fdf4; --correct-border: #bbf7d0;
+  --incorrect: #dc2626; --incorrect-bg: #fef2f2; --incorrect-border: #fecaca;
+  --scene-bg: #fffbeb; --scene-border: #fde68a;
+  --question-bg: #f0f9ff; --question-border: #bae6fd;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Pretendard', 'Inter', -apple-system, sans-serif; line-height: 1.6; padding: 24px; max-width: 1000px; margin: 0 auto; background: var(--bg); color: var(--text); font-size: 14px; }
+h1 { font-size: 22px; font-weight: 700; margin-bottom: 20px; }
+
+/* Summary */
+.summary { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+.summary-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 12px; }
+.sg-item { text-align: center; padding: 10px; background: var(--bg); border-radius: 8px; }
+.sg-value { font-size: 20px; font-weight: 700; }
+.sg-label { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.5px; }
+.summary-meta { font-size: 12px; color: var(--text-faint); text-align: center; margin-bottom: 16px; }
+
+/* Overview table */
+.overview-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.overview-table th { text-align: left; padding: 8px 6px; font-size: 11px; text-transform: uppercase; color: var(--text-faint); border-bottom: 2px solid var(--border); }
+.overview-table td { padding: 6px; border-bottom: 1px solid var(--border-light); }
+.overview-table a { color: var(--accent); text-decoration: none; font-weight: 600; }
+.overview-table a:hover { text-decoration: underline; }
+.tok-cell { font-size: 11px; color: var(--text-faint); }
+.all-pass { color: var(--correct); font-weight: 600; }
+.has-fail { color: var(--incorrect); font-weight: 600; }
+
+/* Badges */
+.level-badge, .level-badge-sm { display: inline-block; padding: 1px 8px; border-radius: 8px; font-size: 12px; font-weight: 700; }
+.level-badge-sm { font-size: 10px; padding: 1px 6px; }
+.imp-badge { font-size: 11px; color: var(--text-muted); }
+.type-badge { font-size: 11px; padding: 1px 6px; border-radius: 4px; background: #f1f5f9; color: var(--text-muted); }
+
+/* Term card */
+.term-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
+.term-header { padding: 12px 16px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; flex-wrap: wrap; }
+.term-header:hover { background: #fafbfc; }
+.term-word { font-weight: 700; font-size: 15px; min-width: 120px; }
+.term-def { flex: 1; color: var(--text-muted); font-size: 12px; min-width: 200px; }
+.term-stats { display: flex; gap: 10px; font-size: 11px; color: var(--text-faint); }
+.stat-turns { color: var(--accent); font-weight: 600; }
+.term-body { padding: 0 16px 16px; }
+
+/* Checks */
+.checks-bar { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px; }
+.ck-pass, .ck-fail { font-size: 11px; padding: 2px 8px; border-radius: 4px; }
+.ck-pass { color: var(--correct); background: var(--correct-bg); }
+.ck-fail { color: var(--incorrect); background: var(--incorrect-bg); }
+
+/* Reasoning */
+.reasoning-block { margin-bottom: 16px; }
+.reasoning-block summary { font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; }
+.reasoning-content { margin-top: 8px; padding: 12px; background: var(--bg); border-radius: 8px; }
+.r-field { margin-bottom: 6px; font-size: 13px; line-height: 1.6; }
+.r-field code { background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+
+/* Turn sections */
+.turn-section { margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border-light); }
+.turn-title { font-size: 14px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.turn-type { font-size: 12px; font-weight: 500; color: var(--accent); background: var(--accent-light); padding: 2px 8px; border-radius: 4px; }
+.scene-text { background: var(--scene-bg); border-left: 3px solid var(--scene-border); padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 10px; font-size: 14px; line-height: 1.8; white-space: pre-wrap; }
+.question-text { background: var(--question-bg); border-left: 3px solid var(--question-border); padding: 10px 16px; border-radius: 0 8px 8px 0; margin-bottom: 12px; font-size: 14px; font-weight: 600; }
+
+/* Option buttons */
+.options-container { display: flex; flex-direction: column; gap: 6px; }
+.option-btn { display: flex; align-items: flex-start; gap: 10px; width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--card); cursor: pointer; text-align: left; font-size: 14px; line-height: 1.6; transition: all 0.15s; font-family: inherit; }
+.option-btn:hover { border-color: var(--accent); background: var(--accent-light); }
+.option-btn.selected { border-color: var(--accent); background: var(--accent-light); box-shadow: 0 0 0 2px var(--accent-border); }
+.option-btn.revealed-correct { border-color: var(--correct); background: var(--correct-bg); }
+.option-btn.revealed-incorrect { border-color: var(--incorrect); background: var(--incorrect-bg); }
+.option-num { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: var(--bg); font-size: 12px; font-weight: 700; color: var(--text-muted); flex-shrink: 0; }
+.option-text { flex: 1; }
+
+/* Response boxes */
+.response-box { margin: 4px 0 8px 34px; padding: 12px 16px; border-radius: 8px; font-size: 13px; line-height: 1.8; animation: fadeIn 0.2s; white-space: pre-wrap; }
+.response-box:not(.correct-option):not(.incorrect-option) {
+  background: #f8f8ff; border: 1px solid var(--accent-border);
+}
+.correct-option { background: var(--correct-bg); border: 1px solid var(--correct-border); }
+.incorrect-option { background: var(--incorrect-bg); border: 1px solid var(--incorrect-border); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Stats */
+.stats-bar { display: flex; flex-wrap: wrap; gap: 16px; font-size: 11px; color: var(--text-faint); margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-light); }
+
+/* Parse errors */
+.parse-errors { margin-top: 8px; }
+.parse-error { background: var(--incorrect-bg); color: var(--incorrect); padding: 4px 8px; border-radius: 4px; font-size: 11px; font-family: monospace; margin: 2px 0; }
+.error-box { background: var(--incorrect-bg); padding: 12px; border-radius: 8px; margin: 8px 0; }
+.error-box pre { font-size: 11px; white-space: pre-wrap; word-break: break-all; }
+
+/* Feedback */
+.feedback-section { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border-light); }
+.feedback-label { font-size: 12px; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 4px; }
+.feedback-textarea { width: 100%; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; font-family: inherit; resize: vertical; line-height: 1.6; }
+.feedback-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-border); }
+.save-btn { margin-top: 6px; padding: 6px 16px; border: 1px solid var(--accent); border-radius: 6px; background: var(--accent-light); color: var(--accent); font-weight: 600; font-size: 12px; cursor: pointer; font-family: inherit; }
+.save-btn:hover { background: var(--accent); color: white; }
+.save-btn.unsaved { border-color: var(--incorrect); color: var(--incorrect); background: var(--incorrect-bg); }
+.save-status { font-size: 11px; color: var(--text-faint); margin-left: 8px; }
+
+.section-title { font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; }
+
+@media (max-width: 768px) {
+  .summary-grid { grid-template-columns: repeat(3, 1fr); }
+  body { padding: 12px; }
+}
+</style>
+</head>
+<body>
+<h1>Word Introduction — report-20260418-154806</h1>
+<div class="summary">
+    <div class="summary-grid">
+      <div class="sg-item"><div class="sg-value">5</div><div class="sg-label">Terms</div></div>
+      <div class="sg-item"><div class="sg-value">44/45</div><div class="sg-label">Checks</div></div>
+      <div class="sg-item"><div class="sg-value">4</div><div class="sg-label">Avg Turns</div></div>
+      <div class="sg-item"><div class="sg-value">42783ms</div><div class="sg-label">Avg Latency</div></div>
+      <div class="sg-item"><div class="sg-value">$0.313</div><div class="sg-label">Total Cost</div></div>
+      <div class="sg-item"><div class="sg-value">13.4k</div><div class="sg-label">Output Tokens</div></div>
+    </div>
+    <div class="summary-meta">claude-sonnet-4-6 · v1 · 2026-04-18T06:48:06.051Z</div>
+
+    <table class="overview-table"><thead><tr>
+      <th>Term</th><th>Level</th><th>Imp</th><th>Type</th><th>Turns</th><th>Checks</th><th>Tokens in/out</th><th>Latency</th><th>Cost</th>
+    </tr></thead><tbody><tr>
+      <td><a href="#card-term-89">dilute</a></td>
+      <td><span class="level-badge-sm" style="background:#fef9c3">B1</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>4</td>
+      <td class="all-pass">9/9</td>
+      <td class="tok-cell">443/2665</td>
+      <td>43739ms</td>
+      <td>$0.1283</td>
+    </tr><tr>
+      <td><a href="#card-term-90">at the expense of</a></td>
+      <td><span class="level-badge-sm" style="background:#fde68a">B2</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>4</td>
+      <td class="has-fail">8/9</td>
+      <td class="tok-cell">445/2677</td>
+      <td>41515ms</td>
+      <td>$0.0458</td>
+    </tr><tr>
+      <td><a href="#card-term-91">entail</a></td>
+      <td><span class="level-badge-sm" style="background:#fecaca">C1</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>4</td>
+      <td class="all-pass">9/9</td>
+      <td class="tok-cell">441/2912</td>
+      <td>47203ms</td>
+      <td>$0.0494</td>
+    </tr><tr>
+      <td><a href="#card-term-92">fall short of</a></td>
+      <td><span class="level-badge-sm" style="background:#fde68a">B2</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>4</td>
+      <td class="all-pass">9/9</td>
+      <td class="tok-cell">442/2546</td>
+      <td>40345ms</td>
+      <td>$0.0439</td>
+    </tr><tr>
+      <td><a href="#card-term-93">tangible</a></td>
+      <td><span class="level-badge-sm" style="background:#fecaca">C1</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>4</td>
+      <td class="all-pass">9/9</td>
+      <td class="tok-cell">444/2638</td>
+      <td>41115ms</td>
+      <td>$0.0452</td>
+    </tr></tbody></table></div>
+
+    <div class="term-card" id="card-term-89">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">dilute</span>
+          <span class="level-badge" style="background:#fef9c3">B1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">to make something weaker by adding water or another substance</span>
+          <span class="term-stats">
+            <span class="stat-turns">4t</span>
+            <span class="stat-checks all-pass">9/9</span>
+            <span class="stat-cost">$0.1283</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-pass" title="Target term balanced across options in all turns">✓ target_balance</span><span class="ck-pass" title="4 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: WD, CP, CX, MU">✓ explore_types_valid</span><span class="ck-pass" title="5 learning objective(s)">✓ has_objectives</span><span class="ck-pass" title="Summary: dilute는 진한 것에 물이나 다른 액체를 섞어서 농도를 낮추는 것, 즉 &#39;희석하다&#39;야....">✓ has_summary</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">재윤이는 감기 기운이 있어서 약국에서 산 농축 액상 비타민을 꺼냈어. 뚜껑을 열었더니 냄새가 꽤 진하고 색도 짙은 주황색이야. 설명서를 보니까 &#39;물에 타서 드세요&#39;라고 적혀 있어. 재윤이는 컵에 물을 따르고 액상 비타민을 몇 방울 넣었어. 색이 연해지고 냄새도 훨씬 약해졌지.</div>
+      <div class="question-text">재윤이가 한 행동, 어떻게 표현할 것 같아?</div>
+      <div class="options-container" data-term="term-89" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-89', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">물을 넣어서 농도를 낮춘 거잖아</span>
+      </button>
+      <div class="response-box" id="resp-term-89-intro-0" style="display:none">
+        <div class="response-text">맞아, 그게 바로 dilute야. 진한 걸 물이나 다른 액체를 섞어서 묽게 만드는 거거든. 재윤이가 한 것처럼 &#39;농축된 걸 희석하다&#39;는 느낌이 딱 이 단어야.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-89', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">그냥 비타민을 물에 녹인 거 아니야?</span>
+      </button>
+      <div class="response-box" id="resp-term-89-intro-1" style="display:none">
+        <div class="response-text">비타민이 물에 녹은 게 아니라, 이미 액체인 걸 물로 더 묽게 만든 거야. 그 차이가 중요한데, 진한 걸 약하게 만들려고 뭔가를 섞는 행동을 dilute라고 해. 재윤이가 한 게 딱 그거야.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">WD — 구성 요소 분해</span></h4>
+        <div class="question-text">&#39;dilute&#39;는 라틴어 조각 두 개로 만들어진 단어야. &#39;di-&#39;는 &#39;분리, 흩어짐&#39;을 뜻하고, &#39;-lute&#39;는 &#39;씻다, 흘리다&#39;를 뜻하는 라틴어 &#39;luere&#39;에서 왔어. 이 두 조각을 합쳐서 왜 &#39;희석하다&#39;라는 뜻이 됐을까?</div>
+        <div class="options-container" data-term="term-89" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-89', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">뭔가를 흩어지게 씻어내듯, 진한 성분을 퍼뜨려 약하게 만든다는 뜻이 된 거야</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-89-explore-0-0" style="display:none">
+          <div class="response-text">바로 그거야! 진한 성분이 사방으로 흩어져 퍼지는 이미지가 dilute의 핵심이야. 그래서 물을 넣어 농도를 낮추는 행동, 즉 희석하다는 뜻이 된 거야.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-89', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">씻어서 완전히 없애버린다는 뜻이 된 거야</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-89-explore-0-1" style="display:none">
+          <div class="response-text">그렇게 되면 &#39;제거하다&#39;에 가까워지는데, dilute는 완전히 없애는 게 아니야. 원래 성분은 그대로 있고, 다른 걸 섞어서 농도만 낮아지는 거거든. 흩어져 퍼진다는 이미지를 다시 생각해 봐.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">두 상황을 봐. ①음료 회사가 원액에 물을 넣어 제품을 만드는 과정, ②설탕을 물에 넣어 완전히 녹이는 과정. dilute가 어울리는 건 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-89" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-89', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">①번</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-89-explore-1-0" style="display:none">
+          <div class="response-text">맞아. dilute는 이미 액체 상태인 진한 것에 다른 액체를 섞어 농도를 낮출 때 써. 원액처럼 &#39;농축된 것을 묽게 만드는&#39; 장면이 딱 맞아. ②번처럼 고체가 액체에 녹아 사라지는 건 dissolve(녹다)의 영역이야.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-89', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">②번</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-89-explore-1-1" style="display:none">
+          <div class="response-text">②번은 설탕이 물에 녹아 없어지는 거라서 dissolve에 가까워. dilute는 이미 액체인 진한 것에 다른 액체를 더해서 농도를 낮추는 거야. 고체가 사라지는 게 아니라, 액체의 농도가 낮아지는 장면을 떠올려 봐.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">다음 중 dilute를 자연스럽게 쓸 수 있는 상황은 어느 거야?</div>
+        <div class="options-container" data-term="term-89" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-89', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">락스를 그냥 쓰면 너무 강하니까 버렸다</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-89-explore-2-0" style="display:none">
+          <div class="response-text">버리는 건 dilute가 아니야. dilute는 뭔가를 섞어서 농도를 낮추는 행동이거든. 강하다고 느꼈을 때 어떻게 했는지를 다시 생각해 봐.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-89', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">주스가 너무 달아서 얼음을 넣어 차갑게 했다</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-89-explore-2-1" style="display:none">
+          <div class="response-text">얼음을 넣으면 결과적으로 묽어지기도 하지만, 이 문장에서 목적은 차갑게 하는 거야. dilute는 농도를 낮추려는 의도가 있을 때 써. 목적이 뭔지가 중요해.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-89', 2, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">락스를 쓰기 전에 물을 섞어 농도를 낮췄다</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-89-explore-2-2" style="display:none">
+          <div class="response-text">바로 이 장면이야. 강한 걸 그대로 쓰지 않고 물을 섞어 약하게 만드는 것, 그게 dilute야. 청소할 때 세제나 락스를 희석하는 건 아주 전형적인 dilute의 상황이야.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 4 <span class="turn-type">MU — 오용 판별</span></h4>
+        <div class="question-text">dilute를 **어색하게** 쓴 문장은 어느 거야?</div>
+        <div class="options-container" data-term="term-89" data-turn="explore-3"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-89', 3, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">The doctor told her to dilute the syrup with water before taking it.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-89-explore-3-0" style="display:none">
+          <div class="response-text">그건 자연스러운 문장이야. 시럽처럼 진한 액체를 물과 섞어 묽게 만드는 건 dilute의 전형적인 쓰임이야.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-89', 3, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">He diluted the salt into the soup to make it less salty.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-89-explore-3-1" style="display:none">
+          <div class="response-text">잘 찾았어! 소금을 넣으면 짠맛이 강해지지, 약해지지 않아. dilute는 뭔가를 섞어서 농도를 낮추는 거라서, 오히려 농도를 높이는 행동에는 쓸 수 없어. 덜 짜게 하려면 물을 더 넣어서 dilute하는 거겠지.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-89', 3, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">She diluted the paint with a little water to get a lighter color.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-89-explore-3-2" style="display:none">
+          <div class="response-text">그건 자연스러운 문장이야. 물감에 물을 섞어 색을 연하게 만드는 것도 dilute야. 액체에 다른 액체를 더해 농도나 강도를 낮추는 거니까.</div>
+        </div></div></div><div class="turn-section">
+      <h4 class="turn-title">학습 목표</h4>
+      <ol style="margin:0 0 0 20px;font-size:13px;line-height:1.8;"><li>dilute의 핵심 의미인 &#39;희석하다&#39;를 이해하고, 액체나 농축된 물질에 다른 액체를 섞어 농도를 낮추는 상황에 적용할 수 있다.</li><li>dilute와 dissolve의 차이를 구별하여, 고체가 액체에 녹는 상황과 액체의 농도를 낮추는 상황을 올바르게 구분할 수 있다.</li><li>dilute가 자연스럽게 쓰이는 전형적인 맥락(세제 희석, 시럽 희석, 물감 희석 등)을 인식할 수 있다.</li><li>dilute는 농도를 낮추는 방향의 행동에만 쓰이며, 농도를 높이는 행동에는 쓸 수 없음을 안다.</li><li>di-(분리·흩어짐)와 -lute(씻다·흘리다)라는 구성 요소를 통해 dilute의 의미 구조를 이해할 수 있다.</li></ol></div><div class="turn-section">
+      <h4 class="turn-title">종료</h4>
+      <div class="scene-text">dilute는 진한 것에 물이나 다른 액체를 섞어서 농도를 낮추는 것, 즉 &#39;희석하다&#39;야. 고체를 녹이는 게 아니라 이미 액체인 것을 더 묽게 만드는 행동이고, 반드시 농도가 낮아지는 방향이어야 해.</div>
+    </div><div class="stats-bar">
+    <span>Tokens: 443 in / 2665 out</span>
+    <span>Latency: 43739ms</span>
+    <span>Cost: $0.1283</span>
+    <span>Source: final-test-3</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-89">Feedback</label>
+    <textarea id="fb-term-89" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-89')"></textarea>
+    <button class="save-btn" id="save-term-89" onclick="saveFeedback('term-89')">Save</button>
+    <span class="save-status" id="status-term-89"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-90">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">at the expense of</span>
+          <span class="level-badge" style="background:#fde68a">B2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">in a way that causes harm or loss to something else</span>
+          <span class="term-stats">
+            <span class="stat-turns">4t</span>
+            <span class="stat-checks has-fail">8/9</span>
+            <span class="stat-cost">$0.0458</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-fail" title="Unbalanced target in: explore 2 — some options have &quot;at the expense of&quot;, others don&#39;t">✗ target_balance</span><span class="ck-pass" title="4 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: WD, CP, CX, MU">✓ explore_types_valid</span><span class="ck-pass" title="5 learning objective(s)">✓ has_objectives</span><span class="ck-pass" title="Summary: &#39;at the expense of&#39;는 무언가를 얻는 과정에서 다른 것이 희생되거나 손상될 ...">✓ has_summary</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">재하는 이번 달 영업 실적이 팀에서 제일 좋았어. 매일 야근에 주말도 반납하고, 밥도 제때 못 먹으면서 뛰어다닌 결과였지. 팀장한테 칭찬도 받고 인센티브도 받았는데, 정작 재하 본인은 몸이 너무 안 좋아진 걸 느끼고 있어. 친한 동료 수빈이가 재하한테 한마디 했어. &#39;너 요즘 얼굴이 너무 안 좋다. 실적이 좋아진 게 뭔가를 희생하고 얻은 것 같아서 걱정돼.&#39;</div>
+      <div class="question-text">수빈이 말에서 &#39;뭔가를 희생하고 얻었다&#39;는 느낌, 어떻게 받아들여져?</div>
+      <div class="options-container" data-term="term-90" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-90', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">재하가 노력한 만큼 당연히 치러야 할 대가를 치른 거지.</span>
+      </button>
+      <div class="response-box" id="resp-term-90-intro-0" style="display:none">
+        <div class="response-text">그렇게 볼 수도 있어. 근데 수빈이가 걱정한 건 조금 다른 결이야. 재하가 실적을 올린 게 건강을 잃어가면서 이뤄진 일이잖아. 영어로는 이걸 &#39;at the expense of his health&#39;라고 표현해. 무언가를 얻는 대신 다른 것이 손상되거나 희생됐을 때 쓰는 표현이야.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-90', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">좋은 결과를 얻으려면 어딘가에서 손해가 생긴다는 거잖아.</span>
+      </button>
+      <div class="response-box" id="resp-term-90-intro-1" style="display:none">
+        <div class="response-text">맞아, 바로 그 감각이야. 재하는 실적을 올렸지만, 그게 건강을 갈아 넣은 결과였던 거지. 영어로는 &#39;at the expense of his health&#39;라고 해. 무언가를 얻는 과정에서 다른 것이 피해를 입거나 희생될 때 쓰는 표현이야.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">WD — 구성 요소 분해</span></h4>
+        <div class="question-text">&#39;at the expense of&#39;에서 &#39;expense&#39;는 원래 &#39;비용, 지출&#39;이라는 뜻이야. 그럼 &#39;at the expense of something&#39;은 구조적으로 어떤 의미를 담고 있을까?</div>
+        <div class="options-container" data-term="term-90" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-90', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">something을 비용으로 지불하고 그 대가를 받는다는 뜻이야.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-90-explore-0-0" style="display:none">
+          <div class="response-text">가깝긴 한데, 이 표현의 핵심은 &#39;대가를 받는다&#39;보다는 다른 쪽에 있어. &#39;at the expense of&#39;에서 something은 지불되는 게 아니라 손상되거나 희생되는 쪽이야. 이득을 얻는 주체가 아니라, 피해를 입는 대상이 of 뒤에 와.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-90', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">something이 치러지는 비용, 즉 손해 보는 쪽이라는 뜻이야.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-90-explore-0-1" style="display:none">
+          <div class="response-text">&#39;expense(비용)&#39;가 of 뒤에 오는 대상에게 발생한다는 구조야. 그러니까 &#39;at the expense of X&#39;는 X가 비용을 치른다, 즉 X가 희생되거나 손상된다는 뜻이 돼. 이득은 다른 쪽이 가져가고, 손해는 X가 떠안는 구조지.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">다음 두 문장을 비교해 봐. ① 재하는 건강을 희생해서 승진했어. ② 재하는 건강 at the expense of 승진했어. 이 표현은 어느 자리에 어울려?</div>
+        <div class="options-container" data-term="term-90" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-90', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">①처럼 &#39;희생된 것&#39;이 먼저 나오고, 그 결과로 얻은 것이 뒤에 오는 구조야.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-90-explore-1-0" style="display:none">
+          <div class="response-text">맞아. &#39;at the expense of&#39; 뒤에는 희생되거나 손상된 것이 와. 그러니까 &#39;He got promoted at the expense of his health&#39;처럼, 얻은 것(승진)이 앞에 오고 잃은 것(건강)이 뒤에 오는 구조야. ②는 순서가 뒤집혀 있어서 어색해.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-90', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">②처럼 &#39;얻은 것&#39;이 먼저 나오고, 희생된 것이 at the expense of 뒤에 오는 구조야.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-90-explore-1-1" style="display:none">
+          <div class="response-text">순서가 반대야. &#39;at the expense of&#39; 뒤에는 손해를 입은 것, 즉 희생된 쪽이 와. &#39;He got promoted at the expense of his health&#39;가 맞는 구조야. 얻은 것이 앞에, 잃은 것이 뒤에 오지.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">&#39;at the expense of&#39;가 자연스럽게 어울리는 상황은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-90" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-90', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">경제 성장을 이뤘지만 환경 오염이 심각해진 나라 이야기</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-90-explore-2-0" style="display:none">
+          <div class="response-text">딱 맞아. 한쪽이 이득을 얻는 동안 다른 쪽이 손상되는 구조, 그게 &#39;at the expense of&#39;가 사는 자리야. &#39;경제 성장 at the expense of the environment&#39;처럼 쓸 수 있어.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-90', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">두 팀이 협력해서 함께 좋은 결과를 낸 이야기</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-90-explore-2-1" style="display:none">
+          <div class="response-text">이 상황에서는 어울리지 않아. &#39;at the expense of&#39;는 한쪽이 이득을 얻는 동안 다른 쪽이 피해를 입는 구조에서 쓰여. 양쪽이 함께 이득을 보는 상황에는 맞지 않아.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 4 <span class="turn-type">MU — 오용 판별</span></h4>
+        <div class="question-text">다음 중 &#39;at the expense of&#39;가 **어색하게** 쓰인 문장을 골라봐.</div>
+        <div class="options-container" data-term="term-90" data-turn="explore-3"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-90', 3, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">그 회사는 빠른 성장을 이뤘지만, it was at the expense of employee welfare.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-90-explore-3-0" style="display:none">
+          <div class="response-text">이건 자연스러워. 빠른 성장이라는 이득을 얻는 동안 직원 복지가 손상됐다는 구조가 딱 맞아. &#39;employee welfare&#39;는 &#39;직원 복지&#39;야.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-90', 3, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">그들은 at the expense of 열심히 노력해서 목표를 달성했어.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-90-explore-3-1" style="display:none">
+          <div class="response-text">잘 찾았어. 이 문장이 어색해. &#39;at the expense of&#39; 뒤에는 희생되거나 손상된 대상이 와야 하는데, 여기서는 뒤에 아무것도 없이 표현이 끊겨 있어. 이 표현은 반드시 &#39;at the expense of + 손해를 입은 것&#39;의 구조로 써야 해.</div>
+        </div></div></div><div class="turn-section">
+      <h4 class="turn-title">학습 목표</h4>
+      <ol style="margin:0 0 0 20px;font-size:13px;line-height:1.8;"><li>&#39;at the expense of&#39; 뒤에 희생되거나 손상된 대상이 온다는 구조를 안다.</li><li>이득을 얻는 주체와 손해를 입는 대상이 분리된 상황에서 이 표현을 적절히 사용할 수 있다.</li><li>&#39;expense(비용)&#39;의 어원적 구조에서 이 표현의 의미가 어떻게 파생되는지 이해한다.</li><li>얻은 것이 앞에, 잃은 것이 &#39;at the expense of&#39; 뒤에 오는 어순을 안다.</li><li>양쪽이 함께 이득을 보는 상황과 구별하여, 한쪽의 이득이 다른 쪽의 손해를 수반하는 상황에서만 이 표현을 쓴다는 것을 안다.</li></ol></div><div class="turn-section">
+      <h4 class="turn-title">종료</h4>
+      <div class="scene-text">&#39;at the expense of&#39;는 무언가를 얻는 과정에서 다른 것이 희생되거나 손상될 때 쓰는 표현이야. &#39;at the expense of X&#39;에서 X는 이득을 가져가는 쪽이 아니라 피해를 입는 쪽이고, 얻은 것이 앞에, 잃은 것이 뒤에 오는 구조야. 한쪽의 이득이 다른 쪽의 손해 위에 세워졌다는 감각이 이 표현의 핵심이야.</div>
+    </div><div class="stats-bar">
+    <span>Tokens: 445 in / 2677 out</span>
+    <span>Latency: 41515ms</span>
+    <span>Cost: $0.0458</span>
+    <span>Source: final-test-3</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-90">Feedback</label>
+    <textarea id="fb-term-90" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-90')"></textarea>
+    <button class="save-btn" id="save-term-90" onclick="saveFeedback('term-90')">Save</button>
+    <span class="save-status" id="status-term-90"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-91">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">entail</span>
+          <span class="level-badge" style="background:#fecaca">C1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">to involve something as a necessary part or consequence</span>
+          <span class="term-stats">
+            <span class="stat-turns">4t</span>
+            <span class="stat-checks all-pass">9/9</span>
+            <span class="stat-cost">$0.0494</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 3 options OK">✓ intro_structure</span><span class="ck-pass" title="Target term balanced across options in all turns">✓ target_balance</span><span class="ck-pass" title="4 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: WD, CP, CX, MU">✓ explore_types_valid</span><span class="ck-pass" title="5 learning objective(s)">✓ has_objectives</span><span class="ck-pass" title="Summary: entail은 어떤 결정이나 역할이 그 성격상 피할 수 없이 무언가를 수반할 때 쓰는 단어...">✓ has_summary</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">재하는 이번에 팀장 자리를 맡게 됐어. 처음엔 그냥 좋아했는데, 막상 인사팀에서 보내온 직무 설명서를 읽어보니 생각보다 훨씬 많은 게 적혀 있었어. 야근, 성과 면담, 예산 관리, 팀원 평가까지. 재하는 잠깐 멈추고 생각했어. &#39;이걸 다 해야 하는 건가?&#39;</div>
+      <div class="question-text">재하가 그 직무 설명서를 보고 어떤 생각을 했을 것 같아?</div>
+      <div class="options-container" data-term="term-91" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-91', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">팀장이 되면 이런 것들이 다 따라오는구나 싶었을 것 같아.</span>
+      </button>
+      <div class="response-box" id="resp-term-91-intro-0" style="display:none">
+        <div class="response-text">맞아, 재하는 결국 그 설명서를 처음부터 다시 읽었어. 팀장 역할이 이 모든 걸 entail한다는 걸 그제야 실감한 거지. entail은 어떤 일이 필연적으로 수반하는 것들을 가리킬 때 쓰는 단어야.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-91', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">생각보다 별거 없네, 하고 넘겼을 것 같아.</span>
+      </button>
+      <div class="response-box" id="resp-term-91-intro-1" style="display:none">
+        <div class="response-text">그랬다면 좋았겠지만, 재하는 그러지 못했어. 설명서를 읽을수록 이 역할이 entail하는 게 너무 많다는 걸 느꼈거든. entail은 어떤 일이 필연적으로 수반하는 것들을 가리킬 때 쓰는 단어야.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-91', 'intro', 2)">
+        <span class="option-num">3</span>
+        <span class="option-text">기대했던 것과 달라서 당황했을 것 같아.</span>
+      </button>
+      <div class="response-box" id="resp-term-91-intro-2" style="display:none">
+        <div class="response-text">재하도 그랬어. 팀장이라는 자리가 이렇게 많은 걸 entail할 줄은 몰랐던 거지. entail은 어떤 일이 필연적으로 수반하는 것들을 가리킬 때 쓰는 단어야.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">WD — 구성 요소 분해</span></h4>
+        <div class="question-text">entail은 고대 프랑스어에서 온 단어인데, 원래 법률 용어로 &#39;재산을 특정 상속 방식으로 묶어두다&#39;라는 뜻이었어. 핵심은 en-(안에 묶다) + tail(자르다, 한정하다)이야. &#39;어떤 틀 안에 묶어서 반드시 따라오게 한다&#39;는 구조지. 이 구조를 생각했을 때, 오늘날 entail의 의미로 가장 자연스러운 건 뭘까?</div>
+        <div class="options-container" data-term="term-91" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-91', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">어떤 일을 잘게 나누어 분석하다</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-91-explore-0-0" style="display:none">
+          <div class="response-text">그건 tail의 &#39;자르다&#39;에만 집중한 해석이야. en-이 &#39;안에 묶다&#39;는 방향을 더하면, 자르는 게 아니라 오히려 하나로 묶어서 따라오게 만드는 쪽으로 의미가 향해.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-91', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">어떤 일이 다른 것을 필연적으로 수반하다</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-91-explore-0-1" style="display:none">
+          <div class="response-text">바로 그거야. &#39;안에 묶어서 반드시 따라오게 한다&#39;는 구조가 그대로 살아 있어. 그래서 entail은 단순한 연관이 아니라, 피할 수 없이 딸려오는 것을 말할 때 써.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-91', 0, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">어떤 일을 특정 사람에게만 허락하다</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-91-explore-0-2" style="display:none">
+          <div class="response-text">그건 법률 용어 시절의 &#39;특정인에게 한정하다&#39;는 뜻에 가까운 해석이야. 현대 영어에서 entail은 그 한정의 방향이 아니라, 묶여서 따라온다는 방향으로 발전했어.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">entail과 involve는 둘 다 &#39;어떤 일이 다른 것을 포함한다&#39;는 느낌이 있어. 그런데 아래 두 문장을 보면 미묘하게 다른 자리에 어울려.
+
+① 이 프로젝트는 여러 팀의 협업을 entail해.
+② 이 프로젝트는 여러 팀의 협업을 involve해.
+
+어느 쪽이 더 자연스러운 문장이야?</div>
+        <div class="options-container" data-term="term-91" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-91', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">①이 더 자연스러워.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-91-explore-1-0" style="display:none">
+          <div class="response-text">①도 문법적으로 틀리진 않아. 그런데 entail은 &#39;그 일의 성격상 필연적으로 따라올 수밖에 없다&#39;는 무게감을 실어. 협업이 그 프로젝트의 본질적 조건이라는 뉘앙스가 강해져서, 일상적인 설명에는 조금 무겁게 들릴 수 있어.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-91', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">②가 더 자연스러워.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-91-explore-1-1" style="display:none">
+          <div class="response-text">맞아. involve는 &#39;포함된다&#39;는 사실을 중립적으로 전달해. 반면 entail은 &#39;그 일의 구조상 피할 수 없이 수반된다&#39;는 필연성을 강조하거든. 그래서 entail은 역할·결정·계획처럼 무게 있는 대상에 더 잘 어울리고, involve는 훨씬 넓은 맥락에서 자연스럽게 쓰여.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">다음 중 entail이 가장 자연스럽게 어울리는 상황은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-91" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-91', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">의사가 환자에게 수술이 어떤 위험과 회복 과정을 수반하는지 설명하는 상황</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-91-explore-2-0" style="display:none">
+          <div class="response-text">맞아. 수술이라는 결정이 필연적으로 따라오는 것들을 설명하는 자리잖아. entail은 바로 이런 맥락, 즉 어떤 선택이나 역할이 구조적으로 수반할 수밖에 없는 것들을 짚을 때 딱 맞아.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-91', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">친구에게 어제 있었던 일을 순서대로 이야기하는 상황</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-91-explore-2-1" style="display:none">
+          <div class="response-text">그 자리엔 entail이 잘 안 어울려. entail은 어떤 일의 성격상 필연적으로 따라오는 것을 말할 때 쓰는데, 일어난 일을 시간 순서로 늘어놓는 건 그런 필연적 수반 관계가 아니거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 4 <span class="turn-type">MU — 오용 판별</span></h4>
+        <div class="question-text">다음 중 entail이 **어색하게** 쓰인 문장은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-91" data-turn="explore-3"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-91', 3, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">해외 발령은 가족과의 이별을 entail할 수 있어.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-91-explore-3-0" style="display:none">
+          <div class="response-text">이건 자연스러워. 해외 발령이라는 결정이 필연적으로 수반할 수 있는 결과를 말하고 있으니까, entail이 딱 맞는 자리야.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-91', 3, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">그 영화는 슬픈 장면을 entail하고 있어.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-91-explore-3-1" style="display:none">
+          <div class="response-text">잘 찾았어. 영화가 슬픈 장면을 &#39;수반한다&#39;는 건 어색해. entail은 어떤 결정·역할·행동이 그 성격상 피할 수 없이 무언가를 따라오게 할 때 쓰는 단어야. 영화의 내용을 묘사할 때는 contain이나 include가 자연스러운 자리야.</div>
+        </div></div></div><div class="turn-section">
+      <h4 class="turn-title">학습 목표</h4>
+      <ol style="margin:0 0 0 20px;font-size:13px;line-height:1.8;"><li>entail이 단순한 포함(include/contain)이나 일반적 관련(involve)과 달리 &#39;필연적 수반&#39;의 뉘앙스를 가진다는 것을 안다.</li><li>entail은 결정·역할·계획처럼 무게 있는 대상이 구조적으로 따라오게 만드는 것들을 설명할 때 쓰인다는 것을 안다.</li><li>entail과 involve의 차이를 구체적인 문맥에서 구별할 수 있다.</li><li>영화·책의 내용 묘사처럼 필연적 수반 관계가 아닌 자리에 entail을 쓰면 어색하다는 것을 안다.</li><li>en-(묶다) + tail(한정하다)의 구조에서 &#39;피할 수 없이 따라오게 묶는다&#39;는 의미가 파생되었음을 안다.</li></ol></div><div class="turn-section">
+      <h4 class="turn-title">종료</h4>
+      <div class="scene-text">entail은 어떤 결정이나 역할이 그 성격상 피할 수 없이 무언가를 수반할 때 쓰는 단어야. involve보다 훨씬 강한 필연성이 담겨 있어서, 단순히 &#39;포함된다&#39;가 아니라 &#39;그 일을 하면 이건 반드시 따라온다&#39;는 무게감을 실어줘. 그래서 중요한 결정이나 역할의 조건을 설명하는 자리에서 자주 만나게 돼.</div>
+    </div><div class="stats-bar">
+    <span>Tokens: 441 in / 2912 out</span>
+    <span>Latency: 47203ms</span>
+    <span>Cost: $0.0494</span>
+    <span>Source: final-test-3</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-91">Feedback</label>
+    <textarea id="fb-term-91" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-91')"></textarea>
+    <button class="save-btn" id="save-term-91" onclick="saveFeedback('term-91')">Save</button>
+    <span class="save-status" id="status-term-91"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-92">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">fall short of</span>
+          <span class="level-badge" style="background:#fde68a">B2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">to fail to reach a required standard or level</span>
+          <span class="term-stats">
+            <span class="stat-turns">4t</span>
+            <span class="stat-checks all-pass">9/9</span>
+            <span class="stat-cost">$0.0439</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-pass" title="Target term balanced across options in all turns">✓ target_balance</span><span class="ck-pass" title="4 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: WD, CP, CX, MU">✓ explore_types_valid</span><span class="ck-pass" title="5 learning objective(s)">✓ has_objectives</span><span class="ck-pass" title="Summary: fall short of는 목표, 기준, 기대치가 있고 결과가 거기에 못 미쳤을 때 쓰는 ...">✓ has_summary</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">재윤이는 이번 달 영업팀 목표가 계약 건수 20건이었어. 열심히 뛰어다녔고, 결과도 나쁘지 않았어. 근데 월말에 집계해 보니까 17건이었어. 팀장이 회의에서 이번 달 실적을 어떻게 말했을까?</div>
+      <div class="question-text">팀장이 재윤이 팀 실적을 어떻게 표현했을까?</div>
+      <div class="options-container" data-term="term-92" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-92', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">목표를 거의 다 채웠다고 했을 것 같아</span>
+      </button>
+      <div class="response-box" id="resp-term-92-intro-0" style="display:none">
+        <div class="response-text">팀장은 이렇게 말했어. &#39;이번 달 실적이 목표에 fall short of했네요.&#39; 3건이 부족했으니까, 목표에 미치지 못한 거잖아. fall short of는 &#39;기준이나 목표에 못 미치다&#39;라는 뜻이야.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-92', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">목표에 미치지 못했다고 했을 것 같아</span>
+      </button>
+      <div class="response-box" id="resp-term-92-intro-1" style="display:none">
+        <div class="response-text">맞아, 팀장은 딱 그렇게 말했어. &#39;이번 달 실적이 목표에 fall short of했네요.&#39; 3건이 부족했으니까. fall short of는 &#39;기준이나 목표에 못 미치다&#39;라는 뜻이야.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">WD — 구성 요소 분해</span></h4>
+        <div class="question-text">fall short of를 구성하는 조각들을 보면: fall은 &#39;떨어지다&#39;, short는 &#39;부족한&#39;, of는 &#39;~에 대해&#39;. 이 세 조각을 합쳐서 왜 &#39;기준에 못 미치다&#39;라는 뜻을 만들었을까?</div>
+        <div class="options-container" data-term="term-92" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-92', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">기준 아래로 추락했다는 뜻을 담으려고</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-92-explore-0-0" style="display:none">
+          <div class="response-text">조금 아쉬운 해석이야. fall이 &#39;추락&#39;의 느낌을 주긴 하지만, fall short of의 핵심은 방향이 아니라 거리야. 기준점에서 얼마나 떨어져 있느냐의 문제거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-92', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">기준점까지 닿기에 거리가 부족하다는 뜻을 담으려고</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-92-explore-0-1" style="display:none">
+          <div class="response-text">바로 그거야. short가 &#39;부족함&#39;을, fall이 &#39;그 부족한 상태에 놓이다&#39;를 나타내고, of 뒤에 기준점이 와. 즉 &#39;~에 닿기에 짧다, 모자라다&#39;는 구조야. 그래서 fall short of는 목표든 기대든 어떤 기준이든, 거기까지 도달하지 못했을 때 쓰는 표현이야.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-92', 0, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">기준에서 벗어나 다른 방향으로 갔다는 뜻을 담으려고</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-92-explore-0-2" style="display:none">
+          <div class="response-text">그건 fall short of의 구조와 맞지 않아. 다른 방향으로 빗나가는 건 fall short of가 아니라 deviate나 stray 같은 표현의 영역이야. fall short of는 방향이 아니라 양의 문제야 — 기준점까지 닿기에 그냥 부족한 거거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">재윤이 팀 실적(17건)과 목표(20건)처럼, 수치나 기준이 명확하게 있고 거기에 못 미쳤을 때 쓰는 표현은 어느 쪽이야? ① fall short of  ② disappoint</div>
+        <div class="options-container" data-term="term-92" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-92', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">①</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-92-explore-1-0" style="display:none">
+          <div class="response-text">맞아. fall short of는 기준이나 수치가 있고, 거기에 도달하지 못했다는 걸 객관적으로 나타낼 때 써. &#39;목표에 못 미쳤다&#39;는 사실 자체를 말하는 거야. ②의 disappoint는 누군가의 기대나 감정을 실망시켰다는 뜻이라서, 수치 기준보다는 사람의 감정이 중심이 돼.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-92', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">②</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-92-explore-1-1" style="display:none">
+          <div class="response-text">disappoint는 누군가를 실망시켰다는 뜻이야. 감정이나 기대가 중심이 되는 표현이거든. 재윤이 팀처럼 수치 목표가 명확하고 거기에 못 미쳤다는 사실을 말할 때는 다른 표현이 더 자연스러워.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">fall short of가 가장 자연스럽게 어울리는 상황은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-92" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-92', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">시험 합격선이 70점인데 68점을 받았을 때</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-92-explore-2-0" style="display:none">
+          <div class="response-text">딱 맞아. 기준(70점)이 있고, 결과(68점)가 거기에 못 미쳤을 때 fall short of를 써. &#39;The score fell short of the passing mark.&#39; 이런 식으로.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-92', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">친구와 약속 시간에 30분 늦었을 때</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-92-explore-2-1" style="display:none">
+          <div class="response-text">그건 fall short of보다는 &#39;늦다, 약속을 어기다&#39; 쪽이 자연스러워. fall short of는 도달해야 할 기준이나 수준이 있고, 결과가 거기에 못 미쳤을 때 쓰는 표현이야. 약속 시간 지각은 기준에 못 미치는 게 아니라 약속을 어긴 거거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-92', 2, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">발표 준비를 충분히 못 해서 긴장했을 때</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-92-explore-2-2" style="display:none">
+          <div class="response-text">긴장한 감정 자체는 fall short of의 영역이 아니야. fall short of는 결과나 수치가 기준에 못 미쳤다는 걸 말할 때 써. 준비가 부족했다면 &#39;The preparation fell short of what was needed.&#39; 처럼 쓸 수 있지만, 긴장했다는 감정 상태를 표현하는 건 아니야.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 4 <span class="turn-type">MU — 오용 판별</span></h4>
+        <div class="question-text">fall short of가 **어색하게** 쓰인 문장은 어느 쪽이야? ① The project fell short of our expectations.  ② She fell short of to finish the report on time.</div>
+        <div class="options-container" data-term="term-92" data-turn="explore-3"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-92', 3, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">①</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-92-explore-3-0" style="display:none">
+          <div class="response-text">그건 어색하지 않아. &#39;fall short of + 명사&#39; 구조로, expectations라는 기준에 못 미쳤다는 뜻이야. 완전히 자연스러운 문장이야.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-92', 3, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">②</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-92-explore-3-1" style="display:none">
+          <div class="response-text">잘 찾았어. fall short of 뒤에는 명사(구)가 와야 해. &#39;to finish&#39;처럼 to부정사를 바로 붙이면 어색해. &#39;제때 보고서를 마치는 것에 못 미쳤다&#39;고 하려면 &#39;She fell short of finishing the report on time.&#39;처럼 동명사를 써야 자연스러워.</div>
+        </div></div></div><div class="turn-section">
+      <h4 class="turn-title">학습 목표</h4>
+      <ol style="margin:0 0 0 20px;font-size:13px;line-height:1.8;"><li>fall short of가 &#39;기준이나 목표에 못 미치다&#39;를 의미함을 안다.</li><li>fall short of는 수치나 기준이 명확히 존재하고 결과가 그에 도달하지 못했을 때 쓰는 표현임을 안다.</li><li>fall short of 뒤에는 명사(구) 또는 동명사가 오며, to부정사는 오지 않음을 안다.</li><li>fall short of는 감정 중심의 disappoint와 달리 객관적 기준 미달을 나타내는 표현임을 구별한다.</li><li>fall short of의 구성 요소(fall + short + of)가 &#39;기준점까지 닿기에 부족하다&#39;는 의미를 어떻게 만들어내는지 설명할 수 있다.</li></ol></div><div class="turn-section">
+      <h4 class="turn-title">종료</h4>
+      <div class="scene-text">fall short of는 목표, 기준, 기대치가 있고 결과가 거기에 못 미쳤을 때 쓰는 표현이야. 감정보다는 사실을 객관적으로 말하는 느낌이 강하고, 뒤에는 명사나 동명사가 와.</div>
+    </div><div class="stats-bar">
+    <span>Tokens: 442 in / 2546 out</span>
+    <span>Latency: 40345ms</span>
+    <span>Cost: $0.0439</span>
+    <span>Source: final-test-3</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-92">Feedback</label>
+    <textarea id="fb-term-92" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-92')"></textarea>
+    <button class="save-btn" id="save-term-92" onclick="saveFeedback('term-92')">Save</button>
+    <span class="save-status" id="status-term-92"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-93">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">tangible</span>
+          <span class="level-badge" style="background:#fecaca">C1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">clear and definite; real enough to be touched or felt</span>
+          <span class="term-stats">
+            <span class="stat-turns">4t</span>
+            <span class="stat-checks all-pass">9/9</span>
+            <span class="stat-cost">$0.0452</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-pass" title="Target term balanced across options in all turns">✓ target_balance</span><span class="ck-pass" title="4 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: WD, CP, CX, MU">✓ explore_types_valid</span><span class="ck-pass" title="5 learning objective(s)">✓ has_objectives</span><span class="ck-pass" title="Summary: tangible은 &#39;손에 잡힐 듯 명확하게 실재하는&#39;이라는 뜻이야. 막연하거나 추상적이었던...">✓ has_summary</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">재하는 6개월째 스타트업에서 일하고 있어. 팀장이 매주 &#39;우리 팀 분위기 좋아졌죠? 성장하고 있어요&#39;라고 말하는데, 막상 월급도 그대로고 업무 프로세스도 바뀐 게 없어. 그러다 이번 주에 팀장이 또 회의에서 똑같은 말을 꺼냈고, 재하는 속으로 뭔가를 느꼈어.</div>
+      <div class="question-text">재하가 속으로 느낀 게 뭘까?</div>
+      <div class="options-container" data-term="term-93" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-93', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">팀장 말이 맞는 것 같아. 분위기는 진짜 좋아진 것 같으니까.</span>
+      </button>
+      <div class="response-box" id="resp-term-93-intro-0" style="display:none">
+        <div class="response-text">그럴 수도 있지. 근데 재하는 결국 팀장한테 조심스럽게 물어봤어. &#39;팀장님, 성장하고 있다고 하시는데, 저희가 실제로 확인할 수 있는 게 있을까요?&#39; 팀장은 잠깐 멈칫했어. 재하가 원한 건 느낌이 아니라 tangible한 변화였거든 — 눈에 보이고 손에 잡히는, 실제로 존재한다고 확인할 수 있는 무언가.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-93', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">말은 좋은데, 실제로 달라진 게 뭔지 모르겠다는 느낌.</span>
+      </button>
+      <div class="response-box" id="resp-term-93-intro-1" style="display:none">
+        <div class="response-text">바로 그거야. 재하는 &#39;분위기가 좋아졌다&#39;는 말이 공허하게 들렸어. 뭔가 tangible한 게 없었거든 — 수치든, 변화된 프로세스든, 눈으로 확인할 수 있는 결과든. 손에 잡히지 않는 말만 반복되는 상황이었지.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">WD — 구성 요소 분해</span></h4>
+        <div class="question-text">tangible은 라틴어 tangere에서 왔어. tangere는 &#39;만지다&#39;라는 뜻이야. 그리고 -ible은 &#39;~할 수 있는&#39;이라는 뜻의 접미사고. 이 두 조각을 합쳐서 왜 &#39;명확하고 실재하는&#39;이라는 뜻을 만들었을까?</div>
+        <div class="options-container" data-term="term-93" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-93', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">실제로 손으로 만질 수 있는 물체에만 쓰는 말이니까</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-93-explore-0-0" style="display:none">
+          <div class="response-text">그렇게 보면 어색해. tangible은 물리적으로 만질 수 있는 것뿐 아니라, 수치·결과·변화처럼 추상적인 것에도 써. &#39;만질 수 있는&#39;이 출발점이긴 하지만, 실제 쓰임은 거기서 더 넓어졌어.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-93', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">&#39;만질 수 있을 만큼 실재한다&#39;는 게 곧 &#39;부정할 수 없이 명확하다&#39;는 뜻이 되니까</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-93-explore-0-1" style="display:none">
+          <div class="response-text">&#39;만질 수 있다&#39;는 건 존재를 가장 직접적으로 확인하는 방식이잖아. tangible은 그 감각을 빌려서, 눈에 보이고 확인 가능한 것 — 즉 명확하게 실재하는 것 — 을 가리키게 된 거야.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">비슷해 보이는 두 표현이야. 어떤 상황에 tangible이 더 자연스러울까?
+
+① &#39;이번 프로젝트로 concrete한 성과를 냈다&#39;
+② &#39;이번 프로젝트로 tangible한 성과를 냈다&#39;</div>
+        <div class="options-container" data-term="term-93" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-93', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">①이 더 자연스러워</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-93-explore-1-0" style="display:none">
+          <div class="response-text">concrete도 &#39;구체적인&#39;이라는 뜻으로 자주 쓰이지만, 이 맥락에서는 tangible이 더 강해. concrete는 &#39;막연하지 않고 구체적인&#39;에 가깝고, tangible은 &#39;실제로 존재한다고 느껴질 만큼 명확한&#39;에 가까워. 성과가 실재한다는 걸 강조하고 싶을 때는 tangible이 더 적합해.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-93', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">②이 더 자연스러워</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-93-explore-1-1" style="display:none">
+          <div class="response-text">맞아. concrete는 &#39;구체적인&#39;에 가깝고, tangible은 한 발 더 나아가서 &#39;실제로 느껴질 만큼 명확하게 존재하는&#39;이라는 뉘앙스야. 성과가 실재한다는 걸 강조할 때 tangible이 더 잘 어울려.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">tangible이 가장 자연스럽게 어울리는 상황은 어느 쪽일까?</div>
+        <div class="options-container" data-term="term-93" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-93', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">6개월간의 협상 끝에 드디어 계약서에 서명했다. 오랫동안 기다려온 tangible한 결과였다.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-93-explore-2-0" style="display:none">
+          <div class="response-text">딱 맞아. 오랫동안 불분명하거나 추상적이었던 것이 마침내 확인 가능한 형태로 나타났을 때 — 그게 tangible의 자리야. &#39;실재한다고 느껴질 만큼 명확한 결과&#39;라는 감각이 살아 있어.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-93', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">그 영화는 tangible한 분위기를 풍겼다.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-93-explore-2-1" style="display:none">
+          <div class="response-text">여기서는 어색해. tangible은 &#39;명확하게 실재하는, 확인 가능한&#39;이라는 뜻인데, 분위기처럼 원래부터 감각적·주관적인 것에 붙이면 의미가 흐릿해져. tangible은 보통 &#39;불분명하거나 추상적이었던 것이 확인 가능한 형태로 존재할 때&#39; 쓰여.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 4 <span class="turn-type">MU — 오용 판별</span></h4>
+        <div class="question-text">tangible이 **어색하게** 쓰인 문장을 골라봐.</div>
+        <div class="options-container" data-term="term-93" data-turn="explore-3"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-93', 3, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">We need tangible evidence before making a decision.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-93-explore-3-0" style="display:none">
+          <div class="response-text">이건 자연스러워. 결정을 내리기 전에 실제로 확인 가능한 증거가 필요하다는 뜻이고, tangible이 딱 맞는 자리야.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-93', 3, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">She had a tangible personality that everyone liked.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-93-explore-3-1" style="display:none">
+          <div class="response-text">잘 찾았어. personality는 원래부터 추상적이고 주관적인 개념이라, tangible을 붙여도 &#39;실재한다고 확인 가능한&#39;이라는 감각이 생기지 않아. tangible은 &#39;막연하거나 불분명했던 것이 명확하게 존재함을 확인할 수 있을 때&#39; 쓰는 말이거든. 성격을 묘사할 때는 어울리지 않아.</div>
+        </div></div></div><div class="turn-section">
+      <h4 class="turn-title">학습 목표</h4>
+      <ol style="margin:0 0 0 20px;font-size:13px;line-height:1.8;"><li>tangible의 핵심 의미인 &#39;명확하게 실재하는, 손에 잡힐 듯 확인 가능한&#39;을 이해한다.</li><li>tangible이 물리적 사물뿐 아니라 결과·변화·증거 같은 추상적 개념에도 쓰일 수 있음을 안다.</li><li>tangible과 concrete의 뉘앙스 차이를 구별하여 적절한 맥락에서 선택할 수 있다.</li><li>tangible은 &#39;원래부터 주관적·감각적인 것&#39;이 아니라 &#39;불분명하거나 추상적이었던 것이 확인 가능한 형태로 존재할 때&#39; 쓰임을 안다.</li><li>tangible의 어원(tangere + -ible)을 통해 &#39;만질 수 있을 만큼 실재한다 → 부정할 수 없이 명확하다&#39;는 의미 구조를 이해한다.</li></ol></div><div class="turn-section">
+      <h4 class="turn-title">종료</h4>
+      <div class="scene-text">tangible은 &#39;손에 잡힐 듯 명확하게 실재하는&#39;이라는 뜻이야. 막연하거나 추상적이었던 것이 실제로 확인 가능한 형태로 존재할 때 쓰는 말로, 결과·증거·변화처럼 &#39;눈에 보이고 부정할 수 없는 것&#39;을 강조하고 싶을 때 딱 맞아.</div>
+    </div><div class="stats-bar">
+    <span>Tokens: 444 in / 2638 out</span>
+    <span>Latency: 41115ms</span>
+    <span>Cost: $0.0452</span>
+    <span>Source: final-test-3</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-93">Feedback</label>
+    <textarea id="fb-term-93" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-93')"></textarea>
+    <button class="save-btn" id="save-term-93" onclick="saveFeedback('term-93')">Save</button>
+    <span class="save-status" id="status-term-93"></span>
+  </div></div></details></div>
+
+<script>
+const FEEDBACK_PORT = 3456;
+
+function selectOption(btn, termId, turn, idx) {
+  // Toggle: if already selected, deselect
+  const respId = 'resp-' + termId + '-' + turn + '-' + idx;
+  const respEl = document.getElementById(respId);
+  if (btn.classList.contains('selected')) {
+    btn.classList.remove('selected');
+    respEl.style.display = 'none';
+    return;
+  }
+  // For intro: allow multiple selections to compare
+  // Just toggle this one
+  btn.classList.toggle('selected');
+  respEl.style.display = respEl.style.display === 'none' ? 'block' : 'none';
+}
+
+function selectExplore(btn, termId, turnIdx, optIdx) {
+  const respId = 'resp-' + termId + '-explore-' + turnIdx + '-' + optIdx;
+  const respEl = document.getElementById(respId);
+  const isCorrect = btn.dataset.correct === 'true';
+
+  if (btn.classList.contains('revealed-correct') || btn.classList.contains('revealed-incorrect')) {
+    // Toggle off
+    btn.classList.remove('revealed-correct', 'revealed-incorrect', 'selected');
+    respEl.style.display = 'none';
+    return;
+  }
+
+  // Reveal this option
+  btn.classList.add(isCorrect ? 'revealed-correct' : 'revealed-incorrect');
+  btn.classList.add('selected');
+  respEl.style.display = 'block';
+}
+
+function markUnsaved(termId) {
+  var btn = document.getElementById('save-' + termId);
+  btn.classList.add('unsaved');
+  document.getElementById('status-' + termId).textContent = 'unsaved';
+}
+
+async function saveFeedback(termId) {
+  var textarea = document.getElementById('fb-' + termId);
+  var feedback = textarea.value;
+  var statusEl = document.getElementById('status-' + termId);
+  var btn = document.getElementById('save-' + termId);
+
+  try {
+    var resp = await fetch('http://localhost:' + FEEDBACK_PORT + '/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ termId: termId, feedback: feedback }),
+    });
+    if (resp.ok) {
+      statusEl.textContent = 'saved ✓';
+      btn.classList.remove('unsaved');
+    } else {
+      statusEl.textContent = 'save failed: ' + resp.status;
+    }
+  } catch (e) {
+    statusEl.textContent = 'server unreachable — is feedback-server running?';
+  }
+}
+
+// Save all on Ctrl+S
+document.addEventListener('keydown', function(e) {
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+    e.preventDefault();
+    document.querySelectorAll('.save-btn.unsaved').forEach(function(btn) {
+      var termId = btn.id.replace('save-', '');
+      saveFeedback(termId);
+    });
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Introduction v1 — report-20260417-221055</title>
+<style>
+:root {
+  --bg: #f8fafc; --card: #fff; --border: #e2e8f0; --border-light: #f1f5f9;
+  --text: #1e293b; --text-muted: #64748b; --text-faint: #94a3b8;
+  --accent: #6366f1; --accent-light: #eef2ff; --accent-border: #c7d2fe;
+  --correct: #16a34a; --correct-bg: #f0fdf4; --correct-border: #bbf7d0;
+  --incorrect: #dc2626; --incorrect-bg: #fef2f2; --incorrect-border: #fecaca;
+  --scene-bg: #fffbeb; --scene-border: #fde68a;
+  --question-bg: #f0f9ff; --question-border: #bae6fd;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Pretendard', 'Inter', -apple-system, sans-serif; line-height: 1.6; padding: 24px; max-width: 1000px; margin: 0 auto; background: var(--bg); color: var(--text); font-size: 14px; }
+h1 { font-size: 22px; font-weight: 700; margin-bottom: 20px; }
+
+/* Summary */
+.summary { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+.summary-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 12px; }
+.sg-item { text-align: center; padding: 10px; background: var(--bg); border-radius: 8px; }
+.sg-value { font-size: 20px; font-weight: 700; }
+.sg-label { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.5px; }
+.summary-meta { font-size: 12px; color: var(--text-faint); text-align: center; margin-bottom: 16px; }
+
+/* Overview table */
+.overview-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.overview-table th { text-align: left; padding: 8px 6px; font-size: 11px; text-transform: uppercase; color: var(--text-faint); border-bottom: 2px solid var(--border); }
+.overview-table td { padding: 6px; border-bottom: 1px solid var(--border-light); }
+.overview-table a { color: var(--accent); text-decoration: none; font-weight: 600; }
+.overview-table a:hover { text-decoration: underline; }
+.tok-cell { font-size: 11px; color: var(--text-faint); }
+.all-pass { color: var(--correct); font-weight: 600; }
+.has-fail { color: var(--incorrect); font-weight: 600; }
+
+/* Badges */
+.level-badge, .level-badge-sm { display: inline-block; padding: 1px 8px; border-radius: 8px; font-size: 12px; font-weight: 700; }
+.level-badge-sm { font-size: 10px; padding: 1px 6px; }
+.imp-badge { font-size: 11px; color: var(--text-muted); }
+.type-badge { font-size: 11px; padding: 1px 6px; border-radius: 4px; background: #f1f5f9; color: var(--text-muted); }
+
+/* Term card */
+.term-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
+.term-header { padding: 12px 16px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; flex-wrap: wrap; }
+.term-header:hover { background: #fafbfc; }
+.term-word { font-weight: 700; font-size: 15px; min-width: 120px; }
+.term-def { flex: 1; color: var(--text-muted); font-size: 12px; min-width: 200px; }
+.term-stats { display: flex; gap: 10px; font-size: 11px; color: var(--text-faint); }
+.stat-turns { color: var(--accent); font-weight: 600; }
+.term-body { padding: 0 16px 16px; }
+
+/* Checks */
+.checks-bar { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px; }
+.ck-pass, .ck-fail { font-size: 11px; padding: 2px 8px; border-radius: 4px; }
+.ck-pass { color: var(--correct); background: var(--correct-bg); }
+.ck-fail { color: var(--incorrect); background: var(--incorrect-bg); }
+
+/* Reasoning */
+.reasoning-block { margin-bottom: 16px; }
+.reasoning-block summary { font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; }
+.reasoning-content { margin-top: 8px; padding: 12px; background: var(--bg); border-radius: 8px; }
+.r-field { margin-bottom: 6px; font-size: 13px; line-height: 1.6; }
+.r-field code { background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+
+/* Turn sections */
+.turn-section { margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border-light); }
+.turn-title { font-size: 14px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.turn-type { font-size: 12px; font-weight: 500; color: var(--accent); background: var(--accent-light); padding: 2px 8px; border-radius: 4px; }
+.scene-text { background: var(--scene-bg); border-left: 3px solid var(--scene-border); padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 10px; font-size: 14px; line-height: 1.8; white-space: pre-wrap; }
+.question-text { background: var(--question-bg); border-left: 3px solid var(--question-border); padding: 10px 16px; border-radius: 0 8px 8px 0; margin-bottom: 12px; font-size: 14px; font-weight: 600; }
+
+/* Option buttons */
+.options-container { display: flex; flex-direction: column; gap: 6px; }
+.option-btn { display: flex; align-items: flex-start; gap: 10px; width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--card); cursor: pointer; text-align: left; font-size: 14px; line-height: 1.6; transition: all 0.15s; font-family: inherit; }
+.option-btn:hover { border-color: var(--accent); background: var(--accent-light); }
+.option-btn.selected { border-color: var(--accent); background: var(--accent-light); box-shadow: 0 0 0 2px var(--accent-border); }
+.option-btn.revealed-correct { border-color: var(--correct); background: var(--correct-bg); }
+.option-btn.revealed-incorrect { border-color: var(--incorrect); background: var(--incorrect-bg); }
+.option-num { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: var(--bg); font-size: 12px; font-weight: 700; color: var(--text-muted); flex-shrink: 0; }
+.option-text { flex: 1; }
+
+/* Response boxes */
+.response-box { margin: 4px 0 8px 34px; padding: 12px 16px; border-radius: 8px; font-size: 13px; line-height: 1.8; animation: fadeIn 0.2s; white-space: pre-wrap; }
+.response-box:not(.correct-option):not(.incorrect-option) {
+  background: #f8f8ff; border: 1px solid var(--accent-border);
+}
+.correct-option { background: var(--correct-bg); border: 1px solid var(--correct-border); }
+.incorrect-option { background: var(--incorrect-bg); border: 1px solid var(--incorrect-border); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Stats */
+.stats-bar { display: flex; flex-wrap: wrap; gap: 16px; font-size: 11px; color: var(--text-faint); margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-light); }
+
+/* Parse errors */
+.parse-errors { margin-top: 8px; }
+.parse-error { background: var(--incorrect-bg); color: var(--incorrect); padding: 4px 8px; border-radius: 4px; font-size: 11px; font-family: monospace; margin: 2px 0; }
+.error-box { background: var(--incorrect-bg); padding: 12px; border-radius: 8px; margin: 8px 0; }
+.error-box pre { font-size: 11px; white-space: pre-wrap; word-break: break-all; }
+
+/* Feedback */
+.feedback-section { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border-light); }
+.feedback-label { font-size: 12px; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 4px; }
+.feedback-textarea { width: 100%; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; font-family: inherit; resize: vertical; line-height: 1.6; }
+.feedback-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-border); }
+.save-btn { margin-top: 6px; padding: 6px 16px; border: 1px solid var(--accent); border-radius: 6px; background: var(--accent-light); color: var(--accent); font-weight: 600; font-size: 12px; cursor: pointer; font-family: inherit; }
+.save-btn:hover { background: var(--accent); color: white; }
+.save-btn.unsaved { border-color: var(--incorrect); color: var(--incorrect); background: var(--incorrect-bg); }
+.save-status { font-size: 11px; color: var(--text-faint); margin-left: 8px; }
+
+.section-title { font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; }
+
+@media (max-width: 768px) {
+  .summary-grid { grid-template-columns: repeat(3, 1fr); }
+  body { padding: 12px; }
+}
+</style>
+</head>
+<body>
+<h1>Word Introduction — report-20260417-221055</h1>
+<div class="summary">
+    <div class="summary-grid">
+      <div class="sg-item"><div class="sg-value">5</div><div class="sg-label">Terms</div></div>
+      <div class="sg-item"><div class="sg-value">28/29</div><div class="sg-label">Checks</div></div>
+      <div class="sg-item"><div class="sg-value">4</div><div class="sg-label">Avg Turns</div></div>
+      <div class="sg-item"><div class="sg-value">41082ms</div><div class="sg-label">Avg Latency</div></div>
+      <div class="sg-item"><div class="sg-value">$0.266</div><div class="sg-label">Total Cost</div></div>
+      <div class="sg-item"><div class="sg-value">11.8k</div><div class="sg-label">Output Tokens</div></div>
+    </div>
+    <div class="summary-meta">claude-sonnet-4-6 · v1 · 2026-04-17T13:10:55.357Z</div>
+
+    <table class="overview-table"><thead><tr>
+      <th>Term</th><th>Level</th><th>Imp</th><th>Type</th><th>Turns</th><th>Checks</th><th>Tokens in/out</th><th>Latency</th><th>Cost</th>
+    </tr></thead><tbody><tr>
+      <td><a href="#card-term-49">ubiquitous</a></td>
+      <td><span class="level-badge-sm" style="background:#fca5a5">C2</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>4</td>
+      <td class="all-pass">7/7</td>
+      <td class="tok-cell">442/2231</td>
+      <td>36179ms</td>
+      <td>$0.1028</td>
+    </tr><tr>
+      <td><a href="#card-term-50">pernicious</a></td>
+      <td><span class="level-badge-sm" style="background:#fca5a5">C2</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>0</td>
+      <td class="has-fail">0/1</td>
+      <td class="tok-cell">446/2408</td>
+      <td>41941ms</td>
+      <td>$0.0409</td>
+    </tr><tr>
+      <td><a href="#card-term-51">ameliorate</a></td>
+      <td><span class="level-badge-sm" style="background:#fca5a5">C2</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>4</td>
+      <td class="all-pass">7/7</td>
+      <td class="tok-cell">442/2700</td>
+      <td>52101ms</td>
+      <td>$0.0452</td>
+    </tr><tr>
+      <td><a href="#card-term-52">juxtapose</a></td>
+      <td><span class="level-badge-sm" style="background:#fca5a5">C2</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>4</td>
+      <td class="all-pass">7/7</td>
+      <td class="tok-cell">443/2540</td>
+      <td>41750ms</td>
+      <td>$0.0428</td>
+    </tr><tr>
+      <td><a href="#card-term-53">acquiesce</a></td>
+      <td><span class="level-badge-sm" style="background:#fca5a5">C2</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>4</td>
+      <td class="all-pass">7/7</td>
+      <td class="tok-cell">440/1954</td>
+      <td>33439ms</td>
+      <td>$0.0340</td>
+    </tr></tbody></table></div>
+
+    <div class="term-card" id="card-term-49">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">ubiquitous</span>
+          <span class="level-badge" style="background:#fca5a5">C2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">present or found everywhere at the same time</span>
+          <span class="term-stats">
+            <span class="stat-turns">4t</span>
+            <span class="stat-checks all-pass">7/7</span>
+            <span class="stat-cost">$0.1028</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="4 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CX, CP, MU, WD">✓ explore_types_valid</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">민준이는 요즘 카페에서 공부하다가 문득 주변을 둘러봤거든. 테이블마다 노트북, 버스 안에서도 노트북, 도서관에서도 노트북, 심지어 공원 벤치에서도 노트북. 어딜 가도 똑같은 풍경이 펼쳐지는 거야. 그러다 친구한테 문자가 왔어. &quot;요즘 노트북 없는 데가 있어?&quot;</div>
+      <div class="question-text">민준이는 이 문자에 어떻게 답했을까?</div>
+      <div class="options-container" data-term="term-49" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-49', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">&quot;진짜, 이제 노트북이 없는 곳을 찾는 게 더 어렵겠다&quot;</span>
+      </button>
+      <div class="response-box" id="resp-term-49-intro-0" style="display:none">
+        <div class="response-text">맞아, 민준이도 그런 느낌이었던 거지. 그래서 이렇게 답했대. &quot;노트북이 완전 ubiquitous해졌잖아.&quot; Ubiquitous — 어디에나 있는, 어딜 가도 마주치는 것들을 가리키는 단어야.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-49', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">&quot;그러게, 나도 오늘 세 군데서 봤어&quot;</span>
+      </button>
+      <div class="response-box" id="resp-term-49-intro-1" style="display:none">
+        <div class="response-text">민준이도 비슷한 말을 했는데, 친구가 한마디 더 얹었대. &quot;이거 완전 ubiquitous한 거 아니야?&quot; 어딜 가도 예외 없이 존재하는 것들에 쓰는 단어거든.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">Ubiquitous는 어떤 상황에서 가장 자연스럽게 쓰일까?</div>
+        <div class="options-container" data-term="term-49" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-49', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">새로 나온 제품이 출시 첫날 완판됐을 때</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-49-explore-0-0" style="display:none">
+          <div class="response-text">그건 인기가 많다는 거지, ubiquitous한 건 아니야. Ubiquitous는 &#39;잘 팔린다&#39;가 아니라 &#39;어딜 가도 있다&#39;는 감각이거든. 공간적으로 퍼져 있는 상태를 말하는 단어야.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-49', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">특정 앱이 젊은 층 사이에서 크게 유행할 때</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-49-explore-0-1" style="display:none">
+          <div class="response-text">유행한다는 건 특정 집단 안에서 퍼진 거잖아. Ubiquitous는 그보다 훨씬 넓어 — 세대나 집단을 가리지 않고 어디에나 존재하는 상태를 가리키는 단어야.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-49', 0, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">스마트폰이 남녀노소, 어느 나라, 어느 장소에서나 보일 때</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-49-explore-0-2" style="display:none">
+          <div class="response-text">바로 그거야. 특정 집단이나 장소에 한정되지 않고, 어딜 가도 예외 없이 존재하는 상태 — 그게 ubiquitous가 사는 자리거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">Ubiquitous와 popular는 비슷해 보이지만 다른 지점이 있어. 둘의 차이를 가장 잘 짚은 건 뭘까?</div>
+        <div class="options-container" data-term="term-49" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-49', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">Popular는 일시적이고, ubiquitous는 영구적이다</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-49-explore-1-0" style="display:none">
+          <div class="response-text">지속 기간이 핵심 차이는 아니야. Ubiquitous한 것도 언젠가 사라질 수 있고, popular한 것도 오래갈 수 있거든. 둘의 차이는 시간이 아닌 다른 데 있어.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-49', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">Popular는 많은 사람이 좋아한다는 거고, ubiquitous는 어디에나 존재한다는 거다</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-49-explore-1-1" style="display:none">
+          <div class="response-text">바로 그 지점이야. Popular는 사람들의 선호나 반응에 관한 말이고, ubiquitous는 공간적 존재감에 관한 말이거든. 좋아하든 싫어하든, ubiquitous한 건 그냥 어딜 가도 있는 거야.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-49', 1, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">Popular는 주관적 평가이고, ubiquitous는 객관적 수치로 측정된다</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-49-explore-1-2" style="display:none">
+          <div class="response-text">Ubiquitous가 객관적 수치와 연결되는 건 아니야. 이 단어는 측정의 문제가 아니라, 어딜 가도 마주친다는 공간적 편재감을 담은 단어거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">MU — 오용 판별</span></h4>
+        <div class="question-text">다음 중 ubiquitous를 **어색하게** 쓴 문장은 어느 쪽일까?</div>
+        <div class="options-container" data-term="term-49" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-49', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">Plastic waste has become ubiquitous in our oceans.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-49-explore-2-0" style="display:none">
+          <div class="response-text">그건 어색하지 않아. 바다 어디서나 발견된다는 공간적 편재를 정확하게 담은 문장이거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-49', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">She was ubiquitous in her love for classical music.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-49-explore-2-1" style="display:none">
+          <div class="response-text">그게 어색한 문장이야. Ubiquitous는 어딜 가도 존재한다는 공간적 상태를 묘사하는 단어인데, 한 사람의 취향이나 감정에는 그 감각이 맞지 않거든. 사람의 내면 상태에 쓰는 단어가 아니야.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 4 <span class="turn-type">WD — 구성 요소 분해</span></h4>
+        <div class="question-text">Ubiquitous는 라틴어 ubique에서 왔는데, ubique는 &#39;ubi(어디)&#39;와 &#39;que(~도, 모두)&#39;가 합쳐진 말이야. 이 두 조각을 붙여서 왜 이런 단어를 만들었을까?</div>
+        <div class="options-container" data-term="term-49" data-turn="explore-3"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-49', 3, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">&#39;어디&#39;와 &#39;모두&#39;를 합쳐서 &#39;어디에도 모두 있다&#39;, 즉 장소의 예외 없음을 표현하려 한 거다</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-49-explore-3-0" style="display:none">
+          <div class="response-text">바로 그거야. &#39;어디&#39;라는 장소 개념에 &#39;모두, 빠짐없이&#39;라는 전칭의 감각을 얹은 거지. 예외가 되는 장소가 없다는 걸 구조 자체에 새겨 넣은 단어인 거야. 그래서 ubiquitous는 단순히 &#39;많다&#39;가 아니라 &#39;어딜 가도 있다&#39;는 공간적 전면성을 담게 된 거거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-49', 3, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">&#39;어디&#39;와 &#39;모두&#39;를 합쳐서 &#39;모든 사람이 알고 있다&#39;, 즉 보편적 인지도를 표현하려 한 거다</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-49-explore-3-1" style="display:none">
+          <div class="response-text">그 해석은 &#39;ubi(어디)&#39;를 사람 쪽으로 끌어당긴 거야. 하지만 ubique의 핵심은 사람의 인지가 아니라 장소의 범위거든. &#39;어디에도&#39;라는 공간적 전면성이 이 단어의 뼈대야.</div>
+        </div></div></div><div class="stats-bar">
+    <span>Tokens: 442 in / 2231 out</span>
+    <span>Latency: 36179ms</span>
+    <span>Cost: $0.1028</span>
+    <span>Source: sat</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-49">Feedback</label>
+    <textarea id="fb-term-49" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-49')"></textarea>
+    <button class="save-btn" id="save-term-49" onclick="saveFeedback('term-49')">Save</button>
+    <span class="save-status" id="status-term-49"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-50">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">pernicious</span>
+          <span class="level-badge" style="background:#fca5a5">C2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">having a harmful effect, especially in a gradual or subtle way</span>
+          <span class="term-stats">
+            <span class="stat-turns">0t</span>
+            <span class="stat-checks has-fail">0/1</span>
+            <span class="stat-cost">$0.0409</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-fail" title="Failed to parse">✗ json_parse</span></div><div class="error-box">Parse failed. Raw response:<pre>{&quot;i&quot;:&quot;{\n  \&quot;s\&quot;: \&quot;회사에 새로 온 팀장이 있거든. 겉으로는 되게 합리적이고 공정한 척하는데, 팀원들 사이에서 조금씩 이상한 일들이 생기기 시작했어. 누가 뭘 잘못했다는 소문이 돌고, 서로 눈치를 보게 되고, 예전엔 활발하던 회의가 어느 순간부터 조용해진 거야. 딱히 뭔가 큰 사건이 있었던 것도 아닌데, 시간이 지날수록 팀 분위기가 완전히 달라져 있었어. 나중에 팀원 중 한 명이 오래된 동료한테 털어놨는데, 그 동료가 이렇게 말했대. \&quot;그 사람 영향이 생각보다 훨씬 깊이 들어와 있는 것 같아.\&quot;\&quot;,\n  \&quot;q\&quot;: \&quot;이 팀장의 영향력, 어떻게 보여?\&quot;,\n  \&quot;o\&quot;: [\n    [\n      \&quot;처음부터 나쁜 의도가 있었던 거지\&quot;,\n      \&quot;그럴 수도 있어. 근데 사실 그게 확실하지 않다는 게 더 무서운 거거든. 의도가 뭐였든 간에, 결과적으로 팀 전체가 서서히 망가졌잖아. 영어로는 이런 걸 pernicious하다고 해. 딱 보기엔 멀쩡한데 조금씩, 은근하게 해를 끼치는 것 — 그게 pernicious의 핵심이야.\&quot;\n    ],\n    [\n      \&quot;나쁜 의도는 없었을 수도 있는데, 결과적으로 팀이 망가진 거잖아\&quot;,\n      \&quot;맞아, 그게 핵심이야. 의도가 어땠든 간에, 팀은 서서히 달라졌고 아무도 그 순간을 딱 짚어낼 수가 없었잖아. 영어로는 이런 걸 pernicious하다고 해. 겉으로는 잘 안 보이는데 조금씩, 은근하게 해를 끼치는 것 — 그게 pernicious의 핵심이야.\&quot;\n    ]\n  ]\n}&quot;,&quot;e&quot;:[{&quot;t&quot;:&quot;CP&quot;,&quot;q&quot;:&quot;pernicious와 harmful, 둘 다 &#39;해롭다&#39;는 뜻인데 — 이 둘 사이에 진짜 차이가 있다면 어느 쪽에 가까울까?&quot;,&quot;a&quot;:1,&quot;o&quot;:[[&quot;harmful은 더 일반적이고, pernicious는 더 심각한 피해를 강조하는 것&quot;,&quot;강도의 차이로 보면 아쉬워. pernicious가 꼭 더 &#39;강한&#39; 해를 뜻하는 건 아니거든. 팀장 이야기에서도 딱히 폭발적인 사건은 없었잖아. pernicious의 핵심은 세기가 아니라 방식에 있어.&quot;],[&quot;harmful은 피해가 바로 드러나는 경우에도 쓰이지만, pernicious는 서서히·은근하게 스며드는 방식을 가리키는 것&quot;,&quot;바로 그거야. harmful은 &#39;해롭다&#39;는 사실 자체를 말하는 거고, pernicious는 그 해가 어떻게 작동하는지를 담고 있어. 눈에 잘 안 띄게, 시간을 두고 스며드는 방식 — 그게 pernicious를 쓰는 이유인 거지.&quot;]]},{&quot;t&quot;:&quot;CX&quot;,&quot;q&quot;:&quot;다음 중 pernicious가 가장 자연스럽게 어울리는 상황은 어느 쪽일까?&quot;,&quot;a&quot;:1,&quot;o&quot;:[[&quot;공사장에서 무거운 자재가 떨어져 작업자가 다쳤다&quot;,&quot;이 상황은 피해가 즉각적이고 눈에 보이잖아. pernicious는 이렇게 한 번에 드러나는 피해보다는, 알아채기 어려운 방식으로 서서히 영향을 미치는 상황에 어울려.&quot;],[&quot;SNS에서 퍼지는 잘못된 건강 정보가 사람들의 생활 습관을 조금씩 바꿔놓고 있다&quot;,&quot;딱 맞아. 당장 뭔가 무너지는 것도 아니고, 누가 딱 짚어서 &#39;이게 문제야&#39;라고 말하기도 어렵고 — 근데 시간이 지나면 꽤 깊이 파고들어 있는 거지. pernicious는 바로 이런 방식의 해로움을 가리키는 단어야.&quot;],[&quot;식중독에 걸려 하루 종일 몸이 안 좋았다&quot;,&quot;이건 원인도 결과도 명확하게 드러나는 상황이잖아. pernicious는 이렇게 금방 알아챌 수 있는 피해가 아니라, 서서히 스며들어서 나중에야 &#39;아, 이게 문제였구나&#39; 싶은 상황에 어울려.&quot;]]},{&quot;t&quot;:&quot;CL&quot;,&quot;q&quot;:&quot;pernicious는 특정 종류의 대상과 자주 짝을 이뤄 쓰여. 다음 중 pernicious와 가장 자연스럽게 어울리는 것은 어느 쪽일까?&quot;,&quot;a&quot;:0,&quot;o&quot;:[[&quot;pernicious influence / pernicious myth / pernicious ideology&quot;,&quot;맞아. pernicious는 이렇게 사회나 사람의 생각 속에 서서히 스며드는 것들과 잘 붙어. 영향력, 통념, 이념처럼 — 눈에 잘 </pre></div><div class="stats-bar">
+    <span>Tokens: 446 in / 2408 out</span>
+    <span>Latency: 41941ms</span>
+    <span>Cost: $0.0409</span>
+    <span>Source: sat</span>
+  </div><div class="parse-errors"><h4>Parse Errors</h4><div class="parse-error">Missing or invalid intro block (i)</div></div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-50">Feedback</label>
+    <textarea id="fb-term-50" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-50')"></textarea>
+    <button class="save-btn" id="save-term-50" onclick="saveFeedback('term-50')">Save</button>
+    <span class="save-status" id="status-term-50"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-51">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">ameliorate</span>
+          <span class="level-badge" style="background:#fca5a5">C2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">to make a bad situation better or less harmful</span>
+          <span class="term-stats">
+            <span class="stat-turns">4t</span>
+            <span class="stat-checks all-pass">7/7</span>
+            <span class="stat-cost">$0.0452</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="4 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CP, CX, WD, MU">✓ explore_types_valid</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">민준이네 동네에 대형 물류창고가 들어서면서 밤새 트럭이 오가기 시작했거든. 소음이 심해지고 공기도 나빠지니까 주민들이 구청에 민원을 넣었어. 구청 담당자가 나와서 주민들 앞에 서더니, 방음벽 설치랑 공기청정 시스템 도입을 검토하겠다고 했어. 민준이 옆에 있던 할머니는 &quot;그게 다야?&quot; 하면서 팔짱을 꼈고, 민준이는 그 말을 들으면서 뭔가 생각에 잠겼어.</div>
+      <div class="question-text">민준이는 구청 담당자의 말을 어떻게 받아들였을까?</div>
+      <div class="options-container" data-term="term-51" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-51', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">근본적인 해결은 아니지만, 그래도 지금 상황을 조금이라도 낫게 해보려는 거라고 봤어</span>
+      </button>
+      <div class="response-box" id="resp-term-51-intro-0" style="display:none">
+        <div class="response-text">맞아, 민준이도 그렇게 생각했거든. 창고를 당장 없앨 수는 없으니까, 방음벽이라도 세우면 지금보다는 나아지잖아. 영어로는 이런 걸 ameliorate한다고 해 — 나쁜 상황을 완전히 없애는 게 아니라, 그 피해나 고통을 줄여서 조금 더 견딜 만하게 만드는 거야.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-51', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">어차피 생색내기용이고, 실질적으로 달라지는 건 없을 거라고 봤어</span>
+      </button>
+      <div class="response-box" id="resp-term-51-intro-1" style="display:none">
+        <div class="response-text">민준이도 처음엔 그런 생각이 스쳤어. 근데 방음벽이 들어서고 나서 밤에 잠을 좀 잘 수 있게 됐거든. 완벽한 해결은 아니었지만, 그래도 전보다는 나아진 거잖아. 영어로는 이렇게 나쁜 상황의 정도를 줄여서 덜 힘들게 만드는 걸 ameliorate한다고 해.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">방음벽 설치로 소음이 줄었어. 이 상황을 설명할 때 ameliorate와 가장 구별되는 단어는 뭘까?</div>
+        <div class="options-container" data-term="term-51" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-51', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">improve</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-51-explore-0-0" style="display:none">
+          <div class="response-text">improve도 쓸 수 있어. 근데 improve는 상황이 나빠진 게 전제가 아니어도 돼 — 그냥 더 좋아지는 거거든. ameliorate는 출발점이 반드시 나쁘거나 해로운 상황이야. 그 나쁨을 줄이는 데 초점이 있어.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-51', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">resolve</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-51-explore-0-1" style="display:none">
+          <div class="response-text">바로 그거야. resolve는 문제를 완전히 해결해서 끝내는 거잖아. 근데 ameliorate는 그 문제가 여전히 존재해 — 다만 그 피해나 고통의 정도를 줄이는 거야. 창고가 사라진 게 아니라 방음벽으로 버틸 만해진 거니까, 이건 ameliorate에 훨씬 가까운 상황이지.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-51', 0, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">worsen</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-51-explore-0-2" style="display:none">
+          <div class="response-text">worsen은 ameliorate의 반대 방향이야 — 상황을 더 나쁘게 만드는 거거든. 그래서 이 상황을 설명하는 데는 맞지 않아.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">다음 중 ameliorate를 쓰기에 가장 자연스러운 상황은?</div>
+        <div class="options-container" data-term="term-51" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-51', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">새로 생긴 카페가 동네 분위기를 활기차게 바꿔놓았다</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-51-explore-1-0" style="display:none">
+          <div class="response-text">이건 원래부터 나쁜 상황이 아니었잖아 — 그냥 좋아진 거야. ameliorate는 이미 나쁘거나 해로운 상황이 있을 때 쓰는 표현이거든. 출발점이 달라.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-51', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">팀 전체가 협력해서 프로젝트를 성공적으로 마무리했다</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-51-explore-1-1" style="display:none">
+          <div class="response-text">이것도 ameliorate랑은 거리가 있어. 어떤 나쁜 상황을 덜 해롭게 만드는 게 아니라, 목표를 달성한 거잖아. ameliorate가 들어설 자리가 없어.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-51', 1, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">정부가 저소득층 의료비 지원을 늘려 부담을 줄였다</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-51-explore-1-2" style="display:none">
+          <div class="response-text">딱 이런 상황이야. 의료비 부담이라는 나쁜 상황이 있고, 지원을 늘려서 그 고통을 줄인 거잖아 — 문제가 완전히 사라진 건 아니지만 덜 힘들어진 거야. ameliorate는 이렇게 이미 존재하는 해로운 상황을 완화할 때 쓰는 표현이야.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">WD — 구성 요소 분해</span></h4>
+        <div class="question-text">ameliorate는 라틴어 어근 melior에서 왔어. melior는 &#39;더 좋은&#39;이라는 뜻이고, 같은 어근에서 나온 단어로 meliorate, meliorist 같은 게 있어. 그럼 ameliorate 앞에 붙은 a-는 왜 있는 걸까?</div>
+        <div class="options-container" data-term="term-51" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-51', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">라틴어에서 동사를 만들 때 붙이는 접두사로, 의미를 바꾸지 않고 형태를 완성시켜</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-51-explore-2-0" style="display:none">
+          <div class="response-text">맞아. a-는 여기서 &#39;없다&#39;거나 &#39;반대&#39;를 뜻하는 게 아니야 — 라틴어에서 동사를 만들 때 어근 앞에 붙이는 형태소거든. 그래서 ameliorate는 결국 &#39;더 좋은 상태로 만들다&#39;, 즉 나쁜 상황을 조금씩 나은 쪽으로 끌어올린다는 뜻이 되는 거야. 구조 자체가 이 단어의 방향성을 담고 있어.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-51', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">부정을 나타내는 접두사로, &#39;좋지 않은 것을 다룬다&#39;는 뜻을 더해</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-51-explore-2-1" style="display:none">
+          <div class="response-text">그렇게 보이기 쉬운데, 여기서 a-는 부정 접두사가 아니야. atypical이나 amoral의 a-랑 다른 거거든. ameliorate의 a-는 라틴어 동사 형성에 쓰이는 접두사라서, 뜻을 뒤집는 게 아니라 어근에 동사 형태를 입히는 역할을 해.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 4 <span class="turn-type">MU — 오용 판별</span></h4>
+        <div class="question-text">다음 중 ameliorate를 **어색하게** 쓴 문장은?</div>
+        <div class="options-container" data-term="term-51" data-turn="explore-3"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-51', 3, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">The new policy aims to ameliorate the living conditions of displaced families.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-51-explore-3-0" style="display:none">
+          <div class="response-text">그건 어색하지 않아. 이재민 가족의 열악한 생활 환경이라는 나쁜 상황이 있고, 그걸 덜 힘들게 만들려는 거니까 ameliorate가 딱 맞는 자리야.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-51', 3, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">The surprise party ameliorated her birthday into a wonderful memory.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-51-explore-3-1" style="display:none">
+          <div class="response-text">바로 이게 어색한 문장이야. ameliorate는 이미 나쁘거나 해로운 상황을 완화할 때 쓰는 표현이거든. 생일 자체가 나쁜 상황이 아니잖아 — 그걸 더 좋게 만든다는 건 ameliorate가 아니라 그냥 make나 turn으로 표현해야 해. 출발점이 &#39;나쁨&#39;이어야 한다는 게 이 표현의 핵심 조건이야.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-51', 3, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">Doctors worked to ameliorate the patient&#39;s chronic pain.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-51-explore-3-2" style="display:none">
+          <div class="response-text">그것도 자연스러운 문장이야. 만성 통증이라는 고통스러운 상황이 있고, 의사들이 그 정도를 줄이려 한다는 거니까 ameliorate가 잘 맞아.</div>
+        </div></div></div><div class="stats-bar">
+    <span>Tokens: 442 in / 2700 out</span>
+    <span>Latency: 52101ms</span>
+    <span>Cost: $0.0452</span>
+    <span>Source: sat</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-51">Feedback</label>
+    <textarea id="fb-term-51" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-51')"></textarea>
+    <button class="save-btn" id="save-term-51" onclick="saveFeedback('term-51')">Save</button>
+    <span class="save-status" id="status-term-51"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-52">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">juxtapose</span>
+          <span class="level-badge" style="background:#fca5a5">C2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">to place two things close together to highlight contrast</span>
+          <span class="term-stats">
+            <span class="stat-turns">4t</span>
+            <span class="stat-checks all-pass">7/7</span>
+            <span class="stat-cost">$0.0428</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="4 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CX, CP, SC, WD">✓ explore_types_valid</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">민준이가 사진 동아리 전시회를 준비하고 있어. 주제는 &#39;변화&#39;인데, 민준이는 사진 두 장을 골랐거든. 하나는 30년 전 허허벌판이었던 곳을 찍은 흑백 사진이고, 다른 하나는 지금 그 자리에 빽빽하게 들어선 고층 빌딩들을 찍은 컬러 사진이야. 민준이는 이 두 장을 전시 패널에 나란히 붙여놨어.</div>
+      <div class="question-text">민준이가 이 두 사진을 나란히 배치한 이유가 뭘 것 같아?</div>
+      <div class="options-container" data-term="term-52" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-52', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">두 사진이 시각적으로 잘 어울려서 보기 좋으니까</span>
+      </button>
+      <div class="response-box" id="resp-term-52-intro-0" style="display:none">
+        <div class="response-text">근데 민준이한테 물어봤더니 그게 아니었어. 민준이 말이, 두 사진을 딱 붙여놓으면 그 차이가 훨씬 선명하게 보인다는 거야. 흑백이랑 컬러, 텅 빈 땅이랑 꽉 찬 빌딩 — 이게 나란히 있어야 &#39;변화&#39;가 눈에 꽂힌다고. 이렇게 대비를 드러내려고 두 가지를 나란히 놓는 걸 juxtapose라고 해. 그냥 &#39;같이 두다&#39;가 아니라, 차이를 보여주려는 의도가 있는 거거든.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-52', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">두 사진의 차이를 더 뚜렷하게 보여주려고</span>
+      </button>
+      <div class="response-box" id="resp-term-52-intro-1" style="display:none">
+        <div class="response-text">맞아, 민준이 의도가 딱 그거였어. 흑백이랑 컬러, 텅 빈 땅이랑 꽉 찬 빌딩 — 이게 나란히 있어야 &#39;변화&#39;가 눈에 꽂힌다는 거지. 이렇게 대비를 드러내려고 두 가지를 나란히 놓는 걸 juxtapose라고 해. 그냥 &#39;같이 두다&#39;가 아니라, 차이를 보여주려는 의도가 담긴 배치인 거야.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">juxtapose는 어떤 상황에서 쓰는 표현일까?</div>
+        <div class="options-container" data-term="term-52" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-52', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">비슷한 두 가지를 묶어서 &#39;이것들은 같은 종류야&#39;라고 보여줄 때</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-52-explore-0-0" style="display:none">
+          <div class="response-text">그건 juxtapose가 아니야. juxtapose는 두 가지가 얼마나 비슷한지를 보여주려는 게 아니거든. 나란히 놓는 건 맞는데, 그 목적이 달라.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-52', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">두 가지를 나란히 놓아서 그 차이가 더 선명하게 드러나게 할 때</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-52-explore-0-1" style="display:none">
+          <div class="response-text">맞아. juxtapose의 핵심은 &#39;나란히 놓기&#39;인데, 그냥 같이 두는 게 아니라 대비가 도드라지게 하려는 의도가 있는 거야. 차이를 &#39;발견&#39;하게 만드는 배치인 거지.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-52', 0, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">하나가 다른 하나보다 낫다는 걸 증명하려고 비교할 때</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-52-explore-0-2" style="display:none">
+          <div class="response-text">그건 juxtapose랑 달라. juxtapose는 어느 쪽이 더 낫다는 판단을 내리는 게 아니야. 그냥 두 가지를 나란히 놓아서 차이 자체가 보이게 하는 거거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">juxtapose와 compare, 둘 다 두 가지를 견주는 상황에서 쓰이는데, 어떤 차이가 있을까?</div>
+        <div class="options-container" data-term="term-52" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-52', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">juxtapose는 물리적·시각적으로 나란히 놓는 행위 자체에 초점이 있고, compare는 분석적으로 따져보는 행위에 초점이 있어</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-52-explore-1-0" style="display:none">
+          <div class="response-text">맞아. compare는 머릿속에서 혹은 말로 &#39;이건 이렇고 저건 저렇다&#39;고 따지는 거야. 반면 juxtapose는 두 가지를 실제로 나란히 배치해서 차이가 눈에 보이게 만드는 거거든. 분석이 아니라 배치인 거지.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-52', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">juxtapose는 비슷한 점을 찾을 때 쓰고, compare는 다른 점을 찾을 때 써</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-52-explore-1-1" style="display:none">
+          <div class="response-text">그건 반대야. juxtapose는 오히려 차이, 즉 대비를 드러내는 데 쓰이는 표현이야. 비슷한 점을 부각하려는 의도가 있는 게 아니거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">SC — 문장 완성</span></h4>
+        <div class="question-text">다음 중 juxtapose가 **자연스럽게** 쓰인 문장은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-52" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-52', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">The documentary juxtaposes interviews with survivors alongside footage of the empty streets.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-52-explore-2-0" style="display:none">
+          <div class="response-text">맞아. 생존자 인터뷰와 텅 빈 거리 영상을 나란히 배치해서 그 대비가 드러나게 한 거잖아. juxtapose가 딱 이런 자리에 쓰이는 거야 — 두 가지를 나란히 놓아서 차이가 스스로 말하게 하는 구조.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-52', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">She juxtaposed her opinion with her colleague&#39;s to find a compromise.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-52-explore-2-1" style="display:none">
+          <div class="response-text">이 문장은 어색해. 타협점을 찾으려고 의견을 조율하는 건 juxtapose의 용법이 아니야. juxtapose는 차이를 해소하거나 합의를 끌어내려는 게 아니라, 대비 자체를 드러내는 데 쓰이거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 4 <span class="turn-type">WD — 구성 요소 분해</span></h4>
+        <div class="question-text">juxtapose는 라틴어 조각들로 이루어진 단어야. juxta-는 &#39;옆에, 가까이&#39;라는 뜻이고, -pose는 &#39;놓다&#39;라는 뜻이거든. 이 두 조각을 합쳐서 왜 &#39;대비를 드러내다&#39;라는 뜻을 만들었을까?</div>
+        <div class="options-container" data-term="term-52" data-turn="explore-3"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-52', 3, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">&#39;옆에 놓다&#39;는 물리적 동작을 설명하는 말이니까, 단순히 두 가지를 가까이 배치한다는 뜻이 된 거야</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-52-explore-3-0" style="display:none">
+          <div class="response-text">절반만 맞아. &#39;옆에 놓다&#39;는 동작 자체는 맞는데, juxtapose는 거기서 끝나지 않아. 두 가지를 가까이 놓으면 어떤 일이 생기는지를 생각해봐 — 차이가 저절로 눈에 들어오게 되잖아. 그 효과까지 담긴 단어인 거야.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-52', 3, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">두 가지를 &#39;옆에 놓으면&#39; 차이가 저절로 드러나는 효과가 생기니까, 그 의도된 효과까지 포함해서 이 단어를 만든 거야</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-52-explore-3-1" style="display:none">
+          <div class="response-text">바로 그거야. juxta-(옆에) + -pose(놓다) — 이 조합이 단순한 배치 동작을 넘어서, &#39;나란히 놓음으로써 대비가 보이게 한다&#39;는 의도된 효과까지 담게 된 거지. 설계가 꽤 정교하지 않아? 놓는 행위 자체가 이미 대비를 만드는 거거든.</div>
+        </div></div></div><div class="stats-bar">
+    <span>Tokens: 443 in / 2540 out</span>
+    <span>Latency: 41750ms</span>
+    <span>Cost: $0.0428</span>
+    <span>Source: sat</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-52">Feedback</label>
+    <textarea id="fb-term-52" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-52')"></textarea>
+    <button class="save-btn" id="save-term-52" onclick="saveFeedback('term-52')">Save</button>
+    <span class="save-status" id="status-term-52"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-53">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">acquiesce</span>
+          <span class="level-badge" style="background:#fca5a5">C2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">to accept something reluctantly without protest</span>
+          <span class="term-stats">
+            <span class="stat-turns">4t</span>
+            <span class="stat-checks all-pass">7/7</span>
+            <span class="stat-cost">$0.0340</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 2 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="4 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CX, CP, AR, MU">✓ explore_types_valid</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">민준이는 이번 팀 프로젝트에서 자기 아이디어가 채택되길 바랐어. 발표 준비도 혼자 다 했고, 자료도 제일 많이 모았거든. 근데 회의 자리에서 팀장이 다른 방향으로 가자고 했고, 나머지 팀원들도 다 고개를 끄덕였어. 민준이는 할 말이 없는 건 아니었는데, 그냥 아무 말도 안 하고 고개를 떨궜어.</div>
+      <div class="question-text">민준이의 반응, 어떻게 읽혀?</div>
+      <div class="options-container" data-term="term-53" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-53', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">진심으로 납득해서 따르는 거야</span>
+      </button>
+      <div class="response-box" id="resp-term-53-intro-0" style="display:none">
+        <div class="response-text">음, 근데 민준이가 &#39;납득&#39;한 건 아니잖아. 준비까지 다 해놨는데 속으로는 분명 뭔가 남아 있었을 거거든. 이런 상황에 딱 맞는 영어 표현이 있어 — acquiesce. 마음속에 반대 의견이 있는데도 겉으로는 그냥 받아들이는 거야. 민준이가 한 게 바로 그거인 거지.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-53', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">마음에 안 들지만 그냥 넘어가는 거야</span>
+      </button>
+      <div class="response-box" id="resp-term-53-intro-1" style="display:none">
+        <div class="response-text">맞아. 할 말이 없는 게 아닌데도 아무 말 안 하고 넘어가는 거잖아. 이런 걸 영어로 acquiesce라고 해. 속으로는 저항감이 있는데 겉으로는 그냥 수용하는 거거든. 민준이가 딱 그 상태인 거지.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">acquiesce가 가장 자연스럽게 어울리는 상황은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-53" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-53', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">친구가 추천한 식당이 마음에 쏙 들어서 흔쾌히 가기로 했다</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-53-explore-0-0" style="display:none">
+          <div class="response-text">그건 acquiesce가 아니야. 마음에 들어서 기꺼이 따르는 건 그냥 동의하는 거거든. acquiesce에는 뭔가 내키지 않는 감각이 깔려 있어야 해.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-53', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">부모님이 정해온 진로 방향이 내 뜻과 달랐지만, 결국 아무 말 없이 따르기로 했다</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-53-explore-0-1" style="display:none">
+          <div class="response-text">맞아. 내 뜻이 따로 있는데도 반박하지 않고 그냥 받아들이는 거잖아. 그게 acquiesce의 핵심이야 — 저항감은 있지만 겉으로는 조용히 수용하는 거지.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-53', 0, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">회의에서 모두가 같은 의견이라 자연스럽게 합의가 됐다</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-53-explore-0-2" style="display:none">
+          <div class="response-text">그건 acquiesce가 아니야. 모두가 같은 방향이면 내부 갈등 자체가 없잖아. acquiesce는 내 안에 다른 생각이 있는데도 그걸 꺼내지 않는 상황에서 쓰는 표현이거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">acquiesce와 agree, 이 두 표현의 차이로 가장 정확한 것은?</div>
+        <div class="options-container" data-term="term-53" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-53', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">acquiesce는 내키지 않는 감각이 깔려 있고, agree는 그런 감각 없이 쓸 수 있다</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-53-explore-1-0" style="display:none">
+          <div class="response-text">맞아. agree는 그냥 의견이 같다는 거고, acquiesce는 속으로 다른 생각이 있는데도 표면적으로 받아들이는 거거든. 그 내부 저항감이 acquiesce를 acquiesce이게 만드는 거야.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-53', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">acquiesce는 공식적인 자리에서만 쓰고, agree는 일상에서 쓴다</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-53-explore-1-1" style="display:none">
+          <div class="response-text">그건 아니야. acquiesce가 agree보다 격식체에 가까운 건 맞는데, 그게 이 두 표현의 핵심 차이는 아니거든. 어느 자리에서 쓰느냐보다 더 중요한 차이가 있어.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">AR — 행동·결과 예측</span></h4>
+        <div class="question-text">누군가 &#39;She finally acquiesced.&#39;라고 말했어. 이 뒤에 이어질 말로 더 자연스러운 건 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-53" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-53', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">&#39;She was really excited about the decision.&#39;</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-53-explore-2-0" style="display:none">
+          <div class="response-text">그건 어색해. acquiesce 자체에 &#39;내키지 않음&#39;이 담겨 있는데, 그 직후에 신났다고 하면 앞뒤가 안 맞거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-53', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">&#39;But you could tell she wasn&#39;t happy about it.&#39;</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-53-explore-2-1" style="display:none">
+          <div class="response-text">맞아. acquiesce는 겉으로는 받아들였지만 속마음은 다르다는 걸 이미 함의하고 있거든. 그래서 &#39;하지만 달갑지 않아 보였다&#39;는 말이 자연스럽게 따라오는 거야.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 4 <span class="turn-type">MU — 오용 판별</span></h4>
+        <div class="question-text">acquiesce가 **어색하게** 쓰인 문장은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-53" data-turn="explore-3"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-53', 3, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">직원들은 새 규정에 불만이 있었지만 결국 acquiesce했다</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-53-explore-3-0" style="display:none">
+          <div class="response-text">그건 어색하지 않아. 불만이 있는데도 겉으로는 받아들이는 상황이니까 acquiesce가 딱 맞는 자리거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-53', 3, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">그는 오랫동안 원하던 제안을 받고 기꺼이 acquiesce했다</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-53-explore-3-1" style="display:none">
+          <div class="response-text">맞아, 그게 어색해. acquiesce는 &#39;기꺼이&#39;와 함께 쓸 수 없어. 원하던 걸 얻어서 기쁘게 받아들이는 건 acquiesce가 아니거든 — 그 표현 안에는 반드시 내키지 않는 감각이 있어야 해.</div>
+        </div></div></div><div class="stats-bar">
+    <span>Tokens: 440 in / 1954 out</span>
+    <span>Latency: 33439ms</span>
+    <span>Cost: $0.0340</span>
+    <span>Source: sat</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-53">Feedback</label>
+    <textarea id="fb-term-53" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-53')"></textarea>
+    <button class="save-btn" id="save-term-53" onclick="saveFeedback('term-53')">Save</button>
+    <span class="save-status" id="status-term-53"></span>
+  </div></div></details></div>
+
+<script>
+const FEEDBACK_PORT = 3456;
+
+function selectOption(btn, termId, turn, idx) {
+  // Toggle: if already selected, deselect
+  const respId = 'resp-' + termId + '-' + turn + '-' + idx;
+  const respEl = document.getElementById(respId);
+  if (btn.classList.contains('selected')) {
+    btn.classList.remove('selected');
+    respEl.style.display = 'none';
+    return;
+  }
+  // For intro: allow multiple selections to compare
+  // Just toggle this one
+  btn.classList.toggle('selected');
+  respEl.style.display = respEl.style.display === 'none' ? 'block' : 'none';
+}
+
+function selectExplore(btn, termId, turnIdx, optIdx) {
+  const respId = 'resp-' + termId + '-explore-' + turnIdx + '-' + optIdx;
+  const respEl = document.getElementById(respId);
+  const isCorrect = btn.dataset.correct === 'true';
+
+  if (btn.classList.contains('revealed-correct') || btn.classList.contains('revealed-incorrect')) {
+    // Toggle off
+    btn.classList.remove('revealed-correct', 'revealed-incorrect', 'selected');
+    respEl.style.display = 'none';
+    return;
+  }
+
+  // Reveal this option
+  btn.classList.add(isCorrect ? 'revealed-correct' : 'revealed-incorrect');
+  btn.classList.add('selected');
+  respEl.style.display = 'block';
+}
+
+function markUnsaved(termId) {
+  var btn = document.getElementById('save-' + termId);
+  btn.classList.add('unsaved');
+  document.getElementById('status-' + termId).textContent = 'unsaved';
+}
+
+async function saveFeedback(termId) {
+  var textarea = document.getElementById('fb-' + termId);
+  var feedback = textarea.value;
+  var statusEl = document.getElementById('status-' + termId);
+  var btn = document.getElementById('save-' + termId);
+
+  try {
+    var resp = await fetch('http://localhost:' + FEEDBACK_PORT + '/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ termId: termId, feedback: feedback }),
+    });
+    if (resp.ok) {
+      statusEl.textContent = 'saved ✓';
+      btn.classList.remove('unsaved');
+    } else {
+      statusEl.textContent = 'save failed: ' + resp.status;
+    }
+  } catch (e) {
+    statusEl.textContent = 'server unreachable — is feedback-server running?';
+  }
+}
+
+// Save all on Ctrl+S
+document.addEventListener('keydown', function(e) {
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+    e.preventDefault();
+    document.querySelectorAll('.save-btn.unsaved').forEach(function(btn) {
+      var termId = btn.id.replace('save-', '');
+      saveFeedback(termId);
+    });
+  }
+});
+</script>
+</body>
+</html>

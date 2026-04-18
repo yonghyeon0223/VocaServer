@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Introduction v1 — report-20260417-184421</title>
+<style>
+:root {
+  --bg: #f8fafc; --card: #fff; --border: #e2e8f0; --border-light: #f1f5f9;
+  --text: #1e293b; --text-muted: #64748b; --text-faint: #94a3b8;
+  --accent: #6366f1; --accent-light: #eef2ff; --accent-border: #c7d2fe;
+  --correct: #16a34a; --correct-bg: #f0fdf4; --correct-border: #bbf7d0;
+  --incorrect: #dc2626; --incorrect-bg: #fef2f2; --incorrect-border: #fecaca;
+  --scene-bg: #fffbeb; --scene-border: #fde68a;
+  --question-bg: #f0f9ff; --question-border: #bae6fd;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Pretendard', 'Inter', -apple-system, sans-serif; line-height: 1.6; padding: 24px; max-width: 1000px; margin: 0 auto; background: var(--bg); color: var(--text); font-size: 14px; }
+h1 { font-size: 22px; font-weight: 700; margin-bottom: 20px; }
+
+/* Summary */
+.summary { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+.summary-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 12px; }
+.sg-item { text-align: center; padding: 10px; background: var(--bg); border-radius: 8px; }
+.sg-value { font-size: 20px; font-weight: 700; }
+.sg-label { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.5px; }
+.summary-meta { font-size: 12px; color: var(--text-faint); text-align: center; margin-bottom: 16px; }
+
+/* Overview table */
+.overview-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.overview-table th { text-align: left; padding: 8px 6px; font-size: 11px; text-transform: uppercase; color: var(--text-faint); border-bottom: 2px solid var(--border); }
+.overview-table td { padding: 6px; border-bottom: 1px solid var(--border-light); }
+.overview-table a { color: var(--accent); text-decoration: none; font-weight: 600; }
+.overview-table a:hover { text-decoration: underline; }
+.tok-cell { font-size: 11px; color: var(--text-faint); }
+.all-pass { color: var(--correct); font-weight: 600; }
+.has-fail { color: var(--incorrect); font-weight: 600; }
+
+/* Badges */
+.level-badge, .level-badge-sm { display: inline-block; padding: 1px 8px; border-radius: 8px; font-size: 12px; font-weight: 700; }
+.level-badge-sm { font-size: 10px; padding: 1px 6px; }
+.imp-badge { font-size: 11px; color: var(--text-muted); }
+.type-badge { font-size: 11px; padding: 1px 6px; border-radius: 4px; background: #f1f5f9; color: var(--text-muted); }
+
+/* Term card */
+.term-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
+.term-header { padding: 12px 16px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; flex-wrap: wrap; }
+.term-header:hover { background: #fafbfc; }
+.term-word { font-weight: 700; font-size: 15px; min-width: 120px; }
+.term-def { flex: 1; color: var(--text-muted); font-size: 12px; min-width: 200px; }
+.term-stats { display: flex; gap: 10px; font-size: 11px; color: var(--text-faint); }
+.stat-turns { color: var(--accent); font-weight: 600; }
+.term-body { padding: 0 16px 16px; }
+
+/* Checks */
+.checks-bar { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px; }
+.ck-pass, .ck-fail { font-size: 11px; padding: 2px 8px; border-radius: 4px; }
+.ck-pass { color: var(--correct); background: var(--correct-bg); }
+.ck-fail { color: var(--incorrect); background: var(--incorrect-bg); }
+
+/* Reasoning */
+.reasoning-block { margin-bottom: 16px; }
+.reasoning-block summary { font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; }
+.reasoning-content { margin-top: 8px; padding: 12px; background: var(--bg); border-radius: 8px; }
+.r-field { margin-bottom: 6px; font-size: 13px; line-height: 1.6; }
+.r-field code { background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+
+/* Turn sections */
+.turn-section { margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border-light); }
+.turn-title { font-size: 14px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.turn-type { font-size: 12px; font-weight: 500; color: var(--accent); background: var(--accent-light); padding: 2px 8px; border-radius: 4px; }
+.scene-text { background: var(--scene-bg); border-left: 3px solid var(--scene-border); padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 10px; font-size: 14px; line-height: 1.8; white-space: pre-wrap; }
+.question-text { background: var(--question-bg); border-left: 3px solid var(--question-border); padding: 10px 16px; border-radius: 0 8px 8px 0; margin-bottom: 12px; font-size: 14px; font-weight: 600; }
+
+/* Option buttons */
+.options-container { display: flex; flex-direction: column; gap: 6px; }
+.option-btn { display: flex; align-items: flex-start; gap: 10px; width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--card); cursor: pointer; text-align: left; font-size: 14px; line-height: 1.6; transition: all 0.15s; font-family: inherit; }
+.option-btn:hover { border-color: var(--accent); background: var(--accent-light); }
+.option-btn.selected { border-color: var(--accent); background: var(--accent-light); box-shadow: 0 0 0 2px var(--accent-border); }
+.option-btn.revealed-correct { border-color: var(--correct); background: var(--correct-bg); }
+.option-btn.revealed-incorrect { border-color: var(--incorrect); background: var(--incorrect-bg); }
+.option-num { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: var(--bg); font-size: 12px; font-weight: 700; color: var(--text-muted); flex-shrink: 0; }
+.option-text { flex: 1; }
+
+/* Response boxes */
+.response-box { margin: 4px 0 8px 34px; padding: 12px 16px; border-radius: 8px; font-size: 13px; line-height: 1.8; animation: fadeIn 0.2s; white-space: pre-wrap; }
+.response-box:not(.correct-option):not(.incorrect-option) {
+  background: #f8f8ff; border: 1px solid var(--accent-border);
+}
+.correct-option { background: var(--correct-bg); border: 1px solid var(--correct-border); }
+.incorrect-option { background: var(--incorrect-bg); border: 1px solid var(--incorrect-border); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Stats */
+.stats-bar { display: flex; flex-wrap: wrap; gap: 16px; font-size: 11px; color: var(--text-faint); margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-light); }
+
+/* Parse errors */
+.parse-errors { margin-top: 8px; }
+.parse-error { background: var(--incorrect-bg); color: var(--incorrect); padding: 4px 8px; border-radius: 4px; font-size: 11px; font-family: monospace; margin: 2px 0; }
+.error-box { background: var(--incorrect-bg); padding: 12px; border-radius: 8px; margin: 8px 0; }
+.error-box pre { font-size: 11px; white-space: pre-wrap; word-break: break-all; }
+
+/* Feedback */
+.feedback-section { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border-light); }
+.feedback-label { font-size: 12px; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 4px; }
+.feedback-textarea { width: 100%; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; font-family: inherit; resize: vertical; line-height: 1.6; }
+.feedback-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-border); }
+.save-btn { margin-top: 6px; padding: 6px 16px; border: 1px solid var(--accent); border-radius: 6px; background: var(--accent-light); color: var(--accent); font-weight: 600; font-size: 12px; cursor: pointer; font-family: inherit; }
+.save-btn:hover { background: var(--accent); color: white; }
+.save-btn.unsaved { border-color: var(--incorrect); color: var(--incorrect); background: var(--incorrect-bg); }
+.save-status { font-size: 11px; color: var(--text-faint); margin-left: 8px; }
+
+.section-title { font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; }
+
+@media (max-width: 768px) {
+  .summary-grid { grid-template-columns: repeat(3, 1fr); }
+  body { padding: 12px; }
+}
+</style>
+</head>
+<body>
+<h1>Word Introduction — report-20260417-184421</h1>
+<div class="summary">
+    <div class="summary-grid">
+      <div class="sg-item"><div class="sg-value">5</div><div class="sg-label">Terms</div></div>
+      <div class="sg-item"><div class="sg-value">35/35</div><div class="sg-label">Checks</div></div>
+      <div class="sg-item"><div class="sg-value">2.8</div><div class="sg-label">Avg Turns</div></div>
+      <div class="sg-item"><div class="sg-value">32280ms</div><div class="sg-label">Avg Latency</div></div>
+      <div class="sg-item"><div class="sg-value">$0.236</div><div class="sg-label">Total Cost</div></div>
+      <div class="sg-item"><div class="sg-value">10.1k</div><div class="sg-label">Output Tokens</div></div>
+    </div>
+    <div class="summary-meta">claude-sonnet-4-6 · v1 · 2026-04-17T09:44:21.622Z</div>
+
+    <table class="overview-table"><thead><tr>
+      <th>Term</th><th>Level</th><th>Imp</th><th>Type</th><th>Turns</th><th>Checks</th><th>Tokens in/out</th><th>Latency</th><th>Cost</th>
+    </tr></thead><tbody><tr>
+      <td><a href="#card-term-06">cat</a></td>
+      <td><span class="level-badge-sm" style="background:#dcfce7">A1</span></td>
+      <td>3</td>
+      <td>V</td>
+      <td>1</td>
+      <td class="all-pass">7/7</td>
+      <td class="tok-cell">441/1023</td>
+      <td>18055ms</td>
+      <td>$0.0815</td>
+    </tr><tr>
+      <td><a href="#card-term-11">give up</a></td>
+      <td><span class="level-badge-sm" style="background:#bbf7d0">A2</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>3</td>
+      <td class="all-pass">7/7</td>
+      <td class="tok-cell">440/2130</td>
+      <td>32847ms</td>
+      <td>$0.0365</td>
+    </tr><tr>
+      <td><a href="#card-term-20">end up in</a></td>
+      <td><span class="level-badge-sm" style="background:#fef9c3">B1</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>3</td>
+      <td class="all-pass">7/7</td>
+      <td class="tok-cell">449/2090</td>
+      <td>31655ms</td>
+      <td>$0.0359</td>
+    </tr><tr>
+      <td><a href="#card-term-28">bounced back</a></td>
+      <td><span class="level-badge-sm" style="background:#fde68a">B2</span></td>
+      <td>4</td>
+      <td>P</td>
+      <td>3</td>
+      <td class="all-pass">7/7</td>
+      <td class="tok-cell">440/2101</td>
+      <td>35815ms</td>
+      <td>$0.0361</td>
+    </tr><tr>
+      <td><a href="#card-term-37">counterintuitive</a></td>
+      <td><span class="level-badge-sm" style="background:#fecaca">C1</span></td>
+      <td>4</td>
+      <td>V</td>
+      <td>4</td>
+      <td class="all-pass">7/7</td>
+      <td class="tok-cell">443/2742</td>
+      <td>43027ms</td>
+      <td>$0.0457</td>
+    </tr></tbody></table></div>
+
+    <div class="term-card" id="card-term-06">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">cat</span>
+          <span class="level-badge" style="background:#dcfce7">A1</span>
+          <span class="imp-badge">imp 3</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">a small furry animal often kept as a pet</span>
+          <span class="term-stats">
+            <span class="stat-turns">1t</span>
+            <span class="stat-checks all-pass">7/7</span>
+            <span class="stat-cost">$0.0815</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 3 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="1 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CX">✓ explore_types_valid</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">지수네 집 거실 소파 위에 작고 털이 복슬복슬한 동물이 한 마리 앉아 있거든. 지수가 학교에서 돌아오면 항상 그 자리에서 기다리고 있어. 밥도 챙겨줘야 하고, 같이 놀아줘야 하고, 지수한테는 완전 가족 같은 존재인 거지.</div>
+      <div class="question-text">지수한테 이 동물은 어떤 존재일까?</div>
+      <div class="options-container" data-term="term-06" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-06', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">집에서 함께 사는 반려동물</span>
+      </button>
+      <div class="response-box" id="resp-term-06-intro-0" style="display:none">
+        <div class="response-text">맞아, 지수는 이 동물을 정말 아끼거든. 영어로는 cat이라고 해. 우리가 흔히 &#39;고양이&#39;라고 부르는 동물이잖아. 집에서 키우는 고양이를 영어로 a cat이라고 하는 거지.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-06', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">잠깐 놀러 온 이웃집 동물</span>
+      </button>
+      <div class="response-box" id="resp-term-06-intro-1" style="display:none">
+        <div class="response-text">그럴 수도 있겠다 싶지? 근데 밥도 챙겨주고 항상 그 자리에서 기다린다는 걸 보면, 지수 집에서 함께 사는 동물인 거야. 영어로는 cat이라고 해. 우리말로 &#39;고양이&#39;인데, 집에서 키우는 작고 털 많은 동물을 가리키는 거거든.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-06', 'intro', 2)">
+        <span class="option-num">3</span>
+        <span class="option-text">뭔가 특별한 동물인 건 알겠는데, 어떤 종류인지 감이 안 잡혀</span>
+      </button>
+      <div class="response-box" id="resp-term-06-intro-2" style="display:none">
+        <div class="response-text">그렇지, 딱 뭔지 안 나와 있으니까 헷갈릴 수 있어. 사실 이 동물은 집에서 흔히 키우는 고양이야. 영어로 cat이라고 하거든. 작고 털이 복슬복슬한 게 특징인 반려동물이지.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">cat을 자연스럽게 쓸 수 있는 상황은 어느 쪽일까?</div>
+        <div class="options-container" data-term="term-06" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-06', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">동물원에서 사자를 보고 친구한테 설명할 때</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-06-explore-0-0" style="display:none">
+          <div class="response-text">사자는 cat이라고 하지 않아. cat은 집에서 키우는 작은 고양이를 가리키는 거거든. 동물원의 큰 동물들은 다른 말로 불러.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-06', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">친구 집에 놀러 갔더니 털 복슬복슬한 고양이가 소파에 앉아 있을 때</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-06-explore-0-1" style="display:none">
+          <div class="response-text">맞아! 바로 그 장면이 cat이 사는 자리야. 집에서 사람과 함께 지내는 작고 털 많은 고양이, 그게 cat이거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-06', 0, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">길을 걷다가 새가 나뭇가지에 앉아 있는 걸 발견했을 때</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-06-explore-0-2" style="display:none">
+          <div class="response-text">새는 cat이 아니야. cat은 털이 있고 집에서 키우는 고양이를 가리키는 말이거든. 날개가 있는 동물과는 달라.</div>
+        </div></div></div><div class="stats-bar">
+    <span>Tokens: 441 in / 1023 out</span>
+    <span>Latency: 18055ms</span>
+    <span>Cost: $0.0815</span>
+    <span>Source: test-14</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-06">Feedback</label>
+    <textarea id="fb-term-06" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-06')"></textarea>
+    <button class="save-btn" id="save-term-06" onclick="saveFeedback('term-06')">Save</button>
+    <span class="save-status" id="status-term-06"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-11">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">give up</span>
+          <span class="level-badge" style="background:#bbf7d0">A2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">to stop doing something or to surrender something</span>
+          <span class="term-stats">
+            <span class="stat-turns">3t</span>
+            <span class="stat-checks all-pass">7/7</span>
+            <span class="stat-cost">$0.0365</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 3 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="3 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CP, CX, MF">✓ explore_types_valid</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">민준이는 몇 달째 기타를 배우고 있는데, 요즘 들어 연습할 때마다 손가락도 아프고 코드도 잘 안 잡히거든. 어제도 한 시간 넘게 붙잡고 있다가 결국 기타를 내려놨어. 친구 수아가 옆에서 그 모습을 지켜봤는데, 민준이한테 한마디 하려고 해.</div>
+      <div class="question-text">수아는 민준이 상황을 어떻게 봤을까?</div>
+      <div class="options-container" data-term="term-11" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-11', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">민준이가 오늘 연습을 잠깐 쉬는 거라고 봤을 것 같아</span>
+      </button>
+      <div class="response-box" id="resp-term-11-intro-0" style="display:none">
+        <div class="response-text">수아도 처음엔 그냥 쉬는 건가 싶었는데, 민준이 표정을 보니 그게 아닌 것 같았거든. 결국 수아가 말했어. &quot;야, 설마 give up하는 거 아니지?&quot; give up은 하던 걸 그냥 접어버리는 거잖아. 수아는 민준이가 기타를 완전히 포기하려는 건지 걱정이 된 거지.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-11', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">민준이가 기타를 완전히 그만두려는 것 같다고 봤을 것 같아</span>
+      </button>
+      <div class="response-box" id="resp-term-11-intro-1" style="display:none">
+        <div class="response-text">수아 눈에는 딱 보였던 거야. 민준이가 기타를 내려놓는 게 그냥 오늘 하루 쉬는 게 아니라는 걸. 그래서 수아가 물었어. &quot;너 혹시 give up하는 거야?&quot; give up은 하던 걸 완전히 그만두거나 포기하는 거거든. 수아는 민준이가 기타를 아예 접으려는 건지 확인하고 싶었던 거지.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-11', 'intro', 2)">
+        <span class="option-num">3</span>
+        <span class="option-text">민준이가 기타를 잠깐 내려놓은 건지 아닌지 헷갈렸을 것 같아</span>
+      </button>
+      <div class="response-box" id="resp-term-11-intro-2" style="display:none">
+        <div class="response-text">수아도 딱 잘라 말하기 어려웠던 거야. 그래서 그냥 물어봤어. &quot;민준아, give up하는 거야, 아니면 그냥 오늘 쉬는 거야?&quot; give up은 하던 걸 완전히 포기하거나 그만두는 거잖아. 수아는 민준이가 기타를 아예 접으려는 건지, 아니면 잠깐 쉬는 건지 알고 싶었던 거지.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">민준이가 오늘 연습을 너무 힘들어서 일찍 끝냈어. 이 상황에 give up을 쓰는 게 맞을까?</div>
+        <div class="options-container" data-term="term-11" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-11', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">맞아, give up이랑 딱 어울려</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-11-explore-0-0" style="display:none">
+          <div class="response-text">오늘 연습을 일찍 끝낸 건 그냥 오늘 하루 멈춘 거잖아. 기타를 계속 배울 생각이 있다면 give up이라고 하기엔 좀 달라. give up은 아예 그만두거나 포기하는 거거든, 오늘만 쉬는 게 아니라.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-11', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">아니, 이 상황엔 give up이 안 어울려</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-11-explore-0-1" style="display:none">
+          <div class="response-text">맞아. 오늘 힘들어서 일찍 끝낸 건 잠깐 멈춘 거지, 기타를 완전히 포기한 게 아니잖아. give up은 하던 걸 아예 접어버리는 거거든. 내일도 계속 배울 생각이 있다면 give up이라고 할 수 없어.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-11', 0, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">상황에 따라 다를 것 같아</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-11-explore-0-2" style="display:none">
+          <div class="response-text">어떤 상황이냐에 따라 다르다기보다는, give up 자체에 명확한 기준이 있어. 오늘 연습을 일찍 끝낸 건 기타를 계속 배울 생각이 있는 거잖아. give up은 그 &#39;계속할 생각&#39; 자체를 접어버리는 거거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">다음 중 give up이 가장 자연스럽게 어울리는 상황은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-11" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-11', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">시험 공부를 하다가 너무 졸려서 오늘은 일찍 자기로 했어</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-11-explore-1-0" style="display:none">
+          <div class="response-text">오늘 일찍 자는 건 공부를 잠깐 미룬 거지, 공부 자체를 포기한 게 아니잖아. give up은 그 활동이나 목표 자체를 완전히 그만두는 거거든. 내일 다시 공부할 생각이 있다면 give up이라고 하기엔 달라.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-11', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">배달 음식을 시키려다가 메뉴를 못 골라서 그냥 집에 있는 걸로 먹었어</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-11-explore-1-1" style="display:none">
+          <div class="response-text">메뉴를 못 골라서 다른 걸 먹은 건 선택을 바꾼 거지, 뭔가를 포기한 게 아니잖아. give up은 하려던 것이나 가지려던 것을 완전히 내려놓는 거거든. 이 상황엔 잘 안 어울려.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-11', 1, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">몇 년째 도전하던 자격증 시험을 더 이상 보지 않기로 했어</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-11-explore-1-2" style="display:none">
+          <div class="response-text">맞아. 몇 년을 도전하다가 더 이상 안 하기로 한 거잖아. 그 목표 자체를 완전히 내려놓은 거니까 give up이 딱 어울리는 상황이야.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">MF — 형태 변환</span></h4>
+        <div class="question-text">다음 중 give up의 쓰임이 어색한 문장은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-11" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-11', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">She decided to give up smoking.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-11-explore-2-0" style="display:none">
+          <div class="response-text">자연스러운 문장이야. give up 뒤에 동명사(-ing)가 오는 건 맞아. 담배를 완전히 끊기로 했다는 뜻이거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-11', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">He gave up to learn the guitar.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-11-explore-2-1" style="display:none">
+          <div class="response-text">어색해. give up 뒤에는 to부정사가 아니라 동명사(-ing)가 와야 하거든. &#39;give up learning the guitar&#39;처럼 써야 자연스러워.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-11', 2, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">I&#39;m not going to give up.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-11-explore-2-2" style="display:none">
+          <div class="response-text">자연스러운 문장이야. give up 뒤에 아무것도 안 붙어도 돼. 포기하지 않겠다는 뜻으로 그냥 이렇게 쓸 수 있거든.</div>
+        </div></div></div><div class="stats-bar">
+    <span>Tokens: 440 in / 2130 out</span>
+    <span>Latency: 32847ms</span>
+    <span>Cost: $0.0365</span>
+    <span>Source: test-11</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-11">Feedback</label>
+    <textarea id="fb-term-11" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-11')"></textarea>
+    <button class="save-btn" id="save-term-11" onclick="saveFeedback('term-11')">Save</button>
+    <span class="save-status" id="status-term-11"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-20">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">end up in</span>
+          <span class="level-badge" style="background:#fef9c3">B1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">to finally arrive at or reach a place or situation, often unintentionally</span>
+          <span class="term-stats">
+            <span class="stat-turns">3t</span>
+            <span class="stat-checks all-pass">7/7</span>
+            <span class="stat-cost">$0.0359</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 3 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="3 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CX, CP, MU">✓ explore_types_valid</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">지수는 친구들이랑 처음 가보는 동네에서 저녁을 먹기로 했어. 다들 맛집 검색하다가 의견이 엇갈려서 이 골목 저 골목 돌아다녔거든. 한 시간쯤 지났을까, 결국 처음 출발했던 지하철역 바로 앞 분식집 앞에 서 있었어.</div>
+      <div class="question-text">지수 일행이 분식집 앞에 서게 된 건 어떤 상황인 것 같아?</div>
+      <div class="options-container" data-term="term-20" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-20', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">처음부터 거기 가려고 계획했던 거지</span>
+      </button>
+      <div class="response-box" id="resp-term-20-intro-0" style="display:none">
+        <div class="response-text">아, 근데 사실 그게 아니었거든. 한 시간을 헤맨 끝에 거기 서게 된 거잖아. 이럴 때 영어로 &quot;end up in&quot;이라고 해 — 딱히 의도한 건 아닌데 결국 어떤 상황이나 장소에 이르게 됐을 때 쓰는 표현이야.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-20', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">헤매다 보니까 의도치 않게 거기 도착한 거지</span>
+      </button>
+      <div class="response-box" id="resp-term-20-intro-1" style="display:none">
+        <div class="response-text">맞아. 계획한 것도 아닌데 돌고 돌다 결국 거기 서게 된 거잖아. 이런 상황을 영어로 &quot;end up in&quot;이라고 해 — 의도치 않게 어떤 장소나 상황에 결국 이르게 됐을 때 쓰는 표현이야.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-20', 'intro', 2)">
+        <span class="option-num">3</span>
+        <span class="option-text">중간에 목적지를 바꾼 건지 원래 계획대로 간 건지 잘 모르겠어</span>
+      </button>
+      <div class="response-box" id="resp-term-20-intro-2" style="display:none">
+        <div class="response-text">그럴 수 있어. 근데 한 시간을 헤맸다는 게 포인트거든 — 딱히 의도한 게 아닌데 결국 거기 서게 된 상황인 거지. 이럴 때 영어로 &quot;end up in&quot;이라고 해. 계획이나 의도와 상관없이 결국 어떤 장소나 상황에 이르게 됐을 때 쓰는 표현이야.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">다음 중 &quot;end up in&quot;이 가장 자연스럽게 어울리는 상황은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-20" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-20', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">여행 전날 밤에 숙소를 예약하고, 다음 날 그 숙소에 체크인했다</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-20-explore-0-0" style="display:none">
+          <div class="response-text">그건 계획대로 된 거잖아. &quot;end up in&quot;은 의도하거나 계획한 결과가 아닐 때 자연스럽게 쓰이는 표현이거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-20', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">환승을 잘못해서 엉뚱한 역에 내렸고, 결국 거기서 한 시간을 기다렸다</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-20-explore-0-1" style="display:none">
+          <div class="response-text">맞아. 의도한 게 아닌데 그 상황에 이르게 된 거잖아. 이럴 때 &quot;end up in&quot;이 딱 맞는 표현이야.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-20', 0, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">친구한테 만날 장소를 문자로 알려주고, 약속 시간에 거기서 만났다</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-20-explore-0-2" style="display:none">
+          <div class="response-text">그것도 계획하고 약속한 대로 된 거야. &quot;end up in&quot;은 그런 의도된 결과보다는, 흘러가다 보니 어떤 상황에 이르게 됐을 때 쓰는 표현이거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">&quot;end up in&quot;과 &quot;arrive at&quot;은 둘 다 어딘가에 이르는 상황에 쓰여. 어떤 차이가 있을까?</div>
+        <div class="options-container" data-term="term-20" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-20', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">&quot;end up in&quot;은 의도치 않은 결과에, &quot;arrive at&quot;은 목적지에 도달하는 것 자체에 초점이 있어</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-20-explore-1-0" style="display:none">
+          <div class="response-text">맞아. &quot;arrive at&quot;은 어딘가에 도착했다는 사실 자체를 말하는 거고, &quot;end up in&quot;은 의도하거나 예상하지 않았는데 결국 그 상황이나 장소에 이르게 됐다는 뉘앙스가 있거든. 그래서 &quot;end up in&quot;은 흘러가다 보니 그렇게 됐다는 느낌이 강해.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-20', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">&quot;end up in&quot;은 물리적 장소에만, &quot;arrive at&quot;은 상황이나 결론에도 쓸 수 있어</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-20-explore-1-1" style="display:none">
+          <div class="response-text">그건 반대야. &quot;end up in&quot;이 오히려 장소뿐 아니라 상황에도 폭넓게 쓰이거든. 두 표현의 핵심 차이는 쓰이는 범위가 아니라 다른 데 있어.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-20', 1, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">&quot;end up in&quot;은 긍정적인 결과에, &quot;arrive at&quot;은 부정적인 결과에 주로 쓰여</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-20-explore-1-2" style="display:none">
+          <div class="response-text">그런 구분은 없어. &quot;end up in&quot;은 긍정적이든 부정적이든 상관없이 쓰이거든. 두 표현의 진짜 차이는 결과의 성격이 아니라 다른 데 있어.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">MU — 오용 판별</span></h4>
+        <div class="question-text">&quot;end up in&quot;이 어색하게 쓰인 문장은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-20" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-20', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">용준이는 별 생각 없이 지원했는데 end up in a really competitive team하게 됐어</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-20-explore-2-0" style="display:none">
+          <div class="response-text">그건 자연스러워. 의도한 건 아닌데 결국 그 상황에 이르게 된 거잖아 — &quot;end up in&quot;이 딱 맞는 자리야.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-20', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">민서는 서울에 가겠다고 계획을 세우고, 결국 end up in Seoul했어</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-20-explore-2-1" style="display:none">
+          <div class="response-text">맞아, 이게 어색한 쪽이야. &quot;end up in&quot;은 계획하거나 의도한 결과를 말할 때는 잘 안 써. 처음부터 서울에 가려고 계획했다면 그냥 &quot;went to Seoul&quot; 같은 표현이 자연스럽거든. &quot;end up in&quot;은 흘러가다 보니 그렇게 됐다는 느낌이 있을 때 쓰는 표현이야.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-20', 2, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">지훈이는 길을 잘못 들어서 end up in an unfamiliar neighborhood했어</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-20-explore-2-2" style="display:none">
+          <div class="response-text">그건 자연스러워. 의도치 않게 낯선 동네에 이르게 된 상황이잖아 — &quot;end up in&quot;이 잘 어울리는 자리야.</div>
+        </div></div></div><div class="stats-bar">
+    <span>Tokens: 449 in / 2090 out</span>
+    <span>Latency: 31655ms</span>
+    <span>Cost: $0.0359</span>
+    <span>Source: test-04</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-20">Feedback</label>
+    <textarea id="fb-term-20" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-20')"></textarea>
+    <button class="save-btn" id="save-term-20" onclick="saveFeedback('term-20')">Save</button>
+    <span class="save-status" id="status-term-20"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-28">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">bounced back</span>
+          <span class="level-badge" style="background:#fde68a">B2</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">phrase</span>
+          <span class="term-def">recovered quickly after a difficulty or failure</span>
+          <span class="term-stats">
+            <span class="stat-turns">3t</span>
+            <span class="stat-checks all-pass">7/7</span>
+            <span class="stat-cost">$0.0361</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 3 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="3 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CX, CP, MU">✓ explore_types_valid</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">민준이는 취업 준비를 2년 동안 했는데, 최종 면접에서 세 번 연속으로 떨어졌거든. 주변 친구들은 다 취직했는데 혼자만 남겨진 느낌이었던 거지. 근데 몇 달 뒤에 동창 모임에 나타난 민준이는 표정이 완전히 달라져 있었어. 새 회사에 합격했다고, 오히려 더 좋은 조건이라고 웃으면서 얘기하더라고.</div>
+      <div class="question-text">그때 민준이를 본 친구들 반응이 어땠을 것 같아?</div>
+      <div class="options-container" data-term="term-28" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-28', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">민준이가 그 힘든 시간을 어떻게 버텼는지 대단하다고 생각했을 것 같아</span>
+      </button>
+      <div class="response-box" id="resp-term-28-intro-0" style="display:none">
+        <div class="response-text">맞아, 다들 그랬을 거야. 근데 친구 중 한 명이 이렇게 말했대. &quot;야, 너 완전히 bounced back했네.&quot; 힘든 상황 이후에 다시 털고 일어났을 때 쓰는 표현이거든.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-28', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">포기 안 하고 계속 도전한 게 결국 통했다고 느꼈을 것 같아</span>
+      </button>
+      <div class="response-box" id="resp-term-28-intro-1" style="display:none">
+        <div class="response-text">그렇지, 그 마음도 있었겠지. 근데 친구 중 한 명이 딱 이렇게 표현했대. &quot;민준이 진짜 bounced back했다.&quot; 어려운 일을 겪고 나서 빠르게 회복해서 다시 제자리로 돌아왔을 때 쓰는 표현이야.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-28', 'intro', 2)">
+        <span class="option-num">3</span>
+        <span class="option-text">솔직히 민준이가 왜 그렇게 빨리 괜찮아진 건지 잘 이해가 안 됐을 것 같아</span>
+      </button>
+      <div class="response-box" id="resp-term-28-intro-2" style="display:none">
+        <div class="response-text">그 의아한 마음도 자연스러운 거야. 근데 그게 바로 bounced back의 핵심이거든. 힘든 일 이후에 예상보다 빠르게 회복해서 돌아왔을 때 쓰는 표현이라서, 보는 사람 입장에서도 좀 놀라운 느낌이 있어.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">bounced back를 쓰기에 가장 자연스러운 상황은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-28" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-28', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">수능 시험을 앞두고 매일 밤 열심히 공부하고 있는 수험생</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-28-explore-0-0" style="display:none">
+          <div class="response-text">그건 아직 어려움을 겪기 전이잖아. bounced back은 힘든 일을 겪은 이후에 쓰는 표현이거든. 회복의 과정이 있어야 해.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-28', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">사업이 망해서 빚까지 졌는데 몇 년 만에 다시 회사를 일으켜 세운 사람</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-28-explore-0-1" style="display:none">
+          <div class="response-text">맞아. 어려운 상황을 겪고 나서 다시 회복해 돌아왔을 때, 그게 바로 bounced back이야. 실패나 힘든 일이 먼저 있고, 그 이후에 다시 일어서는 흐름이 있어야 이 표현이 살거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-28', 0, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">오랜 준비 끝에 처음으로 마라톤 완주에 성공한 사람</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-28-explore-0-2" style="display:none">
+          <div class="response-text">그건 처음 이루는 성취잖아. bounced back은 한 번 무너지거나 힘든 일을 겪은 뒤에 다시 회복하는 거라서, 첫 성공에는 잘 안 어울려.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">recover와 bounced back, 둘 다 &#39;회복&#39;과 관련이 있는데 느낌이 조금 달라. 어떤 차이가 있을 것 같아?</div>
+        <div class="options-container" data-term="term-28" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-28', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">bounced back은 빠르고 탄력 있게 돌아왔다는 느낌이 강하고, recover는 회복 자체에 초점이 있어</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-28-explore-1-0" style="display:none">
+          <div class="response-text">맞아. bounced back에는 &#39;튀어 오른다&#39;는 느낌이 있어서, 단순히 회복했다는 것보다 빠르고 활기차게 돌아왔다는 뉘앙스가 있거든. recover는 그 과정 자체를 담담하게 말할 때 더 자연스럽고.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-28', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">bounced back은 신체적 회복에만 쓰고, recover는 심리적 회복에만 써</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-28-explore-1-1" style="display:none">
+          <div class="response-text">그렇지 않아. 둘 다 신체적으로도, 심리적으로도, 상황적으로도 쓸 수 있어. 쓰이는 영역이 다른 게 아니라 뉘앙스가 다른 거거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-28', 1, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">bounced back은 혼자 힘으로 회복했을 때만 쓰고, recover는 도움을 받았을 때 써</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-28-explore-1-2" style="display:none">
+          <div class="response-text">그런 구분은 없어. bounced back이든 recover든, 혼자 힘으로 했는지 도움을 받았는지는 이 표현들이 구분하는 기준이 아니거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">MU — 오용 판별</span></h4>
+        <div class="question-text">bounced back이 어색하게 쓰인 문장은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-28" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-28', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">팀이 전반전에 두 골을 내줬는데 후반전에 bounced back해서 결국 이겼어.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-28-explore-2-0" style="display:none">
+          <div class="response-text">이건 자연스러워. 불리한 상황에 처했다가 다시 회복해서 결과를 뒤집은 거잖아. bounced back이 딱 맞는 자리야.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-28', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">그 선수는 어릴 때부터 꾸준히 훈련해서 결국 국가대표로 bounced back했어.</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-28-explore-2-1" style="display:none">
+          <div class="response-text">어색한 게 맞아. bounced back은 한 번 어려움이나 실패를 겪은 이후에 다시 돌아오는 흐름이 있어야 하거든. 꾸준히 성장해서 목표에 도달하는 건 그 흐름이 없어서 이 표현이 안 어울려.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-28', 2, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">큰 부상으로 시즌을 통째로 쉬었던 선수가 이번 대회에서 bounced back했어.</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-28-explore-2-2" style="display:none">
+          <div class="response-text">이건 자연스러워. 부상이라는 어려움을 겪고 나서 다시 경기에 돌아온 거니까, bounced back이 잘 맞는 상황이야.</div>
+        </div></div></div><div class="stats-bar">
+    <span>Tokens: 440 in / 2101 out</span>
+    <span>Latency: 35815ms</span>
+    <span>Cost: $0.0361</span>
+    <span>Source: test-11</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-28">Feedback</label>
+    <textarea id="fb-term-28" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-28')"></textarea>
+    <button class="save-btn" id="save-term-28" onclick="saveFeedback('term-28')">Save</button>
+    <span class="save-status" id="status-term-28"></span>
+  </div></div></details></div>
+
+    <div class="term-card" id="card-term-37">
+      <details open>
+        <summary class="term-header">
+          <span class="term-word">counterintuitive</span>
+          <span class="level-badge" style="background:#fecaca">C1</span>
+          <span class="imp-badge">imp 4</span>
+          <span class="type-badge">vocab</span>
+          <span class="term-def">opposite to what you would naturally expect or believe</span>
+          <span class="term-stats">
+            <span class="stat-turns">4t</span>
+            <span class="stat-checks all-pass">7/7</span>
+            <span class="stat-cost">$0.0457</span>
+          </span>
+        </summary>
+        <div class="term-body"><div class="checks-bar"><span class="ck-pass" title="Valid JSON, schema OK">✓ json_parse</span><span class="ck-pass" title="Scene + question + 3 options OK">✓ intro_structure</span><span class="ck-pass" title="Target expression not in intro options">✓ intro_no_target</span><span class="ck-pass" title="4 explore turn(s)">✓ explore_count</span><span class="ck-pass" title="All answer indices valid">✓ explore_answer_valid</span><span class="ck-pass" title="Types used: CX, CP, WD, MU">✓ explore_types_valid</span><span class="ck-pass" title="All turns have 2-4 valid option tuples">✓ option_count</span></div><div class="turn-section">
+      <h4 class="turn-title">소개</h4>
+      <div class="scene-text">민준이는 감기에 걸렸는데 목이 너무 아파서 뭔가 따뜻한 걸 마시려고 했거든. 그런데 약사가 오히려 차가운 음료를 마시라고 하는 거야. 차가운 게 염증 부위를 진정시켜 준다면서. 민준이는 순간 멈칫했어.</div>
+      <div class="question-text">민준이가 멈칫한 이유가 뭐라고 생각해?</div>
+      <div class="options-container" data-term="term-37" data-turn="intro"><button class="option-btn intro-btn" onclick="selectOption(this, 'term-37', 'intro', 0)">
+        <span class="option-num">1</span>
+        <span class="option-text">차가운 게 더 낫다는 게 상식이랑 반대라서</span>
+      </button>
+      <div class="response-box" id="resp-term-37-intro-0" style="display:none">
+        <div class="response-text">맞아, 보통 감기엔 따뜻한 게 좋다고 다들 알고 있잖아. 그러니까 차가운 걸 마시라는 말이 직관적으로 이상하게 느껴진 거지. 이런 걸 영어로 counterintuitive하다고 해. 직관, 즉 &#39;당연히 이럴 거야&#39;라는 감각에 반한다는 뜻이거든.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-37', 'intro', 1)">
+        <span class="option-num">2</span>
+        <span class="option-text">약사 말을 못 믿어서</span>
+      </button>
+      <div class="response-box" id="resp-term-37-intro-1" style="display:none">
+        <div class="response-text">약사를 신뢰하느냐의 문제라기보다는, 민준이 머릿속에 이미 &#39;감기엔 따뜻한 게 맞다&#39;는 감각이 자리 잡고 있었던 거야. 그 감각이랑 정반대되는 말을 들으니까 순간 어? 싶었던 거지. 이렇게 당연하다고 믿던 것과 반대되는 상황을 counterintuitive하다고 해.</div>
+      </div><button class="option-btn intro-btn" onclick="selectOption(this, 'term-37', 'intro', 2)">
+        <span class="option-num">3</span>
+        <span class="option-text">차가운 걸 싫어해서가 아닐까</span>
+      </button>
+      <div class="response-box" id="resp-term-37-intro-2" style="display:none">
+        <div class="response-text">차갑고 따뜻하고의 개인 취향 문제가 아니라, 민준이가 &#39;당연히 이래야 한다&#39;고 믿던 것과 정반대되는 말을 들었기 때문이야. 그 어긋나는 느낌 자체가 핵심인 거거든. 이렇게 직관이나 상식과 반대되는 걸 counterintuitive하다고 해.</div>
+      </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 1 <span class="turn-type">CX — 맥락 전환</span></h4>
+        <div class="question-text">다음 중 counterintuitive하다고 말하기 가장 자연스러운 상황은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-37" data-turn="explore-0"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-37', 0, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">버스가 늦게 와서 약속에 늦었다</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-37-explore-0-0" style="display:none">
+          <div class="response-text">그건 누구나 예상할 수 있는 흐름이잖아. 버스가 늦으면 사람도 늦는다는 건 직관과 딱 맞아떨어지는 결과야. counterintuitive는 그 반대 방향, 즉 &#39;이럴 줄은 몰랐는데&#39;라는 감각이 있어야 해.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-37', 0, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">천천히 말할수록 오히려 더 설득력이 떨어진다는 연구 결과</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-37-explore-0-1" style="display:none">
+          <div class="response-text">맞아. 보통 천천히 또박또박 말하면 더 믿음직스럽다고 생각하잖아. 그런데 결과가 반대라는 거니까, 이게 딱 counterintuitive한 거지.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-37', 0, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">열심히 공부하면 성적이 오른다</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-37-explore-0-2" style="display:none">
+          <div class="response-text">그건 누구나 기대하는 방향이잖아. 노력하면 결과가 따라온다는 건 직관과 완전히 일치하는 흐름이야. counterintuitive는 그 기대가 뒤집힐 때 쓰는 말이거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 2 <span class="turn-type">CP — 비교</span></h4>
+        <div class="question-text">counterintuitive와 surprising, 이 두 단어의 차이를 가장 잘 짚은 설명은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-37" data-turn="explore-1"><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-37', 1, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">counterintuitive는 &#39;당연히 이럴 거야&#39;라는 믿음이 뒤집힐 때 쓰고, surprising은 그냥 예상 못 한 일이면 다 쓸 수 있어</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-37-explore-1-0" style="display:none">
+          <div class="response-text">맞아. surprising은 단순히 &#39;몰랐던 일&#39;이면 충분한데, counterintuitive는 한 발 더 나아가서 &#39;이래야 한다고 믿고 있었는데 반대였다&#39;는 감각이 있어야 해. 그 믿음이나 직관이 뒤집힌다는 게 핵심이거든.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-37', 1, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">둘 다 예상 밖의 일을 말하는 거라 사실상 같은 뜻이야</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-37-explore-1-1" style="display:none">
+          <div class="response-text">비슷해 보이지만 결이 달라. surprising은 단순히 몰랐던 것에도 쓸 수 있는데, counterintuitive는 &#39;당연히 이럴 거라고 믿었던 것&#39;이 틀렸을 때만 쓸 수 있어. 그 믿음의 존재가 counterintuitive를 만드는 거야.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-37', 1, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">surprising은 좋은 일에만 쓰고, counterintuitive는 나쁜 결과에만 써</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-37-explore-1-2" style="display:none">
+          <div class="response-text">둘 다 좋고 나쁨과는 관계없어. 차이는 방향이 아니라 &#39;직관이나 믿음이 뒤집혔느냐&#39;에 있거든.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 3 <span class="turn-type">WD — 구성 요소 분해</span></h4>
+        <div class="question-text">counter-와 intuitive, 이 두 조각을 합쳐서 왜 이 개념을 표현하려 했을까?</div>
+        <div class="options-container" data-term="term-37" data-turn="explore-2"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-37', 2, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">counter-가 &#39;세다, 측정하다&#39;는 뜻이니까, 직관을 수치로 측정할 수 있다는 의미를 담은 거야</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-37-explore-2-0" style="display:none">
+          <div class="response-text">counter-에 &#39;세다&#39;는 뜻도 있긴 한데, 여기서 쓰인 counter-는 그 뜻이 아니야. counterattack, counterproductive 같은 단어에서 보이는 counter-거든. 이 counter-가 어떤 방향을 가리키는지 다시 생각해봐.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-37', 2, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">counter-가 &#39;반대로, 맞서서&#39;라는 뜻이니까, 직관에 맞서는 것, 즉 직관과 반대 방향이라는 의미를 담은 거야</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-37-explore-2-1" style="display:none">
+          <div class="response-text">맞아. counterattack이 &#39;반격&#39;, counterproductive가 &#39;역효과&#39;인 것처럼, counter-는 &#39;반대로, 맞서서&#39;라는 방향을 담고 있어. 거기에 &#39;직관적인&#39;이라는 intuitive가 붙으니까, counterintuitive는 &#39;직관에 맞서는, 직관과 반대 방향인&#39;이 되는 거지.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-37', 2, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">intuitive가 &#39;배운 것&#39;을 뜻하니까, 배운 것과 반대되는 새로운 지식이라는 의미야</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-37-explore-2-2" style="display:none">
+          <div class="response-text">intuitive는 배워서 아는 것이 아니라 설명 없이도 자연스럽게 느껴지는 감각을 말해. 그러니까 counterintuitive는 학습된 지식이 아니라, 그 자연스러운 감각 자체가 뒤집히는 상황을 가리키는 거야.</div>
+        </div></div></div><div class="turn-section explore-turn">
+        <h4 class="turn-title">탐색 4 <span class="turn-type">MU — 오용 판별</span></h4>
+        <div class="question-text">counterintuitive가 어색하게 쓰인 문장은 어느 쪽이야?</div>
+        <div class="options-container" data-term="term-37" data-turn="explore-3"><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-37', 3, 0)">
+          <span class="option-num">1</span>
+          <span class="option-text">운동을 더 많이 하면 오히려 피로가 줄어든다는 게 counterintuitive하게 느껴졌다</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-37-explore-3-0" style="display:none">
+          <div class="response-text">맞아. 운동을 많이 하면 더 피곤해질 거라는 게 자연스러운 직관이잖아. 그 직관과 반대되는 결과를 접했을 때의 감각이니까, counterintuitive가 딱 맞게 쓰인 거야.</div>
+        </div><button class="option-btn explore-btn" data-correct="true" onclick="selectExplore(this, 'term-37', 3, 1)">
+          <span class="option-num">2</span>
+          <span class="option-text">그 영화는 결말이 counterintuitive해서 정말 슬펐다</span>
+        </button>
+        <div class="response-box correct-option" id="resp-term-37-explore-3-1" style="display:none">
+          <div class="response-text">슬프다는 감정 반응은 직관과 반대되는 것과는 별개야. counterintuitive는 감정의 강도나 종류를 표현하는 말이 아니라, &#39;당연히 이럴 거라고 믿었던 것이 뒤집혔다&#39;는 인식의 어긋남을 말하는 거거든. 결말이 예상 밖이었다면 surprising이나 unexpected가 더 자연스러워.</div>
+        </div><button class="option-btn explore-btn" data-correct="false" onclick="selectExplore(this, 'term-37', 3, 2)">
+          <span class="option-num">3</span>
+          <span class="option-text">가격을 올렸더니 오히려 판매량이 늘었다는 건 counterintuitive한 결과야</span>
+        </button>
+        <div class="response-box incorrect-option" id="resp-term-37-explore-3-2" style="display:none">
+          <div class="response-text">비쌀수록 덜 팔린다는 게 보통의 직관이잖아. 그 직관과 정반대되는 결과가 나왔으니까, counterintuitive가 정확하게 쓰인 거야.</div>
+        </div></div></div><div class="stats-bar">
+    <span>Tokens: 443 in / 2742 out</span>
+    <span>Latency: 43027ms</span>
+    <span>Cost: $0.0457</span>
+    <span>Source: test-07</span>
+  </div><div class="feedback-section">
+    <label class="feedback-label" for="fb-term-37">Feedback</label>
+    <textarea id="fb-term-37" class="feedback-textarea" rows="3"
+      placeholder="이 단어의 소개·탐색 품질에 대한 피드백..."
+      oninput="markUnsaved('term-37')"></textarea>
+    <button class="save-btn" id="save-term-37" onclick="saveFeedback('term-37')">Save</button>
+    <span class="save-status" id="status-term-37"></span>
+  </div></div></details></div>
+
+<script>
+const FEEDBACK_PORT = 3456;
+
+function selectOption(btn, termId, turn, idx) {
+  // Toggle: if already selected, deselect
+  const respId = 'resp-' + termId + '-' + turn + '-' + idx;
+  const respEl = document.getElementById(respId);
+  if (btn.classList.contains('selected')) {
+    btn.classList.remove('selected');
+    respEl.style.display = 'none';
+    return;
+  }
+  // For intro: allow multiple selections to compare
+  // Just toggle this one
+  btn.classList.toggle('selected');
+  respEl.style.display = respEl.style.display === 'none' ? 'block' : 'none';
+}
+
+function selectExplore(btn, termId, turnIdx, optIdx) {
+  const respId = 'resp-' + termId + '-explore-' + turnIdx + '-' + optIdx;
+  const respEl = document.getElementById(respId);
+  const isCorrect = btn.dataset.correct === 'true';
+
+  if (btn.classList.contains('revealed-correct') || btn.classList.contains('revealed-incorrect')) {
+    // Toggle off
+    btn.classList.remove('revealed-correct', 'revealed-incorrect', 'selected');
+    respEl.style.display = 'none';
+    return;
+  }
+
+  // Reveal this option
+  btn.classList.add(isCorrect ? 'revealed-correct' : 'revealed-incorrect');
+  btn.classList.add('selected');
+  respEl.style.display = 'block';
+}
+
+function markUnsaved(termId) {
+  var btn = document.getElementById('save-' + termId);
+  btn.classList.add('unsaved');
+  document.getElementById('status-' + termId).textContent = 'unsaved';
+}
+
+async function saveFeedback(termId) {
+  var textarea = document.getElementById('fb-' + termId);
+  var feedback = textarea.value;
+  var statusEl = document.getElementById('status-' + termId);
+  var btn = document.getElementById('save-' + termId);
+
+  try {
+    var resp = await fetch('http://localhost:' + FEEDBACK_PORT + '/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ termId: termId, feedback: feedback }),
+    });
+    if (resp.ok) {
+      statusEl.textContent = 'saved ✓';
+      btn.classList.remove('unsaved');
+    } else {
+      statusEl.textContent = 'save failed: ' + resp.status;
+    }
+  } catch (e) {
+    statusEl.textContent = 'server unreachable — is feedback-server running?';
+  }
+}
+
+// Save all on Ctrl+S
+document.addEventListener('keydown', function(e) {
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+    e.preventDefault();
+    document.querySelectorAll('.save-btn.unsaved').forEach(function(btn) {
+      var termId = btn.id.replace('save-', '');
+      saveFeedback(termId);
+    });
+  }
+});
+</script>
+</body>
+</html>
