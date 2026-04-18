@@ -143,6 +143,33 @@ Feedbacks grouped by theme:
 - **Total experiment cost:** ~$15-20 across all iteration runs
 - **Prompt iterations:** 32 feedback rounds
 
+### Future Sprint Ideas (from sprint-end brainstorm)
+
+**1. LLM cost/speed optimization — smarter pipelining**
+Explore alternatives to single Sonnet call per term. Options:
+- Different model combinations (e.g., Opus for planning, Sonnet for generation)
+- Pipelining strategies that separate reasoning from content generation
+- Goal: maintain or boost quality while reducing latency and cost (~$0.04/term currently)
+
+**2. Batch processing**
+Anthropic offers batch API at 50% cost reduction. Word introductions are non-latency-sensitive (can be pre-generated) — perfect candidate for batch processing. Could cut cost from ~$0.04 to ~$0.02/term.
+
+**3. Brain + worker model separation**
+Split into two tiers:
+- **Brain model** (Sonnet/Opus): generates high-quality exemplar introductions across diverse term types (difficulty, usage, context, phrase vs vocab, etc.)
+- **Worker model** (Haiku): pattern-matches against the exemplars to produce new introductions at lower cost
+- Key insight: worker models are strong pattern matchers. If provided with enough high-quality few-shot examples covering the diversity of terms, they may follow the prompt's complex rules through imitation rather than instruction comprehension.
+- Requires: curating a gold-standard example set from our best outputs across the 32 iteration rounds
+
+**4. Dual coding — visual 소개 턴 (webtoon / image)**
+Student feedback: too much text to consume in current approach. 인지과학의 dual coding theory suggests engaging both verbal and visual channels improves retention.
+- Replace or augment the text-based 소개 턴 with a **webtoon-style comic panel** where characters act out the scene
+- Or generate a **high-quality image** depicting the expression's typical usage
+- Benefits: fewer words, stronger first impression, more memorable "first encounter" with the term
+- Implementation options: AI image generation (DALL-E, Midjourney), or pre-designed templates with variable character/scene elements
+- Trade-off: image generation adds latency and cost, but the 소개 턴 is pre-generated anyway so latency is acceptable
+- This could fundamentally change the intro turn from "read a story" to "see a scene" — much closer to how vocabulary is naturally acquired (seeing things in context)
+
 ### Sprint Duration
 
 - Phase 1 (Planning): 2026-04-16 — 2026-04-17
