@@ -1,0 +1,839 @@
+[
+  {
+    "id": "term-01",
+    "word": "wakes up",
+    "definition": "stops sleeping; gets out of bed",
+    "level": "A1",
+    "importance": 4,
+    "type": "phrase",
+    "source": "test-01"
+  },
+  {
+    "id": "term-02",
+    "word": "puts on",
+    "definition": "places clothing onto one's body; dresses in",
+    "level": "A1",
+    "importance": 4,
+    "type": "phrase",
+    "source": "test-01"
+  },
+  {
+    "id": "term-03",
+    "word": "delicious",
+    "definition": "having a very pleasant taste",
+    "level": "A1",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "test-24"
+  },
+  {
+    "id": "term-04",
+    "word": "happy",
+    "definition": "feeling pleasure or contentment",
+    "level": "A1",
+    "importance": 0,
+    "type": "vocabulary",
+    "source": "test-10"
+  },
+  {
+    "id": "term-05",
+    "word": "playground",
+    "definition": "an outdoor area at school where children play",
+    "level": "A1",
+    "importance": 3,
+    "type": "vocabulary",
+    "source": "test-01"
+  },
+  {
+    "id": "term-06",
+    "word": "cat",
+    "definition": "a small furry animal often kept as a pet",
+    "level": "A1",
+    "importance": 3,
+    "type": "vocabulary",
+    "source": "test-14"
+  },
+  {
+    "id": "term-07",
+    "word": "forgot",
+    "definition": "failed to remember something",
+    "level": "A1",
+    "importance": 3,
+    "type": "vocabulary",
+    "source": "test-31"
+  },
+  {
+    "id": "term-08",
+    "word": "go back",
+    "definition": "to return to a place",
+    "level": "A1",
+    "importance": 3,
+    "type": "phrase",
+    "source": "test-27"
+  },
+  {
+    "id": "term-09",
+    "word": "visited",
+    "definition": "went to see a place as a tourist or guest",
+    "level": "A1",
+    "importance": 3,
+    "type": "vocabulary",
+    "source": "test-13"
+  },
+  {
+    "id": "term-10",
+    "word": "doesn't feel well",
+    "definition": "is not in good health; feels sick",
+    "level": "A2",
+    "importance": 4,
+    "type": "phrase",
+    "source": "test-01"
+  },
+  {
+    "id": "term-11",
+    "word": "give up",
+    "definition": "to stop doing something or to surrender something",
+    "level": "A2",
+    "importance": 4,
+    "type": "phrase",
+    "source": "test-11"
+  },
+  {
+    "id": "term-12",
+    "word": "learning to code",
+    "definition": "the process of studying how to write computer programs",
+    "level": "A2",
+    "importance": 4,
+    "type": "phrase",
+    "source": "test-25"
+  },
+  {
+    "id": "term-13",
+    "word": "data",
+    "definition": "facts and information, especially when stored digitally",
+    "level": "A2",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "test-26"
+  },
+  {
+    "id": "term-14",
+    "word": "pronunciation",
+    "definition": "the way sounds are made when speaking a word",
+    "level": "A2",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "test-28"
+  },
+  {
+    "id": "term-15",
+    "word": "instead of",
+    "definition": "in place of something else; as a substitute",
+    "level": "A2",
+    "importance": 3,
+    "type": "phrase",
+    "source": "test-04"
+  },
+  {
+    "id": "term-16",
+    "word": "freedom",
+    "definition": "the state of being able to choose and act without restriction",
+    "level": "A2",
+    "importance": 3,
+    "type": "vocabulary",
+    "source": "test-07"
+  },
+  {
+    "id": "term-17",
+    "word": "castle",
+    "definition": "a large, old stone building that was built to defend against attack",
+    "level": "A2",
+    "importance": 2,
+    "type": "vocabulary",
+    "source": "test-13"
+  },
+  {
+    "id": "term-18",
+    "word": "turtle",
+    "definition": "a reptile with a hard shell that lives in the sea",
+    "level": "A2",
+    "importance": 2,
+    "type": "vocabulary",
+    "source": "test-04"
+  },
+  {
+    "id": "term-19",
+    "word": "feedback",
+    "definition": "comments or advice about how well someone has done something",
+    "level": "B1",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "test-23"
+  },
+  {
+    "id": "term-20",
+    "word": "end up in",
+    "definition": "to finally arrive at or reach a place or situation, often unintentionally",
+    "level": "B1",
+    "importance": 4,
+    "type": "phrase",
+    "source": "test-04"
+  },
+  {
+    "id": "term-21",
+    "word": "pollution",
+    "definition": "harmful substances that damage the natural environment",
+    "level": "B1",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "test-04"
+  },
+  {
+    "id": "term-22",
+    "word": "anxiety",
+    "definition": "a feeling of worry and nervousness, especially about the future",
+    "level": "B1",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "test-07"
+  },
+  {
+    "id": "term-23",
+    "word": "climate change",
+    "definition": "long-term shifts in global temperatures and weather patterns, often caused by human activity",
+    "level": "B1",
+    "importance": 4,
+    "type": "phrase",
+    "source": "test-35"
+  },
+  {
+    "id": "term-24",
+    "word": "consequence",
+    "definition": "a result or effect of an action or situation",
+    "level": "B1",
+    "importance": 0,
+    "type": "vocabulary",
+    "source": "test-10"
+  },
+  {
+    "id": "term-25",
+    "word": "pointed out",
+    "definition": "drew attention to a fact or problem",
+    "level": "B1",
+    "importance": 3,
+    "type": "phrase",
+    "source": "test-12"
+  },
+  {
+    "id": "term-26",
+    "word": "runs like the wind",
+    "definition": "runs extremely fast -- idiomatic comparison",
+    "level": "B1",
+    "importance": 3,
+    "type": "phrase",
+    "source": "test-01"
+  },
+  {
+    "id": "term-27",
+    "word": "gradually",
+    "definition": "slowly and steadily over time",
+    "level": "B1",
+    "importance": 3,
+    "type": "vocabulary",
+    "source": "test-25"
+  },
+  {
+    "id": "term-28",
+    "word": "bounced back",
+    "definition": "recovered quickly after a difficulty or failure",
+    "level": "B2",
+    "importance": 4,
+    "type": "phrase",
+    "source": "test-11"
+  },
+  {
+    "id": "term-29",
+    "word": "cutting corners",
+    "definition": "doing something in a quick, careless way to save time or money",
+    "level": "B2",
+    "importance": 4,
+    "type": "phrase",
+    "source": "test-12"
+  },
+  {
+    "id": "term-30",
+    "word": "go back to square one",
+    "definition": "return to the very beginning because a plan has failed",
+    "level": "B2",
+    "importance": 4,
+    "type": "phrase",
+    "source": "test-12"
+  },
+  {
+    "id": "term-31",
+    "word": "merger",
+    "definition": "the combining of two companies into one",
+    "level": "B2",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "test-11"
+  },
+  {
+    "id": "term-32",
+    "word": "opportunity cost",
+    "definition": "the value of the best alternative you give up when making a choice",
+    "level": "B2",
+    "importance": 4,
+    "type": "phrase",
+    "source": "test-07"
+  },
+  {
+    "id": "term-33",
+    "word": "paralyze",
+    "definition": "to make someone unable to act or decide",
+    "level": "B2",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "test-07"
+  },
+  {
+    "id": "term-34",
+    "word": "fatigue",
+    "definition": "extreme tiredness, especially from mental or physical effort",
+    "level": "B2",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "test-07"
+  },
+  {
+    "id": "term-35",
+    "word": "strike a balance",
+    "definition": "to find an acceptable middle point between two opposing things",
+    "level": "B2",
+    "importance": 4,
+    "type": "phrase",
+    "source": "test-26"
+  },
+  {
+    "id": "term-36",
+    "word": "renewable energy sources",
+    "definition": "energy from natural sources that are constantly replenished, such as wind or solar",
+    "level": "B2",
+    "importance": 4,
+    "type": "phrase",
+    "source": "test-35"
+  },
+  {
+    "id": "term-37",
+    "word": "counterintuitive",
+    "definition": "opposite to what you would naturally expect or believe",
+    "level": "C1",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "test-07"
+  },
+  {
+    "id": "term-38",
+    "word": "cognitive",
+    "definition": "relating to the mental processes of thinking and understanding",
+    "level": "C1",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "test-07"
+  },
+  {
+    "id": "term-39",
+    "word": "paradox of choice",
+    "definition": "the idea that having too many options leads to less happiness",
+    "level": "C1",
+    "importance": 4,
+    "type": "phrase",
+    "source": "test-07"
+  },
+  {
+    "id": "term-40",
+    "word": "decision fatigue",
+    "definition": "the mental exhaustion caused by making too many decisions",
+    "level": "C1",
+    "importance": 4,
+    "type": "phrase",
+    "source": "test-07"
+  },
+  {
+    "id": "term-41",
+    "word": "paradox",
+    "definition": "a situation or statement that seems contradictory but may be true",
+    "level": "C1",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "test-07"
+  },
+  {
+    "id": "term-42",
+    "word": "runs a tight ship",
+    "definition": "manages an organization in a strict and efficient way",
+    "level": "C1",
+    "importance": 4,
+    "type": "phrase",
+    "source": "test-11"
+  },
+  {
+    "id": "term-43",
+    "word": "mitigate",
+    "definition": "to make something less severe, harmful, or serious",
+    "level": "C1",
+    "importance": 3,
+    "type": "vocabulary",
+    "source": "test-07"
+  },
+  {
+    "id": "term-44",
+    "word": "abundance",
+    "definition": "a very large quantity of something; more than enough",
+    "level": "C1",
+    "importance": 3,
+    "type": "vocabulary",
+    "source": "test-07"
+  },
+  {
+    "id": "term-45",
+    "word": "far-reaching",
+    "definition": "having effects that spread widely and influence many areas",
+    "level": "C1",
+    "importance": 3,
+    "type": "phrase",
+    "source": "test-29"
+  },
+  {
+    "id": "term-46",
+    "word": "relinquished",
+    "definition": "given up or let go of something",
+    "level": "C2",
+    "importance": 3,
+    "type": "vocabulary",
+    "source": "test-07"
+  },
+  {
+    "id": "term-47",
+    "word": "seminal",
+    "definition": "strongly influencing later developments; highly original and important",
+    "level": "C2",
+    "importance": 2,
+    "type": "vocabulary",
+    "source": "test-07"
+  },
+  {
+    "id": "term-48",
+    "word": "polysemous",
+    "definition": "having multiple distinct meanings",
+    "level": "C2",
+    "importance": 1,
+    "type": "vocabulary",
+    "source": "test-36"
+  },
+  {
+    "id": "term-49",
+    "word": "ubiquitous",
+    "definition": "present or found everywhere at the same time",
+    "level": "C2",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "sat"
+  },
+  {
+    "id": "term-50",
+    "word": "pernicious",
+    "definition": "having a harmful effect, especially in a gradual or subtle way",
+    "level": "C2",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "sat"
+  },
+  {
+    "id": "term-51",
+    "word": "ameliorate",
+    "definition": "to make a bad situation better or less harmful",
+    "level": "C2",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "sat"
+  },
+  {
+    "id": "term-52",
+    "word": "juxtapose",
+    "definition": "to place two things close together to highlight contrast",
+    "level": "C2",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "sat"
+  },
+  {
+    "id": "term-53",
+    "word": "acquiesce",
+    "definition": "to accept something reluctantly without protest",
+    "level": "C2",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "sat"
+  },
+  {
+    "id": "term-54",
+    "word": "shoulder",
+    "definition": "the joint connecting the arm to the body",
+    "level": "A1",
+    "importance": 3,
+    "type": "vocabulary",
+    "source": "final-test"
+  },
+  {
+    "id": "term-55",
+    "word": "look forward to",
+    "definition": "to feel excited about something that is going to happen",
+    "level": "A2",
+    "importance": 4,
+    "type": "phrase",
+    "source": "final-test"
+  },
+  {
+    "id": "term-56",
+    "word": "breathe",
+    "definition": "to take air into and out of the lungs",
+    "level": "A2",
+    "importance": 3,
+    "type": "vocabulary",
+    "source": "final-test"
+  },
+  {
+    "id": "term-57",
+    "word": "keep in mind",
+    "definition": "to remember and consider something",
+    "level": "B1",
+    "importance": 4,
+    "type": "phrase",
+    "source": "final-test"
+  },
+  {
+    "id": "term-58",
+    "word": "genuine",
+    "definition": "truly what it is said to be; authentic and sincere",
+    "level": "B1",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "final-test"
+  },
+  {
+    "id": "term-59",
+    "word": "take for granted",
+    "definition": "to fail to appreciate something because it seems normal",
+    "level": "B2",
+    "importance": 4,
+    "type": "phrase",
+    "source": "final-test"
+  },
+  {
+    "id": "term-60",
+    "word": "subtle",
+    "definition": "so slight or delicate as to be difficult to notice",
+    "level": "B2",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "final-test"
+  },
+  {
+    "id": "term-61",
+    "word": "implications",
+    "definition": "possible effects or results of an action or decision",
+    "level": "B2",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "final-test"
+  },
+  {
+    "id": "term-62",
+    "word": "turn a blind eye",
+    "definition": "to deliberately ignore something wrong or illegal",
+    "level": "B2",
+    "importance": 4,
+    "type": "phrase",
+    "source": "final-test"
+  },
+  {
+    "id": "term-63",
+    "word": "undermine",
+    "definition": "to gradually weaken or damage something",
+    "level": "C1",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "final-test"
+  },
+  {
+    "id": "term-64",
+    "word": "in light of",
+    "definition": "considering; taking into account",
+    "level": "C1",
+    "importance": 4,
+    "type": "phrase",
+    "source": "final-test"
+  },
+  {
+    "id": "term-65",
+    "word": "paradoxically",
+    "definition": "in a way that seems contradictory but may be true",
+    "level": "C1",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "final-test"
+  },
+  {
+    "id": "term-66",
+    "word": "complacency",
+    "definition": "a feeling of smug satisfaction with oneself, ignoring potential dangers",
+    "level": "C2",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "final-test"
+  },
+  {
+    "id": "term-67",
+    "word": "consolidate",
+    "definition": "to combine several things into a single more effective whole",
+    "level": "C2",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "final-test"
+  },
+  {
+    "id": "term-68",
+    "word": "predisposition",
+    "definition": "a tendency to be affected by something, especially a disease or attitude",
+    "level": "C2",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "final-test"
+  },
+  {
+    "id": "term-69",
+    "word": "tight",
+    "definition": "fitting closely; with little space",
+    "level": "A1",
+    "importance": 3,
+    "type": "vocabulary",
+    "source": "final-test-2"
+  },
+  {
+    "id": "term-70",
+    "word": "on purpose",
+    "definition": "intentionally; not by accident",
+    "level": "A2",
+    "importance": 4,
+    "type": "phrase",
+    "source": "final-test-2"
+  },
+  {
+    "id": "term-71",
+    "word": "nephew",
+    "definition": "the son of your brother or sister",
+    "level": "A2",
+    "importance": 3,
+    "type": "vocabulary",
+    "source": "final-test-2"
+  },
+  {
+    "id": "term-72",
+    "word": "come across",
+    "definition": "to find or meet something by chance",
+    "level": "B1",
+    "importance": 4,
+    "type": "phrase",
+    "source": "final-test-2"
+  },
+  {
+    "id": "term-73",
+    "word": "reluctant",
+    "definition": "unwilling and hesitant to do something",
+    "level": "B1",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "final-test-2"
+  },
+  {
+    "id": "term-74",
+    "word": "perspective",
+    "definition": "a particular way of thinking about something",
+    "level": "B1",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "final-test-2"
+  },
+  {
+    "id": "term-75",
+    "word": "stand out",
+    "definition": "to be noticeably different or better than others",
+    "level": "B1",
+    "importance": 4,
+    "type": "phrase",
+    "source": "final-test-2"
+  },
+  {
+    "id": "term-76",
+    "word": "bring up",
+    "definition": "to mention a topic in conversation",
+    "level": "B2",
+    "importance": 4,
+    "type": "phrase",
+    "source": "final-test-2"
+  },
+  {
+    "id": "term-77",
+    "word": "misconception",
+    "definition": "a wrong idea or belief based on misunderstanding",
+    "level": "B2",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "final-test-2"
+  },
+  {
+    "id": "term-78",
+    "word": "overwhelming",
+    "definition": "so great in amount or force that it is difficult to deal with",
+    "level": "B2",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "final-test-2"
+  },
+  {
+    "id": "term-79",
+    "word": "speak volumes",
+    "definition": "to express something strongly without words",
+    "level": "B2",
+    "importance": 4,
+    "type": "phrase",
+    "source": "final-test-2"
+  },
+  {
+    "id": "term-80",
+    "word": "resilience",
+    "definition": "the ability to recover quickly from difficulties",
+    "level": "B2",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "final-test-2"
+  },
+  {
+    "id": "term-81",
+    "word": "elaborate",
+    "definition": "to explain in more detail",
+    "level": "C1",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "final-test-2"
+  },
+  {
+    "id": "term-82",
+    "word": "in the wake of",
+    "definition": "following as a result or consequence of",
+    "level": "C1",
+    "importance": 4,
+    "type": "phrase",
+    "source": "final-test-2"
+  },
+  {
+    "id": "term-83",
+    "word": "unprecedented",
+    "definition": "never having happened or existed before",
+    "level": "C1",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "final-test-2"
+  },
+  {
+    "id": "term-84",
+    "word": "volatile",
+    "definition": "likely to change rapidly and unpredictably",
+    "level": "C1",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "final-test-2"
+  },
+  {
+    "id": "term-85",
+    "word": "conflate",
+    "definition": "to merge two or more ideas into one, often incorrectly",
+    "level": "C2",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "final-test-2"
+  },
+  {
+    "id": "term-86",
+    "word": "galvanize",
+    "definition": "to shock or excite someone into taking action",
+    "level": "C2",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "final-test-2"
+  },
+  {
+    "id": "term-87",
+    "word": "tacit",
+    "definition": "understood without being openly expressed",
+    "level": "C2",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "final-test-2"
+  },
+  {
+    "id": "term-88",
+    "word": "in lieu of",
+    "definition": "instead of; in place of",
+    "level": "C2",
+    "importance": 4,
+    "type": "phrase",
+    "source": "final-test-2"
+  },
+  {
+    "id": "term-89",
+    "word": "dilute",
+    "definition": "to make something weaker by adding water or another substance",
+    "level": "B1",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "final-test-3"
+  },
+  {
+    "id": "term-90",
+    "word": "at the expense of",
+    "definition": "in a way that causes harm or loss to something else",
+    "level": "B2",
+    "importance": 4,
+    "type": "phrase",
+    "source": "final-test-3"
+  },
+  {
+    "id": "term-91",
+    "word": "entail",
+    "definition": "to involve something as a necessary part or consequence",
+    "level": "C1",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "final-test-3"
+  },
+  {
+    "id": "term-92",
+    "word": "fall short of",
+    "definition": "to fail to reach a required standard or level",
+    "level": "B2",
+    "importance": 4,
+    "type": "phrase",
+    "source": "final-test-3"
+  },
+  {
+    "id": "term-93",
+    "word": "tangible",
+    "definition": "clear and definite; real enough to be touched or felt",
+    "level": "C1",
+    "importance": 4,
+    "type": "vocabulary",
+    "source": "final-test-3"
+  }
+]

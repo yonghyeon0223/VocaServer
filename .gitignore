@@ -11,3 +11,7 @@ coverage/
 experiments/.env.experiments
 experiments/extraction/results/
 experiments/extraction/reports/
+
+# Introduction experiment artifacts (generated per-run)
+experiments/introduction-v1/results/
+experiments/introduction-v1/reports/
